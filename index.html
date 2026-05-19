@@ -1,0 +1,1236 @@
+html
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MR. business.lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT ── */
+:root{--paper:#f5f0e8;--cream:#ede7d9;--ink:#2d2a25;--ink2:#5a5650;--gold:#b8953a;--goldf:#c9a84c;--border:#ddd8cc;--deep:#111111;--white:#fff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:'Noto Serif TC',serif;overflow-x:hidden;cursor:none;}
+
+/* ── CURSOR ── */
+.cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s;}
+.cur-ring{width:30px;height:30px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s ease;opacity:.4;}
+.cur.hover{width:14px;height:14px;}
+.cur-ring.hover{width:46px;height:46px;opacity:.7;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 3rem;height:52px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border .3s;}
+nav.dark{background:rgba(17,17,17,.95);backdrop-filter:blur(10px);}
+nav.light{background:rgba(245,240,232,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;cursor:none;}
+.nav-logo img{height:34px;width:auto;object-fit:contain;}
+.nav-logo-fb{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;letter-spacing:1px;display:none;}
+nav.dark .nav-logo-fb{color:var(--white);}
+nav.light .nav-logo-fb{color:var(--ink);}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:13px;font-weight:300;text-decoration:none;letter-spacing:.5px;padding-bottom:3px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;cursor:none;}
+nav.dark .nav-links a{color:rgba(255,255,255,.6);}
+nav.light .nav-links a{color:var(--ink2);}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)!important;border-bottom-color:var(--gold);}
+.nav-cta{font-family:'Space Mono',monospace!important;font-size:11px!important;letter-spacing:2px!important;border:1px solid var(--gold)!important;padding:5px 14px!important;border-bottom:1px solid var(--gold)!important;color:var(--gold)!important;transition:background .2s!important;}
+.nav-cta:hover{background:var(--gold)!important;color:var(--deep)!important;border-bottom-color:var(--gold)!important;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ════════════════════════════════
+   PAGE 1 — 關於 MR.
+════════════════════════════════ */
+
+/* Hero */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5) 0%,rgba(0,0,0,.65) 100%);}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:80px 80px;z-index:1;}
+.hero-content{position:relative;z-index:2;text-align:center;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,9vw,110px);font-weight:300;color:var(--white);line-height:.92;letter-spacing:-2px;margin-bottom:1.25rem;}
+.hero-title em{font-style:italic;color:var(--goldf);}
+.hero-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.45);letter-spacing:5px;margin-bottom:2.5rem;}
+.hero-explore{display:inline-block;padding:10px 32px;border:1px solid var(--gold);color:var(--gold);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-decoration:none;transition:all .3s;cursor:none;}
+.hero-explore:hover{background:var(--gold);color:var(--deep);}
+
+/* ── About section — 全站深色基底，用 cream 卡片做層次 ── */
+.about-wrap{background:var(--paper);padding:8rem 5rem;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1100px;margin:0 auto;align-items:start;}
+.about-left{}
+.about-sec-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--gold);display:block;margin-bottom:.65rem;}
+.about-title{font-family:'Noto Serif TC',serif;font-size:clamp(28px,3.5vw,42px);font-weight:400;line-height:1.2;margin-bottom:1rem;color:var(--ink);}
+/* 淺色背景頁面（服務、案例、預約）用深色標題 */
+.svc-page .about-title,.case-page .about-title,.booking-page .about-title{color:var(--ink);}
+.about-divider{width:40px;height:2px;background:var(--gold);margin-bottom:1.75rem;}
+.about-desc{font-size:13px;line-height:2.1;color:var(--ink2);font-weight:300;}
+.about-right{display:flex;flex-direction:column;gap:.75rem;}
+.belief-card{background:var(--cream);padding:1.4rem 1.75rem;transition:background .3s,transform .2s;cursor:none;}
+.belief-card:hover{background:var(--ink);transform:translateX(4px);}
+.belief-card:hover .bc-num,.belief-card:hover .bc-body{color:var(--white);}
+.bc-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:.4rem;}
+.bc-body{font-size:13px;line-height:1.8;color:var(--ink);font-weight:300;transition:color .3s;}
+
+/* Founder — 用細線分隔，同為深色但稍淺 */
+.founder-wrap{background:var(--deep);padding:8rem 5rem;}
+.founder-inner{display:grid;grid-template-columns:420px 1fr;gap:5rem;max-width:1100px;margin:0 auto;align-items:center;}
+.founder-img-col{position:relative;}
+.founder-img-col img{width:100%;height:auto;display:block;}
+.founder-name-overlay{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;background:linear-gradient(transparent,rgba(17,17,17,.92));}
+.fn-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--white);}
+.fn-role{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);margin-top:3px;}
+.founder-text-col .about-sec-label{color:var(--gold);}
+.founder-bio{font-size:13px;line-height:2;color:rgba(255,255,255,.45);font-weight:300;margin-bottom:2rem;}
+.exp-list{list-style:none;}
+.exp-item{display:grid;grid-template-columns:150px 1fr;gap:.75rem;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.exp-item:last-child{border-bottom:none;}
+.exp-role{font-size:12px;font-weight:500;color:var(--white);}
+.exp-desc{font-size:12px;color:rgba(255,255,255,.3);font-weight:300;line-height:1.6;}
+.founder-quote-box{margin-top:2rem;padding:1.25rem 1.5rem;border-left:2px solid var(--gold);background:rgba(184,149,58,.06);}
+.founder-quote-box p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:var(--goldf);line-height:1.65;}
+
+/* Social — 同深色系，稍有差異 */
+.social-wrap{background:#0d0d0d;padding:8rem 5rem;}
+.social-inner{max-width:1100px;margin:0 auto;}
+.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);margin-top:3rem;}
+.soc-card{background:#0d0d0d;padding:2.5rem 2rem;transition:background .3s;text-decoration:none;display:block;cursor:none;}
+.soc-card:hover{background:rgba(184,149,58,.06);}
+.soc-platform{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:.75rem;display:flex;align-items:center;gap:6px;}
+.soc-handle{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--white);display:block;margin-bottom:.6rem;}
+.soc-desc{font-size:12px;color:rgba(255,255,255,.3);font-weight:300;line-height:1.8;}
+.soc-action{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);margin-top:1.25rem;opacity:0;transition:opacity .3s;}
+.soc-card:hover .soc-action{opacity:1;}
+
+/* ════════════════════════════════
+   PAGE 2 — 服務項目
+════════════════════════════════ */
+.svc-page{background:var(--paper);padding-top:52px;}
+
+/* process section */
+.proc-wrap{padding:5rem 5rem 4rem;}
+.proc-inner{max-width:1100px;margin:0 auto;}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:3rem;}
+.proc-step{background:var(--cream);padding:2rem 1.75rem;transition:background .25s,transform .2s;cursor:none;}
+.proc-step:hover{background:var(--paper);transform:translateY(-3px);}
+.ps-num{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--border);line-height:1;margin-bottom:.85rem;}
+.ps-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:.65rem;}
+.ps-desc{font-size:12px;line-height:1.9;color:var(--ink2);font-weight:300;}
+.ps-desc strong{color:var(--gold);}
+
+/* dual track */
+.track-wrap{padding:0 5rem 5rem;}
+.track-inner{max-width:1100px;margin:0 auto;}
+.track-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.track-box{border:1px solid var(--border);}
+.track-head{padding:1.5rem 2rem;border-bottom:1px solid var(--border);}
+.track-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border:1px solid;margin-bottom:.4rem;}
+.tag-blue{border-color:#4a7ab8;color:#4a7ab8;}
+.tag-gold{border-color:var(--gold);color:var(--gold);}
+.track-name-txt{font-size:17px;font-weight:500;color:var(--ink);}
+.track-sub{font-size:12px;color:var(--ink2);margin-top:.2rem;font-weight:300;}
+.svc-list{padding:.4rem 0;}
+.svc-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem;border-bottom:1px solid var(--border);cursor:none;text-decoration:none;transition:background .2s;}
+.svc-row:last-child{border-bottom:none;}
+.svc-row:hover{background:var(--cream);}
+.svc-row:hover .svc-arr{color:var(--gold);transform:translateX(4px);}
+.svc-nm{font-size:13px;color:var(--ink);font-weight:400;}
+.svc-arr{font-size:13px;color:var(--border);transition:all .2s;}
+/* track 2 — 改成淺色，和外貌說服力一致 */
+.track-box.dark{background:var(--paper);border-color:var(--border);}
+.track-box.dark .track-head{border-bottom-color:var(--border);}
+.track-box.dark .track-name-txt{color:var(--ink);}
+.track-box.dark .track-sub{color:var(--ink2);}
+.track-box.dark .svc-row{border-bottom-color:var(--border);}
+.track-box.dark .svc-row:hover{background:var(--cream);}
+.track-box.dark .svc-nm{color:var(--ink);}
+/* sub-category headers — 加大字體讓類別更清楚 */
+.svc-cat{padding:.75rem 2rem;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--ink);background:var(--cream);border-bottom:1px solid var(--border);border-top:1px solid var(--border);display:flex;align-items:center;gap:.5rem;font-weight:700;}
+.svc-cat::before{content:'●';font-size:7px;color:var(--gold);}
+/* 外貌說服力的 svc-cat（淺色 box 內） */
+.track-box:not(.dark) .svc-cat{background:var(--cream);border-color:var(--border);color:var(--ink);}
+/* 大標類別 — 雙軌標題 */
+.track-tag{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;font-weight:700;padding:6px 14px;border-radius:2px;}
+.tag-blue{background:#e8f0f8;color:#2a5070;}
+.tag-gold{background:#f5ead8;color:#7a5a10;}
+/* CTA band */
+.cta-band{background:var(--deep);padding:5rem 3rem;text-align:center;}
+.cta-band h2{font-family:'Noto Serif TC',serif;font-size:clamp(26px,3.5vw,40px);font-weight:400;color:var(--white);line-height:1.35;margin-bottom:.65rem;}
+.cta-band p{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:2rem;font-weight:300;}
+.cta-btn{display:inline-block;padding:13px 46px;background:var(--gold);color:var(--deep);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-decoration:none;transition:all .3s;cursor:none;border:none;}
+.cta-btn:hover{background:var(--goldf);transform:translateY(-2px);}
+
+/* ════════════════════════════════
+   PAGE 3 — 品牌案例
+════════════════════════════════ */
+.case-page{background:var(--paper);padding-top:52px;}
+.case-wrap{padding:5rem 5rem;}
+.case-inner{max-width:1100px;margin:0 auto;}
+.case-entry{display:grid;grid-template-columns:380px 1fr;gap:4rem;padding:4rem 0;border-bottom:1px solid var(--border);cursor:none;}
+.case-entry:hover .case-view-btn{opacity:1;transform:translateX(0);}
+.case-img-col{}
+.case-num{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:var(--border);line-height:1;margin-bottom:.4rem;}
+.case-img-col img{width:100%;height:auto;display:block;transition:transform .4s;}
+.case-entry:hover .case-img-col img{transform:scale(1.02);}
+.case-placeholder{width:100%;height:300px;background:var(--cream);}
+.case-text-col{padding-top:.5rem;}
+.case-identity{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:.35rem;}
+.case-name{font-family:'Noto Serif TC',serif;font-size:34px;font-weight:400;color:var(--ink);margin-bottom:.75rem;}
+.case-divider{width:32px;height:1px;background:var(--gold);margin-bottom:1.25rem;}
+.case-desc{font-size:13px;line-height:2;color:var(--ink2);font-weight:300;margin-bottom:2rem;}
+.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:1.5rem;}
+.c-stat{background:var(--paper);padding:1rem;text-align:center;}
+.cs-big{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;display:block;color:var(--ink);}
+.cs-sub{font-family:'Space Mono',monospace;font-size:9px;color:#2c4a3e;display:block;margin-top:2px;}
+.cs-lb{font-size:10px;color:var(--ink2);display:block;margin-top:3px;}
+.case-view-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);opacity:0;transform:translateX(-8px);transition:all .3s;}
+
+/* Client logos */
+.clients-wrap{padding:0 5rem 5rem;}
+.clients-inner{max-width:1100px;margin:0 auto;}
+.logo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);margin-top:2.5rem;}
+.logo-cell{background:var(--cream);padding:1.75rem 1rem;display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s;cursor:none;}
+.logo-cell:hover{background:var(--paper);transform:scale(1.04);}
+.logo-cell img{max-width:140px;max-height:80px;object-fit:contain;filter:grayscale(.4);transition:filter .25s;}
+.logo-cell:hover img{filter:none;}
+.logo-cell-txt{font-size:11px;color:var(--ink2);text-align:center;line-height:1.5;}
+
+/* ════════════════════════════════
+   PAGE 4 — 預約諮詢
+════════════════════════════════ */
+.booking-page{background:var(--paper);padding-top:52px;}
+.booking-wrap{padding:5rem 5rem;}
+.booking-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:5rem;align-items:start;}
+.booking-sidebar{}
+/* questions */
+.bq{margin-bottom:3rem;}
+.bq-head{display:flex;align-items:baseline;gap:.85rem;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
+.bq-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);border:1px solid var(--gold);padding:2px 8px;}
+.bq-title{font-size:15px;font-weight:500;color:var(--ink);}
+/* pain checkboxes */
+.pain-list{display:flex;flex-direction:column;gap:.5rem;}
+.pain-item{display:flex;align-items:flex-start;gap:.75rem;padding:.8rem 1rem;border:1px solid var(--border);cursor:none;transition:border-color .2s,background .2s;}
+.pain-item:hover,.pain-item.sel{border-color:var(--gold);background:rgba(184,149,58,.03);}
+.pain-box{width:15px;height:15px;border:1px solid var(--border);flex-shrink:0;margin-top:3px;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.pain-item.sel .pain-box{background:var(--gold);border-color:var(--gold);}
+.pain-check-mark{font-size:9px;color:var(--deep);display:none;}
+.pain-item.sel .pain-check-mark{display:block;}
+.pain-content{}
+.pain-title-row{font-size:13px;color:var(--ink);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;line-height:1.4;}
+.pbadge{font-family:'Space Mono',monospace;font-size:9px;padding:1px 7px;background:var(--cream);color:var(--gold);border:1px solid var(--border);}
+.pain-sub{font-size:11px;color:var(--ink2);margin-top:3px;font-weight:300;line-height:1.6;}
+/* textarea */
+.q-ta{margin-bottom:1.5rem;}
+.q-ta label{font-size:13px;color:var(--ink);display:block;margin-bottom:.45rem;}
+.q-ta textarea{width:100%;border:1px solid var(--border);background:transparent;padding:.8rem 1rem;font-family:'Noto Serif TC',serif;font-size:13px;color:var(--ink);resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+.q-ta textarea:focus{border-color:var(--gold);}
+/* inputs */
+.q-inp{margin-bottom:1.1rem;}
+.q-inp label{font-size:11px;color:var(--ink2);display:block;margin-bottom:.35rem;font-weight:300;letter-spacing:.5px;}
+.q-inp input{width:100%;border:none;border-bottom:1px solid var(--border);background:transparent;padding:.55rem 0;font-family:'Noto Serif TC',serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .2s;}
+.q-inp input:focus{border-bottom-color:var(--gold);}
+.submit-wrap{margin-top:2rem;}
+.submit-btn{padding:13px 46px;background:var(--gold);color:var(--deep);border:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;cursor:none;transition:background .3s,transform .2s;}
+.submit-btn:hover{background:var(--goldf);transform:translateY(-2px);}
+
+/* ════════════════════════════════
+   MODAL
+════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,27,22,.78);backdrop-filter:blur(6px);z-index:600;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--paper);max-width:620px;width:100%;max-height:88vh;overflow-y:auto;overflow-x:hidden;position:relative;transform:translateY(14px);transition:transform .3s;}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-head{padding:1.75rem 2.25rem 1.25rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--paper);z-index:1;}
+.m-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.35rem;}
+.m-title{font-size:24px;font-weight:400;color:var(--ink);}
+.m-close{position:absolute;top:1.6rem;right:1.75rem;background:none;border:none;font-size:17px;color:var(--ink2);cursor:none;transition:color .2s;}
+.m-close:hover{color:var(--ink);}
+.modal-body{padding:1.75rem 2.25rem 2.5rem;}
+.m-desc{font-size:13px;line-height:2;color:var(--ink2);font-weight:300;margin-bottom:1.75rem;}
+.m-sec{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.75rem;}
+.m-items{list-style:none;margin-bottom:1.75rem;}
+.m-items li{display:flex;gap:.6rem;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink);font-weight:300;line-height:1.7;}
+.m-items li::before{content:'—';color:var(--gold);font-family:'Space Mono',monospace;flex-shrink:0;}
+.m-hl{background:var(--cream);padding:1.1rem 1.4rem;border-left:2px solid var(--gold);font-size:13px;line-height:1.85;color:var(--ink);font-weight:300;margin-bottom:1.75rem;}
+/* case images magazine style */
+.m-cases-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.85rem;margin-top:1.75rem;}
+/* ALL modal images base — never overflow */
+.modal-body img,.modal-body video{max-width:100%;display:block;}
+.modal-box{overflow-x:hidden;}
+
+/* ── before/after grid ──
+   兩張都是 1080×1350（直圖 0.8:1），並排各佔一半寬（約 260px 寬）
+   高度固定 320px + contain，讓完整人像都看得到，背景填色補白邊 */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;width:100%;}
+.ba-grid img{width:100%;height:320px;object-fit:contain;background:var(--cream);display:block;}
+.ba-bar{padding:.55rem 1rem;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;}
+.ba-bar.before{background:var(--ink);color:#ffffff;}
+.ba-bar.after{background:var(--ink);color:#ffffff;}
+/* unified image label — black bg white text, used under every case image */
+.img-label{padding:.6rem 1.1rem;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;background:var(--ink);color:#ffffff;}
+.img-label.gold{background:#e8c97a;color:var(--deep);}
+/* ── 短影音案例敘述區塊 ── */
+.vid-case-story{border-left:3px solid var(--gold);padding:.85rem 1.1rem;margin-bottom:1rem;background:var(--cream);}
+.vcs-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.35rem;}
+.vcs-title{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:500;color:var(--ink);margin-bottom:.5rem;}
+.vcs-desc{font-size:12px;line-height:1.9;color:var(--ink2);font-weight:300;margin-bottom:.85rem;}
+.vcs-stats{display:flex;align-items:center;gap:1.25rem;}
+.vcs-stat{text-align:left;}
+.vcs-num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--ink);display:block;line-height:1.1;}
+.vcs-lb{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ink2);display:block;margin-top:2px;}
+.vcs-divider{width:1px;height:36px;background:var(--border);}
+
+.case-duo{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;}
+.case-duo .case-block{margin-bottom:0;}
+/* cutout / transparent bg images (去背) */
+.img-cutout{background:transparent!important;}
+.img-cutout img{object-fit:contain;background:transparent;}
+.vid-cutout img{background:transparent!important;}
+.case-block{width:100%;margin-bottom:3px;}
+.case-block img,.case-block video{width:100%;height:auto;display:block;}
+.case-block .vid-row{margin-bottom:0;}
+
+/* ── photo case layout ──
+   個人形象照 1080×450（超寬橫圖 2.4:1）→ width:100% height:auto 完整顯示
+   企業形象照 1080×810（橫圖 1.33:1）→ 同上 */
+.photo-case{display:grid;gap:3px;margin-bottom:3px;width:100%;}
+.pc-row{display:grid;gap:3px;}
+.pc-row img{width:100%;height:auto;display:block;object-fit:contain;}
+.pc-label{background:var(--cream);padding:1rem 1.25rem;display:flex;flex-direction:column;justify-content:flex-end;min-height:80px;}
+.pc-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);}
+.pc-text{font-size:12px;color:var(--ink);margin-top:.25rem;}
+.pc-label.dark{background:var(--ink);}
+.pc-label.dark .pc-text{color:var(--white);}
+
+/* ── LINE@ 手機框 ──
+   LINE 案例 1080×1350（直圖）→ 手機框內 height:auto 完整顯示，不裁切 */
+.phone-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;width:100%;}
+.phone-wrap{text-align:center;}
+.ph-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:.4rem;}
+.ph-name{font-size:11px;color:var(--ink2);margin-bottom:.6rem;font-weight:300;}
+.ph-frame{border-radius:22px;padding:7px;background:transparent;}
+.ph-frame img{width:100%;height:auto;display:block;border-radius:15px;}
+
+/* ── 短影音三格 ──
+   短影音 1080×1920（直圖 9:16），三格並排各約 175px 寬
+   高度 220px + contain 顯示完整畫面，背景深色符合影音感 */
+.vid-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:4px;width:100%;}
+.vid-row img{width:100%;height:220px;object-fit:contain;background:#1a1a1a;display:block;}
+/* 貼文三格 1080×1080（正方形）→ 高度 160px contain */
+.vid-row.post-row img{height:160px;background:var(--cream);}
+.vid-cap{font-size:10px;color:var(--ink2);text-align:center;margin-top:2px;}
+
+/* ── 貼圖兩欄 ──
+   貼圖 1080×540（橫圖 2:1）→ height:auto 完整顯示，不需固定高度 */
+.sticker-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;width:100%;}
+.sticker-item img{width:100%;height:auto;display:block;}
+
+/* ── 品牌簡報 ──
+   1920×1080（橫圖 16:9）→ width:100% height:auto 完整顯示 */
+.deck-item{margin-bottom:.5rem;}
+.deck-item img{width:100%;height:auto;display:block;}
+
+/* ── 電子名片 ──
+   780×1688（直圖 約 0.46:1），兩欄並排各約 240px 寬
+   height:auto 完整顯示，不限高度讓長名片全部看得到 */
+.ecard-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;width:100%;}
+.ecard-item{}
+.ecard-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:.35rem;}
+.ecard-name{font-size:11px;color:var(--ink2);margin-bottom:.4rem;font-weight:300;}
+.ecard-item img{width:100%;height:auto;display:block;}
+
+/* ── 單欄堆疊（體態管理、運勢、簡報）──
+   體態管理 1080×810（橫圖 1.33:1）→ height:auto 完整顯示
+   企業運勢 1080×1080（正方形）→ height:auto 完整顯示 */
+.cases-img-col{display:flex;flex-direction:column;gap:4px;width:100%;}
+.cases-img-col img{width:100%;height:auto;display:block;}
+.fortune-video-wrap{width:100%;}
+.fortune-video-wrap video{width:100%;height:auto;display:block;background:#111;}
+
+/* ── GAINS before/after ──
+   1080×810（橫圖 1.33:1），並排兩欄
+   height:auto 完整顯示，背景白 */
+.gains-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;width:100%;}
+.gains-grid img{width:100%;height:auto;display:block;}
+
+/* ── stats pill row ── */
+.stats-pills{display:flex;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap;}
+.s-pill{border:1px solid var(--border);padding:.55rem 1.1rem;text-align:center;}
+.s-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink);display:block;}
+.s-lb{font-size:10px;color:var(--ink2);display:block;}
+
+/* ── placeholder ── */
+.case-placeholder-box{background:var(--cream);border:1px dashed var(--border);padding:2rem 1.5rem;text-align:center;}
+.case-placeholder-box .cp-icon{font-size:22px;margin-bottom:.5rem;opacity:.3;}
+.case-placeholder-box .cp-text{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ink2);line-height:1.8;}
+/* contact footer in modal */
+.m-contact{margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.m-contact-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.5rem;}
+.m-contact p{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.9;}
+.m-contact strong{color:var(--ink);}
+
+/* ── IMAGE EDITOR TOOLBAR ── */
+.img-ctrl-wrap{position:relative;margin-bottom:4px;}
+.img-ctrl-bar{display:flex;align-items:center;gap:4px;padding:5px 6px;background:rgba(17,17,17,.82);backdrop-filter:blur(4px);flex-wrap:wrap;}
+.img-ctrl-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.35);margin-right:2px;white-space:nowrap;}
+.img-ctrl-btn{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.5px;padding:3px 7px;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.img-ctrl-btn:hover{border-color:var(--gold);color:var(--gold);}
+.img-ctrl-btn.active{border-color:var(--gold);background:var(--gold);color:var(--deep);}
+.img-ctrl-sep{width:1px;height:14px;background:rgba(255,255,255,.12);margin:0 2px;}
+.img-ctrl-wrap img,.img-ctrl-wrap video{display:block;width:100%;transition:max-height .2s,object-fit .2s;}
+/* fit modes applied via JS */
+.img-fit-cover{object-fit:cover;}
+.img-fit-contain{object-fit:contain;background:var(--cream);}
+.img-fit-full{object-fit:unset;height:auto!important;max-height:none!important;}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rv.in{opacity:1;transform:translateY(0);}
+.rv.d1{transition-delay:.1s;}
+.rv.d2{transition-delay:.22s;}
+.rv.d3{transition-delay:.36s;}
+.rv.d4{transition-delay:.5s;}
+/* fade-left variant */
+.rv-left{opacity:0;transform:translateX(-32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rv-left.in{opacity:1;transform:translateX(0);}
+/* section spacing — 每個大區塊之間加明顯分隔 */
+.about-wrap,.founder-wrap,.social-wrap,.proc-wrap,.track-wrap,.cta-band{position:relative;}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── FOOTER ── */
+footer{background:var(--deep);padding:3rem 5rem;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(184,149,58,.18);}
+.ft-left{}
+.ft-brand{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.ft-sub{font-size:11px;color:rgba(255,255,255,.25);margin-top:4px;font-weight:300;}
+.ft-right{display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;}
+.ft-right a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--gold);text-decoration:none;}
+.ft-copy{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.15);margin-top:.5rem;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:0 1.25rem;}
+  .nav-links{gap:1.25rem;}
+  .about-inner,.founder-inner,.booking-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .track-grid,.proc-steps{grid-template-columns:1fr;}
+  .case-entry{grid-template-columns:1fr;gap:1.5rem;}
+  .about-wrap,.founder-wrap,.social-wrap,.proc-wrap,.track-wrap,.case-wrap,.clients-wrap,.booking-wrap{padding-left:1.5rem;padding-right:1.5rem;}
+  .logo-grid{grid-template-columns:repeat(3,1fr);}
+  .social-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:1.5rem;align-items:flex-start;padding:2.5rem 1.5rem;}
+  .ft-right{align-items:flex-start;}
+  .phone-grid,.ba-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="mainNav" class="dark">
+  <a href="#" class="nav-logo" onclick="showPage('about');return false;">
+    <img id="navLogoImg" src="https://drive.google.com/uc?export=view&id=18GMMaACEyuZbgbXxanY7en9WPUhRQDY9" alt="MR."
+      onerror="this.style.display='none';this.nextSibling.style.display='block'">
+    <span class="nav-logo-fb" style="display:none;">MR. business.lab</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('about');return false;" id="nav-about">關於MR.</a></li>
+    <li><a href="#" onclick="showPage('services');return false;" id="nav-services">服務項目</a></li>
+    <li><a href="#" onclick="showPage('cases');return false;" id="nav-cases">品牌案例</a></li>
+    <li><a href="#" onclick="showPage('booking');return false;" id="nav-booking" class="nav-cta">預約諮詢</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     PAGE 1 — 關於 MR.
+═══════════════════════════════════════ -->
+<div class="page active" id="page-about">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?w=1800&q=80&fit=crop" alt="">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-content">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:rgba(184,149,58,.65);margin-bottom:1.25rem;" class="rv">BUSINESS IMAGE × PERSONAL BRAND</div>
+      <h1 class="hero-title rv d1">MR.<br><em>business</em><br>.lab</h1>
+      <p class="hero-sub rv d2">商務男士形象 × 個人品牌顧問</p>
+      <a href="#" onclick="showPage('services');return false;" class="hero-explore rv d3">探索服務 EXPLORE</a>
+    </div>
+  </div>
+
+  <!-- About section -->
+  <div class="about-wrap">
+    <div class="about-inner">
+      <div class="about-left rv">
+        <span class="about-sec-label">BRAND PHILOSOPHY</span>
+        <h2 class="about-title">關於<br>MR. business.lab</h2>
+        <div class="about-divider"></div>
+        <p class="about-desc">讓每一位專業人士，從外貌到內容，長出「值得信任的樣子」。<br><br>我們相信，專業需要被看見——不是你不好，是客戶「看不出來你好」。MR. business.lab 是一個新創的男士商務形象顧問品牌，專注於幫助專業人士建立真正可以被轉介紹的個人品牌。</p>
+      </div>
+      <div class="about-right">
+        <div class="belief-card rv d1">
+          <div class="bc-num">01</div>
+          <div class="bc-body">這 7 秒，與你的專業無關，與你的「外貌」有關。<br>但接下來的 7 分鐘，與你的「品牌」有關。</div>
+        </div>
+        <div class="belief-card rv d2">
+          <div class="bc-num">02</div>
+          <div class="bc-body">信任感的重要——客戶買的不是技術，是信任。穿對衣服、說對話，價格可以多 30%。</div>
+        </div>
+        <div class="belief-card rv d3">
+          <div class="bc-num">03</div>
+          <div class="bc-body">傳遞專業——專業需要被看見，不是你不好，是客戶「看不出來你好」。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Founder -->
+  <div class="founder-wrap">
+    <div class="founder-inner">
+      <div class="founder-img-col rv">
+        <img src="https://drive.google.com/uc?export=view&id=1NPGXO2iDQ9tJ9B7twHHzB6qE7zBx-Dwn" alt="潘昱如 Luru">
+        <div class="founder-name-overlay">
+          <div class="fn-name">潘昱如 Luru</div>
+          <div class="fn-role">FOUNDER, MR. BUSINESS.LAB</div>
+        </div>
+      </div>
+      <div class="founder-text-col rv d2">
+        <span class="about-sec-label">THE FOUNDER</span>
+        <h2 class="about-title" style="color:var(--white);">品牌<br>創辦人</h2>
+        <div class="about-divider"></div>
+        <p class="founder-bio">橫跨百貨男裝、連鎖美容、獨立品牌三個維度的實戰經歷，讓 Luru 練就了獨特的「形象說服力」眼光——不只看穿著，更看懂背後的商業邏輯。</p>
+        <ul class="exp-list">
+          <li class="exp-item"><span class="exp-role">百貨男裝總監</span><span class="exp-desc">一眼看懂男人適合什麼</span></li>
+          <li class="exp-item"><span class="exp-role">連鎖美容店長（業績第一）</span><span class="exp-desc">客戶買的不是產品，是信任</span></li>
+          <li class="exp-item"><span class="exp-role">MN13 品牌主理人</span><span class="exp-desc">從 0 到 1 打造品牌，懂品牌怎麼被記住</span></li>
+        </ul>
+        <div class="founder-quote-box">
+          <p>讓你的專業不只是「被看見」<br>更是「被傳遞」</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social channels -->
+  <div class="social-wrap">
+    <div class="social-inner">
+      <span class="about-sec-label rv">FOLLOW US</span>
+      <h2 class="about-title" style="color:var(--white);" class="rv">品牌<br>社群</h2>
+      <div class="about-divider rv"></div>
+      <div class="social-grid rv d2">
+        <a class="soc-card" href="https://www.instagram.com/mr.business.lab" target="_blank">
+          <div class="soc-platform"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>INSTAGRAM</div>
+          <span class="soc-handle">MR. 主理人</span>
+          <p class="soc-desc">分享商務形象技巧、穿搭心法，以及真實客戶、品牌案例。關注我們，讓形象升級從今天開始。</p>
+          <div class="soc-action">前往追蹤 →</div>
+        </a>
+        <a class="soc-card" href="https://www.instagram.com" target="_blank">
+          <div class="soc-platform"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>INSTAGRAM</div>
+          <span class="soc-handle">商務小知識</span>
+          <p class="soc-desc">分享商務形象技巧、穿搭心法，以及真實客戶、品牌案例。讓形象升級從今天開始。</p>
+          <div class="soc-action">前往追蹤 →</div>
+        </a>
+        <a class="soc-card" href="https://line.me/ti/p/@038xuzzx" target="_blank">
+          <div class="soc-platform"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5C21 16.75 16.5 21 11 21c-1.07 0-2.1-.16-3.07-.46L3 22l1.5-4.5C3.55 16.07 3 14.34 3 12.5 3 7.25 7.5 3 13 3s8 4.25 8 8.5z"/></svg>LINE@</div>
+          <span class="soc-handle">預約諮詢</span>
+          <p class="soc-desc">加 LINE@ 私訊，預約一對一形象諮詢。最快回覆管道，通常 24 小時內回覆。</p>
+          <div class="soc-action" style="opacity:1;">@038xuzzx →</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="ft-left"><div class="ft-brand">MR. business.lab</div><div class="ft-sub">商務男士形象 × 個人品牌顧問</div></div>
+    <div class="ft-right">
+      <a href="https://www.instagram.com/mr.business.lab" target="_blank">IG @mr.business.lab ↗</a>
+      <a href="https://line.me/ti/p/@038xuzzx" target="_blank">LINE @038xuzzx ↗</a>
+      <div class="ft-copy">© MR. BUSINESS.LAB</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 2 — 服務項目
+═══════════════════════════════════════ -->
+<div class="page" id="page-services">
+  <div class="svc-page">
+
+    <!-- Process -->
+    <div class="proc-wrap">
+      <div class="proc-inner">
+        <span class="about-sec-label rv">HOW IT WORKS</span>
+        <h2 class="about-title rv d1">服務<br>流程</h2>
+        <div class="about-divider rv d2"></div>
+        <div class="proc-steps rv d2">
+          <div class="proc-step">
+            <div class="ps-num">01</div>
+            <div class="ps-title">初步諮詢</div>
+            <p class="ps-desc">透過 <strong>LINE@ 私訊（@038xuzzx）</strong>，告訴我們你的職業、目標與目前困境。我們會初步評估最適合你的服務組合。</p>
+          </div>
+          <div class="proc-step">
+            <div class="ps-num">02</div>
+            <div class="ps-title">形象/品牌診斷</div>
+            <p class="ps-desc">1 對 1 深度診斷——分析你的外觀現況、穿著習慣、說話方式，找出「客戶為什麼看不懂你的好」的真正原因。</p>
+          </div>
+          <div class="proc-step">
+            <div class="ps-num">03</div>
+            <div class="ps-title">策略制定</div>
+            <p class="ps-desc">根據你的目標客群與職業特性，量身設計形象定位策略與品牌內容計畫，確認雙軌方向。</p>
+          </div>
+          <div class="proc-step">
+            <div class="ps-num">04</div>
+            <div class="ps-title">執行落地</div>
+            <p class="ps-desc">從穿搭到內容，從說詞到視覺，逐步落實每一個讓你「可被轉介紹」的品牌資產。效果可量化、可追蹤。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual track -->
+    <div class="track-wrap">
+      <div class="track-inner">
+        <span class="about-sec-label rv">DUAL-TRACK SERVICES</span>
+        <h2 class="about-title rv d1">雙軌<br>服務體系</h2>
+        <div class="about-divider rv d2"></div>
+        <p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:580px;margin-bottom:2.5rem;">我們的服務分為兩條平行軌道——外貌說服力讓您第一眼贏得信任，商業影響力讓客戶主動為您轉介紹。兩軌並行，打造完整的個人品牌競爭力。</p>
+        <div class="track-grid rv d2">
+          <!-- Track 1 -->
+          <div>
+            <div class="track-box">
+              <div class="track-head">
+                <span class="track-tag tag-blue">01 外貌說服力</span>
+                <div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「第一眼就信任」</div>
+              </div>
+              <div class="svc-list">
+                <a class="svc-row" href="#" onclick="openModal('wardrobe');return false;"><span class="svc-nm">商務形象穿著</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('photo');return false;"><span class="svc-nm">形象照拍攝</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('beauty');return false;"><span class="svc-nm">男士快速美容</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('body');return false;"><span class="svc-nm">體態管理</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('scalp');return false;"><span class="svc-nm">頭皮護理</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('fortune');return false;"><span class="svc-nm">品牌/企業運勢</span><span class="svc-arr">→→</span></a>
+              </div>
+            </div>
+          </div>
+          <!-- Track 2 -->
+          <div>
+            <div class="track-box dark">
+              <div class="track-head">
+                <span class="track-tag tag-gold">02 商業影響力</span>
+                <div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「主動介紹你」</div>
+              </div>
+              <div class="svc-list">
+                <div class="svc-cat">定位清晰化</div>
+                <a class="svc-row" href="#" onclick="openModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→→</span></a>
+                <div class="svc-cat">內容擴散化</div>
+                <a class="svc-row" href="#" onclick="openModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→→</span></a>
+                <div class="svc-cat">形象可視化</div>
+                <a class="svc-row" href="#" onclick="openModal('deck');return false;"><span class="svc-nm">品牌簡報設計</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('line');return false;"><span class="svc-nm">Line@ 帳號</span><span class="svc-arr">→→</span></a>
+                <a class="svc-row" href="#" onclick="openModal('ecard');return false;"><span class="svc-nm">電子名片</span><span class="svc-arr">→→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <h2 class="rv">你的專業，<br>值得被更多人看見</h2>
+      <p class="rv d1">立即預約初步諮詢，了解你的品牌缺口在哪裡。</p>
+      <a href="#" onclick="showPage('booking');return false;" class="cta-btn rv d2">立即諮詢</a>
+    </div>
+
+    <footer>
+      <div class="ft-left"><div class="ft-brand">MR. business.lab</div><div class="ft-sub">商務男士形象 × 個人品牌顧問</div></div>
+      <div class="ft-right">
+        <a href="https://www.instagram.com/mr.business.lab" target="_blank">IG @mr.business.lab ↗</a>
+        <a href="https://line.me/ti/p/@038xuzzx" target="_blank">LINE @038xuzzx ↗</a>
+        <div class="ft-copy">© MR. BUSINESS.LAB</div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 3 — 品牌案例
+═══════════════════════════════════════ -->
+<div class="page" id="page-cases">
+  <div class="case-page">
+    <div class="case-wrap">
+      <div class="case-inner">
+        <span class="about-sec-label rv">SUCCESS STORIES</span>
+        <h2 class="about-title rv d1">真實<br>案例</h2>
+        <div class="about-divider rv d2"></div>
+
+        <!-- Case 1 -->
+        <div class="case-entry rv" onclick="openCaseModal()">
+          <div class="case-img-col">
+            <div class="case-num">01</div>
+            <img src="https://drive.google.com/uc?export=view&id=10pMATuF87_mKLZEeTsrydrig--m5KjGW" alt="鍾師富">
+          </div>
+          <div class="case-text-col">
+            <div class="case-identity">詠順工程行老闆・抓漏專家</div>
+            <h3 class="case-name">鍾師富</h3>
+            <div class="case-divider"></div>
+            <p class="case-desc">同樣的技術，穿對衣服、說對話、做對內容，客戶終於「看懂他的價值」。透過形象重塑與短影音策略，鍾師傅成功突破傳統師傅的品牌困境，從低辨識度到讓客戶主動轉介紹。</p>
+            <div class="case-stats">
+              <div class="c-stat"><span class="cs-big">85%</span><span class="cs-sub">短影音觸及</span><span class="cs-lb">新客來源</span></div>
+              <div class="c-stat"><span class="cs-big">3.5倍</span><span class="cs-sub">訂單成長</span><span class="cs-lb">業績</span></div>
+              <div class="c-stat"><span class="cs-big">70%</span><span class="cs-sub">溝通成本降低</span><span class="cs-lb">效率</span></div>
+            </div>
+            <div class="case-view-btn">查看完整改造紀錄 →</div>
+          </div>
+        </div>
+
+        <!-- Case 2 placeholder -->
+        <div class="case-entry rv" style="opacity:.4;pointer-events:none;">
+          <div class="case-img-col">
+            <div class="case-num">02</div>
+            <div class="case-placeholder"></div>
+          </div>
+          <div class="case-text-col" style="padding-top:.5rem;">
+            <h3 class="case-name" style="font-size:22px;color:var(--ink2);">更多案例陸續公開⋯</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client logos -->
+    <div class="clients-wrap">
+      <div class="clients-inner">
+        <span class="about-sec-label rv">Past Collaborations</span>
+        <h3 class="about-title rv d1" style="font-size:32px;">服務<br>客戶</h3>
+        <div class="about-divider rv d2"></div>
+        <div class="logo-grid rv d2">
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=15tRsmh60I5xVhQRu5GLnCgGLEi1AK81Z" alt="詠順工程行" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>詠順工程行</div>'"></div>
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=1U35hjk29T3ndD2OnRgQqGcbK9-z6LS9A" alt="平衡之道" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>平衡之道</div>'"></div>
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=12wy9DbOSitKD0zRo2h9XyaZ4zhi4bDvx" alt="大象木地板" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>大象木地板</div>'"></div>
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=1BE9hyadLzNZQXpJ33SDbKYXOE_I11SEE" alt="傑出油漆" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>傑出油漆工程行</div>'"></div>
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=1cJmrULRtcSlyM0fai1XXuZAZU8Y5cI96" alt="禾農豐食" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>禾農豐食</div>'"></div>
+          <div class="logo-cell"><img src="https://drive.google.com/uc?export=view&id=1G_9tP-wTJa9dyvXuY_KmiiBFBHzV0sfj" alt="鉑鈕車庫" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=logo-cell-txt>鉑鈕車庫</div>'"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <h2 class="rv">你的專業，<br>值得被更多人看見</h2>
+      <p class="rv d1">立即預約初步諮詢，了解你的品牌缺口在哪裡。</p>
+      <a href="#" onclick="showPage('booking');return false;" class="cta-btn rv d2">立即諮詢</a>
+    </div>
+
+    <footer>
+      <div class="ft-left"><div class="ft-brand">MR. business.lab</div><div class="ft-sub">商務男士形象 × 個人品牌顧問</div></div>
+      <div class="ft-right">
+        <a href="https://www.instagram.com/mr.business.lab" target="_blank">IG @mr.business.lab ↗</a>
+        <a href="https://line.me/ti/p/@038xuzzx" target="_blank">LINE @038xuzzx ↗</a>
+        <div class="ft-copy">© MR. BUSINESS.LAB</div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE 4 — 預約諮詢
+═══════════════════════════════════════ -->
+<div class="page" id="page-booking">
+  <div class="booking-page">
+    <div class="booking-wrap">
+      <div class="booking-inner">
+
+        <!-- Sidebar -->
+        <div class="booking-sidebar rv">
+          <span class="about-sec-label">Personal Brand<br>Consulting</span>
+          <h2 class="about-title" style="margin-top:.5rem;">預約<br>諮詢</h2>
+          <div class="about-divider"></div>
+        </div>
+
+        <!-- Form -->
+        <div class="rv d2">
+
+          <!-- Q1 -->
+          <div class="bq">
+            <div class="bq-head">
+              <span class="bq-num">01</span>
+              <span class="bq-title">請勾選你現在有感的問題（可複選）</span>
+            </div>
+            <div class="pain-list">
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">見面後客戶仍「需要再想想」<span class="pbadge">信任</span></div>
+                  <div class="pain-sub">感覺對方有點保留，技術再強也無法快速成交</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">報價後被殺價，感覺技術沒被尊重<span class="pbadge">價值</span></div>
+                  <div class="pain-sub">客戶習慣往下砍，難以守住應有的報價</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">不知道怎麼 30 秒說清楚自己是誰<span class="pbadge">定位</span></div>
+                  <div class="pain-sub">每次介紹自己都說得很難，對方記不住</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">做不出一個讓人記住的個人品牌故事<span class="pbadge">品牌</span></div>
+                  <div class="pain-sub">知道自己做什麼，但無法用簡單有力的方式說明「為什麼選我而不是別人」</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">不知道怎麼在社群讓人看見我的專業<span class="pbadge">數位</span></div>
+                  <div class="pain-sub">有能力，但沒有在社群持續輸出內容，導致潛在客戶根本不知道你的存在</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">線上搜不到我，或搜到的東西不像樣<span class="pbadge">數位</span></div>
+                  <div class="pain-sub">對方 Google 你之後反而失去信心，而不是更想合作</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">客戶滿意，但很少主動介紹我給別人<span class="pbadge">轉介</span></div>
+                  <div class="pain-sub">現有客戶沒有「幫你說話」的動機或素材</div>
+                </div>
+              </div>
+              <div class="pain-item" onclick="this.classList.toggle('sel')">
+                <div class="pain-box"><span class="pain-check-mark">✓</span></div>
+                <div class="pain-content">
+                  <div class="pain-title-row">見重要客戶時，不確定自己穿什麼才對<span class="pbadge">穿著</span></div>
+                  <div class="pain-sub">沒有一套「見客戶的穿搭系統」，每次都在猜</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="bq">
+            <div class="bq-head">
+              <span class="bq-num">02</span>
+              <span class="bq-title">深度了解，以下問題請用文字作答</span>
+            </div>
+            <div class="q-ta">
+              <label>你上次「感覺自己形象/品牌出了問題」是什麼情境？</label>
+              <textarea placeholder="請描述當時的情況⋯"></textarea>
+            </div>
+            <div class="q-ta">
+              <label>你覺得你的客戶在選擇你和競爭對手時，最大的差別是什麼？</label>
+              <textarea placeholder="請描述你的觀察⋯"></textarea>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="bq">
+            <div class="bq-head">
+              <span class="bq-num">03</span>
+              <span class="bq-title">留下聯絡方式</span>
+            </div>
+            <div class="q-inp"><label>姓名</label><input type="text" placeholder="你的名字"></div>
+            <div class="q-inp"><label>LINE ID / 電話</label><input type="text" placeholder="方便聯繫的方式"></div>
+            <div class="q-inp"><label>職業 / 產業</label><input type="text" placeholder="例如：保險業務 / 室內設計師"></div>
+            <div class="submit-wrap">
+              <button class="submit-btn" onclick="handleSubmit()">送出預約 →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <h2>你的專業，<br>值得被更多人看見</h2>
+      <p>立即預約初步諮詢，了解你的品牌缺口在哪裡。</p>
+      <a href="https://line.me/ti/p/@038xuzzx" target="_blank" class="cta-btn">立即諮詢</a>
+    </div>
+
+    <footer>
+      <div class="ft-left"><div class="ft-brand">MR. business.lab</div><div class="ft-sub">商務男士形象 × 個人品牌顧問</div></div>
+      <div class="ft-right">
+        <a href="https://www.instagram.com/mr.business.lab" target="_blank">IG @mr.business.lab ↗</a>
+        <a href="https://line.me/ti/p/@038xuzzx" target="_blank">LINE @038xuzzx ↗</a>
+        <div class="ft-copy">© MR. BUSINESS.LAB</div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MODAL
+═══════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="m-tag" id="mTag"></div>
+      <h3 class="m-title" id="mTitle"></h3>
+      <button class="m-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+/* ─── CURSOR ─── */
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+function addHover(sel){document.querySelectorAll(sel).forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover');});
+});}
+addHover('a,button,.svc-row,.pain-item,.case-entry,.belief-card,.proc-step,.soc-card,.logo-cell,.cta-btn,.hero-explore');
+
+/* ─── PAGES ─── */
+const pages={about:'page-about',services:'page-services',cases:'page-cases',booking:'page-booking'};
+const navIds={about:'nav-about',services:'nav-services',cases:'nav-cases',booking:'nav-booking'};
+const darkPages=['about'];
+const LOGO_DARK='https://drive.google.com/uc?export=view&id=15feXSWT7gIg9_M4ntD3aI6KH5sfwRVrh';
+const LOGO_LIGHT='https://drive.google.com/uc?export=view&id=18GMMaACEyuZbgbXxanY7en9WPUhRQDY9';
+
+function updateLogo(isDark){
+  const lg=document.getElementById('navLogoImg');
+  if(lg) lg.src=isDark?LOGO_LIGHT:LOGO_DARK;
+}
+
+function showPage(name){
+  Object.values(pages).forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(pages[name]).classList.add('active');
+  Object.values(navIds).forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(navIds[name]).classList.add('active');
+  const nav=document.getElementById('mainNav');
+  const isDark=darkPages.includes(name);
+  nav.className=isDark?'dark':'light';
+  updateLogo(isDark);
+  window.scrollTo(0,0);
+  setTimeout(triggerReveal,100);
+}
+
+/* ─── REVEAL ─── */
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.1});
+function triggerReveal(){document.querySelectorAll('.page.active .rv').forEach(el=>{obs.observe(el);});}
+triggerReveal();
+
+/* ─── MODAL ─── */
+const P=''; // 已改用 Google Drive 直連
+function openModal(id){
+  const d=MD[id];if(!d)return;
+  document.getElementById('mTag').textContent=d.tag;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mBody').innerHTML=buildMBody(d);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function openCaseModal(){
+  document.getElementById('mTag').textContent='成功案例 01・詠順工程行';
+  document.getElementById('mTitle').textContent='查漏專家 鍾師富';
+  document.getElementById('mBody').innerHTML=`
+    <p class="m-desc">防水工程市場競爭激烈，技術好的師傅很多，但能讓客戶記住、主動轉介紹的幾乎沒有。鍾師傅的問題不是技術，是沒有人「看懂他的好」。</p>
+    <div class="m-sec">執行項目</div>
+    <ul class="m-items">
+      <li>商務形象穿著重塑——從工作服到讓人信任的專業師傅形象</li>
+      <li>男士快速美容——拉提輪廓、眼睛有神，第一眼就信任</li>
+      <li>商務說詞架構——讓客戶 30 秒內理解他能解決什麼問題</li>
+      <li>短影音策略規劃與拍攝——用影像展示「看不見的專業」</li>
+      <li>LINE@ 帳號品牌化——詠順工程行完整品牌視覺建立</li>
+      <li>電子名片設計——LINE 聊天室即可傳送，讓客戶一鍵了解</li>
+    </ul>
+    <div class="m-hl">同樣的技術，穿對衣服、說對話、做對內容，客戶終於「看懂他的價值」。</div>
+
+    <div class="m-cases-label">商務形象穿著改造</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:3px;">
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1827HiSaV-9QfESmDPSjIqHl018jPi8XD" alt="改造前"><div class="img-label">BEFORE</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=10pMATuF87_mKLZEeTsrydrig--m5KjGW" alt="改造後1"><div class="img-label gold">AFTER · 01</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1sO3tiffh8IAUjPQe4qkwfU486WXSgr8m" alt="改造後2"><div class="img-label">AFTER · 02</div></div>
+    </div>
+
+    <div class="m-cases-label">男士快速美容</div>
+    <div class="case-duo">
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1yn1lF-kIHwFr4LEY7b9WnjVFjawf4aAf" alt="美容前"><div class="img-label">BEFORE · 眼神疲憊 輪廓鬆垮</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1d_ELvikZOqm6GpIqKzwHZJD0tJ_jxkOA" alt="美容後"><div class="img-label gold">AFTER · 擺脫疲憊感 眼睛有神</div></div>
+    </div>
+
+    <div class="m-cases-label">商業短影音 & 貼文</div>
+    <div class="vid-case-story">
+      <div class="vcs-tag">新創帳號・經營 1 個月</div>
+      <div class="vcs-title">詠順工程行</div>
+      <p class="vcs-desc">從零粉絲開始，透過短影音展示「看不見的專業」，快速觸及潛在新客群。</p>
+      <div class="vcs-stats">
+        <div class="vcs-stat"><span class="vcs-num">2.9萬</span><span class="vcs-lb">瀏覽次數</span></div>
+        <div class="vcs-divider"></div>
+        <div class="vcs-stat"><span class="vcs-num">70%</span><span class="vcs-lb">觸及新客群</span></div>
+      </div>
+    </div>
+    <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
+    <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>
+
+    <div class="m-cases-label">LINE@ 帳號</div>
+    <div class="case-block" style="max-width:280px;"><div class="ph-frame"><img src="https://drive.google.com/uc?export=view&id=1kn9-5hQn-bVEF3p-cSmqyj1Qm3t9xBJI" alt="詠順工程行 LINE@"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
+
+    <div class="m-cases-label">電子名片</div>
+    <div class="case-block" style="max-width:280px;"><img src="https://drive.google.com/uc?export=view&id=1i8rDfyvrbo3Ne3i0-eWw6Riq9I9WnH0l" alt="鍾師富電子名片"><div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div></div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function buildMBody(d){
+  let h=`<p class="m-desc">${d.desc}</p>`;
+  h+=`<div class="m-sec">服務包含</div><ul class="m-items">`;
+  d.items.forEach(i=>h+=`<li>${i}</li>`);
+  h+=`</ul>`;
+  if(d.hl)h+=`<div class="m-hl">${d.hl}</div>`;
+  if(d.cases)h+=`<div class="m-cases-label">真實案例</div>`+d.cases;
+  h+=`<div class="m-contact"><div class="m-contact-label">洽詢這項服務</div><p>LINE：<strong>@038xuzzx</strong></p></div>`;
+  return h;
+}
+
+/* ─── MODAL DATA ─── */
+const MD={
+  wardrobe:{
+    tag:'外貌說服力',title:'商務形象穿著',
+    desc:'不只是告訴你穿什麼顏色——我們幫你建立一套「讓目標客戶信任你」的穿著系統，從衣櫥盤點到場合搭配，讓你每天的選擇都在強化你的品牌形象。',
+    items:['場合穿搭對應指南（業務拜訪、簽約、演講、社群拍攝）','品牌顏色規劃','核心制勝穿搭組合規劃（3–5 套）'],
+    hl:'穿對衣服不是花錢，是投資。同樣的人，穿對了，專業度增加、信任感增加。',
+    cases:`
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:3px;">
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1827HiSaV-9QfESmDPSjIqHl018jPi8XD" alt="改造前"><div class="img-label">BEFORE</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=10pMATuF87_mKLZEeTsrydrig--m5KjGW" alt="改造後第一套"><div class="img-label gold">AFTER · 01</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1sO3tiffh8IAUjPQe4qkwfU486WXSgr8m" alt="改造後第二套"><div class="img-label">AFTER · 02</div></div>
+      </div>`
+  },
+  photo:{
+    tag:'外貌說服力',title:'形象照拍攝',
+    desc:'你的 IG 主頁、官網主視覺、名片上的照片，是你不在場時替你說話的形象代理人。',
+    items:['專業攝影師拍攝（約 30–40 分鐘）','全部毛片完整交付（不限張數）','可自行挑選喜歡的照片進行精修','精修完成後電子檔交付'],
+    hl:'一張好的形象照，是 24 小時都在替你工作的品牌大使。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1JBXnziz5bVJoEjQkOm3dgHcfhXi3im1T" alt="個人形象照"><div class="img-label">01 · 個人形象照</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=13JfIPAg_lMV9P7c9IJOxbw2ROVy8DXNF" alt="企業形象照"><div class="img-label gold">02 · 達仁地產企業形象照</div></div>`
+  },
+  beauty:{
+    tag:'外貌說服力',title:'男士快速美容',
+    desc:'專為忙碌男性設計的 30 分鐘商務形象速效方案。在重要會議、簽約、拍照前，讓你的面容呈現最佳狀態，建立第一眼的信任感。',
+    items:['面部清潔與基礎保養護理','皮膚／輪廓／精神狀態調整（拉提輪廓、讓眼睛有神）','後續自我保養方法指導'],
+    hl:'7 秒第一印象，臉是最直接的名片。30 分鐘，讓你的臉說「我值得信任」。',
+    cases:`
+      <div class="case-duo">
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1yn1lF-kIHwFr4LEY7b9WnjVFjawf4aAf" alt="美容前"><div class="img-label">BEFORE · 眼神疲憊 輪廓鬆垮</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1d_ELvikZOqm6GpIqKzwHZJD0tJ_jxkOA" alt="美容後"><div class="img-label gold">AFTER · 擺脫疲憊感 眼睛有神</div></div>
+      </div>`
+  },
+  body:{
+    tag:'外貌說服力',title:'體態管理',
+    desc:'會議室、提案簡報、商務聚會——你的體態隨時在替你的專業打分數。我們從評估到習慣建立，帶你健康瘦、不復胖，讓每一次出場都更有說服力。',
+    items:['初始體態評估與目標設定','個人化飲食運動計畫','全程一對一陪跑'],
+    hl:'不只是瘦身，而是建立你下半輩子的體態資本。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1xXVFqHTW1l6K5shYCyNxe5IY_xp0VbfN" alt="體態管理案例1"><div class="img-label gold">體態管理 · 案例 01</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1caDocjvuRFLsSz_RuOkJvuXNCptci9jN" alt="體態管理案例2"><div class="img-label">體態管理 · 案例 02</div></div>`
+  },
+  scalp:{
+    tag:'外貌說服力',title:'頭皮護理',
+    desc:'專為有髮量困擾的男性設計的完整養髮方案。讓頭皮恢復健康狀態，重新建立頭髮的生長基礎。',
+    items:['頭皮健康檢測與問題診斷','個人化養髮計畫制定','頭皮追蹤與紀錄'],
+    hl:'頭髮，是形象的完整拼圖。養好頭皮，頭髮自然留得住。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1XHnaxXPR0atsYsqsXXZHmgPH5papNNFI" alt="頭皮護理案例1"><div class="img-label">頭皮護理 · BEFORE</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=12UOwxZjy1XJgBM-IMhC2tSC7hTkNOHBB" alt="頭皮護理案例2"><div class="img-label gold">頭皮護理 · AFTER</div></div>`
+  },
+  fortune:{
+    tag:'外貌說服力',title:'品牌/企業運勢',
+    desc:'在年度啟動、組織調整、重大決策前，為你的團隊進行脈輪療癒與八字五行調整，建立穩定的內部能量與外部運勢。',
+    items:['團隊脈輪能量檢測與療癒','八字五行分析'],
+    hl:'員工的能量，就是公司的氣運。一次調整，讓團隊從內到外都在對的節奏上。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=16u_WXFQ021I0IGom3Cxadk7HAO0lNUSg" alt="企業運勢案例"><div class="img-label gold">企業運勢 · 案例 01</div></div>
+      <div class="case-block"><div id="fortuneVideoWrap" style="width:100%;background:#111;min-height:120px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.3);">影片上傳中⋯</span></div><div class="img-label">企業運勢 · 案例 02 · 影片</div></div>`
+  },
+  gains:{
+    tag:'商業影響力',title:'GAINS 表撰寫',
+    desc:'在填寫 GAINS 表之前，很多人卡在「不知道怎麼寫自己的品牌」——我們透過深度對談，帶你一步步釐清品牌定位、核心價值與市場優勢。',
+    items:['GAINS 表各欄位引導撰寫','深度對談（1.5–2小時）','完稿校對與最終版本確認'],
+    hl:'GAINS 表，是你的品牌說明書。一次對談，讓你在商會第一次亮相就留下印象。',
+    cases:`
+      <div class="case-duo">
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1wz96vykVbty9KJhalpGM1BIQln1k7ghR" alt="GAINS 填寫前"><div class="img-label">GAINS 表 · 填寫前</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1OePDQnYdfhe4H2X6OjvEmKD2m96c7IWb" alt="GAINS 填寫後"><div class="img-label gold">GAINS 表 · 填寫後</div></div>
+      </div>`
+  },
+  script:{
+    tag:'商業影響力',title:'商務說詞架構',
+    desc:'你在飯局、電梯、初次見面時說的那幾句話，決定了對方要不要記住你。我們幫你打造一套自然、精準、有說服力的商務自我介紹與說話架構。',
+    items:['價值主張句型設計（你和其他人有什麼不同）','客戶常見疑慮應對話術','完稿校對與最終版本確認'],
+    hl:'話說對了，客戶自己會主動問「你有沒有朋友也在做這個？」',
+    cases:`<div class="case-placeholder-box"><div class="cp-icon">💬</div><div class="cp-text">商務說詞案例即將上架</div></div>`
+  },
+  video:{
+    tag:'商業影響力',title:'商業短影音/貼文',
+    desc:'短影音是目前觸及新客最有效的內容形式。我們幫你規劃、拍攝、剪輯符合你品牌調性的商業短影音，讓你的專業被更多潛在客戶看見。',
+    items:['短影音內容策略規劃（主題 / 風格 / 頻率）','腳本撰寫與拍攝指導','後製剪輯與發佈'],
+    hl:'我們客戶鍾師傅透過短影音，新客觸及率達到 85%，訂單 3.5 倍成長。你的技術也值得被更多人看見。',
+    cases:`
+      <div class="vid-case-story">
+        <div class="vcs-tag">CASE · 詠順工程行</div>
+        <div class="vcs-title">新創帳號・經營 1 個月</div>
+        <p class="vcs-desc">防水工程師傅從零帳號開始，透過短影音展示「看不見的專業」，讓潛在客戶主動找上門，觸及全新客群。</p>
+        <div class="vcs-stats">
+          <div class="vcs-stat"><span class="vcs-num">2.9萬</span><span class="vcs-lb">瀏覽次數</span></div>
+          <div class="vcs-divider"></div>
+          <div class="vcs-stat"><span class="vcs-num">70%</span><span class="vcs-lb">觸及新客群</span></div>
+        </div>
+      </div>
+      <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
+      <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>`
+  },
+  sticker:{
+    tag:'商業影響力',title:'專屬貼圖設計',
+    desc:'專屬品牌貼圖是台灣獨有的人際行銷利器。當你的貼圖在對話框裡出現，你的品牌就在悄悄傳播，默默地幫你打廣告。',
+    items:['品牌形象貼圖概念設計','LINE 貼圖上架格式製作','電子檔完整交付'],
+    hl:'在台灣，貼圖就是最低成本、最高傳播力的品牌工具。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1szoSUplb_FCRSwKnWQBtkBS0XESyvZR9" alt="貼圖案例1"><div class="img-label gold">貼圖設計 · 案例 01</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1KBPn3L6gjwkcdejmJZJf0VgR6JflWjQy" alt="貼圖案例2"><div class="img-label">貼圖設計 · 案例 02</div></div>`
+  },
+  deck:{
+    tag:'商業影響力',title:'品牌簡報設計',
+    desc:'無論是業務提案、簽約前的介紹，還是初次見面的自我介紹，一份設計精良的品牌簡報能讓你的專業度瞬間提升一個等級。以 PDF 格式交付，方便隨時分享給客戶。',
+    items:['內容架構規劃（故事線設計）','PDF 格式交付，可直接傳送給客戶或列印','適用場景：自我介紹、短講、活動演講、公司內部'],
+    hl:'不是只有大企業才需要好簡報。一份精美的品牌簡報，就是在說「我認真對待每一個客戶」。',
+    cases:`
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1vWqbQbWOJDYInEomZR02FXz2A0SY1VOx" alt="自我介紹簡報"><div class="img-label">品牌簡報 · 自我介紹</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=128mWMQ1eoN5N2Oh5i6zT_ZRtVDnurUm1" alt="短講簡報"><div class="img-label gold">品牌簡報 · 短講</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1SOZjlbMlNbizN43ibmIUz_Jffv6C1N14" alt="演講簡報"><div class="img-label">品牌簡報 · 演講</div></div>
+      <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1tZbm5PmRxVvPvc53TL7xbit0kKld-yBP" alt="公司內部簡報"><div class="img-label gold">品牌簡報 · 公司內部</div></div>`
+  },
+  line:{
+    tag:'商業影響力',title:'Line@ 帳號',
+    desc:'LINE 是台灣最主要的商業溝通工具。一個設計完整的 LINE@ 帳號，能讓客戶第一次接觸就感受到你的專業與用心。我們會先進行 1 對 1 諮詢，深入了解你的品牌定位與客戶使用情境，再量身設計。',
+    items:['1 對 1 品牌諮詢——了解你的客戶使用情境','內容架構規劃（故事線設計）','圖文選單設計（服務介紹 / 預約 / 聯絡）','適用場景：業務拜訪、簽約前介紹、自我介紹'],
+    hl:'LINE@ 是你的「數位門面」——客戶加你的第一秒，就在判斷你值不值得信任。',
+    cases:`
+      <div class="case-duo">
+        <div class="case-block"><div class="ph-frame img-cutout"><img src="https://drive.google.com/uc?export=view&id=1kn9-5hQn-bVEF3p-cSmqyj1Qm3t9xBJI" alt="詠順工程行 LINE@"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
+        <div class="case-block"><div class="ph-frame img-cutout"><img src="https://drive.google.com/uc?export=view&id=1tUIIotwei1R1cCsp9ZgAcrlDRoj1BL0E" alt="MN13 LINE@"></div><div class="img-label gold">LINE@ · MN13</div></div>
+      </div>`
+  },
+  ecard:{
+    tag:'商業影響力',title:'電子名片',
+    desc:'專為 LINE 聊天室設計的個人品牌頁面——可以直接在對話中傳送連結，讓對方一鍵開啟、30 秒內理解你的價值。比實體名片更有說服力，在 LINE 對話中傳送即可使用。',
+    items:['個人品牌定位梳理與文案撰寫','可直接在 LINE 聊天室傳送，對方一鍵開啟','手機版優化，開啟即完整呈現，無需下載 App'],
+    hl:'見面前先傳連結，讓對方開啟就信任你——電子名片是你在 LINE 裡最強的自我介紹工具。',
+    cases:`
+      <div class="case-duo">
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1S1LTq2JEjn1hh5YQyx724vW4mIp8bdN0" alt="MR主理人"><div class="img-label">電子名片 · MR. 主理人</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=14arwk6u5CC8P-r9vDbfuzNIuYGU5SY9w" alt="大象木地板"><div class="img-label gold">電子名片 · 大象木地板</div></div>
+      </div>
+      <div class="case-duo">
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1i8rDfyvrbo3Ne3i0-eWw6Riq9I9WnH0l" alt="鍾師富"><div class="img-label">電子名片 · 詠順工程行 鍾師富</div></div>
+        <div class="case-block"><img src="https://drive.google.com/uc?export=view&id=1cCPDZ4cfEHr623-cZCsD16V_yZxrBxqA" alt="財務規劃師"><div class="img-label gold">電子名片 · 財務規劃師</div></div>
+      </div>
+      <div class="case-block" style="max-width:50%;"><img src="https://drive.google.com/uc?export=view&id=1bSvMQyQF7wOJPWhZVH4IarX-7kjlunpa" alt="傑出油漆"><div class="img-label">電子名片 · 傑出油漆工程行</div></div>`
+  }
+};
+
+/* ─── BOOKING SUBMIT ─── */
+function handleSubmit(){
+  // 收集勾選的問題
+  const pains = [...document.querySelectorAll('.pain-item.sel .pain-title-row')]
+    .map(el => '・' + el.childNodes[0].textContent.trim())
+    .join('\n');
+
+  // 收集文字回答
+  const tas = document.querySelectorAll('.q-ta textarea');
+  const q1 = tas[0]?.value.trim() || '（未填寫）';
+  const q2 = tas[1]?.value.trim() || '（未填寫）';
+
+  // 收集聯絡資訊
+  const inps = document.querySelectorAll('.q-inp input');
+  const name    = inps[0]?.value.trim() || '（未填寫）';
+  const contact = inps[1]?.value.trim() || '（未填寫）';
+  const job     = inps[2]?.value.trim() || '（未填寫）';
+
+  // 驗證姓名必填
+  if(!name || name === '（未填寫）'){
+    alert('請填寫你的姓名，讓我們知道怎麼稱呼你 🙂');
+    return;
+  }
+
+  // 組合訊息內容
+  const msg = `你好！我是透過 MR. business.lab 官網填寫預約諮詢的 ${name}。
+
+【我目前有感的問題】
+${pains || '（未勾選）'}
+
+【形象/品牌出了問題的情境】
+${q1}
+
+【我和競爭對手的差別】
+${q2}
+
+【聯絡方式】
+姓名：${name}
+LINE / 電話：${contact}
+職業 / 產業：${job}
+
+期待與你聯繫！`;
+
+  // 複製到剪貼簿
+  navigator.clipboard.writeText(msg).catch(()=>{});
+
+  // 顯示提示視窗
+  const overlay = document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(17,17,17,.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML=`
+    <div style="background:#f5f0e8;max-width:480px;width:90%;padding:2.5rem;font-family:'Space Mono',monospace;">
+      <div style="font-size:9px;letter-spacing:3px;color:#b8953a;margin-bottom:.75rem;">預約完成</div>
+      <div style="font-family:'Noto Serif TC',serif;font-size:20px;color:#111;margin-bottom:1rem;">訊息已準備好了</div>
+      <p style="font-size:11px;color:#666;line-height:1.9;margin-bottom:1.5rem;">
+        下一步：點「加入 LINE 好友」<br>
+        → 加入後，把<strong style="color:#111;">已複製的訊息</strong>貼上傳送給我們<br>
+        （訊息已自動複製到剪貼簿）
+      </p>
+      <div style="background:#fff;border:1px solid #e0d9cc;padding:1rem;font-size:10px;color:#555;line-height:1.8;max-height:160px;overflow-y:auto;margin-bottom:1.5rem;white-space:pre-wrap;">${msg.replace(/</g,'&lt;')}</div>
+      <div style="display:flex;gap:.75rem;">
+        <a href="https://line.me/ti/p/@038xuzzx" target="_blank"
+          style="flex:1;padding:.85rem;background:#06c755;color:#fff;text-align:center;text-decoration:none;font-size:11px;letter-spacing:2px;display:block;">
+          加入 LINE 好友 →
+        </a>
+        <button onclick="this.closest('div[style*=fixed]').remove()"
+          style="padding:.85rem 1.25rem;border:1px solid #ccc;background:transparent;font-size:10px;color:#888;cursor:pointer;font-family:'Space Mono',monospace;">
+          關閉
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.remove(); });
+}
+</script>
+</body>
+</html>
