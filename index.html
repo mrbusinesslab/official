@@ -410,8 +410,11 @@ footer{background:var(--deep);padding:3rem 5rem;display:flex;justify-content:spa
 
 /* ── MOBILE ── */
 @media(max-width:900px){
-  nav{padding:0 1.25rem;}
-  .nav-links{gap:1.25rem;}
+  nav{padding:0 1rem;}
+  .nav-links{gap:.6rem;}
+  .nav-links a{font-size:11px;letter-spacing:0;white-space:nowrap;}
+  .nav-cta{font-size:10px!important;letter-spacing:.5px!important;padding:4px 10px!important;}
+  .nav-logo img{height:28px;}
   .about-inner,.founder-inner,.booking-inner{grid-template-columns:1fr;gap:2.5rem;}
   .track-grid,.proc-steps{grid-template-columns:1fr;}
   .case-entry{grid-template-columns:1fr;gap:1.5rem;}
@@ -421,6 +424,12 @@ footer{background:var(--deep);padding:3rem 5rem;display:flex;justify-content:spa
   footer{flex-direction:column;gap:1.5rem;align-items:flex-start;padding:2.5rem 1.5rem;}
   .ft-right{align-items:flex-start;}
   .phone-grid,.ba-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  nav{padding:0 .75rem;}
+  .nav-links{gap:.4rem;}
+  .nav-links a{font-size:10px;}
+  .nav-cta{font-size:9px!important;letter-spacing:0!important;padding:4px 8px!important;}
 }
 </style>
 </head>
@@ -934,6 +943,14 @@ triggerReveal();
 
 /* ─── MODAL ─── */
 const P=''; // 已改用 Google Drive 直連
+const VIDEO_IMGS={
+  '短影音1':'https://drive.google.com/thumbnail?id=10k__0Z66tefegwIUBQASy8-vA7qB6Kco&sz=w600',
+  '短影音2':'https://drive.google.com/thumbnail?id=1wSWRbx5oek1VC90p3hUbJL_NNM4enm46&sz=w600',
+  '短影音3':'https://drive.google.com/thumbnail?id=1QfiiG20vQWrfe_rnRT_rQYEkDdLAdnOI&sz=w600',
+  '短影音_貼文1':'https://drive.google.com/thumbnail?id=1tNbhEdFORvDswXzyYTuNu7t9NgZ1Qr9W&sz=w600',
+  '短影音_貼文2':'https://drive.google.com/thumbnail?id=1oGldvIsknX0SIYoVSG9VSjEVRyQbErbs&sz=w600',
+  '短影音_貼文3':'https://drive.google.com/thumbnail?id=1Tyou1SiX1Iwqpm8U2CiFVnAO3LHiR8_K&sz=w600',
+};
 function openModal(id){
   const d=MD[id];if(!d)return;
   document.getElementById('mTag').textContent=d.tag;
@@ -982,8 +999,8 @@ function openCaseModal(){
         <div class="vcs-stat"><span class="vcs-num">70%</span><span class="vcs-lb">觸及新客群</span></div>
       </div>
     </div>
-    <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
-    <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>
+    <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
+    <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>
 
     <div class="m-cases-label">LINE@ 帳號</div>
     <div class="case-block" style="max-width:280px;"><div class="ph-frame"><img src="https://drive.google.com/thumbnail?id=1kn9-5hQn-bVEF3p-cSmqyj1Qm3t9xBJI&sz=w1200" alt="詠順工程行 LINE@"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
@@ -1106,8 +1123,8 @@ const MD={
           <div class="vcs-stat"><span class="vcs-num">70%</span><span class="vcs-lb">觸及新客群</span></div>
         </div>
       </div>
-      <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
-      <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${P}${n}.png" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>`
+      <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
+      <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>`
   },
   sticker:{
     tag:'商業影響力',title:'專屬貼圖設計',
