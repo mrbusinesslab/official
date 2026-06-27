@@ -546,7 +546,6 @@ body {
     </div>
     <div class="masthead-right">
       <span id="fb-badge" class="status-chip">● 連線中</span>
-      <button class="btn btn-ghost btn-sm" id="btn-admin" style="display:none" onclick="toggleView()">管理後台</button>
     </div>
   </div>
 </header>
@@ -574,7 +573,6 @@ body {
             <input type="password" id="admin-pwd" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')adminLogin()">
           </div>
           <button class="btn btn-primary" style="width:100%" onclick="adminLogin()">進入後台</button>
-          <p style="margin-top:14px;font-size:11px;color:var(--ink-light);text-align:center">預設密碼 admin1234 · 可於設定中修改</p>
         </div>
       </div>
     </div>
@@ -630,10 +628,8 @@ body {
         </div>
         <div class="card">
           <div class="config-note">
-            前往 <strong>Firebase Console → 專案設定 → 你的應用程式</strong>，
-            複製設定物件中的各項值貼入下方。<br>
-            儲存後重新整理頁面即生效。<br>
-            <strong style="color:var(--success)">✓ 此版本使用 Firestore 儲存圖片（base64），不需要 Firebase Storage，完全免費。</strong>
+            Firebase 設定已內建於系統中，無需手動輸入。<br>
+            <strong style="color:var(--success)">✓ 目前連線專案：mr-lab-fbe5c</strong>
           </div>
           <div class="config-grid">
             <div class="field"><label>API Key</label><input type="text" id="cfg-apiKey" placeholder="AIzaSy..."></div>
@@ -643,12 +639,21 @@ body {
             <div class="field"><label>App ID</label><input type="text" id="cfg-appId" placeholder="1:xxx:web:yyy"></div>
           </div>
           <div style="border-top:1px solid var(--rule);padding-top:24px;margin-top:8px">
+            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">更改管理員密碼</div>
             <div class="field">
-              <label>管理員密碼（留空不修改）</label>
-              <input type="password" id="cfg-pwd" placeholder="輸入新密碼">
+              <label>目前密碼</label>
+              <input type="password" id="cfg-pwd-old" placeholder="輸入目前密碼">
+            </div>
+            <div class="field">
+              <label>新密碼</label>
+              <input type="password" id="cfg-pwd-new" placeholder="輸入新密碼">
+            </div>
+            <div class="field">
+              <label>確認新密碼</label>
+              <input type="password" id="cfg-pwd-confirm" placeholder="再次輸入新密碼">
             </div>
           </div>
-          <button class="btn btn-primary" onclick="saveConfig()">儲存設定</button>
+          <button class="btn btn-primary" onclick="saveConfig()">更新密碼</button>
         </div>
 
         <!-- FIREBASE RULES GUIDE -->
@@ -860,26 +865,25 @@ async function init() {
 
   if (isAdmin) {
     document.getElementById('view-admin').classList.add('active');
-    document.getElementById('btn-admin').style.display = 'none';
   } else {
     document.getElementById('view-client').classList.add('active');
-    document.getElementById('btn-admin').style.display = 'block';
     buildClientForm();
   }
   await tryFirebase();
 }
 
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDod-ZbhaoQY1Xl9FRHmfV1JM7vlBGc-RQ",
+  authDomain: "mr-lab-fbe5c.firebaseapp.com",
+  projectId: "mr-lab-fbe5c",
+  messagingSenderId: "575648202460",
+  appId: "1:575648202460:web:13191d2bdfe521efbc3e19"
+};
+
 async function tryFirebase() {
-  const cfg = getConfig();
-  if (!cfg?.apiKey) {
-    setFb('未設定', 'err');
-    if (isAdmin) loadCfgFields();
-    else showState('loading', false);
-    return;
-  }
   try {
     const existing = getApps().find(a => a.name === 'main');
-    const app = existing || initializeApp(cfg, 'main');
+    const app = existing || initializeApp(FIREBASE_CONFIG, 'main');
     db = getFirestore(app);
     setFb('已連線', 'ok');
     if (isAdmin) {
@@ -895,7 +899,7 @@ async function tryFirebase() {
 }
 
 function getConfig() {
-  try { return JSON.parse(localStorage.getItem('fb_cfg')); } catch{ return null; }
+  return FIREBASE_CONFIG;
 }
 function setFb(text, cls) {
   const el = document.getElementById('fb-badge');
@@ -906,7 +910,7 @@ function setFb(text, cls) {
 // ── ADMIN ──────────────────────────────────────────
 window.adminLogin = function() {
   const pwd = document.getElementById('admin-pwd').value;
-  const saved = localStorage.getItem('admin_pwd') || 'admin1234';
+  const saved = localStorage.getItem('admin_pwd') || '119292';
   if (pwd === saved) {
     sessionStorage.setItem('admin_ok', '1');
     showAdminPanel();
@@ -921,20 +925,29 @@ function showAdminPanel() {
 }
 
 function loadCfgFields() {
-  const c = getConfig() || {};
+  const c = FIREBASE_CONFIG;
   ['apiKey','authDomain','projectId','messagingSenderId','appId']
-    .forEach(k => { const el = document.getElementById('cfg-'+k); if(el&&c[k]) el.value=c[k]; });
+    .forEach(k => {
+      const el = document.getElementById('cfg-'+k);
+      if (el && c[k]) { el.value = c[k]; el.readOnly = true; el.style.color = 'var(--ink-light)'; }
+    });
 }
 
 window.saveConfig = function() {
-  const c = {};
-  ['apiKey','authDomain','projectId','messagingSenderId','appId']
-    .forEach(k => { c[k] = document.getElementById('cfg-'+k).value.trim(); });
-  localStorage.setItem('fb_cfg', JSON.stringify(c));
-  const np = document.getElementById('cfg-pwd').value;
-  if (np) localStorage.setItem('admin_pwd', np);
-  toast('儲存成功，重新整理後生效', 'ok');
-  setTimeout(() => location.reload(), 1600);
+  const oldPwd = document.getElementById('cfg-pwd-old').value;
+  const newPwd = document.getElementById('cfg-pwd-new').value;
+  const confirmPwd = document.getElementById('cfg-pwd-confirm').value;
+  const saved = localStorage.getItem('admin_pwd') || '119292';
+  if (!oldPwd) { toast('請輸入目前密碼', 'err'); return; }
+  if (oldPwd !== saved) { toast('目前密碼錯誤', 'err'); return; }
+  if (!newPwd) { toast('請輸入新密碼', 'err'); return; }
+  if (newPwd !== confirmPwd) { toast('兩次新密碼不一致', 'err'); return; }
+  if (newPwd.length < 6) { toast('新密碼至少需要 6 個字元', 'err'); return; }
+  localStorage.setItem('admin_pwd', newPwd);
+  document.getElementById('cfg-pwd-old').value = '';
+  document.getElementById('cfg-pwd-new').value = '';
+  document.getElementById('cfg-pwd-confirm').value = '';
+  toast('密碼已更新', 'ok');
 };
 
 async function loadProjects() {
@@ -1374,7 +1387,6 @@ window.toggleView = function() {
   document.getElementById('view-admin').classList.toggle('active', !aActive);
   document.getElementById('view-client').classList.toggle('active', aActive);
   document.getElementById('admin-tabs').style.display = !aActive ? 'block' : 'none';
-  document.getElementById('btn-admin').textContent = !aActive ? '← 返回表單' : '管理後台';
 };
 
 window.copyEl = function(id) {
