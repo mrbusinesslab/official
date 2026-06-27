@@ -238,7 +238,6 @@ body {
   color: var(--ink);
   cursor: pointer;
   letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 .pi-url-wrap { margin-top: 10px; display: none; }
 .pi-url-wrap.show { display: block; }
@@ -513,44 +512,7 @@ body {
 .config-note strong { color: var(--ink); }
 .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
 
-/* ─── COLOR SWATCHES ─── */
-.color-swatch {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--cream);
-  border: 1px solid var(--rule);
-  padding: 6px 10px 6px 6px;
-  border-radius: 3px;
-}
-.color-swatch input[type="color"] {
-  width: 32px; height: 32px;
-  border: none; padding: 0;
-  background: none;
-  cursor: pointer;
-  border-radius: 2px;
-}
-.color-swatch input[type="text"] {
-  width: 76px;
-  border: none;
-  background: transparent;
-  font-family: var(--sans); font-size: 12px;
-  font-family: 'Courier New', monospace;
-  color: var(--ink);
-  outline: none;
-  letter-spacing: 0.04em;
-}
-.color-swatch-remove {
-  cursor: pointer;
-  color: var(--ink-light);
-  font-size: 14px;
-  line-height: 1;
-  padding: 2px;
-  transition: color .15s;
-}
-.color-swatch-remove:hover { color: var(--danger); }
-
-
+/* ─── SUBMIT AREA ─── */
 .submit-area { margin-top: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .validation-msg { font-size: 12px; color: var(--danger); letter-spacing: 0.04em; }
 
@@ -792,7 +754,7 @@ service cloud.firestore {
       <div class="page-hero">
         <div class="hero-eyebrow">Client Onboarding</div>
         <h1 class="hero-title" id="c-title">歡迎，<em>請填寫</em>資料</h1>
-        <p class="hero-body">請依序勾選您目前使用的平台並填入連結，<br>接著上傳所需圖片，完成後送出即可。</p>
+        <p class="hero-body">請依序勾選您目前使用的平台並填入連結，接著上傳所需圖片，完成後送出即可。</p>
         <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
       </div>
 
@@ -829,60 +791,7 @@ service cloud.firestore {
         <div class="upload-grid" id="upload-grid"></div>
       </div>
 
-      <!-- Step 3 品牌色系 -->
-      <div style="margin-bottom:40px">
-        <div class="section-head">
-          <span class="section-num">Section 03</span>
-          <h2 class="section-title">品牌色系</h2>
-          <div class="section-rule"></div>
-        </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">若已有品牌色，請選取或輸入色碼（最多 5 個）；若尚無，可填入期望風格或留空由我們設計。</p>
-        <div class="card" style="margin-bottom:0">
-          <!-- 已有品牌色 -->
-          <div style="margin-bottom:24px">
-            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">已有品牌色</div>
-            <div id="color-swatches" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px"></div>
-            <button class="btn btn-ghost btn-sm" id="add-color-btn" onclick="addColorSwatch()" style="font-size:11px">＋ 新增顏色</button>
-            <p id="color-max-msg" style="display:none;font-size:11px;color:var(--gold);font-style:italic;margin-top:8px">已達最多 5 個顏色</p>
-          </div>
-          <!-- 期望風格 / 自行設計 -->
-          <div style="border-top:1px solid var(--rule);padding-top:20px">
-            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">若尚無品牌色</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer">
-                <input type="radio" name="color-option" value="expect" id="co-expect" onchange="toggleColorOption(this.value)" style="accent-color:var(--ink)">
-                有期望的設計風格或顏色方向
-              </label>
-              <div id="co-expect-wrap" style="display:none;padding-left:28px">
-                <textarea id="color-expect-text" rows="2" placeholder="例：偏向大地色系、乾淨的米白與深藍、高端質感的黑金風格…"
-                  style="width:100%;background:var(--cream);border:none;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:13px;color:var(--ink);padding:8px 0;outline:none;resize:none;line-height:1.7"></textarea>
-              </div>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer">
-                <input type="radio" name="color-option" value="free" id="co-free" onchange="toggleColorOption(this.value)" style="accent-color:var(--ink)">
-                交給你們自行設計
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4 其他需求 -->
-      <div style="margin-bottom:40px">
-        <div class="section-head">
-          <span class="section-num">Section 04</span>
-          <h2 class="section-title">其他需求</h2>
-          <div class="section-rule"></div>
-        </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">有任何想法、期望或特別說明，都可以在這裡告訴我們。</p>
-        <div class="card" style="margin-bottom:0">
-          <textarea id="other-needs" rows="5" placeholder="例：希望整體風格偏年輕活潑、有特定競品參考、或是有急迫的時程需求…"
-            style="width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:14px;color:var(--ink);padding:10px 0;outline:none;resize:none;line-height:1.8"
-            oninput="updateProgress()"></textarea>
-        </div>
-      </div>
-
       <!-- Submit -->
-
       <div class="submit-area">
         <button class="btn btn-gold" onclick="submitForm()" style="font-size:13px;padding:14px 40px">送出表單</button>
         <p class="validation-msg" id="val-msg"></p>
@@ -921,8 +830,8 @@ const PLATFORMS = [
   {id:'threads',  emoji:'🧵', label:'Threads（個人）',              url:true},
   {id:'website',  emoji:'🌐', label:'形象官網',                      url:true},
   {id:'shop_web', emoji:'🛒', label:'購物車網站',                    url:true},
-  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星）',        url:false, note:true},
-  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO）',        url:true},
+  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星/萬事達）',  url:false, note:true},
+  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO/PCHome）', url:true},
   {id:'shopcom',  emoji:'🏪', label:'通路平台（SHOP.COM）',          url:true},
   {id:'signup',   emoji:'📝', label:'報名系統 / Google 表單',        url:true},
   {id:'booking',  emoji:'📅', label:'預約系統 / Google 表單',        url:true},
@@ -1123,35 +1032,6 @@ window.viewData = async function(id) {
       html += '</div>';
     });
   }
-  // 品牌色系
-  if (d.brandColors) {
-    const bc = d.brandColors;
-    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌色系</div>';
-    html += '<div style="padding:12px 0;border-bottom:1px solid var(--rule)">';
-    if (bc.colors && bc.colors.length) {
-      html += '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px">';
-      bc.colors.forEach(c => {
-        html += `<div style="display:flex;align-items:center;gap:6px">
-          <div style="width:28px;height:28px;background:${c};border:1px solid var(--rule);border-radius:2px"></div>
-          <span style="font-size:12px;font-family:monospace;color:var(--ink-mid)">${c}</span>
-        </div>`;
-      });
-      html += '</div>';
-    }
-    if (bc.option === 'expect' && bc.expectText) {
-      html += `<p style="font-size:13px;color:var(--ink-mid)">期望風格：${bc.expectText}</p>`;
-    } else if (bc.option === 'free') {
-      html += `<p style="font-size:13px;color:var(--ink-light);font-style:italic">交給設計師自行設計</p>`;
-    } else if (!bc.colors?.length) {
-      html += `<p style="font-size:13px;color:var(--ink-light)">未填寫</p>`;
-    }
-    html += '</div>';
-  }
-  // 其他需求
-  if (d.otherNeeds) {
-    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">其他需求</div>';
-    html += `<div style="padding:12px 0;font-size:13px;color:var(--ink-mid);line-height:1.8;white-space:pre-wrap">${d.otherNeeds}</div>`;
-  }
   document.getElementById('modal-body').innerHTML = html || '<p style="color:var(--ink-light);font-size:13px">無資料</p>';
   document.getElementById('modal').classList.add('show');
 };
@@ -1259,63 +1139,7 @@ window.removeFile = function(uid, idx) {
   renderFileList(uid);
 };
 
-// ── 品牌色系 ─────────────────────────────────────
-const MAX_COLORS = 5;
-let brandColors = [];
-
-window.addColorSwatch = function() {
-  if (brandColors.length >= MAX_COLORS) return;
-  const color = '#' + Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');
-  brandColors.push(color);
-  renderSwatches();
-};
-
-window.removeSwatch = function(idx) {
-  brandColors.splice(idx, 1);
-  renderSwatches();
-};
-
-window.syncSwatchText = function(idx, val) {
-  const clean = val.startsWith('#') ? val : '#'+val;
-  if (/^#[0-9A-Fa-f]{6}$/.test(clean)) {
-    brandColors[idx] = clean;
-    const picker = document.querySelector(`[data-swatch-picker="${idx}"]`);
-    if (picker) picker.value = clean;
-  }
-};
-
-window.syncSwatchPicker = function(idx, val) {
-  brandColors[idx] = val;
-  const text = document.querySelector(`[data-swatch-text="${idx}"]`);
-  if (text) text.value = val;
-};
-
-function renderSwatches() {
-  const container = document.getElementById('color-swatches');
-  container.innerHTML = '';
-  brandColors.forEach((c, i) => {
-    const div = document.createElement('div');
-    div.className = 'color-swatch';
-    div.innerHTML = `
-      <input type="color" value="${c}" data-swatch-picker="${i}"
-        oninput="syncSwatchPicker(${i}, this.value)" title="點擊用滴管選色">
-      <input type="text" value="${c}" data-swatch-text="${i}" maxlength="7"
-        oninput="syncSwatchText(${i}, this.value)" placeholder="#000000">
-      <span class="color-swatch-remove" onclick="removeSwatch(${i})" title="移除">×</span>`;
-    container.appendChild(div);
-  });
-  const addBtn = document.getElementById('add-color-btn');
-  const maxMsg = document.getElementById('color-max-msg');
-  const reached = brandColors.length >= MAX_COLORS;
-  addBtn.style.display = reached ? 'none' : '';
-  maxMsg.style.display = reached ? 'block' : 'none';
-}
-
-window.toggleColorOption = function(val) {
-  document.getElementById('co-expect-wrap').style.display = val === 'expect' ? 'block' : 'none';
-};
-
-
+function updateProgress() {
   let total=1, done=0;
   const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
   if (checked.length>0) done++;
@@ -1510,17 +1334,6 @@ window.doSubmit = async function() {
       platforms[p.id] = p.note ? {note:v} : {url:v};
     });
 
-    // 品牌色系
-    const colorOption = document.querySelector('input[name="color-option"]:checked')?.value || '';
-    const brandData = {
-      colors: brandColors,
-      option: colorOption,
-      expectText: colorOption === 'expect' ? (document.getElementById('color-expect-text')?.value?.trim()||'') : ''
-    };
-
-    // 其他需求
-    const otherNeeds = document.getElementById('other-needs')?.value?.trim() || '';
-
     const uploads = {};
     for (const u of UPLOADS) {
       const existing = uploadedFiles[u.id+'_existing'] || [];
@@ -1536,7 +1349,7 @@ window.doSubmit = async function() {
       }
     }
 
-    await setDoc(doc(db,'projects',projectId), {platforms, uploads, brandColors: brandData, otherNeeds, submitted:true, submittedAt:Date.now()}, {merge:true});
+    await setDoc(doc(db,'projects',projectId), {platforms, uploads, submitted:true, submittedAt:Date.now()}, {merge:true});
     showState('success', true);
   } catch(e) {
     msg.style.color = 'var(--danger)';
