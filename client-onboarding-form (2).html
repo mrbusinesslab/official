@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客戶資料收集 — MR. business.lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f7f4ef;
+  --cream-dark: #eee9e0;
+  --ink: #1a1714;
+  --ink-mid: #4a4540;
+  --ink-light: #9a9490;
+  --gold: #b5924a;
+  --gold-light: #d4b07a;
+  --rule: #d8d2c8;
+  --white: #ffffff;
+  --accent: #2c4a6e;
+  --accent-light: #e8eef5;
+  --success: #3a6b4a;
+  --danger: #8b3a3a;
+  --serif: 'Playfair Display', 'Georgia', serif;
+  --sans: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ─── MASTHEAD ─── */
+.masthead {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+}
+.masthead-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 72px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+}
+.brand-mark {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+.brand-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  font-weight: 400;
+}
+.brand-name span {
+  font-style: italic;
+  color: var(--ink-mid);
+  font-size: 11px;
+  display: block;
+  letter-spacing: 0.12em;
+  margin-top: -2px;
+}
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.status-chip {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-light);
+}
+.status-chip.ok { border-color: var(--success); color: var(--success); }
+.status-chip.err { border-color: var(--danger); color: var(--danger); }
+
+/* ─── TABS (admin) ─── */
+.tab-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  display: none;
+}
+.tab-bar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+.tab-btn {
+  padding: 12px 20px 11px;
+  border: none; border-bottom: 2px solid transparent;
+  background: none;
+  font-family: var(--sans); font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all .2s;
+  text-transform: uppercase;
+}
+.tab-btn.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ─── LAYOUT ─── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 48px 100px;
+}
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  max-width: 560px;
+}
+.hero-title em { font-style: italic; }
+.hero-body {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--ink-mid);
+  max-width: 480px;
+  line-height: 1.8;
+}
+.hero-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* ─── SECTION HEADER ─── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.section-num {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+}
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+}
+
+/* ─── PLATFORM GRID ─── */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+.platform-item {
+  background: var(--white);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.platform-item:hover { background: var(--cream); }
+.platform-item.checked { background: var(--cream); }
+.pi-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pi-header input[type="checkbox"] {
+  width: 15px; height: 15px;
+  accent-color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pi-emoji { font-size: 14px; }
+.pi-label {
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+.pi-url-wrap { margin-top: 10px; display: none; }
+.pi-url-wrap.show { display: block; }
+.pi-url-wrap input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  font-family: var(--sans); font-size: 12px;
+  color: var(--ink);
+  padding: 6px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+.pi-url-wrap input:focus { border-bottom-color: var(--ink); }
+.pi-url-wrap input::placeholder { color: var(--ink-light); }
+
+/* ─── UPLOAD GRID ─── */
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.upload-card {
+  border: 1px solid var(--rule);
+  padding: 24px 20px;
+  text-align: center;
+  background: var(--white);
+  transition: border-color .2s;
+  position: relative;
+}
+.upload-card:hover { border-color: var(--ink-mid); }
+.upload-card.has-file { border-color: var(--success); }
+.upload-card.req-missing { border-color: var(--danger); }
+.uc-emoji { font-size: 24px; margin-bottom: 10px; }
+.uc-label {
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.uc-hint {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.uc-req {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 10px;
+  color: var(--danger);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.uc-input { display: none; }
+.uc-trigger {
+  display: inline-block;
+  border: 1px solid var(--rule);
+  padding: 6px 14px;
+  font-family: var(--sans); font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all .2s;
+  background: var(--cream);
+}
+.uc-trigger:hover { border-color: var(--ink); color: var(--ink); background: var(--cream-dark); }
+.uc-files { margin-top: 10px; }
+.uc-file {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 8px;
+  background: var(--cream);
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--success);
+}
+.uc-remove { cursor: pointer; color: var(--danger); font-size: 13px; line-height: 1; }
+
+/* ─── PROGRESS ─── */
+.progress-wrap { margin-bottom: 40px; }
+.progress-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--ink-light); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.progress-track {
+  height: 1px;
+  background: var(--rule);
+  position: relative;
+}
+.progress-fill {
+  position: absolute; left: 0; top: 0;
+  height: 1px;
+  background: var(--ink);
+  transition: width .4s ease;
+}
+
+/* ─── FORMS ─── */
+.field { margin-bottom: 22px; }
+.field label {
+  display: block;
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.field input, .field textarea {
+  width: 100%;
+  background: var(--cream);
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 14px;
+  color: var(--ink);
+  padding: 10px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+.field input:focus, .field textarea:focus { border-bottom-color: var(--ink); }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-light); }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border: none; cursor: pointer;
+  padding: 12px 28px;
+  transition: all .2s;
+}
+.btn-primary {
+  background: var(--ink); color: var(--white);
+}
+.btn-primary:hover { background: var(--ink-mid); }
+.btn-gold {
+  background: var(--gold); color: var(--white);
+}
+.btn-gold:hover { background: var(--gold-light); }
+.btn-ghost {
+  background: transparent; color: var(--ink-mid);
+  border: 1px solid var(--rule);
+}
+.btn-ghost:hover { border-color: var(--ink-mid); color: var(--ink); }
+.btn-sm { padding: 7px 16px; font-size: 11px; }
+
+/* ─── LINK BOX ─── */
+.link-box {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+.link-box code {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  word-break: break-all;
+  flex: 1;
+}
+
+/* ─── PROJECT ROW ─── */
+.project-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  gap: 16px;
+}
+.pr-name {
+  font-family: var(--serif); font-size: 17px;
+  color: var(--ink);
+}
+.pr-meta { font-size: 11px; color: var(--ink-light); margin-top: 3px; letter-spacing: 0.04em; }
+.pr-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+.status-tag {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 10px;
+}
+.status-pending { background: #faf5eb; color: #9a7a2a; border: 1px solid #e8d8a0; }
+.status-done { background: #eef5ee; color: var(--success); border: 1px solid #b8d8b8; }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,23,20,.5);
+  z-index: 200;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  width: 90%; max-width: 640px;
+  max-height: 85vh; overflow-y: auto;
+  padding: 40px 44px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 24px;
+  font-weight: 400; margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.modal-close {
+  float: right; cursor: pointer;
+  font-size: 20px; color: var(--ink-light);
+  margin-top: -4px;
+  background: none; border: none; font-family: var(--serif);
+}
+
+/* ─── ADMIN LOGIN ─── */
+.login-wrap {
+  max-width: 400px;
+  margin: 80px auto 0;
+}
+.login-eyebrow {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.login-eyebrow::after {
+  content: ''; flex: 1; height: 1px; background: var(--rule);
+}
+
+/* ─── SUCCESS / ERROR STATES ─── */
+.state-card {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+}
+.state-symbol {
+  font-family: var(--serif);
+  font-size: 48px; font-style: italic;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.state-title {
+  font-family: var(--serif); font-size: 28px;
+  font-weight: 400; margin-bottom: 12px;
+}
+.state-body {
+  font-size: 14px; color: var(--ink-mid);
+  line-height: 1.8; max-width: 340px; margin: 0 auto;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink); color: var(--white);
+  padding: 12px 24px;
+  font-size: 12px; letter-spacing: 0.08em;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s; z-index: 300;
+}
+.toast.show { opacity: 1; }
+.toast.err { background: var(--danger); }
+.toast.ok { background: var(--success); }
+
+/* ─── FIREBASE CONFIG ─── */
+.config-note {
+  background: #faf7f2;
+  border: 1px solid #e8dfc8;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.config-note strong { color: var(--ink); }
+.config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+
+/* ─── SUBMIT AREA ─── */
+.submit-area { margin-top: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.validation-msg { font-size: 12px; color: var(--danger); letter-spacing: 0.04em; }
+
+/* ─── VIEWS ─── */
+#view-admin, #view-client { display: none; }
+#view-admin.active, #view-client.active { display: block; }
+
+@media (max-width: 640px) {
+  .container { padding: 40px 20px 80px; }
+  .masthead { padding: 0 20px; }
+  .tab-bar { padding: 0 20px; }
+  .hero-title { font-size: 30px; }
+  .config-grid { grid-template-columns: 1fr; }
+  .card { padding: 24px 20px; }
+  .platform-grid { grid-template-columns: 1fr 1fr; }
+  .upload-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <div class="brand-mark">M.</div>
+      <div class="brand-name">
+        MR. business.lab
+        <span>Client Onboarding</span>
+      </div>
+    </div>
+    <div class="masthead-right">
+      <span id="fb-badge" class="status-chip">● 連線中</span>
+      <button class="btn btn-ghost btn-sm" id="btn-admin" style="display:none" onclick="toggleView()">管理後台</button>
+    </div>
+  </div>
+</header>
+
+<!-- ADMIN TABS -->
+<div class="tab-bar" id="admin-tabs">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="switchTab('projects')">專案列表</button>
+    <button class="tab-btn" onclick="switchTab('create')">建立專案</button>
+    <button class="tab-btn" onclick="switchTab('firebase')">Firebase 設定</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ ADMIN ═══════════════════ -->
+<div id="view-admin">
+  <div class="container">
+
+    <!-- LOGIN -->
+    <div id="admin-login">
+      <div class="login-wrap">
+        <div class="login-eyebrow">管理員驗證</div>
+        <div class="card">
+          <div class="field">
+            <label>管理員密碼</label>
+            <input type="password" id="admin-pwd" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')adminLogin()">
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="adminLogin()">進入後台</button>
+          <p style="margin-top:14px;font-size:11px;color:var(--ink-light);text-align:center">預設密碼 admin1234 · 可於設定中修改</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="admin-panel" style="display:none">
+
+      <!-- PROJECTS TAB -->
+      <div id="tab-projects">
+        <div class="page-hero">
+          <div class="hero-eyebrow">Project Management</div>
+          <h1 class="hero-title">客戶<em>專案</em>管理</h1>
+        </div>
+        <div id="project-list">
+          <p style="color:var(--ink-light);font-size:13px">載入中⋯</p>
+        </div>
+        <div style="margin-top:28px">
+          <button class="btn btn-primary" onclick="switchTab('create')">建立新專案</button>
+        </div>
+      </div>
+
+      <!-- CREATE TAB -->
+      <div id="tab-create" style="display:none">
+        <div class="page-hero">
+          <div class="hero-eyebrow">New Project</div>
+          <h1 class="hero-title">建立<em>新</em>客戶專案</h1>
+        </div>
+        <div class="card" style="max-width:540px">
+          <div class="field">
+            <label>客戶 / 公司名稱 *</label>
+            <input type="text" id="new-client-name" placeholder="例：王小明 · 台中美甲工作室">
+          </div>
+          <div class="field">
+            <label>業務備註（客戶不可見）</label>
+            <input type="text" id="new-client-note" placeholder="例：FB 廣告合作 · 品牌建立計畫">
+          </div>
+          <button class="btn btn-gold" onclick="createProject()">產生客戶連結</button>
+        </div>
+        <div id="new-result" style="display:none;margin-top:24px">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px">客戶連結</div>
+          <div class="link-box">
+            <code id="new-link"></code>
+            <button class="btn btn-ghost btn-sm" onclick="copyEl('new-link')">複製</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIREBASE TAB -->
+      <div id="tab-firebase" style="display:none">
+        <div class="page-hero">
+          <div class="hero-eyebrow">Firebase Configuration</div>
+          <h1 class="hero-title">Firebase<em>設定</em></h1>
+        </div>
+        <div class="card">
+          <div class="config-note">
+            前往 <strong>Firebase Console → 專案設定 → 你的應用程式</strong>，
+            複製設定物件中的各項值貼入下方。<br>
+            儲存後重新整理頁面即生效。<br>
+            <strong style="color:var(--success)">✓ 此版本使用 Firestore 儲存圖片（base64），不需要 Firebase Storage，完全免費。</strong>
+          </div>
+          <div class="config-grid">
+            <div class="field"><label>API Key</label><input type="text" id="cfg-apiKey" placeholder="AIzaSy..."></div>
+            <div class="field"><label>Auth Domain</label><input type="text" id="cfg-authDomain" placeholder="app.firebaseapp.com"></div>
+            <div class="field"><label>Project ID</label><input type="text" id="cfg-projectId" placeholder="your-project-id"></div>
+            <div class="field"><label>Messaging Sender ID</label><input type="text" id="cfg-messagingSenderId" placeholder="123456789"></div>
+            <div class="field"><label>App ID</label><input type="text" id="cfg-appId" placeholder="1:xxx:web:yyy"></div>
+          </div>
+          <div style="border-top:1px solid var(--rule);padding-top:24px;margin-top:8px">
+            <div class="field">
+              <label>管理員密碼（留空不修改）</label>
+              <input type="password" id="cfg-pwd" placeholder="輸入新密碼">
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="saveConfig()">儲存設定</button>
+        </div>
+
+        <!-- FIREBASE RULES GUIDE -->
+        <div style="margin-top:48px">
+          <div class="section-head">
+            <span class="section-num">Rules</span>
+            <h2 class="section-title">Firebase 規則設定</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="card">
+            <p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.8">
+              前往 Firebase Console 依下方步驟貼上規則，讓客戶可以填寫自己的表單，但無法看到他人資料。
+            </p>
+
+            <div style="margin-bottom:28px">
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Step 1 — Firestore Database Rules</div>
+              <div style="font-size:11px;color:var(--ink-light);margin-bottom:10px">Firestore Database → 規則 → 貼上並發布：</div>
+              <pre id="rule-firestore" style="background:var(--cream);border:1px solid var(--rule);padding:18px 20px;font-size:12px;font-family:'Courier New',monospace;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /projects/{projectId} {
+      // 任何人持有 projectId 即可讀（客戶憑連結填寫）
+      allow read: if true;
+      // 尚未送出才允許更新（防止重複覆寫）
+      allow update: if resource.data.submitted == false;
+      // 允許建立（管理員用 client SDK 建立）
+      allow create: if true;
+      // 禁止刪除
+      allow delete: if false;
+    }
+  }
+}</pre>
+              <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="copyText('rule-firestore')">複製規則</button>
+            </div>
+
+            <div style="margin-top:24px;border-top:1px solid var(--rule);padding-top:24px">
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px">✓ 不需要設定 Storage</div>
+              <p style="font-size:13px;color:var(--ink-mid);line-height:1.8">
+                此版本圖片以壓縮後的 base64 格式直接存入 Firestore，<strong>完全不需要啟用 Firebase Storage</strong>，Firebase 免費方案（Spark）即可使用。<br><br>
+                每張圖片壓縮後約 100–200KB，Firestore 免費方案每天提供 1GB 讀寫，一般業務量完全足夠。
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-firebase -->
+
+    </div><!-- /admin-panel -->
+  </div>
+</div>
+
+<!-- ═══════════════════ CLIENT ═══════════════════ -->
+<div id="view-client">
+  <div class="container">
+
+    <!-- Loading -->
+    <div id="c-loading" class="state-card">
+      <div class="state-symbol">⋯</div>
+      <div class="state-title">載入中</div>
+      <p class="state-body">正在讀取您的專案資料，請稍候。</p>
+    </div>
+
+    <!-- Not Found -->
+    <div id="c-notfound" class="state-card" style="display:none">
+      <div class="state-symbol">×</div>
+      <div class="state-title">找不到此專案</div>
+      <p class="state-body">連結可能已失效，請聯繫您的業務顧問重新取得。</p>
+    </div>
+
+    <!-- Success -->
+    <div id="c-success" class="state-card" style="display:none">
+      <div class="state-symbol">✓</div>
+      <div class="state-title">資料已送出</div>
+      <p class="state-body" id="c-success-msg">您的業務顧問已收到通知，我們將盡快聯繫您安排後續。感謝您的信任。</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <p style="font-size:12px;color:var(--ink-light);letter-spacing:0.04em">需要修改資料？</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+          <button class="btn btn-ghost btn-sm" onclick="startEdit()">編輯已填內容</button>
+          <button class="btn btn-ghost btn-sm" onclick="confirmRewrite()">重新填寫（清除全部）</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm rewrite dialog -->
+    <div id="c-rewrite" class="state-card" style="display:none">
+      <div class="state-symbol" style="color:var(--danger)">!</div>
+      <div class="state-title">確認清除重填？</div>
+      <p class="state-body">這將清除所有已填寫的平台連結與圖片，無法復原。</p>
+      <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="doRewrite()">確認，重新填寫</button>
+        <button class="btn btn-ghost btn-sm" onclick="showState('success',true)">取消</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div id="c-form" style="display:none">
+
+      <div class="page-hero">
+        <div class="hero-eyebrow">Client Onboarding</div>
+        <h1 class="hero-title" id="c-title">歡迎，<em>請填寫</em>資料</h1>
+        <p class="hero-body">請依序勾選您目前使用的平台並填入連結，接著上傳所需圖片，完成後送出即可。</p>
+        <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span>填寫進度</span>
+          <span id="progress-text">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Step 1 -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 01</span>
+          <h2 class="section-title">自媒體與系統</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">勾選您目前使用的平台，並填入對應連結。</p>
+        <div class="platform-grid" id="platform-grid"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 02</span>
+          <h2 class="section-title">圖片與檔案</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">請上傳對應的圖片資料，標示「必填」者不可略過。</p>
+        <div class="upload-grid" id="upload-grid"></div>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-area">
+        <button class="btn btn-gold" onclick="submitForm()" style="font-size:13px;padding:14px 40px">送出表單</button>
+        <p class="validation-msg" id="val-msg"></p>
+      </div>
+
+    </div><!-- /c-form -->
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="modal-title" id="modal-title">專案詳情</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const PLATFORMS = [
+  {id:'line_p',   emoji:'💬', label:'Line 好友（個人）',            url:true},
+  {id:'line_o',   emoji:'🏢', label:'Line 官方帳號（公司）',         url:true},
+  {id:'fb_page',  emoji:'📣', label:'FB 粉絲專頁（公司）',           url:true},
+  {id:'fb_per',   emoji:'👤', label:'FB 帳號（個人）',              url:true},
+  {id:'ig_co',    emoji:'📸', label:'IG 帳號（公司）',              url:true},
+  {id:'ig_per',   emoji:'📷', label:'IG 帳號（個人）',              url:true},
+  {id:'threads',  emoji:'🧵', label:'Threads（個人）',              url:true},
+  {id:'website',  emoji:'🌐', label:'形象官網',                      url:true},
+  {id:'shop_web', emoji:'🛒', label:'購物車網站',                    url:true},
+  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星/萬事達）',  url:false, note:true},
+  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO/PCHome）', url:true},
+  {id:'shopcom',  emoji:'🏪', label:'通路平台（SHOP.COM）',          url:true},
+  {id:'signup',   emoji:'📝', label:'報名系統 / Google 表單',        url:true},
+  {id:'booking',  emoji:'📅', label:'預約系統 / Google 表單',        url:true},
+  {id:'cloud',    emoji:'☁️', label:'雲端資料夾（作品/簡報）',       url:true},
+  {id:'gmaps',    emoji:'🗺️', label:'Google 導航（公司/店面）',     url:true},
+  {id:'youtube',  emoji:'▶️', label:'YouTube 頻道',                  url:true},
+  {id:'podcast',  emoji:'🎙️', label:'Podcast 頻道',                 url:true},
+  {id:'tiktok',   emoji:'🎵', label:'抖音 / TikTok',                url:true},
+  {id:'eatgether',emoji:'🍽️', label:'Eatgether',                   url:true},
+  {id:'other',    emoji:'✨', label:'其他',                          url:false, note:true},
+];
+
+const UPLOADS = [
+  {id:'personal',     emoji:'🤳', label:'個人形象照',    hint:'個人專業照片', req:false, multi:true, max:3},
+  {id:'company',      emoji:'🏢', label:'公司形象照',    hint:'門面或空間照', req:false, multi:true, max:3},
+  {id:'logo',         emoji:'🎨', label:'Logo',          hint:'PNG / SVG 佳', req:false, multi:true, max:3},
+  {id:'avatar',       emoji:'🥳', label:'Q版人物設計',   hint:'已有請上傳',   req:false, multi:true, max:5},
+  {id:'certificates', emoji:'🏆', label:'證書照片',      hint:'可上傳多張',   req:false, multi:true, max:10},
+  {id:'portfolio',    emoji:'🖼️', label:'作品 / 案例圖', hint:'附說明更佳',   req:false, multi:true, max:10},
+];
+
+let db = null;
+let uploadedFiles = {};
+let projectId = null;
+let isAdmin = false;
+
+async function init() {
+  const params = new URLSearchParams(location.search);
+  projectId = params.get('p');
+  isAdmin = params.get('admin') === '1' || !projectId;
+
+  if (isAdmin) {
+    document.getElementById('view-admin').classList.add('active');
+    document.getElementById('btn-admin').style.display = 'none';
+  } else {
+    document.getElementById('view-client').classList.add('active');
+    document.getElementById('btn-admin').style.display = 'block';
+    buildClientForm();
+  }
+  await tryFirebase();
+}
+
+async function tryFirebase() {
+  const cfg = getConfig();
+  if (!cfg?.apiKey) {
+    setFb('未設定', 'err');
+    if (isAdmin) loadCfgFields();
+    else showState('loading', false);
+    return;
+  }
+  try {
+    const existing = getApps().find(a => a.name === 'main');
+    const app = existing || initializeApp(cfg, 'main');
+    db = getFirestore(app);
+    setFb('已連線', 'ok');
+    if (isAdmin) {
+      if (sessionStorage.getItem('admin_ok')) showAdminPanel();
+      loadCfgFields();
+    } else {
+      loadProject();
+    }
+  } catch(e) {
+    setFb('連線失敗', 'err');
+    if (!isAdmin) showState('loading', false);
+  }
+}
+
+function getConfig() {
+  try { return JSON.parse(localStorage.getItem('fb_cfg')); } catch{ return null; }
+}
+function setFb(text, cls) {
+  const el = document.getElementById('fb-badge');
+  el.textContent = '● ' + text;
+  el.className = 'status-chip ' + cls;
+}
+
+// ── ADMIN ──────────────────────────────────────────
+window.adminLogin = function() {
+  const pwd = document.getElementById('admin-pwd').value;
+  const saved = localStorage.getItem('admin_pwd') || 'admin1234';
+  if (pwd === saved) {
+    sessionStorage.setItem('admin_ok', '1');
+    showAdminPanel();
+  } else toast('密碼錯誤', 'err');
+};
+
+function showAdminPanel() {
+  document.getElementById('admin-login').style.display = 'none';
+  document.getElementById('admin-panel').style.display = 'block';
+  document.getElementById('admin-tabs').style.display = 'block';
+  loadProjects();
+}
+
+function loadCfgFields() {
+  const c = getConfig() || {};
+  ['apiKey','authDomain','projectId','messagingSenderId','appId']
+    .forEach(k => { const el = document.getElementById('cfg-'+k); if(el&&c[k]) el.value=c[k]; });
+}
+
+window.saveConfig = function() {
+  const c = {};
+  ['apiKey','authDomain','projectId','messagingSenderId','appId']
+    .forEach(k => { c[k] = document.getElementById('cfg-'+k).value.trim(); });
+  localStorage.setItem('fb_cfg', JSON.stringify(c));
+  const np = document.getElementById('cfg-pwd').value;
+  if (np) localStorage.setItem('admin_pwd', np);
+  toast('儲存成功，重新整理後生效', 'ok');
+  setTimeout(() => location.reload(), 1600);
+};
+
+async function loadProjects() {
+  const list = document.getElementById('project-list');
+  if (!db) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">Firebase 尚未設定。</p>'; return; }
+  try {
+    const snap = await getDocs(collection(db, 'projects'));
+    if (snap.empty) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無專案。</p>'; return; }
+    list.innerHTML = '';
+    snap.forEach(d => {
+      const p = d.data();
+      const row = document.createElement('div');
+      row.className = 'project-row';
+      row.innerHTML = `
+        <div>
+          <div class="pr-name">${p.clientName||d.id}</div>
+          <div class="pr-meta">建立：${p.createdAt?new Date(p.createdAt).toLocaleDateString('zh-TW'):'-'}${p.note?' · '+p.note:''}</div>
+        </div>
+        <div class="pr-actions">
+          <span class="status-tag ${p.submitted?'status-done':'status-pending'}">${p.submitted?'已填寫':'待填寫'}</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
+          ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
+        </div>`;
+      list.appendChild(row);
+    });
+  } catch(e) { list.innerHTML = `<p style="color:var(--danger);font-size:13px">載入失敗：${e.message}</p>`; }
+}
+
+window.createProject = async function() {
+  if (!db) { toast('請先設定 Firebase', 'err'); return; }
+  const name = document.getElementById('new-client-name').value.trim();
+  if (!name) { toast('請輸入客戶名稱', 'err'); return; }
+  const note = document.getElementById('new-client-note').value.trim();
+  const id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+  try {
+    await setDoc(doc(db,'projects',id), {clientName:name, note, submitted:false, createdAt:Date.now()});
+    const link = location.origin + location.pathname + '?p=' + id;
+    document.getElementById('new-link').textContent = link;
+    document.getElementById('new-result').style.display = 'block';
+    document.getElementById('new-client-name').value = '';
+    document.getElementById('new-client-note').value = '';
+    toast('專案已建立', 'ok');
+  } catch(e) { toast('建立失敗：'+e.message, 'err'); }
+};
+
+window.copyLink = function(id) {
+  navigator.clipboard.writeText(location.origin + location.pathname + '?p=' + id)
+    .then(() => toast('連結已複製', 'ok'));
+};
+
+window.viewData = async function(id) {
+  const snap = await getDoc(doc(db,'projects',id));
+  const d = snap.data();
+  document.getElementById('modal-title').textContent = d.clientName + ' · 填寫內容';
+  let html = '';
+  if (d.platforms && Object.keys(d.platforms).length) {
+    html += '<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">平台資訊</div>';
+    Object.entries(d.platforms).forEach(([k,v]) => {
+      const pl = PLATFORMS.find(p=>p.id===k);
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
+        <span style="color:var(--ink-mid)">${pl?pl.emoji+' '+pl.label:k}</span>
+        ${v.url?`<br><a href="${v.url}" target="_blank" style="color:var(--accent)">${v.url}</a>`:''}
+        ${v.note?`<br><span style="color:var(--ink-light)">${v.note}</span>`:''}
+      </div>`;
+    });
+  }
+  if (d.uploads && Object.keys(d.uploads).length) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">上傳檔案</div>';
+    Object.entries(d.uploads).forEach(([k,arr]) => {
+      const up = UPLOADS.find(u=>u.id===k);
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
+        <span style="color:var(--ink-mid)">${up?up.emoji+' '+up.label:k}</span><br>`;
+      arr.forEach(f => {
+        if (f.dataUrl) {
+          html += `<a href="${f.dataUrl}" download="${f.name}" target="_blank" style="display:inline-block;margin:6px 6px 0 0">
+            <img src="${f.dataUrl}" alt="${f.name}" style="height:80px;width:auto;border:1px solid var(--rule);object-fit:cover;vertical-align:top">
+          </a>`;
+        } else if (f.url) {
+          html += `<a href="${f.url}" target="_blank" style="display:inline-block;margin:4px 4px 0 0;font-size:12px;color:var(--accent);text-decoration:underline">${f.name}</a>`;
+        }
+      });
+      html += '</div>';
+    });
+  }
+  document.getElementById('modal-body').innerHTML = html || '<p style="color:var(--ink-light);font-size:13px">無資料</p>';
+  document.getElementById('modal').classList.add('show');
+};
+
+window.closeModal = () => document.getElementById('modal').classList.remove('show');
+
+window.switchTab = function(t) {
+  ['projects','create','firebase'].forEach(n => {
+    document.getElementById('tab-'+n).style.display = n===t?'block':'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['projects','create','firebase'][i]===t);
+  });
+  if (t==='projects') loadProjects();
+};
+
+// ── CLIENT ─────────────────────────────────────────
+function buildClientForm() {
+  const grid = document.getElementById('platform-grid');
+  PLATFORMS.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'platform-item';
+    div.id = 'pi-'+p.id;
+    div.innerHTML = `
+      <div class="pi-header">
+        <input type="checkbox" id="cb-${p.id}" onchange="togglePlatform('${p.id}')">
+        <span class="pi-emoji">${p.emoji}</span>
+        <label class="pi-label" for="cb-${p.id}">${p.label}</label>
+      </div>
+      ${(p.url||p.note)?`<div class="pi-url-wrap" id="pw-${p.id}">
+        <input type="${p.url?'url':'text'}" id="pi-val-${p.id}"
+          placeholder="${p.url?'https://...':'請說明'}"
+          oninput="updateProgress()">
+      </div>`:''}`;
+    grid.appendChild(div);
+  });
+
+  const ugrid = document.getElementById('upload-grid');
+  UPLOADS.forEach(u => {
+    uploadedFiles[u.id] = [];
+    const div = document.createElement('div');
+    div.className = 'upload-card' + (u.req?' req-missing':'');
+    div.id = 'uc-'+u.id;
+    div.innerHTML = `
+      ${u.req?'<div class="uc-req">必填</div>':''}
+      <div class="uc-emoji">${u.emoji}</div>
+      <div class="uc-label">${u.label}</div>
+      <div class="uc-hint">${u.hint}<br>（最多 ${u.max} 張）</div>
+      <input type="file" class="uc-input" id="uf-${u.id}"
+        accept="image/*,.pdf,.heic,.webp" multiple
+        onchange="handleUpload('${u.id}',this)">
+      <label class="uc-trigger" for="uf-${u.id}">選擇檔案</label>
+      <div class="uc-count" id="uc-count-${u.id}" style="font-size:11px;color:var(--ink-light);margin-top:6px;display:none">已選 <span>0</span> / ${u.max} 張</div>
+      <div class="uc-files" id="ufl-${u.id}"></div>`;
+    ugrid.appendChild(div);
+  });
+  updateProgress();
+}
+
+window.togglePlatform = function(id) {
+  const checked = document.getElementById('cb-'+id).checked;
+  const wrap = document.getElementById('pw-'+id);
+  document.getElementById('pi-'+id).classList.toggle('checked', checked);
+  if (wrap) wrap.classList.toggle('show', checked);
+  updateProgress();
+};
+
+window.handleUpload = function(uid, input) {
+  const upDef = UPLOADS.find(u=>u.id===uid);
+  const incoming = Array.from(input.files);
+  const remaining = upDef.max - uploadedFiles[uid].length;
+  if (incoming.length > remaining) {
+    toast(`最多只能上傳 ${upDef.max} 張，已略過超出的檔案`, 'err');
+  }
+  incoming.slice(0, remaining).forEach(f => uploadedFiles[uid].push({file:f, name:f.name}));
+  input.value = '';
+  renderFileList(uid);
+};
+
+function renderFileList(uid) {
+  const upDef = UPLOADS.find(u=>u.id===uid);
+  const flDiv = document.getElementById('ufl-'+uid);
+  flDiv.innerHTML = '';
+  uploadedFiles[uid].forEach((f,i) => {
+    const d = document.createElement('div');
+    d.className = 'uc-file';
+    d.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px">${f.name}</span><span class="uc-remove" onclick="removeFile('${uid}',${i})">×</span>`;
+    flDiv.appendChild(d);
+  });
+  const card = document.getElementById('uc-'+uid);
+  const countEl = document.getElementById('uc-count-'+uid);
+  const count = uploadedFiles[uid].length;
+  card.classList.toggle('has-file', count > 0);
+  card.classList.toggle('req-missing', upDef.req && count === 0);
+  // show/hide max reached state
+  const trigger = card.querySelector('.uc-trigger');
+  const maxReached = count >= upDef.max;
+  if (trigger) { trigger.style.opacity = maxReached ? '0.4' : '1'; trigger.style.pointerEvents = maxReached ? 'none' : ''; }
+  if (countEl) { countEl.style.display = count > 0 ? 'block' : 'none'; countEl.querySelector('span').textContent = count; }
+  updateProgress();
+}
+
+window.removeFile = function(uid, idx) {
+  uploadedFiles[uid].splice(idx,1);
+  renderFileList(uid);
+};
+
+function updateProgress() {
+  let total=1, done=0;
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+  if (checked.length>0) done++;
+  checked.forEach(p => {
+    if (p.url||p.note) {
+      total++;
+      if (document.getElementById('pi-val-'+p.id)?.value?.trim()) done++;
+    }
+  });
+  UPLOADS.filter(u=>u.req).forEach(u => {
+    total++;
+    if (uploadedFiles[u.id]?.length>0) done++;
+  });
+  const pct = Math.round((done/total)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-text').textContent = pct+'%';
+}
+
+async function loadProject() {
+  if (!db) {
+    showState('loading', false);
+    document.getElementById('c-loading').innerHTML = `
+      <div class="state-symbol">!</div>
+      <div class="state-title">系統尚未設定</div>
+      <p class="state-body">Firebase 尚未完成設定，請聯繫您的業務顧問。</p>`;
+    return;
+  }
+  try {
+    const snap = await getDoc(doc(db,'projects',projectId));
+    if (!snap.exists()) { showState('notfound', true); return; }
+    const d = snap.data();
+    document.getElementById('c-title').innerHTML = `${d.clientName}，<em>歡迎</em>填寫`;
+    if (d.submitted) {
+      document.getElementById('c-success-msg').textContent = d.clientName + '，您已完成資料填寫，感謝您！';
+      showState('success', true);
+    } else {
+      showState('form', true);
+    }
+  } catch(e) {
+    showState('loading', false);
+    document.getElementById('c-loading').innerHTML = `
+      <div class="state-symbol">!</div>
+      <div class="state-title">載入失敗</div>
+      <p class="state-body">${e.message}</p>`;
+  }
+}
+
+// 編輯模式：載入已填寫內容填回表單
+window.startEdit = async function() {
+  try {
+    const snap = await getDoc(doc(db,'projects',projectId));
+    const d = snap.data();
+    showState('form', true);
+    // 還原平台
+    if (d.platforms) {
+      Object.entries(d.platforms).forEach(([k,v]) => {
+        const cb = document.getElementById('cb-'+k);
+        if (cb) {
+          cb.checked = true;
+          document.getElementById('pi-'+k)?.classList.add('checked');
+          const pw = document.getElementById('pw-'+k);
+          if (pw) pw.classList.add('show');
+          const val = document.getElementById('pi-val-'+k);
+          if (val) val.value = v.url || v.note || '';
+        }
+      });
+    }
+    // 還原圖片說明（無法還原已壓縮的 base64，提示客戶重新上傳即可）
+    if (d.uploads && Object.keys(d.uploads).length) {
+      const note = document.createElement('p');
+      note.style.cssText = 'font-size:12px;color:var(--gold);font-style:italic;margin-bottom:16px';
+      note.textContent = '編輯模式：之前上傳的圖片若不重新上傳，則保留原有的；重新上傳則會覆蓋。';
+      document.getElementById('upload-grid').before(note);
+      // 標記哪些已有檔案
+      Object.keys(d.uploads).forEach(k => {
+        const card = document.getElementById('uc-'+k);
+        if (card && d.uploads[k]?.length) {
+          card.classList.add('has-file');
+          const fl = document.getElementById('ufl-'+k);
+          if (fl) {
+            fl.innerHTML = '';
+            d.uploads[k].forEach(f => {
+              const div = document.createElement('div');
+              div.className = 'uc-file';
+              div.style.color = 'var(--ink-light)';
+              div.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px">✓ ${f.name}（已有）</span>`;
+              fl.appendChild(div);
+            });
+            const countEl = document.getElementById('uc-count-'+k);
+            const upDef = UPLOADS.find(u=>u.id===k);
+            if (countEl && upDef) {
+              countEl.style.display = 'block';
+              countEl.querySelector('span').textContent = d.uploads[k].length;
+            }
+          }
+          // 記錄原有資料以便 merge 送出
+          uploadedFiles[k+'_existing'] = d.uploads[k];
+        }
+      });
+    }
+    updateProgress();
+    toast('已載入原本填寫的內容', 'ok');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
+};
+
+window.confirmRewrite = function() { showState('rewrite', true); };
+
+window.doRewrite = async function() {
+  try {
+    await setDoc(doc(db,'projects',projectId), {submitted: false, platforms:{}, uploads:{}, rewroteAt: Date.now()}, {merge:true});
+    // 重置表單
+    UPLOADS.forEach(u => { uploadedFiles[u.id] = []; delete uploadedFiles[u.id+'_existing']; });
+    PLATFORMS.forEach(p => {
+      const cb = document.getElementById('cb-'+p.id);
+      if (cb) { cb.checked = false; }
+      document.getElementById('pi-'+p.id)?.classList.remove('checked');
+      document.getElementById('pw-'+p.id)?.classList.remove('show');
+      const val = document.getElementById('pi-val-'+p.id);
+      if (val) val.value = '';
+    });
+    UPLOADS.forEach(u => {
+      document.getElementById('ufl-'+u.id).innerHTML = '';
+      const card = document.getElementById('uc-'+u.id);
+      card.classList.remove('has-file','req-missing');
+      const countEl = document.getElementById('uc-count-'+u.id);
+      if (countEl) countEl.style.display = 'none';
+      const trigger = card.querySelector('.uc-trigger');
+      if (trigger) { trigger.style.opacity = '1'; trigger.style.pointerEvents = ''; }
+    });
+    const noteEl = document.getElementById('upload-grid').previousElementSibling;
+    if (noteEl && noteEl.tagName === 'P') noteEl.remove();
+    showState('form', true);
+    updateProgress();
+    toast('已清除，請重新填寫', 'ok');
+  } catch(e) { toast('操作失敗：'+e.message, 'err'); }
+};
+
+function showState(s, show) {
+  ['loading','notfound','success','rewrite','form'].forEach(n => {
+    const el = document.getElementById('c-'+n);
+    if (el) el.style.display = (n===s&&show) ? 'block' : 'none';
+  });
+}
+
+window.submitForm = async function() {
+  const msg = document.getElementById('val-msg');
+  msg.style.color = 'var(--danger)';
+  msg.textContent = '';
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+  if (!checked.length) { msg.textContent = '請至少勾選一個平台'; return; }
+  for (const p of checked) {
+    if (p.url||p.note) {
+      const v = document.getElementById('pi-val-'+p.id)?.value?.trim();
+      if (!v) { msg.textContent = `請填寫「${p.label}」的${p.note?'說明':'連結'}`; document.getElementById('pi-'+p.id).scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    }
+  }
+
+  // 檢查是否完全沒有上傳圖片（新檔案 + 既有檔案都沒有）
+  const hasAnyFile = UPLOADS.some(u =>
+    uploadedFiles[u.id]?.length > 0 || uploadedFiles[u.id+'_existing']?.length > 0
+  );
+  if (!hasAnyFile) {
+    // 顯示確認警告
+    msg.style.color = 'var(--gold)';
+    msg.innerHTML = '⚠ 目前沒有上傳任何圖片，是否仍然送出？ <button class="btn btn-ghost btn-sm" style="margin-left:8px;vertical-align:middle" onclick="doSubmit()">確認送出</button>';
+    return;
+  }
+  await doSubmit();
+};
+
+window.doSubmit = async function() {
+  const msg = document.getElementById('val-msg');
+  msg.style.color = 'var(--ink-mid)';
+
+  const totalNewFiles = UPLOADS.reduce((acc, u) => acc + (uploadedFiles[u.id]?.length||0), 0);
+  let doneFiles = 0;
+  const updateMsg = () => {
+    msg.textContent = totalNewFiles > 0
+      ? `壓縮並儲存中⋯（${doneFiles}/${totalNewFiles}）請勿關閉頁面`
+      : '儲存中，請勿關閉頁面⋯';
+  };
+  updateMsg();
+
+  if (!db) { msg.style.color='var(--danger)'; msg.textContent = 'Firebase 未設定，無法送出'; return; }
+
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+
+  try {
+    const platforms = {};
+    checked.forEach(p => {
+      const v = document.getElementById('pi-val-'+p.id)?.value?.trim()||'';
+      platforms[p.id] = p.note ? {note:v} : {url:v};
+    });
+
+    const uploads = {};
+    for (const u of UPLOADS) {
+      const existing = uploadedFiles[u.id+'_existing'] || [];
+      const newFiles = uploadedFiles[u.id] || [];
+      if (existing.length > 0 || newFiles.length > 0) {
+        uploads[u.id] = [...existing];
+        for (const f of newFiles) {
+          const compressed = await compressImage(f.file);
+          uploads[u.id].push({ name: compressed.name, dataUrl: compressed.dataUrl });
+          doneFiles++;
+          updateMsg();
+        }
+      }
+    }
+
+    await setDoc(doc(db,'projects',projectId), {platforms, uploads, submitted:true, submittedAt:Date.now()}, {merge:true});
+    showState('success', true);
+  } catch(e) {
+    msg.style.color = 'var(--danger)';
+    msg.textContent = '送出失敗：'+e.message;
+  }
+};
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const MAX = 900, QUALITY = 0.82;
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+          else { w = Math.round(w * MAX / h); h = MAX; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve({ name: file.name, dataUrl: canvas.toDataURL('image/jpeg', QUALITY) });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── HELPERS ───────────────────────────────────────
+window.toggleView = function() {
+  const aActive = document.getElementById('view-admin').classList.contains('active');
+  document.getElementById('view-admin').classList.toggle('active', !aActive);
+  document.getElementById('view-client').classList.toggle('active', aActive);
+  document.getElementById('admin-tabs').style.display = !aActive ? 'block' : 'none';
+  document.getElementById('btn-admin').textContent = !aActive ? '← 返回表單' : '管理後台';
+};
+
+window.copyEl = function(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>toast('已複製','ok'));
+};
+window.copyText = function(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>toast('已複製','ok'));
+};
+
+let toastT;
+function toast(msg, cls='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show '+(cls==='ok'?'ok':cls==='err'?'err':'');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+init();
+</script>
+</body>
+</html>
