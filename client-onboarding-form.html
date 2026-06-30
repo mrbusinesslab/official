@@ -162,6 +162,10 @@ body {
   max-width: 480px;
   line-height: 1.8;
 }
+.hero-body.nowrap-line {
+  max-width: none;
+  white-space: nowrap;
+}
 .hero-note {
   margin-top: 12px;
   font-size: 12px;
@@ -205,9 +209,19 @@ body {
 }
 
 /* ─── PLATFORM GRID ─── */
+.platform-group { margin-bottom: 24px; }
+.platform-group:last-child { margin-bottom: 0; }
+.platform-group-label {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
 .platform-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1px;
   background: var(--rule);
   border: 1px solid var(--rule);
@@ -238,6 +252,7 @@ body {
   color: var(--ink);
   cursor: pointer;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 .pi-url-wrap { margin-top: 10px; display: none; }
 .pi-url-wrap.show { display: block; }
@@ -308,6 +323,23 @@ body {
 }
 .uc-trigger:hover { border-color: var(--ink); color: var(--ink); background: var(--cream-dark); }
 .uc-files { margin-top: 10px; }
+.uc-note {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 11px;
+  color: var(--ink);
+  padding: 8px 10px;
+  outline: none;
+  resize: vertical;
+  min-height: 50px;
+  margin-top: 10px;
+  text-align: left;
+  transition: border-color .2s, background .2s;
+}
+.uc-note:focus { border-color: var(--gold); background: var(--white); }
+.uc-note::placeholder { color: var(--ink-light); }
 .uc-file {
   display: flex; align-items: center; justify-content: space-between;
   padding: 4px 8px;
@@ -338,7 +370,129 @@ body {
   transition: width .4s ease;
 }
 
-/* ─── FORMS ─── */
+/* ─── BRAND COLOR SWATCHES ─── */
+.color-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.color-pill {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mid);
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.color-pill:hover { border-color: var(--ink-mid); color: var(--ink); }
+.color-pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.color-swatch-wrap { display: none; margin-top: 18px; }
+.color-swatch-wrap.show { display: block; }
+.swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.swatch-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.swatch-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  position: relative;
+  cursor: pointer;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.swatch-circle input[type="color"] {
+  position: absolute; inset: -4px;
+  width: calc(100% + 8px); height: calc(100% + 8px);
+  border: none; padding: 0; cursor: pointer;
+  opacity: 0;
+}
+.swatch-circle .swatch-plus {
+  font-size: 18px;
+  color: var(--ink-light);
+  pointer-events: none;
+}
+.swatch-circle.filled .swatch-plus { display: none; }
+.swatch-hex {
+  font-size: 10px;
+  color: var(--ink-light);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}
+.swatch-remove {
+  font-size: 10px;
+  color: var(--danger);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.color-other-note {
+  margin-top: 16px;
+}
+.color-other-note textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 13px;
+  color: var(--ink);
+  padding: 12px 14px;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color .2s, background .2s;
+}
+.color-other-note textarea:focus { border-color: var(--gold); background: var(--white); }
+.color-other-note textarea::placeholder { color: var(--ink-light); }
+
+/* ─── BRAND COPY / OTHER NEEDS ─── */
+.copy-field textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 14px;
+  color: var(--ink);
+  padding: 14px 16px;
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.8;
+  transition: border-color .2s, background .2s;
+}
+.copy-field textarea:focus { border-color: var(--gold); background: var(--white); }
+.copy-field textarea::placeholder { color: var(--ink-light); }
+.copy-field-label {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1.5;
+}
+.copy-field-hint {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-top: 8px;
+  line-height: 1.6;
+}
 .field { margin-bottom: 22px; }
 .field label {
   display: block;
@@ -525,9 +679,10 @@ body {
   .masthead { padding: 0 20px; }
   .tab-bar { padding: 0 20px; }
   .hero-title { font-size: 30px; }
+  .hero-body.nowrap-line { white-space: normal; }
   .config-grid { grid-template-columns: 1fr; }
   .card { padding: 24px 20px; }
-  .platform-grid { grid-template-columns: 1fr 1fr; }
+  .platform-grid { grid-template-columns: 1fr; }
   .upload-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
@@ -732,19 +887,7 @@ service cloud.firestore {
         <p style="font-size:12px;color:var(--ink-light);letter-spacing:0.04em">需要修改資料？</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
           <button class="btn btn-ghost btn-sm" onclick="startEdit()">編輯已填內容</button>
-          <button class="btn btn-ghost btn-sm" onclick="confirmRewrite()">重新填寫（清除全部）</button>
         </div>
-      </div>
-    </div>
-
-    <!-- Confirm rewrite dialog -->
-    <div id="c-rewrite" class="state-card" style="display:none">
-      <div class="state-symbol" style="color:var(--danger)">!</div>
-      <div class="state-title">確認清除重填？</div>
-      <p class="state-body">這將清除所有已填寫的平台連結與圖片，無法復原。</p>
-      <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="doRewrite()">確認，重新填寫</button>
-        <button class="btn btn-ghost btn-sm" onclick="showState('success',true)">取消</button>
       </div>
     </div>
 
@@ -754,7 +897,7 @@ service cloud.firestore {
       <div class="page-hero">
         <div class="hero-eyebrow">Client Onboarding</div>
         <h1 class="hero-title" id="c-title">歡迎，<em>請填寫</em>資料</h1>
-        <p class="hero-body">請依序勾選您目前使用的平台並填入連結，接著上傳所需圖片，完成後送出即可。</p>
+        <p class="hero-body nowrap-line">請依序勾選您目前使用的平台並填入連結，接著上傳所需圖片，完成後送出即可。</p>
         <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
       </div>
 
@@ -777,7 +920,7 @@ service cloud.firestore {
           <div class="section-rule"></div>
         </div>
         <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">勾選您目前使用的平台，並填入對應連結。</p>
-        <div class="platform-grid" id="platform-grid"></div>
+        <div id="platform-grid"></div>
       </div>
 
       <!-- Step 2 -->
@@ -787,8 +930,62 @@ service cloud.firestore {
           <h2 class="section-title">圖片與檔案</h2>
           <div class="section-rule"></div>
         </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">請上傳對應的圖片資料，標示「必填」者不可略過。</p>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
+        <p style="font-size:12px;color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
         <div class="upload-grid" id="upload-grid"></div>
+      </div>
+
+      <!-- Step 3: Brand Colors -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 03</span>
+          <h2 class="section-title">品牌色系</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">若已有品牌色系，請選擇您的需求類型。</p>
+
+        <div class="color-pill-row" id="color-mode-grid">
+          <button type="button" class="color-pill" id="cm-has" onclick="setColorMode('has')">已有品牌色系</button>
+          <button type="button" class="color-pill" id="cm-expect" onclick="setColorMode('expect')">有期望設計的顏色</button>
+          <button type="button" class="color-pill" id="cm-logo" onclick="setColorMode('logo')">依照 Logo 色系延伸設計</button>
+          <button type="button" class="color-pill" id="cm-free" onclick="setColorMode('free')">無，交由設計師自由發揮</button>
+        </div>
+
+        <div class="color-swatch-wrap" id="color-swatch-wrap">
+          <div class="swatch-row" id="swatch-row"></div>
+          <p style="font-size:11px;color:var(--ink-light);margin-top:14px">點擊圓圈以滴管挑選顏色，最多可選 5 個。</p>
+        </div>
+
+        <div class="color-other-note" id="color-other-note" style="display:none">
+          <textarea id="color-expect-text" placeholder="請描述您期望的顏色，例如：莫蘭迪粉、深綠搭配米白、低飽和大地色系⋯" oninput="updateProgress()"></textarea>
+        </div>
+      </div>
+
+      <!-- Step 4: Brand Copy -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 04</span>
+          <h2 class="section-title">品牌文案</h2>
+          <div class="section-rule"></div>
+        </div>
+        <div class="copy-field">
+          <label class="copy-field-label">是否有想強調的文案、Slogan 或品牌理念？</label>
+          <textarea id="brand-copy" placeholder="例：用設計說故事，讓每個品牌找到屬於自己的聲音。" oninput="updateProgress()"></textarea>
+          <p class="copy-field-hint">沒有也沒關係，可以先留白，由我們協助發想。</p>
+        </div>
+      </div>
+
+      <!-- Step 5: Other Needs -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 05</span>
+          <h2 class="section-title">其他需求</h2>
+          <div class="section-rule"></div>
+        </div>
+        <div class="copy-field">
+          <label class="copy-field-label">還有其他想補充的需求或想法嗎？</label>
+          <textarea id="other-needs" placeholder="例：希望風格偏年輕活潑、需要中英雙語版本、有特定參考案例想分享⋯" oninput="updateProgress()"></textarea>
+        </div>
       </div>
 
       <!-- Submit -->
@@ -818,40 +1015,52 @@ service cloud.firestore {
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const PLATFORMS = [
-  {id:'line_p',   emoji:'💬', label:'Line 好友（個人）',            url:true},
-  {id:'line_o',   emoji:'🏢', label:'Line 官方帳號（公司）',         url:true},
-  {id:'fb_page',  emoji:'📣', label:'FB 粉絲專頁（公司）',           url:true},
-  {id:'fb_per',   emoji:'👤', label:'FB 帳號（個人）',              url:true},
-  {id:'ig_co',    emoji:'📸', label:'IG 帳號（公司）',              url:true},
-  {id:'ig_per',   emoji:'📷', label:'IG 帳號（個人）',              url:true},
-  {id:'threads',  emoji:'🧵', label:'Threads（個人）',              url:true},
-  {id:'website',  emoji:'🌐', label:'形象官網',                      url:true},
-  {id:'shop_web', emoji:'🛒', label:'購物車網站',                    url:true},
-  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星/萬事達）',  url:false, note:true},
-  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO/PCHome）', url:true},
-  {id:'shopcom',  emoji:'🏪', label:'通路平台（SHOP.COM）',          url:true},
-  {id:'signup',   emoji:'📝', label:'報名系統 / Google 表單',        url:true},
-  {id:'booking',  emoji:'📅', label:'預約系統 / Google 表單',        url:true},
-  {id:'cloud',    emoji:'☁️', label:'雲端資料夾（作品/簡報）',       url:true},
-  {id:'gmaps',    emoji:'🗺️', label:'Google 導航（公司/店面）',     url:true},
-  {id:'youtube',  emoji:'▶️', label:'YouTube 頻道',                  url:true},
-  {id:'podcast',  emoji:'🎙️', label:'Podcast 頻道',                 url:true},
-  {id:'tiktok',   emoji:'🎵', label:'抖音 / TikTok',                url:true},
-  {id:'eatgether',emoji:'🍽️', label:'Eatgether',                   url:true},
-  {id:'other',    emoji:'✨', label:'其他',                          url:false, note:true},
+  {id:'phone_p',  emoji:'📱', label:'個人聯絡電話',                  url:false, note:true, tel:true, placeholder:'例：0912-345-678', group:'personal'},
+  {id:'line_p',   emoji:'💬', label:'Line 好友',                    url:true, group:'personal'},
+  {id:'fb_per',   emoji:'👤', label:'FB 帳號',                      url:true, group:'personal'},
+  {id:'ig_per',   emoji:'📷', label:'IG 帳號',                      url:true, group:'personal'},
+  {id:'threads',  emoji:'🧵', label:'Threads',                      url:true, group:'personal'},
+
+  {id:'phone_o',  emoji:'☎️', label:'公司聯絡電話',                  url:false, note:true, tel:true, placeholder:'例：04-1234-5678', group:'company'},
+  {id:'line_o',   emoji:'🏢', label:'Line 官方帳號',                 url:true, group:'company'},
+  {id:'fb_page',  emoji:'📣', label:'FB 粉絲專頁',                   url:true, group:'company'},
+  {id:'ig_co',    emoji:'📸', label:'IG 帳號',                      url:true, group:'company'},
+  {id:'website',  emoji:'🌐', label:'形象官網',                      url:true, group:'company'},
+  {id:'shop_web', emoji:'🛒', label:'購物車網站',                    url:true, group:'company'},
+  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星/萬事達）',  url:false, note:true, group:'company'},
+  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO/PCHome）', url:true, group:'company'},
+  {id:'shopcom',  emoji:'🏪', label:'通路平台（SHOP.COM）',          url:true, group:'company'},
+  {id:'gmaps',    emoji:'🗺️', label:'Google 導航（公司/店面）',     url:true, group:'company'},
+
+  {id:'signup',   emoji:'📝', label:'報名系統 / Google 表單',        url:true, group:'general'},
+  {id:'booking',  emoji:'📅', label:'預約系統 / Google 表單',        url:true, group:'general'},
+  {id:'cloud',    emoji:'☁️', label:'雲端資料夾（作品/簡報）',       url:true, group:'general'},
+  {id:'youtube',  emoji:'▶️', label:'YouTube 頻道',                  url:true, group:'general'},
+  {id:'podcast',  emoji:'🎙️', label:'Podcast 頻道',                 url:true, group:'general'},
+  {id:'tiktok',   emoji:'🎵', label:'抖音 / TikTok',                url:true, group:'general'},
+  {id:'eatgether',emoji:'🍽️', label:'Eatgether',                   url:true, group:'general'},
+  {id:'other',    emoji:'✨', label:'其他',                          url:false, note:true, group:'general'},
+];
+
+const PLATFORM_GROUPS = [
+  {id:'personal', label:'個人'},
+  {id:'company',  label:'公司'},
+  {id:'general',  label:'其他系統'},
 ];
 
 const UPLOADS = [
-  {id:'personal',     emoji:'🤳', label:'個人形象照',    hint:'個人專業照片', req:false, multi:true, max:3},
-  {id:'company',      emoji:'🏢', label:'公司形象照',    hint:'門面或空間照', req:false, multi:true, max:3},
-  {id:'logo',         emoji:'🎨', label:'Logo',          hint:'PNG / SVG 佳', req:false, multi:true, max:3},
-  {id:'avatar',       emoji:'🥳', label:'Q版人物設計',   hint:'已有請上傳',   req:false, multi:true, max:5},
-  {id:'certificates', emoji:'🏆', label:'證書照片',      hint:'可上傳多張',   req:false, multi:true, max:10},
-  {id:'portfolio',    emoji:'🖼️', label:'作品 / 案例圖', hint:'附說明更佳',   req:false, multi:true, max:10},
+  {id:'personal',     emoji:'🤳', label:'個人形象照',    hint:'個人專業照片'},
+  {id:'company',      emoji:'🏢', label:'公司形象照',    hint:'公司團隊或門面'},
+  {id:'logo',         emoji:'🎨', label:'Logo',          hint:'PNG / SVG 佳'},
+  {id:'avatar',       emoji:'🥳', label:'Q版人物設計',   hint:'已有請上傳'},
+  {id:'certificates', emoji:'🏆', label:'證書照片',      hint:'可上傳多張'},
+  {id:'card',         emoji:'📇', label:'紙本名片',      hint:'正反面皆可'},
+  {id:'portfolio',    emoji:'🖼️', label:'作品 / 案例圖', hint:'附說明更佳', hasNote:true},
 ];
+const GLOBAL_UPLOAD_MAX = 5;
 
 let db = null;
 let uploadedFiles = {};
@@ -970,6 +1179,7 @@ async function loadProjects() {
           <span class="status-tag ${p.submitted?'status-done':'status-pending'}">${p.submitted?'已填寫':'待填寫'}</span>
           <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
           ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
+          ${p.changeLog?.length?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
         </div>`;
       list.appendChild(row);
     });
@@ -1029,8 +1239,36 @@ window.viewData = async function(id) {
           html += `<a href="${f.url}" target="_blank" style="display:inline-block;margin:4px 4px 0 0;font-size:12px;color:var(--accent);text-decoration:underline">${f.name}</a>`;
         }
       });
+      if (d.uploadNotes?.[k]) {
+        html += `<div style="margin-top:8px;font-size:12px;color:var(--ink-light);font-style:italic">說明：${d.uploadNotes[k]}</div>`;
+      }
       html += '</div>';
     });
+  }
+  if (d.brandColorData && d.brandColorData.mode) {
+    const modeLabels = {has:'已有品牌色系', expect:'有期望設計的顏色', logo:'依照 Logo 色系延伸設計', free:'無，交由設計師自由發揮'};
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌色系</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
+      <span style="color:var(--ink-mid)">${modeLabels[d.brandColorData.mode]||d.brandColorData.mode}</span>`;
+    if (d.brandColorData.colors?.length) {
+      html += '<div style="display:flex;gap:8px;margin-top:10px">';
+      d.brandColorData.colors.forEach(c => {
+        html += `<div style="width:32px;height:32px;border-radius:50%;background:${c};border:1px solid var(--rule)" title="${c}"></div>`;
+      });
+      html += '</div>';
+    }
+    if (d.brandColorData.note) {
+      html += `<div style="margin-top:8px;color:var(--ink-light)">${d.brandColorData.note}</div>`;
+    }
+    html += '</div>';
+  }
+  if (d.brandCopy) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌文案 / Slogan / 理念</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-mid);white-space:pre-wrap">${d.brandCopy}</div>`;
+  }
+  if (d.otherNeeds) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">其他需求</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-mid);white-space:pre-wrap">${d.otherNeeds}</div>`;
   }
   document.getElementById('modal-body').innerHTML = html || '<p style="color:var(--ink-light);font-size:13px">無資料</p>';
   document.getElementById('modal').classList.add('show');
@@ -1050,46 +1288,125 @@ window.switchTab = function(t) {
 
 // ── CLIENT ─────────────────────────────────────────
 function buildClientForm() {
-  const grid = document.getElementById('platform-grid');
-  PLATFORMS.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'platform-item';
-    div.id = 'pi-'+p.id;
-    div.innerHTML = `
-      <div class="pi-header">
-        <input type="checkbox" id="cb-${p.id}" onchange="togglePlatform('${p.id}')">
-        <span class="pi-emoji">${p.emoji}</span>
-        <label class="pi-label" for="cb-${p.id}">${p.label}</label>
-      </div>
-      ${(p.url||p.note)?`<div class="pi-url-wrap" id="pw-${p.id}">
-        <input type="${p.url?'url':'text'}" id="pi-val-${p.id}"
-          placeholder="${p.url?'https://...':'請說明'}"
-          oninput="updateProgress()">
-      </div>`:''}`;
-    grid.appendChild(div);
+  const container = document.getElementById('platform-grid');
+  PLATFORM_GROUPS.forEach(g => {
+    const items = PLATFORMS.filter(p => p.group === g.id);
+    if (!items.length) return;
+
+    const groupWrap = document.createElement('div');
+    groupWrap.className = 'platform-group';
+
+    const label = document.createElement('div');
+    label.className = 'platform-group-label';
+    label.textContent = g.label;
+    groupWrap.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'platform-grid';
+
+    items.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'platform-item';
+      div.id = 'pi-'+p.id;
+      div.innerHTML = `
+        <div class="pi-header">
+          <input type="checkbox" id="cb-${p.id}" onchange="togglePlatform('${p.id}')">
+          <span class="pi-emoji">${p.emoji}</span>
+          <label class="pi-label" for="cb-${p.id}">${p.label}</label>
+        </div>
+        ${(p.url||p.note)?`<div class="pi-url-wrap" id="pw-${p.id}">
+          <input type="${p.url?'url':(p.tel?'tel':'text')}" id="pi-val-${p.id}"
+            placeholder="${p.placeholder || (p.url?'https://...':'請說明')}"
+            oninput="updateProgress()">
+        </div>`:''}`;
+      grid.appendChild(div);
+    });
+
+    groupWrap.appendChild(grid);
+    container.appendChild(groupWrap);
   });
 
   const ugrid = document.getElementById('upload-grid');
   UPLOADS.forEach(u => {
     uploadedFiles[u.id] = [];
     const div = document.createElement('div');
-    div.className = 'upload-card' + (u.req?' req-missing':'');
+    div.className = 'upload-card';
     div.id = 'uc-'+u.id;
     div.innerHTML = `
-      ${u.req?'<div class="uc-req">必填</div>':''}
       <div class="uc-emoji">${u.emoji}</div>
       <div class="uc-label">${u.label}</div>
-      <div class="uc-hint">${u.hint}<br>（最多 ${u.max} 張）</div>
+      <div class="uc-hint">${u.hint}</div>
       <input type="file" class="uc-input" id="uf-${u.id}"
         accept="image/*,.pdf,.heic,.webp" multiple
         onchange="handleUpload('${u.id}',this)">
       <label class="uc-trigger" for="uf-${u.id}">選擇檔案</label>
-      <div class="uc-count" id="uc-count-${u.id}" style="font-size:11px;color:var(--ink-light);margin-top:6px;display:none">已選 <span>0</span> / ${u.max} 張</div>
-      <div class="uc-files" id="ufl-${u.id}"></div>`;
+      <div class="uc-count" id="uc-count-${u.id}" style="font-size:11px;color:var(--ink-light);margin-top:6px;display:none">已選 <span>0</span> 張</div>
+      <div class="uc-files" id="ufl-${u.id}"></div>
+      ${u.hasNote ? `<textarea class="uc-note" id="uc-note-${u.id}" placeholder="附加說明，例：案場、比賽、活動現場⋯" oninput="updateProgress()"></textarea>` : ''}`;
     ugrid.appendChild(div);
   });
+  updateUploadTotalUI();
   updateProgress();
 }
+
+function totalUploadedCount() {
+  return UPLOADS.reduce((acc,u) => acc + (uploadedFiles[u.id]?.length||0) + (uploadedFiles[u.id+'_existing']?.length||0), 0);
+}
+
+function updateUploadTotalUI() {
+  const el = document.getElementById('upload-total-count');
+  if (el) el.textContent = totalUploadedCount();
+  const reached = totalUploadedCount() >= GLOBAL_UPLOAD_MAX;
+  UPLOADS.forEach(u => {
+    const trigger = document.getElementById('uc-'+u.id)?.querySelector('.uc-trigger');
+    if (trigger) { trigger.style.opacity = reached ? '0.4' : '1'; trigger.style.pointerEvents = reached ? 'none' : ''; }
+  });
+}
+
+// ── BRAND COLORS ─────────────────────────────────
+let brandColors = []; // array of hex strings, max 5
+let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
+
+function buildSwatches() {
+  const row = document.getElementById('swatch-row');
+  row.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const filled = brandColors[i];
+    const slot = document.createElement('div');
+    slot.className = 'swatch-slot';
+    slot.innerHTML = `
+      <div class="swatch-circle ${filled ? 'filled' : ''}" id="swatch-circle-${i}" style="${filled ? `background:${filled}` : ''}">
+        <span class="swatch-plus">+</span>
+        <input type="color" id="swatch-input-${i}" value="${filled || '#b5924a'}" oninput="setSwatchColor(${i}, this.value)">
+      </div>
+      ${filled ? `<span class="swatch-hex">${filled}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>` : `<span class="swatch-hex">尚未選擇</span>`}
+    `;
+    row.appendChild(slot);
+  }
+}
+
+window.setSwatchColor = function(i, hex) {
+  brandColors[i] = hex;
+  buildSwatches();
+  updateProgress();
+};
+
+window.removeSwatch = function(i) {
+  brandColors[i] = null;
+  buildSwatches();
+  updateProgress();
+};
+
+window.setColorMode = function(mode) {
+  colorMode = mode;
+  ['has','expect','logo','free'].forEach(m => {
+    document.getElementById('cm-'+m).classList.toggle('active', m===mode);
+  });
+  document.getElementById('color-swatch-wrap').classList.toggle('show', mode==='has');
+  document.getElementById('color-other-note').style.display = mode==='expect' ? 'block' : 'none';
+  if (mode === 'has' && document.getElementById('swatch-row').children.length === 0) buildSwatches();
+  updateProgress();
+};
 
 window.togglePlatform = function(id) {
   const checked = document.getElementById('cb-'+id).checked;
@@ -1100,11 +1417,15 @@ window.togglePlatform = function(id) {
 };
 
 window.handleUpload = function(uid, input) {
-  const upDef = UPLOADS.find(u=>u.id===uid);
   const incoming = Array.from(input.files);
-  const remaining = upDef.max - uploadedFiles[uid].length;
+  const remaining = GLOBAL_UPLOAD_MAX - totalUploadedCount();
+  if (remaining <= 0) {
+    toast(`全部圖片加起來最多 ${GLOBAL_UPLOAD_MAX} 張，如需上傳更多請另外通知顧問`, 'err');
+    input.value = '';
+    return;
+  }
   if (incoming.length > remaining) {
-    toast(`最多只能上傳 ${upDef.max} 張，已略過超出的檔案`, 'err');
+    toast(`全部圖片加起來最多 ${GLOBAL_UPLOAD_MAX} 張，已略過超出的檔案，如需上傳更多請另外通知顧問`, 'err');
   }
   incoming.slice(0, remaining).forEach(f => uploadedFiles[uid].push({file:f, name:f.name}));
   input.value = '';
@@ -1112,7 +1433,6 @@ window.handleUpload = function(uid, input) {
 };
 
 function renderFileList(uid) {
-  const upDef = UPLOADS.find(u=>u.id===uid);
   const flDiv = document.getElementById('ufl-'+uid);
   flDiv.innerHTML = '';
   uploadedFiles[uid].forEach((f,i) => {
@@ -1125,12 +1445,8 @@ function renderFileList(uid) {
   const countEl = document.getElementById('uc-count-'+uid);
   const count = uploadedFiles[uid].length;
   card.classList.toggle('has-file', count > 0);
-  card.classList.toggle('req-missing', upDef.req && count === 0);
-  // show/hide max reached state
-  const trigger = card.querySelector('.uc-trigger');
-  const maxReached = count >= upDef.max;
-  if (trigger) { trigger.style.opacity = maxReached ? '0.4' : '1'; trigger.style.pointerEvents = maxReached ? 'none' : ''; }
   if (countEl) { countEl.style.display = count > 0 ? 'block' : 'none'; countEl.querySelector('span').textContent = count; }
+  updateUploadTotalUI();
   updateProgress();
 }
 
@@ -1240,41 +1556,62 @@ window.startEdit = async function() {
         }
       });
     }
+    // 還原圖片附加說明
+    if (d.uploadNotes) {
+      Object.entries(d.uploadNotes).forEach(([k,v]) => {
+        const el = document.getElementById('uc-note-'+k);
+        if (el) el.value = v;
+      });
+    }
+    // 還原品牌色系
+    if (d.brandColorData) {
+      if (d.brandColorData.mode) {
+        setColorMode(d.brandColorData.mode);
+      }
+      if (d.brandColorData.colors?.length) {
+        brandColors = [...d.brandColorData.colors];
+        buildSwatches();
+      }
+      if (d.brandColorData.note) {
+        const el = document.getElementById('color-expect-text');
+        if (el) el.value = d.brandColorData.note;
+      }
+    }
+    if (d.brandCopy) {
+      const el = document.getElementById('brand-copy');
+      if (el) el.value = d.brandCopy;
+    }
+    if (d.otherNeeds) {
+      const el = document.getElementById('other-needs');
+      if (el) el.value = d.otherNeeds;
+    }
+    updateUploadTotalUI();
     updateProgress();
     toast('已載入原本填寫的內容', 'ok');
   } catch(e) { toast('載入失敗：'+e.message, 'err'); }
 };
 
-window.confirmRewrite = function() { showState('rewrite', true); };
-
-window.doRewrite = async function() {
+window.viewHistory = async function(id) {
   try {
-    await setDoc(doc(db,'projects',projectId), {submitted: false, platforms:{}, uploads:{}, rewroteAt: Date.now()}, {merge:true});
-    // 重置表單
-    UPLOADS.forEach(u => { uploadedFiles[u.id] = []; delete uploadedFiles[u.id+'_existing']; });
-    PLATFORMS.forEach(p => {
-      const cb = document.getElementById('cb-'+p.id);
-      if (cb) { cb.checked = false; }
-      document.getElementById('pi-'+p.id)?.classList.remove('checked');
-      document.getElementById('pw-'+p.id)?.classList.remove('show');
-      const val = document.getElementById('pi-val-'+p.id);
-      if (val) val.value = '';
-    });
-    UPLOADS.forEach(u => {
-      document.getElementById('ufl-'+u.id).innerHTML = '';
-      const card = document.getElementById('uc-'+u.id);
-      card.classList.remove('has-file','req-missing');
-      const countEl = document.getElementById('uc-count-'+u.id);
-      if (countEl) countEl.style.display = 'none';
-      const trigger = card.querySelector('.uc-trigger');
-      if (trigger) { trigger.style.opacity = '1'; trigger.style.pointerEvents = ''; }
-    });
-    const noteEl = document.getElementById('upload-grid').previousElementSibling;
-    if (noteEl && noteEl.tagName === 'P') noteEl.remove();
-    showState('form', true);
-    updateProgress();
-    toast('已清除，請重新填寫', 'ok');
-  } catch(e) { toast('操作失敗：'+e.message, 'err'); }
+    const snap = await getDoc(doc(db,'projects',id));
+    const d = snap.data();
+    const log = d.changeLog || [];
+    document.getElementById('modal-title').textContent = (d.clientName || '') + ' · 變更紀錄';
+    if (!log.length) {
+      document.getElementById('modal-body').innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無變更紀錄。</p>';
+    } else {
+      let html = '';
+      [...log].reverse().forEach(entry => {
+        const dateStr = new Date(entry.at).toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'});
+        html += `<div style="padding:14px 0;border-bottom:1px solid var(--rule)">
+          <div style="font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:6px">${dateStr}</div>
+          <div style="font-size:13px;color:var(--ink-mid)">${entry.summary}</div>
+        </div>`;
+      });
+      document.getElementById('modal-body').innerHTML = html;
+    }
+    document.getElementById('modal').classList.add('show');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
 };
 
 function showState(s, show) {
@@ -1334,6 +1671,14 @@ window.doSubmit = async function() {
       platforms[p.id] = p.note ? {note:v} : {url:v};
     });
 
+    const brandColorData = {
+      mode: colorMode,
+      colors: colorMode === 'has' ? brandColors.filter(Boolean) : [],
+      note: colorMode === 'expect' ? (document.getElementById('color-expect-text')?.value.trim()||'') : ''
+    };
+    const brandCopy = document.getElementById('brand-copy')?.value.trim() || '';
+    const otherNeeds = document.getElementById('other-needs')?.value.trim() || '';
+
     const uploads = {};
     for (const u of UPLOADS) {
       const existing = uploadedFiles[u.id+'_existing'] || [];
@@ -1349,7 +1694,47 @@ window.doSubmit = async function() {
       }
     }
 
-    await setDoc(doc(db,'projects',projectId), {platforms, uploads, submitted:true, submittedAt:Date.now()}, {merge:true});
+    const uploadNotes = {};
+    UPLOADS.filter(u => u.hasNote).forEach(u => {
+      const v = document.getElementById('uc-note-'+u.id)?.value.trim();
+      if (v) uploadNotes[u.id] = v;
+    });
+
+    // 比對先前資料，產生變更摘要
+    let prevData = {};
+    try {
+      const prevSnap = await getDoc(doc(db,'projects',projectId));
+      prevData = prevSnap.exists() ? prevSnap.data() : {};
+    } catch(e) {}
+
+    const changes = [];
+    const isFirstSubmit = !prevData.submitted && !(prevData.changeLog?.length);
+    if (isFirstSubmit) {
+      changes.push('填寫資訊');
+    } else {
+      const prevPlatformKeys = Object.keys(prevData.platforms||{});
+      const newPlatformKeys = Object.keys(platforms);
+      const addedPlatforms = newPlatformKeys.filter(k => !prevPlatformKeys.includes(k));
+      if (addedPlatforms.length) changes.push('新增連結');
+      const changedPlatforms = newPlatformKeys.filter(k => prevPlatformKeys.includes(k) &&
+        JSON.stringify(platforms[k]) !== JSON.stringify(prevData.platforms[k]));
+      if (changedPlatforms.length) changes.push('更新連結');
+
+      const prevUploadCount = Object.values(prevData.uploads||{}).reduce((a,arr)=>a+(arr?.length||0),0);
+      const newUploadCount = Object.values(uploads).reduce((a,arr)=>a+(arr?.length||0),0);
+      if (newUploadCount > prevUploadCount) changes.push('新增圖片');
+
+      if (brandColorData.mode && JSON.stringify(brandColorData) !== JSON.stringify(prevData.brandColorData||{})) changes.push('更新品牌色系');
+      if (brandCopy && brandCopy !== (prevData.brandCopy||'')) changes.push('更新品牌文案');
+      if (otherNeeds && otherNeeds !== (prevData.otherNeeds||'')) changes.push('更新其他需求');
+
+      if (!changes.length) changes.push('更新資料');
+    }
+
+    await setDoc(doc(db,'projects',projectId), {
+      platforms, uploads, uploadNotes, brandColorData, brandCopy, otherNeeds, submitted:true, submittedAt:Date.now(),
+      changeLog: arrayUnion({ at: Date.now(), summary: changes.join('、') })
+    }, {merge:true});
     showState('success', true);
   } catch(e) {
     msg.style.color = 'var(--danger)';
