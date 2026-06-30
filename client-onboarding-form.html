@@ -832,17 +832,21 @@ service cloud.firestore {
     match /projects/{projectId} {
       // 任何人持有 projectId 即可讀（客戶憑連結填寫）
       allow read: if true;
-      // 尚未送出才允許更新（防止重複覆寫）
-      allow update: if resource.data.submitted == false;
       // 允許建立（管理員用 client SDK 建立）
       allow create: if true;
-      // 禁止刪除
-      allow delete: if false;
+      // 允許更新（含客戶編輯已填內容後再次送出）
+      allow update: if true;
+      // 允許刪除（僅後台管理員操作介面會呼叫，客戶端不會用到）
+      allow delete: if true;
     }
   }
 }</pre>
               <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="copyText('rule-firestore')">複製規則</button>
             </div>
+            <div style="font-size:12px;color:var(--ink-light);line-height:1.7;margin-top:-14px;margin-bottom:28px">
+              提醒：此規則為「憑連結即可存取」邏輯，未做帳號驗證。客戶只要拿到專屬連結即可讀寫該筆專案，但無法看到其他客戶的資料；刪除功能僅在管理後台介面提供按鈕，客戶端表單不會呼叫刪除。
+            </div>
+
 
             <div style="margin-top:24px;border-top:1px solid var(--rule);padding-top:24px">
               <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px">✓ 不需要設定 Storage</div>
@@ -1009,13 +1013,37 @@ service cloud.firestore {
   </div>
 </div>
 
+<!-- PROJECT SETTINGS MODAL -->
+<div class="modal-overlay" id="modal-settings">
+  <div class="modal" style="max-width:440px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="modal-title">專案設定</div>
+      <button class="modal-close" onclick="closeSettingsModal()">×</button>
+    </div>
+    <div class="field">
+      <label>客戶 / 公司名稱</label>
+      <input type="text" id="settings-name-input">
+    </div>
+    <div class="field">
+      <label>業務備註（客戶不可見）</label>
+      <input type="text" id="settings-note-input">
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:24px" onclick="saveProjectSettings()">儲存變更</button>
+
+    <div style="border-top:1px solid var(--rule);padding-top:20px;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-ghost" style="width:100%" onclick="exportProject()">匯出專案資料（JSON）</button>
+      <button class="btn btn-ghost" style="width:100%;border-color:var(--danger);color:var(--danger)" onclick="confirmDeleteProject()">刪除此專案</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const PLATFORMS = [
   {id:'phone_p',  emoji:'📱', label:'個人聯絡電話',                  url:false, note:true, tel:true, placeholder:'例：0912-345-678', group:'personal'},
@@ -1180,6 +1208,7 @@ async function loadProjects() {
           <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
           ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
           ${p.changeLog?.length?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
+          <button class="btn btn-ghost btn-sm" onclick="openProjectSettings('${d.id}')" aria-label="專案設定" title="專案設定">⋯</button>
         </div>`;
       list.appendChild(row);
     });
@@ -1275,6 +1304,68 @@ window.viewData = async function(id) {
 };
 
 window.closeModal = () => document.getElementById('modal').classList.remove('show');
+
+// ── PROJECT SETTINGS (rename / delete / export) ────
+let settingsProjectId = null;
+
+window.openProjectSettings = async function(id) {
+  settingsProjectId = id;
+  try {
+    const snap = await getDoc(doc(db,'projects',id));
+    const p = snap.data();
+    document.getElementById('settings-name-input').value = p.clientName || '';
+    document.getElementById('settings-note-input').value = p.note || '';
+    document.getElementById('modal-settings').classList.add('show');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
+};
+
+window.closeSettingsModal = () => document.getElementById('modal-settings').classList.remove('show');
+
+window.saveProjectSettings = async function() {
+  if (!settingsProjectId) return;
+  const name = document.getElementById('settings-name-input').value.trim();
+  if (!name) { toast('客戶名稱不可空白', 'err'); return; }
+  const note = document.getElementById('settings-note-input').value.trim();
+  try {
+    await setDoc(doc(db,'projects',settingsProjectId), {clientName:name, note}, {merge:true});
+    toast('已儲存', 'ok');
+    closeSettingsModal();
+    loadProjects();
+  } catch(e) { toast('儲存失敗：'+e.message, 'err'); }
+};
+
+window.exportProject = async function() {
+  if (!settingsProjectId) return;
+  try {
+    const snap = await getDoc(doc(db,'projects',settingsProjectId));
+    const data = snap.data();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${data.clientName || settingsProjectId}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    toast('已匯出', 'ok');
+  } catch(e) { toast('匯出失敗：'+e.message, 'err'); }
+};
+
+window.confirmDeleteProject = function() {
+  if (!settingsProjectId) return;
+  if (!confirm('確定要刪除此專案嗎？此操作無法復原，所有填寫資料與圖片都會一併刪除。')) return;
+  deleteProjectNow();
+};
+
+async function deleteProjectNow() {
+  try {
+    await deleteDoc(doc(db,'projects',settingsProjectId));
+    toast('專案已刪除', 'ok');
+    closeSettingsModal();
+    loadProjects();
+  } catch(e) { toast('刪除失敗：'+e.message, 'err'); }
+}
 
 window.switchTab = function(t) {
   ['projects','create','firebase'].forEach(n => {
@@ -1600,13 +1691,37 @@ window.viewHistory = async function(id) {
     if (!log.length) {
       document.getElementById('modal-body').innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無變更紀錄。</p>';
     } else {
+      const typeStyle = {
+        added:   {color:'var(--success)', bg:'#eef5ee', label:'新增'},
+        changed: {color:'#9a7a2a',        bg:'#faf5eb', label:'更新'},
+        removed: {color:'var(--danger)',  bg:'#f7eaea', label:'移除'},
+        new:     {color:'var(--accent)',  bg:'var(--accent-light)', label:'填寫'},
+      };
       let html = '';
       [...log].reverse().forEach(entry => {
         const dateStr = new Date(entry.at).toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'});
-        html += `<div style="padding:14px 0;border-bottom:1px solid var(--rule)">
-          <div style="font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:6px">${dateStr}</div>
-          <div style="font-size:13px;color:var(--ink-mid)">${entry.summary}</div>
-        </div>`;
+        const timeStr = new Date(entry.at).toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
+        html += `<div style="padding:16px 0;border-bottom:1px solid var(--rule)">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+            <span style="font-family:var(--serif);font-size:15px;color:var(--ink)">${dateStr}</span>
+            <span style="font-size:11px;color:var(--ink-light)">${timeStr}</span>
+          </div>`;
+        if (entry.diff?.length) {
+          entry.diff.forEach(item => {
+            const st = typeStyle[item.type] || typeStyle.changed;
+            html += `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 12px;background:${st.bg};border-radius:4px">
+              <span style="flex-shrink:0;font-size:10px;letter-spacing:.06em;color:${st.color};background:var(--white);border:1px solid ${st.color};border-radius:3px;padding:2px 7px;margin-top:1px">${st.label}</span>
+              <div style="flex:1;font-size:12px;color:var(--ink-mid);line-height:1.6">
+                <span style="font-weight:500;color:var(--ink)">${item.label}</span>
+                ${item.type==='changed' && (item.before||item.after) ? `<br><span style="color:var(--ink-light);text-decoration:line-through">${item.before||'（空白）'}</span> → <span style="color:${st.color}">${item.after||'（空白）'}</span>` : ''}
+                ${item.detail ? `<br><span style="color:var(--ink-light)">${item.detail}</span>` : ''}
+              </div>
+            </div>`;
+          });
+        } else if (entry.summary) {
+          html += `<div style="font-size:13px;color:var(--ink-mid)">${entry.summary}</div>`;
+        }
+        html += `</div>`;
       });
       document.getElementById('modal-body').innerHTML = html;
     }
@@ -1700,40 +1815,61 @@ window.doSubmit = async function() {
       if (v) uploadNotes[u.id] = v;
     });
 
-    // 比對先前資料，產生變更摘要
+    // 比對先前資料，產生變更摘要與詳細差異
     let prevData = {};
     try {
       const prevSnap = await getDoc(doc(db,'projects',projectId));
       prevData = prevSnap.exists() ? prevSnap.data() : {};
     } catch(e) {}
 
-    const changes = [];
     const isFirstSubmit = !prevData.submitted && !(prevData.changeLog?.length);
+    const diff = []; // [{type, label, before, after}]
+
     if (isFirstSubmit) {
-      changes.push('填寫資訊');
+      diff.push({type:'new', label:'填寫資訊', detail:'首次完成表單填寫'});
     } else {
       const prevPlatformKeys = Object.keys(prevData.platforms||{});
       const newPlatformKeys = Object.keys(platforms);
-      const addedPlatforms = newPlatformKeys.filter(k => !prevPlatformKeys.includes(k));
-      if (addedPlatforms.length) changes.push('新增連結');
-      const changedPlatforms = newPlatformKeys.filter(k => prevPlatformKeys.includes(k) &&
-        JSON.stringify(platforms[k]) !== JSON.stringify(prevData.platforms[k]));
-      if (changedPlatforms.length) changes.push('更新連結');
+      newPlatformKeys.filter(k => !prevPlatformKeys.includes(k)).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'added', label:(pl?pl.label:k), detail: platforms[k].url||platforms[k].note||''});
+      });
+      newPlatformKeys.filter(k => prevPlatformKeys.includes(k) &&
+        JSON.stringify(platforms[k]) !== JSON.stringify(prevData.platforms[k])).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'changed', label:(pl?pl.label:k), before: prevData.platforms[k].url||prevData.platforms[k].note||'', after: platforms[k].url||platforms[k].note||''});
+      });
+      prevPlatformKeys.filter(k => !newPlatformKeys.includes(k)).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'removed', label:(pl?pl.label:k), detail: prevData.platforms[k].url||prevData.platforms[k].note||''});
+      });
 
-      const prevUploadCount = Object.values(prevData.uploads||{}).reduce((a,arr)=>a+(arr?.length||0),0);
-      const newUploadCount = Object.values(uploads).reduce((a,arr)=>a+(arr?.length||0),0);
-      if (newUploadCount > prevUploadCount) changes.push('新增圖片');
+      UPLOADS.forEach(u => {
+        const prevCount = prevData.uploads?.[u.id]?.length || 0;
+        const newCount = uploads[u.id]?.length || 0;
+        if (newCount > prevCount) diff.push({type:'added', label:u.label+' 圖片', detail:`新增 ${newCount-prevCount} 張`});
+        else if (newCount < prevCount) diff.push({type:'removed', label:u.label+' 圖片', detail:`減少 ${prevCount-newCount} 張`});
+      });
 
-      if (brandColorData.mode && JSON.stringify(brandColorData) !== JSON.stringify(prevData.brandColorData||{})) changes.push('更新品牌色系');
-      if (brandCopy && brandCopy !== (prevData.brandCopy||'')) changes.push('更新品牌文案');
-      if (otherNeeds && otherNeeds !== (prevData.otherNeeds||'')) changes.push('更新其他需求');
+      if (brandColorData.mode && JSON.stringify(brandColorData) !== JSON.stringify(prevData.brandColorData||{})) {
+        diff.push({type:'changed', label:'品牌色系', before:'', after:''});
+      }
+      if (brandCopy !== (prevData.brandCopy||'')) {
+        diff.push({type: prevData.brandCopy ? 'changed':'added', label:'品牌文案', before: prevData.brandCopy||'', after: brandCopy});
+      }
+      if (otherNeeds !== (prevData.otherNeeds||'')) {
+        diff.push({type: prevData.otherNeeds ? 'changed':'added', label:'其他需求', before: prevData.otherNeeds||'', after: otherNeeds});
+      }
 
-      if (!changes.length) changes.push('更新資料');
+      if (!diff.length) diff.push({type:'changed', label:'更新資料', detail:''});
     }
+
+    const typeLabels = {added:'新增', changed:'更新', removed:'移除', new:'填寫'};
+    const summary = [...new Set(diff.map(d => typeLabels[d.type]+d.label))].join('、');
 
     await setDoc(doc(db,'projects',projectId), {
       platforms, uploads, uploadNotes, brandColorData, brandCopy, otherNeeds, submitted:true, submittedAt:Date.now(),
-      changeLog: arrayUnion({ at: Date.now(), summary: changes.join('、') })
+      changeLog: arrayUnion({ at: Date.now(), summary, diff })
     }, {merge:true});
     showState('success', true);
   } catch(e) {
