@@ -1241,24 +1241,65 @@ window.viewData = async function(id) {
   const snap = await getDoc(doc(db,'projects',id));
   const d = snap.data();
   document.getElementById('modal-title').textContent = d.clientName + ' · 填寫內容';
+
+  // 取最新一筆 changeLog 的 diff，建立「哪些欄位有變動」的 Set
+  const log = d.changeLog || [];
+  const lastDiff = log.length ? log[log.length - 1].diff || [] : [];
+  const changedLabels = new Set(lastDiff.map(item => item.label));
+  const addedLabels   = new Set(lastDiff.filter(i=>i.type==='added').map(i=>i.label));
+  const removedLabels = new Set(lastDiff.filter(i=>i.type==='removed').map(i=>i.label));
+
+  // 根據 label 決定左側色條樣式
+  function diffBar(label) {
+    if (addedLabels.has(label))   return `border-left:3px solid #4ade80;padding-left:10px;`;
+    if (removedLabels.has(label)) return `border-left:3px solid #f87171;padding-left:10px;`;
+    if (changedLabels.has(label)) return `border-left:3px solid #f0c060;padding-left:10px;`;
+    return `border-left:3px solid transparent;padding-left:10px;`;
+  }
+  function diffTag(label) {
+    if (addedLabels.has(label))   return `<span style="font-size:10px;background:#eef5ee;color:#3a6b4a;border:1px solid #b8d8b8;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">新增</span>`;
+    if (removedLabels.has(label)) return `<span style="font-size:10px;background:#f7eaea;color:#8b3a3a;border:1px solid #e8b8b8;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">移除</span>`;
+    if (changedLabels.has(label)) return `<span style="font-size:10px;background:#faf5eb;color:#9a7a2a;border:1px solid #e8d8a0;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">更新</span>`;
+    return '';
+  }
+
+  // 說明列：本次有幾個欄位變動
   let html = '';
+  if (lastDiff.length && log.length) {
+    const lastAt = new Date(log[log.length-1].at).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'});
+    html += `<div style="background:#faf7f2;border:1px solid #e8dfc8;border-radius:4px;padding:10px 14px;font-size:12px;color:var(--ink-mid);margin-bottom:20px;display:flex;align-items:center;gap:8px">
+      <span style="color:var(--gold)">●</span>
+      <span>與上次紀錄（${lastAt}）相比，有 <strong>${lastDiff.length}</strong> 個欄位變動，以色條標示</span>
+      <span style="margin-left:auto;display:flex;gap:8px">
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#4ade80;display:inline-block"></span>新增</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#f0c060;display:inline-block"></span>更新</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#f87171;display:inline-block"></span>移除</span>
+      </span>
+    </div>`;
+  }
+
+  // ── 平台資訊 ──
   if (d.platforms && Object.keys(d.platforms).length) {
     html += '<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">平台資訊</div>';
     Object.entries(d.platforms).forEach(([k,v]) => {
       const pl = PLATFORMS.find(p=>p.id===k);
-      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
-        <span style="color:var(--ink-mid)">${pl?pl.emoji+' '+pl.label:k}</span>
+      const label = pl ? pl.label : k;
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar(label)}">
+        <span style="color:var(--ink-mid)">${pl?pl.emoji+' '+pl.label:k}</span>${diffTag(label)}
         ${v.url?`<br><a href="${v.url}" target="_blank" style="color:var(--accent)">${v.url}</a>`:''}
         ${v.note?`<br><span style="color:var(--ink-light)">${v.note}</span>`:''}
       </div>`;
     });
   }
+
+  // ── 上傳檔案 ──
   if (d.uploads && Object.keys(d.uploads).length) {
     html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">上傳檔案</div>';
     Object.entries(d.uploads).forEach(([k,arr]) => {
       const up = UPLOADS.find(u=>u.id===k);
-      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
-        <span style="color:var(--ink-mid)">${up?up.emoji+' '+up.label:k}</span><br>`;
+      const label = up ? up.label + ' 圖片' : k;
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar(label)}">
+        <span style="color:var(--ink-mid)">${up?up.emoji+' '+up.label:k}</span>${diffTag(label)}<br>`;
       arr.forEach(f => {
         if (f.dataUrl) {
           html += `<a href="${f.dataUrl}" download="${f.name}" target="_blank" style="display:inline-block;margin:6px 6px 0 0">
@@ -1274,11 +1315,13 @@ window.viewData = async function(id) {
       html += '</div>';
     });
   }
+
+  // ── 品牌色系 ──
   if (d.brandColorData && d.brandColorData.mode) {
     const modeLabels = {has:'已有品牌色系', expect:'有期望設計的顏色', logo:'依照 Logo 色系延伸設計', free:'無，交由設計師自由發揮'};
     html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌色系</div>';
-    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px">
-      <span style="color:var(--ink-mid)">${modeLabels[d.brandColorData.mode]||d.brandColorData.mode}</span>`;
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('品牌色系')}">
+      <span style="color:var(--ink-mid)">${modeLabels[d.brandColorData.mode]||d.brandColorData.mode}</span>${diffTag('品牌色系')}`;
     if (d.brandColorData.colors?.length) {
       html += '<div style="display:flex;gap:8px;margin-top:10px">';
       d.brandColorData.colors.forEach(c => {
@@ -1291,14 +1334,23 @@ window.viewData = async function(id) {
     }
     html += '</div>';
   }
+
+  // ── 品牌文案 ──
   if (d.brandCopy) {
     html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌文案 / Slogan / 理念</div>';
-    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-mid);white-space:pre-wrap">${d.brandCopy}</div>`;
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('品牌文案')}">
+      <span style="color:var(--ink-mid);white-space:pre-wrap">${d.brandCopy}</span>${diffTag('品牌文案')}
+    </div>`;
   }
+
+  // ── 其他需求 ──
   if (d.otherNeeds) {
     html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">其他需求</div>';
-    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink-mid);white-space:pre-wrap">${d.otherNeeds}</div>`;
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('其他需求')}">
+      <span style="color:var(--ink-mid);white-space:pre-wrap">${d.otherNeeds}</span>${diffTag('其他需求')}
+    </div>`;
   }
+
   document.getElementById('modal-body').innerHTML = html || '<p style="color:var(--ink-light);font-size:13px">無資料</p>';
   document.getElementById('modal').classList.add('show');
 };
