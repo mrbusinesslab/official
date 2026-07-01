@@ -1207,7 +1207,7 @@ async function loadProjects() {
           <span class="status-tag ${p.submitted?'status-done':'status-pending'}">${p.submitted?'已填寫':'待填寫'}</span>
           <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
           ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
-          ${p.changeLog?.length?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
+          ${p.submitted?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
           <button class="btn btn-ghost btn-sm" onclick="openProjectSettings('${d.id}')" aria-label="專案設定" title="專案設定">⋯</button>
         </div>`;
       list.appendChild(row);
@@ -1689,7 +1689,16 @@ window.viewHistory = async function(id) {
     const log = d.changeLog || [];
     document.getElementById('modal-title').textContent = (d.clientName || '') + ' · 變更紀錄';
     if (!log.length) {
-      document.getElementById('modal-body').innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無變更紀錄。</p>';
+      const submittedAt = d.submittedAt ? new Date(d.submittedAt).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}) : null;
+      document.getElementById('modal-body').innerHTML = submittedAt
+        ? `<div style="padding:16px 0">
+            <div style="font-family:var(--serif);font-size:15px;color:var(--ink);margin-bottom:10px">${submittedAt}</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 12px;background:#e8eef5;border-radius:4px">
+              <span style="flex-shrink:0;font-size:10px;letter-spacing:.06em;color:var(--accent);background:var(--white);border:1px solid var(--accent);border-radius:3px;padding:2px 7px">填寫</span>
+              <div style="font-size:12px;color:var(--ink-mid)"><span style="font-weight:500;color:var(--ink)">填寫資訊</span><br><span style="color:var(--ink-light)">此專案在變更紀錄功能上線前已建立，無詳細紀錄</span></div>
+            </div>
+          </div>`
+        : '<p style="color:var(--ink-light);font-size:13px">尚無變更紀錄。</p>';
     } else {
       const typeStyle = {
         added:   {color:'var(--success)', bg:'#eef5ee', label:'新增'},
