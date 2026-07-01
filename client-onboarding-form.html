@@ -431,10 +431,11 @@ body {
 }
 .swatch-circle.filled .swatch-plus { display: none; }
 .swatch-hex {
-  font-size: 10px;
-  color: var(--ink-light);
+  font-size: 11px;
+  color: var(--ink-mid);
   font-family: 'Courier New', monospace;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 .swatch-remove {
   font-size: 10px;
@@ -1323,9 +1324,12 @@ window.viewData = async function(id) {
     html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('品牌色系')}">
       <span style="color:var(--ink-mid)">${modeLabels[d.brandColorData.mode]||d.brandColorData.mode}</span>${diffTag('品牌色系')}`;
     if (d.brandColorData.colors?.length) {
-      html += '<div style="display:flex;gap:8px;margin-top:10px">';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px">';
       d.brandColorData.colors.forEach(c => {
-        html += `<div style="width:32px;height:32px;border-radius:50%;background:${c};border:1px solid var(--rule)" title="${c}"></div>`;
+        html += `<div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div style="width:36px;height:36px;border-radius:50%;background:${c};border:1px solid var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.1)" title="${c}"></div>
+          <span style="font-size:10px;font-family:'Courier New',monospace;color:var(--ink-mid);letter-spacing:.04em">${c.toUpperCase()}</span>
+        </div>`;
       });
       html += '</div>';
     }
@@ -1522,7 +1526,10 @@ function buildSwatches() {
         <span class="swatch-plus">+</span>
         <input type="color" id="swatch-input-${i}" value="${filled || '#b5924a'}" oninput="setSwatchColor(${i}, this.value)">
       </div>
-      ${filled ? `<span class="swatch-hex">${filled}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>` : `<span class="swatch-hex">尚未選擇</span>`}
+      ${filled
+        ? `<span class="swatch-hex">${filled.toUpperCase()}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>`
+        : `<span class="swatch-hex" style="color:var(--ink-light);font-size:10px">點擊選色</span>`
+      }
     `;
     row.appendChild(slot);
   }
@@ -1912,8 +1919,19 @@ window.doSubmit = async function() {
         else if (newCount < prevCount) diff.push({type:'removed', label:u.label+' 圖片', detail:`減少 ${prevCount-newCount} 張`});
       });
 
-      if (brandColorData.mode && JSON.stringify(brandColorData) !== JSON.stringify(prevData.brandColorData||{})) {
-        diff.push({type:'changed', label:'品牌色系', before:'', after:''});
+      // 品牌色系：逐項精準比對，避免物件序列化差異造成誤判
+      if (brandColorData.mode) {
+        const prev = prevData.brandColorData || {};
+        const modeChanged = brandColorData.mode !== prev.mode;
+        const colorsChanged = brandColorData.mode === 'has'
+          ? JSON.stringify([...(brandColorData.colors||[])].sort()) !== JSON.stringify([...(prev.colors||[])].sort())
+          : false;
+        const noteChanged = brandColorData.mode === 'expect'
+          ? (brandColorData.note||'') !== (prev.note||'')
+          : false;
+        if (modeChanged || colorsChanged || noteChanged) {
+          diff.push({type: prev.mode ? 'changed':'added', label:'品牌色系', before:'', after:''});
+        }
       }
       if (brandCopy !== (prevData.brandCopy||'')) {
         diff.push({type: prevData.brandCopy ? 'changed':'added', label:'品牌文案', before: prevData.brandCopy||'', after: brandCopy});
