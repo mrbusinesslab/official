@@ -1513,6 +1513,7 @@ function updateUploadTotalUI() {
 // ── BRAND COLORS ─────────────────────────────────
 let brandColors = []; // array of hex strings, max 5
 let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
+let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
 
 function buildSwatches() {
   const row = document.getElementById('swatch-row');
@@ -1637,6 +1638,7 @@ async function loadProject() {
     const snap = await getDoc(doc(db,'projects',projectId));
     if (!snap.exists()) { showState('notfound', true); return; }
     const d = snap.data();
+    cachedPrevData = d; // 快取供送出比對用
     document.getElementById('c-title').innerHTML = `${d.clientName}，<em>歡迎</em>填寫`;
     if (d.submitted) {
       document.getElementById('c-success-msg').textContent = d.clientName + '，您已完成資料填寫，感謝您！';
@@ -1714,6 +1716,7 @@ window.startEdit = async function() {
       });
     }
     // 還原品牌色系
+    cachedPrevData = d; // 存起來供送出時比對，避免重複讀取造成誤判
     if (d.brandColorData) {
       if (d.brandColorData.mode) {
         setColorMode(d.brandColorData.mode);
@@ -1884,11 +1887,8 @@ window.doSubmit = async function() {
     });
 
     // 比對先前資料，產生變更摘要與詳細差異
-    let prevData = {};
-    try {
-      const prevSnap = await getDoc(doc(db,'projects',projectId));
-      prevData = prevSnap.exists() ? prevSnap.data() : {};
-    } catch(e) {}
+    // 直接用 startEdit 時已載入的快取，避免再讀一次 Firestore 造成比對誤差
+    const prevData = cachedPrevData || {};
 
     const isFirstSubmit = !prevData.submitted && !(prevData.changeLog?.length);
     const diff = []; // [{type, label, before, after}]
@@ -1950,6 +1950,7 @@ window.doSubmit = async function() {
       platforms, uploads, uploadNotes, brandColorData, brandCopy, otherNeeds, submitted:true, submittedAt:Date.now(),
       changeLog: arrayUnion({ at: Date.now(), summary, diff })
     }, {merge:true});
+    cachedPrevData = null; // 清除快取，下次編輯重新載入
     showState('success', true);
   } catch(e) {
     msg.style.color = 'var(--danger)';
