@@ -924,7 +924,12 @@ service cloud.firestore {
           <h2 class="section-title">自媒體與系統</h2>
           <div class="section-rule"></div>
         </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">勾選您目前使用的平台，並填入對應連結。</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+          <p style="font-size:13px;color:var(--ink-light)">勾選您目前使用的平台，並填入對應連結。</p>
+          <button class="btn btn-ghost btn-sm" onclick="openTutorial()" style="flex-shrink:0;display:flex;align-items:center;gap:6px">
+            <span style="font-size:15px">📖</span> 不知道連結在哪？查看教學
+          </button>
+        </div>
         <div id="platform-grid"></div>
       </div>
 
@@ -1036,6 +1041,30 @@ service cloud.firestore {
       <button class="btn btn-ghost" style="width:100%;border-color:var(--danger);color:var(--danger)" onclick="confirmDeleteProject()">刪除此專案</button>
     </div>
   </div>
+</div>
+
+<!-- TUTORIAL DRAWER -->
+<div id="tutorial-overlay" onclick="closeTutorial()" style="display:none;position:fixed;inset:0;background:rgba(26,23,20,.35);z-index:150"></div>
+<div id="tutorial-drawer" style="
+  position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);
+  background:var(--white);border-left:1px solid var(--rule);
+  z-index:160;transform:translateX(100%);transition:transform .3s ease;
+  display:flex;flex-direction:column;overflow:hidden;
+">
+  <!-- Drawer header -->
+  <div style="padding:20px 24px 16px;border-bottom:1px solid var(--rule);flex-shrink:0;background:var(--white)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">連結教學</div>
+        <div style="font-family:var(--serif);font-size:20px;color:var(--ink)">如何找到平台連結？</div>
+      </div>
+      <button onclick="closeTutorial()" style="background:none;border:none;font-size:22px;color:var(--ink-light);cursor:pointer;padding:4px;line-height:1">×</button>
+    </div>
+    <!-- Platform tabs -->
+    <div id="tut-tabs" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px"></div>
+  </div>
+  <!-- Drawer content -->
+  <div id="tut-body" style="flex:1;overflow-y:auto;padding:24px"></div>
 </div>
 
 <!-- TOAST -->
@@ -1510,7 +1539,241 @@ function updateUploadTotalUI() {
   });
 }
 
-// ── BRAND COLORS ─────────────────────────────────
+// ── TUTORIAL DRAWER ──────────────────────────────
+const TUTORIALS = [
+  {
+    id: 'line_p', label: 'Line 好友', emoji: '💬',
+    steps: [
+      { icon: '①', text: '打開 Line App，點右上角「⋯」或「設定」' },
+      { icon: '②', text: '點「個人檔案」→ 找到「我的主頁網址」或「邀請」' },
+      { icon: '③', text: '點「分享」→「複製連結」，即可貼入表單' },
+      { icon: '💡', text: '也可以長按 Line ID 旁邊的連結圖示複製', tip: true },
+    ]
+  },
+  {
+    id: 'line_o', label: 'Line 官方帳號', emoji: '🏢',
+    steps: [
+      { icon: '①', text: '登入 LINE Official Account Manager（官方帳號管理後台）' },
+      { icon: '②', text: '點左側「帳號首頁」→「基本設定」' },
+      { icon: '③', text: '找到「帳號 URL」欄位，點右側「複製」' },
+      { icon: '💡', text: '帳號 URL 格式通常為 https://lin.ee/xxxxxxx', tip: true },
+    ]
+  },
+  {
+    id: 'fb_page', label: 'FB 粉絲專頁', emoji: '📣',
+    steps: [
+      { icon: '①', text: '手機：開啟 Facebook App，進入您的粉絲專頁' },
+      { icon: '②', text: '點右上角「⋯」→「複製連結」' },
+      { icon: '③', text: '電腦：進入粉絲專頁，複製瀏覽器網址列的連結即可' },
+      { icon: '💡', text: '網址格式：facebook.com/你的專頁名稱', tip: true },
+    ]
+  },
+  {
+    id: 'fb_per', label: 'FB 個人帳號', emoji: '👤',
+    steps: [
+      { icon: '①', text: '開啟 Facebook，點右下角個人頭像進入個人頁面' },
+      { icon: '②', text: '電腦：複製瀏覽器上方的網址' },
+      { icon: '③', text: '手機：點「⋯」→「複製個人主頁連結」' },
+      { icon: '💡', text: '網址格式：facebook.com/你的帳號名稱', tip: true },
+    ]
+  },
+  {
+    id: 'ig_co', label: 'IG 公司帳號', emoji: '📸',
+    steps: [
+      { icon: '①', text: '開啟 Instagram，進入您的公司帳號主頁' },
+      { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
+      { icon: '③', text: '或在電腦版複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '網址格式：instagram.com/你的帳號', tip: true },
+    ]
+  },
+  {
+    id: 'ig_per', label: 'IG 個人帳號', emoji: '📷',
+    steps: [
+      { icon: '①', text: '開啟 Instagram，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
+      { icon: '③', text: '或在電腦版複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '網址格式：instagram.com/你的帳號', tip: true },
+    ]
+  },
+  {
+    id: 'threads', label: 'Threads', emoji: '🧵',
+    steps: [
+      { icon: '①', text: '開啟 Threads App，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「複製連結」' },
+      { icon: '💡', text: '網址格式：threads.net/@你的帳號', tip: true },
+    ]
+  },
+  {
+    id: 'website', label: '形象官網', emoji: '🌐',
+    steps: [
+      { icon: '①', text: '用瀏覽器開啟您的官方網站' },
+      { icon: '②', text: '複製瀏覽器上方網址列的完整網址' },
+      { icon: '💡', text: '通常是 https://www.你的品牌.com 開頭', tip: true },
+    ]
+  },
+  {
+    id: 'shop_web', label: '購物車網站', emoji: '🛒',
+    steps: [
+      { icon: '①', text: '用瀏覽器開啟您的購物網站首頁' },
+      { icon: '②', text: '複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '例如 Shopline、91APP、WACA 等平台的網址', tip: true },
+    ]
+  },
+  {
+    id: 'shop_plt', label: '購物平台', emoji: '🛍️',
+    steps: [
+      { icon: '①', text: '開啟蝦皮、MOMO 或 PCHome，進入您的賣場頁面' },
+      { icon: '②', text: '蝦皮：點右上角「⋯」→「複製連結」' },
+      { icon: '③', text: 'MOMO / PCHome：複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '填入您的「賣家主頁」連結，非單一商品頁', tip: true },
+    ]
+  },
+  {
+    id: 'shopcom', label: 'SHOP.COM', emoji: '🏪',
+    steps: [
+      { icon: '①', text: '登入 SHOP.COM 後台，進入您的個人商店頁面' },
+      { icon: '②', text: '複製瀏覽器網址列的商店連結' },
+      { icon: '💡', text: '或在後台「商店設定」裡找到「商店連結」', tip: true },
+    ]
+  },
+  {
+    id: 'signup', label: '報名系統', emoji: '📝',
+    steps: [
+      { icon: '①', text: '開啟您的報名系統後台（例如 Google 表單）' },
+      { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
+      { icon: '③', text: '其他報名系統：進入活動頁面，複製瀏覽器網址' },
+      { icon: '💡', text: '填入客戶可直接點選報名的連結', tip: true },
+    ]
+  },
+  {
+    id: 'booking', label: '預約系統', emoji: '📅',
+    steps: [
+      { icon: '①', text: '開啟您的預約系統後台（例如 Google 表單）' },
+      { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
+      { icon: '③', text: '其他預約系統：進入預約頁面，複製瀏覽器網址' },
+      { icon: '💡', text: '填入客戶可直接點選預約的連結', tip: true },
+    ]
+  },
+  {
+    id: 'cloud', label: '雲端資料夾', emoji: '☁️',
+    steps: [
+      { icon: '①', text: '開啟 Google 雲端硬碟或 Dropbox，找到您的資料夾' },
+      { icon: '②', text: '右鍵點擊資料夾 → 「取得連結」→ 設定為「任何人皆可查看」' },
+      { icon: '③', text: '複製連結後貼入表單' },
+      { icon: '💡', text: '請確認連結設定為「任何人可以查看」，否則我們無法開啟', tip: true },
+    ]
+  },
+  {
+    id: 'gmaps', label: 'Google 導航', emoji: '🗺️',
+    steps: [
+      { icon: '①', text: '在 Google 地圖搜尋您的公司或店面名稱' },
+      { icon: '②', text: '確認是正確的店家後，點「分享」' },
+      { icon: '③', text: '點「複製連結」，即可貼入表單' },
+      { icon: '💡', text: '若尚未建立 Google 商家，可先在 Google 商家中心申請', tip: true },
+    ]
+  },
+  {
+    id: 'youtube', label: 'YouTube 頻道', emoji: '▶️',
+    steps: [
+      { icon: '①', text: '開啟 YouTube，點右上角頭像 → 「您的頻道」' },
+      { icon: '②', text: '複製瀏覽器網址列的連結' },
+      { icon: '③', text: '或點「自訂頻道」→「基本資訊」→ 複製「頻道網址」' },
+      { icon: '💡', text: '網址格式：youtube.com/@你的頻道名稱', tip: true },
+    ]
+  },
+  {
+    id: 'podcast', label: 'Podcast', emoji: '🎙️',
+    steps: [
+      { icon: '①', text: '開啟您的 Podcast 平台（Spotify、Apple Podcast 等）' },
+      { icon: '②', text: '進入您的節目主頁，複製瀏覽器網址' },
+      { icon: '③', text: 'Spotify：點「⋯」→「分享」→「複製連結」' },
+      { icon: '💡', text: '填入節目主頁連結，非單集連結', tip: true },
+    ]
+  },
+  {
+    id: 'tiktok', label: '抖音 / TikTok', emoji: '🎵',
+    steps: [
+      { icon: '①', text: '開啟 TikTok App，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「分享個人檔案」→「複製連結」' },
+      { icon: '💡', text: '網址格式：tiktok.com/@你的帳號', tip: true },
+    ]
+  },
+  {
+    id: 'eatgether', label: 'Eatgether', emoji: '🍽️',
+    steps: [
+      { icon: '①', text: '登入 Eatgether 後台，進入您的餐廳頁面' },
+      { icon: '②', text: '複製瀏覽器網址列的連結，或在後台「基本設定」裡找到「公開頁面連結」' },
+    ]
+  },
+];
+
+let currentTutId = null;
+
+window.openTutorial = function(preselect) {
+  const overlay = document.getElementById('tutorial-overlay');
+  const drawer  = document.getElementById('tutorial-drawer');
+  const tabs    = document.getElementById('tut-tabs');
+
+  // Build tabs — only show platforms the user has checked, or all if none checked yet
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked).map(p=>p.id);
+  const toShow  = TUTORIALS.filter(t => !checked.length || checked.includes(t.id));
+  const list    = toShow.length ? toShow : TUTORIALS;
+
+  tabs.innerHTML = '';
+  list.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'tut-tab';
+    btn.id = 'tut-tab-'+t.id;
+    btn.innerHTML = `${t.emoji} ${t.label}`;
+    btn.onclick = () => showTutorial(t.id);
+    tabs.appendChild(btn);
+  });
+
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => { drawer.style.transform = 'translateX(0)'; });
+
+  // Preselect: the platform whose "?" was clicked, or the first checked, or first in list
+  const first = preselect || (checked.length ? checked[0] : list[0]?.id);
+  if (first) showTutorial(first);
+};
+
+window.closeTutorial = function() {
+  const drawer  = document.getElementById('tutorial-drawer');
+  const overlay = document.getElementById('tutorial-overlay');
+  drawer.style.transform = 'translateX(100%)';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+};
+
+function showTutorial(id) {
+  currentTutId = id;
+  document.querySelectorAll('.tut-tab').forEach(b => b.classList.toggle('active', b.id === 'tut-tab-'+id));
+  const t = TUTORIALS.find(x => x.id === id);
+  if (!t) return;
+  const pl = PLATFORMS.find(p => p.id === id);
+  let html = `<div style="font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:20px">${t.emoji} ${t.label}</div>`;
+  t.steps.forEach(s => {
+    if (s.tip) {
+      html += `<div style="background:#faf7f2;border:1px solid #e8dfc8;border-radius:6px;padding:11px 14px;display:flex;gap:10px;margin-top:16px">
+        <span style="font-size:14px;flex-shrink:0">💡</span>
+        <span style="font-size:12px;color:var(--ink-mid);line-height:1.6">${s.text}</span>
+      </div>`;
+    } else {
+      html += `<div style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule)">
+        <span style="flex-shrink:0;font-family:var(--serif);font-size:18px;color:var(--gold);min-width:24px;text-align:center">${s.icon}</span>
+        <span style="font-size:13px;color:var(--ink-mid);line-height:1.7">${s.text}</span>
+      </div>`;
+    }
+  });
+  // Quick-fill button if the user has this platform checked
+  const isChecked = document.getElementById('cb-'+id)?.checked;
+  if (isChecked) {
+    html += `<div style="margin-top:24px;padding:14px;background:var(--cream);border-radius:6px;text-align:center">
+      <p style="font-size:12px;color:var(--ink-light);margin-bottom:10px">複製完連結後，關閉這個面板貼到對應欄位即可。</p>
+      <button class="btn btn-ghost btn-sm" onclick="closeTutorial()" style="width:100%">← 回到表單填寫</button>
+    </div>`;
+  }
+  document.getElementById('tut-body').innerHTML = html;
+}
 let brandColors = []; // array of hex strings, max 5
 let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
 let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
