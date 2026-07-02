@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客戶資料收集 — MR. business.lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f7f4ef;
+  --cream-dark: #eee9e0;
+  --ink: #1a1714;
+  --ink-mid: #4a4540;
+  --ink-light: #9a9490;
+  --gold: #b5924a;
+  --gold-light: #d4b07a;
+  --rule: #d8d2c8;
+  --white: #ffffff;
+  --accent: #2c4a6e;
+  --accent-light: #e8eef5;
+  --success: #3a6b4a;
+  --danger: #8b3a3a;
+  --serif: 'Playfair Display', 'Georgia', serif;
+  --sans: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ─── MASTHEAD ─── */
+.masthead {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+}
+.masthead-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: 72px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+}
+.brand-mark {
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+.brand-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  font-weight: 400;
+}
+.brand-name span {
+  font-style: italic;
+  color: var(--ink-mid);
+  font-size: 11px;
+  display: block;
+  letter-spacing: 0.12em;
+  margin-top: -2px;
+}
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.status-chip {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink-light);
+}
+.status-chip.ok { border-color: var(--success); color: var(--success); }
+.status-chip.err { border-color: var(--danger); color: var(--danger); }
+
+/* ─── TABS (admin) ─── */
+.tab-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 48px;
+  display: none;
+}
+.tab-bar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+.tab-btn {
+  padding: 12px 20px 11px;
+  border: none; border-bottom: 2px solid transparent;
+  background: none;
+  font-family: var(--sans); font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all .2s;
+  text-transform: uppercase;
+}
+.tab-btn.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ─── LAYOUT ─── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 48px 100px;
+}
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  max-width: 560px;
+}
+.hero-title em { font-style: italic; }
+.hero-body {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--ink-mid);
+  max-width: 480px;
+  line-height: 1.8;
+}
+.hero-body.nowrap-line {
+  max-width: none;
+  white-space: nowrap;
+}
+.hero-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* ─── SECTION HEADER ─── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.section-num {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+}
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+}
+
+/* ─── PLATFORM GRID ─── */
+.platform-group { margin-bottom: 24px; }
+.platform-group:last-child { margin-bottom: 0; }
+.platform-group-label {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+.platform-item {
+  background: var(--white);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.platform-item:hover { background: var(--cream); }
+.platform-item.checked { background: var(--cream); }
+.pi-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pi-header input[type="checkbox"] {
+  width: 15px; height: 15px;
+  accent-color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.pi-emoji { font-size: 14px; }
+.pi-label {
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.pi-url-wrap { margin-top: 10px; display: none; }
+.pi-url-wrap.show { display: block; }
+.pi-url-wrap input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  font-family: var(--sans); font-size: 12px;
+  color: var(--ink);
+  padding: 6px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+.pi-url-wrap input:focus { border-bottom-color: var(--ink); }
+.pi-url-wrap input::placeholder { color: var(--ink-light); }
+
+/* ─── UPLOAD GRID ─── */
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.upload-card {
+  border: 1px solid var(--rule);
+  padding: 24px 20px;
+  text-align: center;
+  background: var(--white);
+  transition: border-color .2s;
+  position: relative;
+}
+.upload-card:hover { border-color: var(--ink-mid); }
+.upload-card.has-file { border-color: var(--success); }
+.upload-card.req-missing { border-color: var(--danger); }
+.uc-emoji { font-size: 24px; margin-bottom: 10px; }
+.uc-label {
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.uc-hint {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.uc-req {
+  position: absolute; top: 10px; right: 10px;
+  font-size: 10px;
+  color: var(--danger);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.uc-input { display: none; }
+.uc-trigger {
+  display: inline-block;
+  border: 1px solid var(--rule);
+  padding: 6px 14px;
+  font-family: var(--sans); font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all .2s;
+  background: var(--cream);
+}
+.uc-trigger:hover { border-color: var(--ink); color: var(--ink); background: var(--cream-dark); }
+.uc-files { margin-top: 10px; }
+.uc-note {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 11px;
+  color: var(--ink);
+  padding: 8px 10px;
+  outline: none;
+  resize: vertical;
+  min-height: 50px;
+  margin-top: 10px;
+  text-align: left;
+  transition: border-color .2s, background .2s;
+}
+.uc-note:focus { border-color: var(--gold); background: var(--white); }
+.uc-note::placeholder { color: var(--ink-light); }
+.uc-file {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 8px;
+  background: var(--cream);
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--success);
+}
+.uc-remove { cursor: pointer; color: var(--danger); font-size: 13px; line-height: 1; }
+
+/* ─── PROGRESS ─── */
+.progress-wrap { margin-bottom: 40px; }
+.progress-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--ink-light); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.progress-track {
+  height: 1px;
+  background: var(--rule);
+  position: relative;
+}
+.progress-fill {
+  position: absolute; left: 0; top: 0;
+  height: 1px;
+  background: var(--ink);
+  transition: width .4s ease;
+}
+
+/* ─── BRAND COLOR SWATCHES ─── */
+.color-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.color-pill {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-mid);
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.color-pill:hover { border-color: var(--ink-mid); color: var(--ink); }
+.color-pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.color-swatch-wrap { display: none; margin-top: 18px; }
+.color-swatch-wrap.show { display: block; }
+.swatch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.swatch-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.swatch-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  position: relative;
+  cursor: pointer;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.swatch-circle input[type="color"] {
+  position: absolute; inset: -4px;
+  width: calc(100% + 8px); height: calc(100% + 8px);
+  border: none; padding: 0; cursor: pointer;
+  opacity: 0;
+}
+.swatch-circle .swatch-plus {
+  font-size: 18px;
+  color: var(--ink-light);
+  pointer-events: none;
+}
+.swatch-circle.filled .swatch-plus { display: none; }
+.swatch-hex {
+  font-size: 11px;
+  color: var(--ink-mid);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+.swatch-remove {
+  font-size: 10px;
+  color: var(--danger);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.color-other-note {
+  margin-top: 16px;
+}
+.color-other-note textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 13px;
+  color: var(--ink);
+  padding: 12px 14px;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color .2s, background .2s;
+}
+.color-other-note textarea:focus { border-color: var(--gold); background: var(--white); }
+.color-other-note textarea::placeholder { color: var(--ink-light); }
+
+/* ─── BRAND COPY / OTHER NEEDS ─── */
+.copy-field textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans); font-size: 14px;
+  color: var(--ink);
+  padding: 14px 16px;
+  outline: none;
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.8;
+  transition: border-color .2s, background .2s;
+}
+.copy-field textarea:focus { border-color: var(--gold); background: var(--white); }
+.copy-field textarea::placeholder { color: var(--ink-light); }
+.copy-field-label {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1.5;
+}
+.copy-field-hint {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.field { margin-bottom: 22px; }
+.field label {
+  display: block;
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.field input, .field textarea {
+  width: 100%;
+  background: var(--cream);
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 14px;
+  color: var(--ink);
+  padding: 10px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+.field input:focus, .field textarea:focus { border-bottom-color: var(--ink); }
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-light); }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border: none; cursor: pointer;
+  padding: 12px 28px;
+  transition: all .2s;
+}
+.btn-primary {
+  background: var(--ink); color: var(--white);
+}
+.btn-primary:hover { background: var(--ink-mid); }
+.btn-gold {
+  background: var(--gold); color: var(--white);
+}
+.btn-gold:hover { background: var(--gold-light); }
+.btn-ghost {
+  background: transparent; color: var(--ink-mid);
+  border: 1px solid var(--rule);
+}
+.btn-ghost:hover { border-color: var(--ink-mid); color: var(--ink); }
+.btn-sm { padding: 7px 16px; font-size: 11px; }
+
+/* ─── LINK BOX ─── */
+.link-box {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+.link-box code {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  word-break: break-all;
+  flex: 1;
+}
+
+/* ─── PROJECT ROW ─── */
+.project-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--rule);
+  gap: 16px;
+}
+.pr-name {
+  font-family: var(--serif); font-size: 17px;
+  color: var(--ink);
+}
+.pr-meta { font-size: 11px; color: var(--ink-light); margin-top: 3px; letter-spacing: 0.04em; }
+.pr-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+.status-tag {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 10px;
+}
+.status-pending { background: #faf5eb; color: #9a7a2a; border: 1px solid #e8d8a0; }
+.status-done { background: #eef5ee; color: var(--success); border: 1px solid #b8d8b8; }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,23,20,.5);
+  z-index: 200;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  width: 90%; max-width: 640px;
+  max-height: 85vh; overflow-y: auto;
+  padding: 40px 44px;
+}
+.modal-title {
+  font-family: var(--serif); font-size: 24px;
+  font-weight: 400; margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.modal-close {
+  float: right; cursor: pointer;
+  font-size: 20px; color: var(--ink-light);
+  margin-top: -4px;
+  background: none; border: none; font-family: var(--serif);
+}
+
+/* ─── ADMIN LOGIN ─── */
+.login-wrap {
+  max-width: 400px;
+  margin: 80px auto 0;
+}
+.login-eyebrow {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.login-eyebrow::after {
+  content: ''; flex: 1; height: 1px; background: var(--rule);
+}
+
+/* ─── SUCCESS / ERROR STATES ─── */
+.state-card {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+}
+.state-symbol {
+  font-family: var(--serif);
+  font-size: 48px; font-style: italic;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.state-title {
+  font-family: var(--serif); font-size: 28px;
+  font-weight: 400; margin-bottom: 12px;
+}
+.state-body {
+  font-size: 14px; color: var(--ink-mid);
+  line-height: 1.8; max-width: 340px; margin: 0 auto;
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink); color: var(--white);
+  padding: 12px 24px;
+  font-size: 12px; letter-spacing: 0.08em;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s; z-index: 300;
+}
+.toast.show { opacity: 1; }
+.toast.err { background: var(--danger); }
+.toast.ok { background: var(--success); }
+
+/* ─── FIREBASE CONFIG ─── */
+.config-note {
+  background: #faf7f2;
+  border: 1px solid #e8dfc8;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.config-note strong { color: var(--ink); }
+.config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+
+/* ─── SUBMIT AREA ─── */
+.submit-area { margin-top: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.validation-msg { font-size: 12px; color: var(--danger); letter-spacing: 0.04em; }
+
+/* ─── VIEWS ─── */
+#view-admin, #view-client { display: none; }
+#view-admin.active, #view-client.active { display: block; }
+
+@media (max-width: 640px) {
+  .container { padding: 40px 20px 80px; }
+  .masthead { padding: 0 20px; }
+  .tab-bar { padding: 0 20px; }
+  .hero-title { font-size: 30px; }
+  .hero-body.nowrap-line { white-space: normal; }
+  .config-grid { grid-template-columns: 1fr; }
+  .card { padding: 24px 20px; }
+  .platform-grid { grid-template-columns: 1fr; }
+  .upload-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <div class="brand-mark">M.</div>
+      <div class="brand-name">
+        MR. business.lab
+        <span>Client Onboarding</span>
+      </div>
+    </div>
+    <div class="masthead-right">
+      <span id="fb-badge" class="status-chip">● 連線中</span>
+    </div>
+  </div>
+</header>
+
+<!-- ADMIN TABS -->
+<div class="tab-bar" id="admin-tabs">
+  <div class="tab-bar-inner">
+    <button class="tab-btn active" onclick="switchTab('projects')">專案列表</button>
+    <button class="tab-btn" onclick="switchTab('create')">建立專案</button>
+    <button class="tab-btn" onclick="switchTab('firebase')">Firebase 設定</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ ADMIN ═══════════════════ -->
+<div id="view-admin">
+  <div class="container">
+
+    <!-- LOGIN -->
+    <div id="admin-login">
+      <div class="login-wrap">
+        <div class="login-eyebrow">管理員驗證</div>
+        <div class="card">
+          <div class="field">
+            <label>管理員密碼</label>
+            <input type="password" id="admin-pwd" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')adminLogin()">
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="adminLogin()">進入後台</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="admin-panel" style="display:none">
+
+      <!-- PROJECTS TAB -->
+      <div id="tab-projects">
+        <div class="page-hero">
+          <div class="hero-eyebrow">Project Management</div>
+          <h1 class="hero-title">客戶<em>專案</em>管理</h1>
+        </div>
+        <div id="project-list">
+          <p style="color:var(--ink-light);font-size:13px">載入中⋯</p>
+        </div>
+        <div style="margin-top:28px">
+          <button class="btn btn-primary" onclick="switchTab('create')">建立新專案</button>
+        </div>
+      </div>
+
+      <!-- CREATE TAB -->
+      <div id="tab-create" style="display:none">
+        <div class="page-hero">
+          <div class="hero-eyebrow">New Project</div>
+          <h1 class="hero-title">建立<em>新</em>客戶專案</h1>
+        </div>
+        <div class="card" style="max-width:540px">
+          <div class="field">
+            <label>客戶 / 公司名稱 *</label>
+            <input type="text" id="new-client-name" placeholder="例：王小明 · 台中美甲工作室">
+          </div>
+          <div class="field">
+            <label>業務備註（客戶不可見）</label>
+            <input type="text" id="new-client-note" placeholder="例：FB 廣告合作 · 品牌建立計畫">
+          </div>
+          <button class="btn btn-gold" onclick="createProject()">產生客戶連結</button>
+        </div>
+        <div id="new-result" style="display:none;margin-top:24px">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px">客戶連結</div>
+          <div class="link-box">
+            <code id="new-link"></code>
+            <button class="btn btn-ghost btn-sm" onclick="copyEl('new-link')">複製</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIREBASE TAB -->
+      <div id="tab-firebase" style="display:none">
+        <div class="page-hero">
+          <div class="hero-eyebrow">Firebase Configuration</div>
+          <h1 class="hero-title">Firebase<em>設定</em></h1>
+        </div>
+        <div class="card">
+          <div class="config-note">
+            Firebase 設定已內建於系統中，無需手動輸入。<br>
+            <strong style="color:var(--success)">✓ 目前連線專案：mr-lab-fbe5c</strong>
+          </div>
+          <div class="config-grid">
+            <div class="field"><label>API Key</label><input type="text" id="cfg-apiKey" placeholder="AIzaSy..."></div>
+            <div class="field"><label>Auth Domain</label><input type="text" id="cfg-authDomain" placeholder="app.firebaseapp.com"></div>
+            <div class="field"><label>Project ID</label><input type="text" id="cfg-projectId" placeholder="your-project-id"></div>
+            <div class="field"><label>Messaging Sender ID</label><input type="text" id="cfg-messagingSenderId" placeholder="123456789"></div>
+            <div class="field"><label>App ID</label><input type="text" id="cfg-appId" placeholder="1:xxx:web:yyy"></div>
+          </div>
+          <div style="border-top:1px solid var(--rule);padding-top:24px;margin-top:8px">
+            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">更改管理員密碼</div>
+            <div class="field">
+              <label>目前密碼</label>
+              <input type="password" id="cfg-pwd-old" placeholder="輸入目前密碼">
+            </div>
+            <div class="field">
+              <label>新密碼</label>
+              <input type="password" id="cfg-pwd-new" placeholder="輸入新密碼">
+            </div>
+            <div class="field">
+              <label>確認新密碼</label>
+              <input type="password" id="cfg-pwd-confirm" placeholder="再次輸入新密碼">
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="saveConfig()">更新密碼</button>
+        </div>
+
+        <!-- FIREBASE RULES GUIDE -->
+        <div style="margin-top:48px">
+          <div class="section-head">
+            <span class="section-num">Rules</span>
+            <h2 class="section-title">Firebase 規則設定</h2>
+            <div class="section-rule"></div>
+          </div>
+          <div class="card">
+            <p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.8">
+              前往 Firebase Console 依下方步驟貼上規則，讓客戶可以填寫自己的表單，但無法看到他人資料。
+            </p>
+
+            <div style="margin-bottom:28px">
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Step 1 — Firestore Database Rules</div>
+              <div style="font-size:11px;color:var(--ink-light);margin-bottom:10px">Firestore Database → 規則 → 貼上並發布：</div>
+              <pre id="rule-firestore" style="background:var(--cream);border:1px solid var(--rule);padding:18px 20px;font-size:12px;font-family:'Courier New',monospace;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /projects/{projectId} {
+      // 任何人持有 projectId 即可讀（客戶憑連結填寫）
+      allow read: if true;
+      // 允許建立（管理員用 client SDK 建立）
+      allow create: if true;
+      // 允許更新（含客戶編輯已填內容後再次送出）
+      allow update: if true;
+      // 允許刪除（僅後台管理員操作介面會呼叫，客戶端不會用到）
+      allow delete: if true;
+    }
+  }
+}</pre>
+              <button class="btn btn-ghost btn-sm" style="margin-top:10px" onclick="copyText('rule-firestore')">複製規則</button>
+            </div>
+            <div style="font-size:12px;color:var(--ink-light);line-height:1.7;margin-top:-14px;margin-bottom:28px">
+              提醒：此規則為「憑連結即可存取」邏輯，未做帳號驗證。客戶只要拿到專屬連結即可讀寫該筆專案，但無法看到其他客戶的資料；刪除功能僅在管理後台介面提供按鈕，客戶端表單不會呼叫刪除。
+            </div>
+
+
+            <div style="margin-top:24px;border-top:1px solid var(--rule);padding-top:24px">
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--success);margin-bottom:12px">✓ 不需要設定 Storage</div>
+              <p style="font-size:13px;color:var(--ink-mid);line-height:1.8">
+                此版本圖片以壓縮後的 base64 格式直接存入 Firestore，<strong>完全不需要啟用 Firebase Storage</strong>，Firebase 免費方案（Spark）即可使用。<br><br>
+                每張圖片壓縮後約 100–200KB，Firestore 免費方案每天提供 1GB 讀寫，一般業務量完全足夠。
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tab-firebase -->
+
+    </div><!-- /admin-panel -->
+  </div>
+</div>
+
+<!-- ═══════════════════ CLIENT ═══════════════════ -->
+<div id="view-client">
+  <div class="container">
+
+    <!-- Loading -->
+    <div id="c-loading" class="state-card">
+      <div class="state-symbol">⋯</div>
+      <div class="state-title">載入中</div>
+      <p class="state-body">正在讀取您的專案資料，請稍候。</p>
+    </div>
+
+    <!-- Not Found -->
+    <div id="c-notfound" class="state-card" style="display:none">
+      <div class="state-symbol">×</div>
+      <div class="state-title">找不到此專案</div>
+      <p class="state-body">連結可能已失效，請聯繫您的業務顧問重新取得。</p>
+    </div>
+
+    <!-- Success -->
+    <div id="c-success" class="state-card" style="display:none">
+      <div class="state-symbol">✓</div>
+      <div class="state-title">資料已送出</div>
+      <p class="state-body" id="c-success-msg">您的業務顧問已收到通知，我們將盡快聯繫您安排後續。感謝您的信任。</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <p style="font-size:12px;color:var(--ink-light);letter-spacing:0.04em">需要修改資料？</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+          <button class="btn btn-ghost btn-sm" onclick="startEdit()">編輯已填內容</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div id="c-form" style="display:none">
+
+      <div class="page-hero">
+        <div class="hero-eyebrow">Client Onboarding</div>
+        <h1 class="hero-title" id="c-title">歡迎，<em>請填寫</em>資料</h1>
+        <p class="hero-body nowrap-line">請依序勾選您目前使用的平台並填入連結，接著上傳所需圖片，完成後送出即可。</p>
+        <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span>填寫進度</span>
+          <span id="progress-text">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Step 1 -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 01</span>
+          <h2 class="section-title">自媒體與系統</h2>
+          <div class="section-rule"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+          <p style="font-size:13px;color:var(--ink-light)">勾選您目前使用的平台，並填入對應連結。</p>
+          <button class="btn btn-ghost btn-sm" onclick="openTutorial()" style="flex-shrink:0;display:flex;align-items:center;gap:6px">
+            <span style="font-size:15px">📖</span> 不知道連結在哪？查看教學
+          </button>
+        </div>
+        <div id="platform-grid"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 02</span>
+          <h2 class="section-title">圖片與檔案</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
+        <p style="font-size:12px;color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
+        <div class="upload-grid" id="upload-grid"></div>
+      </div>
+
+      <!-- Step 3: Brand Colors -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 03</span>
+          <h2 class="section-title">品牌色系</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-light);margin-bottom:20px">若已有品牌色系，請選擇您的需求類型。</p>
+
+        <div class="color-pill-row" id="color-mode-grid">
+          <button type="button" class="color-pill" id="cm-has" onclick="setColorMode('has')">已有品牌色系</button>
+          <button type="button" class="color-pill" id="cm-expect" onclick="setColorMode('expect')">有期望設計的顏色</button>
+          <button type="button" class="color-pill" id="cm-logo" onclick="setColorMode('logo')">依照 Logo 色系延伸設計</button>
+          <button type="button" class="color-pill" id="cm-free" onclick="setColorMode('free')">無，交由設計師自由發揮</button>
+        </div>
+
+        <div class="color-swatch-wrap" id="color-swatch-wrap">
+          <div class="swatch-row" id="swatch-row"></div>
+          <p style="font-size:11px;color:var(--ink-light);margin-top:14px">點擊圓圈以滴管挑選顏色，最多可選 5 個。</p>
+        </div>
+
+        <div class="color-other-note" id="color-other-note" style="display:none">
+          <textarea id="color-expect-text" placeholder="請描述您期望的顏色，例如：莫蘭迪粉、深綠搭配米白、低飽和大地色系⋯" oninput="updateProgress()"></textarea>
+        </div>
+      </div>
+
+      <!-- Step 4: Brand Copy -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 04</span>
+          <h2 class="section-title">品牌文案</h2>
+          <div class="section-rule"></div>
+        </div>
+        <div class="copy-field">
+          <label class="copy-field-label">是否有想強調的文案、Slogan 或品牌理念？</label>
+          <textarea id="brand-copy" placeholder="例：用設計說故事，讓每個品牌找到屬於自己的聲音。" oninput="updateProgress()"></textarea>
+          <p class="copy-field-hint">沒有也沒關係，可以先留白，由我們協助發想。</p>
+        </div>
+      </div>
+
+      <!-- Step 5: Other Needs -->
+      <div style="margin-bottom:40px">
+        <div class="section-head">
+          <span class="section-num">Section 05</span>
+          <h2 class="section-title">其他需求</h2>
+          <div class="section-rule"></div>
+        </div>
+        <div class="copy-field">
+          <label class="copy-field-label">還有其他想補充的需求或想法嗎？</label>
+          <textarea id="other-needs" placeholder="例：希望風格偏年輕活潑、需要中英雙語版本、有特定參考案例想分享⋯" oninput="updateProgress()"></textarea>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-area">
+        <button class="btn btn-gold" onclick="submitForm()" style="font-size:13px;padding:14px 40px">送出表單</button>
+        <p class="validation-msg" id="val-msg"></p>
+      </div>
+
+    </div><!-- /c-form -->
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="modal-title" id="modal-title">專案詳情</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- PROJECT SETTINGS MODAL -->
+<div class="modal-overlay" id="modal-settings">
+  <div class="modal" style="max-width:440px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="modal-title">專案設定</div>
+      <button class="modal-close" onclick="closeSettingsModal()">×</button>
+    </div>
+    <div class="field">
+      <label>客戶 / 公司名稱</label>
+      <input type="text" id="settings-name-input">
+    </div>
+    <div class="field">
+      <label>業務備註（客戶不可見）</label>
+      <input type="text" id="settings-note-input">
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:24px" onclick="saveProjectSettings()">儲存變更</button>
+
+    <div style="border-top:1px solid var(--rule);padding-top:20px;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-ghost" style="width:100%" onclick="exportProject()">匯出專案資料（JSON）</button>
+      <button class="btn btn-ghost" style="width:100%;border-color:var(--danger);color:var(--danger)" onclick="confirmDeleteProject()">刪除此專案</button>
+    </div>
+  </div>
+</div>
+
+<!-- TUTORIAL DRAWER -->
+<div id="tutorial-overlay" onclick="closeTutorial()" style="display:none;position:fixed;inset:0;background:rgba(26,23,20,.35);z-index:150"></div>
+<div id="tutorial-drawer" style="
+  position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);
+  background:var(--white);border-left:1px solid var(--rule);
+  z-index:160;transform:translateX(100%);transition:transform .3s ease;
+  display:flex;flex-direction:column;overflow:hidden;
+">
+  <!-- Drawer header -->
+  <div style="padding:20px 24px 16px;border-bottom:1px solid var(--rule);flex-shrink:0;background:var(--white)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">連結教學</div>
+        <div style="font-family:var(--serif);font-size:20px;color:var(--ink)">如何找到平台連結？</div>
+      </div>
+      <button onclick="closeTutorial()" style="background:none;border:none;font-size:22px;color:var(--ink-light);cursor:pointer;padding:4px;line-height:1">×</button>
+    </div>
+    <!-- Platform tabs -->
+    <div id="tut-tabs" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px"></div>
+  </div>
+  <!-- Drawer content -->
+  <div id="tut-body" style="flex:1;overflow-y:auto;padding:24px"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const PLATFORMS = [
+  {id:'phone_p',  emoji:'📱', label:'個人聯絡電話',                  url:false, note:true, tel:true, placeholder:'例：0912-345-678', group:'personal'},
+  {id:'line_p',   emoji:'💬', label:'Line 好友',                    url:true, group:'personal'},
+  {id:'fb_per',   emoji:'👤', label:'FB 帳號',                      url:true, group:'personal'},
+  {id:'ig_per',   emoji:'📷', label:'IG 帳號',                      url:true, group:'personal'},
+  {id:'threads',  emoji:'🧵', label:'Threads',                      url:true, group:'personal'},
+
+  {id:'phone_o',  emoji:'☎️', label:'公司聯絡電話',                  url:false, note:true, tel:true, placeholder:'例：04-1234-5678', group:'company'},
+  {id:'line_o',   emoji:'🏢', label:'Line 官方帳號',                 url:true, group:'company'},
+  {id:'fb_page',  emoji:'📣', label:'FB 粉絲專頁',                   url:true, group:'company'},
+  {id:'ig_co',    emoji:'📸', label:'IG 帳號',                      url:true, group:'company'},
+  {id:'website',  emoji:'🌐', label:'形象官網',                      url:true, group:'company'},
+  {id:'shop_web', emoji:'🛒', label:'購物車網站',                    url:true, group:'company'},
+  {id:'checkout', emoji:'💳', label:'結帳系統（綠界/藍星/萬事達）',  url:false, note:true, group:'company'},
+  {id:'shop_plt', emoji:'🛍️',label:'購物平台（蝦皮/MOMO/PCHome）', url:true, group:'company'},
+  {id:'shopcom',  emoji:'🏪', label:'通路平台（SHOP.COM）',          url:true, group:'company'},
+  {id:'gmaps',    emoji:'🗺️', label:'Google 導航（公司/店面）',     url:true, group:'company'},
+
+  {id:'signup',   emoji:'📝', label:'報名系統 / Google 表單',        url:true, group:'general'},
+  {id:'booking',  emoji:'📅', label:'預約系統 / Google 表單',        url:true, group:'general'},
+  {id:'cloud',    emoji:'☁️', label:'雲端資料夾（作品/簡報）',       url:true, group:'general'},
+  {id:'youtube',  emoji:'▶️', label:'YouTube 頻道',                  url:true, group:'general'},
+  {id:'podcast',  emoji:'🎙️', label:'Podcast 頻道',                 url:true, group:'general'},
+  {id:'tiktok',   emoji:'🎵', label:'抖音 / TikTok',                url:true, group:'general'},
+  {id:'eatgether',emoji:'🍽️', label:'Eatgether',                   url:true, group:'general'},
+  {id:'other',    emoji:'✨', label:'其他',                          url:false, note:true, group:'general'},
+];
+
+const PLATFORM_GROUPS = [
+  {id:'personal', label:'個人'},
+  {id:'company',  label:'公司'},
+  {id:'general',  label:'其他系統'},
+];
+
+const UPLOADS = [
+  {id:'personal',     emoji:'🤳', label:'個人形象照',    hint:'個人專業照片'},
+  {id:'company',      emoji:'🏢', label:'公司形象照',    hint:'公司團隊或門面'},
+  {id:'logo',         emoji:'🎨', label:'Logo',          hint:'PNG / SVG 佳'},
+  {id:'avatar',       emoji:'🥳', label:'Q版人物設計',   hint:'已有請上傳'},
+  {id:'certificates', emoji:'🏆', label:'證書照片',      hint:'可上傳多張'},
+  {id:'card',         emoji:'📇', label:'紙本名片',      hint:'正反面皆可'},
+  {id:'portfolio',    emoji:'🖼️', label:'作品 / 案例圖', hint:'附說明更佳', hasNote:true},
+];
+const GLOBAL_UPLOAD_MAX = 5;
+
+let db = null;
+let uploadedFiles = {};
+let projectId = null;
+let isAdmin = false;
+
+async function init() {
+  const params = new URLSearchParams(location.search);
+  projectId = params.get('p');
+  isAdmin = params.get('admin') === '1' || !projectId;
+
+  if (isAdmin) {
+    document.getElementById('view-admin').classList.add('active');
+  } else {
+    document.getElementById('view-client').classList.add('active');
+    buildClientForm();
+  }
+  await tryFirebase();
+}
+
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDod-ZbhaoQY1Xl9FRHmfV1JM7vlBGc-RQ",
+  authDomain: "mr-lab-fbe5c.firebaseapp.com",
+  projectId: "mr-lab-fbe5c",
+  messagingSenderId: "575648202460",
+  appId: "1:575648202460:web:13191d2bdfe521efbc3e19"
+};
+
+async function tryFirebase() {
+  try {
+    const existing = getApps().find(a => a.name === 'main');
+    const app = existing || initializeApp(FIREBASE_CONFIG, 'main');
+    db = getFirestore(app);
+    setFb('已連線', 'ok');
+    if (isAdmin) {
+      if (sessionStorage.getItem('admin_ok')) showAdminPanel();
+      loadCfgFields();
+    } else {
+      loadProject();
+    }
+  } catch(e) {
+    setFb('連線失敗', 'err');
+    if (!isAdmin) showState('loading', false);
+  }
+}
+
+function getConfig() {
+  return FIREBASE_CONFIG;
+}
+function setFb(text, cls) {
+  const el = document.getElementById('fb-badge');
+  el.textContent = '● ' + text;
+  el.className = 'status-chip ' + cls;
+}
+
+// ── ADMIN ──────────────────────────────────────────
+window.adminLogin = function() {
+  const pwd = document.getElementById('admin-pwd').value;
+  const saved = localStorage.getItem('admin_pwd') || '119292';
+  if (pwd === saved) {
+    sessionStorage.setItem('admin_ok', '1');
+    showAdminPanel();
+  } else toast('密碼錯誤', 'err');
+};
+
+function showAdminPanel() {
+  document.getElementById('admin-login').style.display = 'none';
+  document.getElementById('admin-panel').style.display = 'block';
+  document.getElementById('admin-tabs').style.display = 'block';
+  loadProjects();
+}
+
+function loadCfgFields() {
+  const c = FIREBASE_CONFIG;
+  ['apiKey','authDomain','projectId','messagingSenderId','appId']
+    .forEach(k => {
+      const el = document.getElementById('cfg-'+k);
+      if (el && c[k]) { el.value = c[k]; el.readOnly = true; el.style.color = 'var(--ink-light)'; }
+    });
+}
+
+window.saveConfig = function() {
+  const oldPwd = document.getElementById('cfg-pwd-old').value;
+  const newPwd = document.getElementById('cfg-pwd-new').value;
+  const confirmPwd = document.getElementById('cfg-pwd-confirm').value;
+  const saved = localStorage.getItem('admin_pwd') || '119292';
+  if (!oldPwd) { toast('請輸入目前密碼', 'err'); return; }
+  if (oldPwd !== saved) { toast('目前密碼錯誤', 'err'); return; }
+  if (!newPwd) { toast('請輸入新密碼', 'err'); return; }
+  if (newPwd !== confirmPwd) { toast('兩次新密碼不一致', 'err'); return; }
+  if (newPwd.length < 6) { toast('新密碼至少需要 6 個字元', 'err'); return; }
+  localStorage.setItem('admin_pwd', newPwd);
+  document.getElementById('cfg-pwd-old').value = '';
+  document.getElementById('cfg-pwd-new').value = '';
+  document.getElementById('cfg-pwd-confirm').value = '';
+  toast('密碼已更新', 'ok');
+};
+
+async function loadProjects() {
+  const list = document.getElementById('project-list');
+  if (!db) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">Firebase 尚未設定。</p>'; return; }
+  try {
+    const snap = await getDocs(collection(db, 'projects'));
+    if (snap.empty) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無專案。</p>'; return; }
+    list.innerHTML = '';
+    snap.forEach(d => {
+      const p = d.data();
+      const row = document.createElement('div');
+      row.className = 'project-row';
+      row.innerHTML = `
+        <div>
+          <div class="pr-name">${p.clientName||d.id}</div>
+          <div class="pr-meta">建立：${p.createdAt?new Date(p.createdAt).toLocaleDateString('zh-TW'):'-'}${p.note?' · '+p.note:''}</div>
+        </div>
+        <div class="pr-actions">
+          <span class="status-tag ${p.submitted?'status-done':'status-pending'}">${p.submitted?'已填寫':'待填寫'}</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
+          ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
+          ${p.submitted?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
+          <button class="btn btn-ghost btn-sm" onclick="openProjectSettings('${d.id}')" aria-label="專案設定" title="專案設定">⋯</button>
+        </div>`;
+      list.appendChild(row);
+    });
+  } catch(e) { list.innerHTML = `<p style="color:var(--danger);font-size:13px">載入失敗：${e.message}</p>`; }
+}
+
+window.createProject = async function() {
+  if (!db) { toast('請先設定 Firebase', 'err'); return; }
+  const name = document.getElementById('new-client-name').value.trim();
+  if (!name) { toast('請輸入客戶名稱', 'err'); return; }
+  const note = document.getElementById('new-client-note').value.trim();
+  const id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+  try {
+    await setDoc(doc(db,'projects',id), {clientName:name, note, submitted:false, createdAt:Date.now()});
+    const link = location.origin + location.pathname + '?p=' + id;
+    document.getElementById('new-link').textContent = link;
+    document.getElementById('new-result').style.display = 'block';
+    document.getElementById('new-client-name').value = '';
+    document.getElementById('new-client-note').value = '';
+    toast('專案已建立', 'ok');
+  } catch(e) { toast('建立失敗：'+e.message, 'err'); }
+};
+
+window.copyLink = function(id) {
+  navigator.clipboard.writeText(location.origin + location.pathname + '?p=' + id)
+    .then(() => toast('連結已複製', 'ok'));
+};
+
+window.viewData = async function(id) {
+  const snap = await getDoc(doc(db,'projects',id));
+  const d = snap.data();
+  document.getElementById('modal-title').textContent = d.clientName + ' · 填寫內容';
+
+  // 取最新一筆 changeLog 的 diff，建立「哪些欄位有變動」的 Set
+  const log = d.changeLog || [];
+  const lastDiff = log.length ? log[log.length - 1].diff || [] : [];
+  const changedLabels = new Set(lastDiff.map(item => item.label));
+  const addedLabels   = new Set(lastDiff.filter(i=>i.type==='added').map(i=>i.label));
+  const removedLabels = new Set(lastDiff.filter(i=>i.type==='removed').map(i=>i.label));
+
+  // 根據 label 決定左側色條樣式
+  function diffBar(label) {
+    if (addedLabels.has(label))   return `border-left:3px solid #4ade80;padding-left:10px;`;
+    if (removedLabels.has(label)) return `border-left:3px solid #f87171;padding-left:10px;`;
+    if (changedLabels.has(label)) return `border-left:3px solid #f0c060;padding-left:10px;`;
+    return `border-left:3px solid transparent;padding-left:10px;`;
+  }
+  function diffTag(label) {
+    if (addedLabels.has(label))   return `<span style="font-size:10px;background:#eef5ee;color:#3a6b4a;border:1px solid #b8d8b8;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">新增</span>`;
+    if (removedLabels.has(label)) return `<span style="font-size:10px;background:#f7eaea;color:#8b3a3a;border:1px solid #e8b8b8;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">移除</span>`;
+    if (changedLabels.has(label)) return `<span style="font-size:10px;background:#faf5eb;color:#9a7a2a;border:1px solid #e8d8a0;border-radius:3px;padding:1px 6px;margin-left:8px;vertical-align:middle">更新</span>`;
+    return '';
+  }
+
+  // 說明列：本次有幾個欄位變動
+  let html = '';
+  if (lastDiff.length && log.length) {
+    const lastAt = new Date(log[log.length-1].at).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'});
+    html += `<div style="background:#faf7f2;border:1px solid #e8dfc8;border-radius:4px;padding:10px 14px;font-size:12px;color:var(--ink-mid);margin-bottom:20px;display:flex;align-items:center;gap:8px">
+      <span style="color:var(--gold)">●</span>
+      <span>與上次紀錄（${lastAt}）相比，有 <strong>${lastDiff.length}</strong> 個欄位變動，以色條標示</span>
+      <span style="margin-left:auto;display:flex;gap:8px">
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#4ade80;display:inline-block"></span>新增</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#f0c060;display:inline-block"></span>更新</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:2px;background:#f87171;display:inline-block"></span>移除</span>
+      </span>
+    </div>`;
+  }
+
+  // ── 平台資訊 ──
+  if (d.platforms && Object.keys(d.platforms).length) {
+    html += '<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">平台資訊</div>';
+    Object.entries(d.platforms).forEach(([k,v]) => {
+      const pl = PLATFORMS.find(p=>p.id===k);
+      const label = pl ? pl.label : k;
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar(label)}">
+        <span style="color:var(--ink-mid)">${pl?pl.emoji+' '+pl.label:k}</span>${diffTag(label)}
+        ${v.url?`<br><a href="${v.url}" target="_blank" style="color:var(--accent)">${v.url}</a>`:''}
+        ${v.note?`<br><span style="color:var(--ink-light)">${v.note}</span>`:''}
+      </div>`;
+    });
+  }
+
+  // ── 上傳檔案 ──
+  if (d.uploads && Object.keys(d.uploads).length) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">上傳檔案</div>';
+    Object.entries(d.uploads).forEach(([k,arr]) => {
+      const up = UPLOADS.find(u=>u.id===k);
+      const label = up ? up.label + ' 圖片' : k;
+      html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar(label)}">
+        <span style="color:var(--ink-mid)">${up?up.emoji+' '+up.label:k}</span>${diffTag(label)}<br>`;
+      arr.forEach(f => {
+        if (f.dataUrl) {
+          html += `<a href="${f.dataUrl}" download="${f.name}" target="_blank" style="display:inline-block;margin:6px 6px 0 0">
+            <img src="${f.dataUrl}" alt="${f.name}" style="height:80px;width:auto;border:1px solid var(--rule);object-fit:cover;vertical-align:top">
+          </a>`;
+        } else if (f.url) {
+          html += `<a href="${f.url}" target="_blank" style="display:inline-block;margin:4px 4px 0 0;font-size:12px;color:var(--accent);text-decoration:underline">${f.name}</a>`;
+        }
+      });
+      if (d.uploadNotes?.[k]) {
+        html += `<div style="margin-top:8px;font-size:12px;color:var(--ink-light);font-style:italic">說明：${d.uploadNotes[k]}</div>`;
+      }
+      html += '</div>';
+    });
+  }
+
+  // ── 品牌色系 ──
+  if (d.brandColorData && d.brandColorData.mode) {
+    const modeLabels = {has:'已有品牌色系', expect:'有期望設計的顏色', logo:'依照 Logo 色系延伸設計', free:'無，交由設計師自由發揮'};
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌色系</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('品牌色系')}">
+      <span style="color:var(--ink-mid)">${modeLabels[d.brandColorData.mode]||d.brandColorData.mode}</span>${diffTag('品牌色系')}`;
+    if (d.brandColorData.colors?.length) {
+      html += '<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px">';
+      d.brandColorData.colors.forEach(c => {
+        html += `<div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div style="width:36px;height:36px;border-radius:50%;background:${c};border:1px solid var(--rule);box-shadow:0 1px 3px rgba(0,0,0,.1)" title="${c}"></div>
+          <span style="font-size:10px;font-family:'Courier New',monospace;color:var(--ink-mid);letter-spacing:.04em">${c.toUpperCase()}</span>
+        </div>`;
+      });
+      html += '</div>';
+    }
+    if (d.brandColorData.note) {
+      html += `<div style="margin-top:8px;color:var(--ink-light)">${d.brandColorData.note}</div>`;
+    }
+    html += '</div>';
+  }
+
+  // ── 品牌文案 ──
+  if (d.brandCopy) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">品牌文案 / Slogan / 理念</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('品牌文案')}">
+      <span style="color:var(--ink-mid);white-space:pre-wrap">${d.brandCopy}</span>${diffTag('品牌文案')}
+    </div>`;
+  }
+
+  // ── 其他需求 ──
+  if (d.otherNeeds) {
+    html += '<div style="margin-top:24px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">其他需求</div>';
+    html += `<div style="padding:12px 0;border-bottom:1px solid var(--rule);font-size:13px;${diffBar('其他需求')}">
+      <span style="color:var(--ink-mid);white-space:pre-wrap">${d.otherNeeds}</span>${diffTag('其他需求')}
+    </div>`;
+  }
+
+  document.getElementById('modal-body').innerHTML = html || '<p style="color:var(--ink-light);font-size:13px">無資料</p>';
+  document.getElementById('modal').classList.add('show');
+};
+
+window.closeModal = () => document.getElementById('modal').classList.remove('show');
+
+// ── PROJECT SETTINGS (rename / delete / export) ────
+let settingsProjectId = null;
+
+window.openProjectSettings = async function(id) {
+  settingsProjectId = id;
+  try {
+    const snap = await getDoc(doc(db,'projects',id));
+    const p = snap.data();
+    document.getElementById('settings-name-input').value = p.clientName || '';
+    document.getElementById('settings-note-input').value = p.note || '';
+    document.getElementById('modal-settings').classList.add('show');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
+};
+
+window.closeSettingsModal = () => document.getElementById('modal-settings').classList.remove('show');
+
+window.saveProjectSettings = async function() {
+  if (!settingsProjectId) return;
+  const name = document.getElementById('settings-name-input').value.trim();
+  if (!name) { toast('客戶名稱不可空白', 'err'); return; }
+  const note = document.getElementById('settings-note-input').value.trim();
+  try {
+    await setDoc(doc(db,'projects',settingsProjectId), {clientName:name, note}, {merge:true});
+    toast('已儲存', 'ok');
+    closeSettingsModal();
+    loadProjects();
+  } catch(e) { toast('儲存失敗：'+e.message, 'err'); }
+};
+
+window.exportProject = async function() {
+  if (!settingsProjectId) return;
+  try {
+    const snap = await getDoc(doc(db,'projects',settingsProjectId));
+    const data = snap.data();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${data.clientName || settingsProjectId}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    toast('已匯出', 'ok');
+  } catch(e) { toast('匯出失敗：'+e.message, 'err'); }
+};
+
+window.confirmDeleteProject = function() {
+  if (!settingsProjectId) return;
+  if (!confirm('確定要刪除此專案嗎？此操作無法復原，所有填寫資料與圖片都會一併刪除。')) return;
+  deleteProjectNow();
+};
+
+async function deleteProjectNow() {
+  try {
+    await deleteDoc(doc(db,'projects',settingsProjectId));
+    toast('專案已刪除', 'ok');
+    closeSettingsModal();
+    loadProjects();
+  } catch(e) { toast('刪除失敗：'+e.message, 'err'); }
+}
+
+window.switchTab = function(t) {
+  ['projects','create','firebase'].forEach(n => {
+    document.getElementById('tab-'+n).style.display = n===t?'block':'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['projects','create','firebase'][i]===t);
+  });
+  if (t==='projects') loadProjects();
+};
+
+// ── CLIENT ─────────────────────────────────────────
+function buildClientForm() {
+  const container = document.getElementById('platform-grid');
+  PLATFORM_GROUPS.forEach(g => {
+    const items = PLATFORMS.filter(p => p.group === g.id);
+    if (!items.length) return;
+
+    const groupWrap = document.createElement('div');
+    groupWrap.className = 'platform-group';
+
+    const label = document.createElement('div');
+    label.className = 'platform-group-label';
+    label.textContent = g.label;
+    groupWrap.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'platform-grid';
+
+    items.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'platform-item';
+      div.id = 'pi-'+p.id;
+      div.innerHTML = `
+        <div class="pi-header">
+          <input type="checkbox" id="cb-${p.id}" onchange="togglePlatform('${p.id}')">
+          <span class="pi-emoji">${p.emoji}</span>
+          <label class="pi-label" for="cb-${p.id}">${p.label}</label>
+        </div>
+        ${(p.url||p.note)?`<div class="pi-url-wrap" id="pw-${p.id}">
+          <input type="${p.url?'url':(p.tel?'tel':'text')}" id="pi-val-${p.id}"
+            placeholder="${p.placeholder || (p.url?'https://...':'請說明')}"
+            oninput="updateProgress()">
+        </div>`:''}`;
+      grid.appendChild(div);
+    });
+
+    groupWrap.appendChild(grid);
+    container.appendChild(groupWrap);
+  });
+
+  const ugrid = document.getElementById('upload-grid');
+  UPLOADS.forEach(u => {
+    uploadedFiles[u.id] = [];
+    const div = document.createElement('div');
+    div.className = 'upload-card';
+    div.id = 'uc-'+u.id;
+    div.innerHTML = `
+      <div class="uc-emoji">${u.emoji}</div>
+      <div class="uc-label">${u.label}</div>
+      <div class="uc-hint">${u.hint}</div>
+      <input type="file" class="uc-input" id="uf-${u.id}"
+        accept="image/*,.pdf,.heic,.webp" multiple
+        onchange="handleUpload('${u.id}',this)">
+      <label class="uc-trigger" for="uf-${u.id}">選擇檔案</label>
+      <div class="uc-count" id="uc-count-${u.id}" style="font-size:11px;color:var(--ink-light);margin-top:6px;display:none">已選 <span>0</span> 張</div>
+      <div class="uc-files" id="ufl-${u.id}"></div>
+      ${u.hasNote ? `<textarea class="uc-note" id="uc-note-${u.id}" placeholder="附加說明，例：案場、比賽、活動現場⋯" oninput="updateProgress()"></textarea>` : ''}`;
+    ugrid.appendChild(div);
+  });
+  updateUploadTotalUI();
+  updateProgress();
+}
+
+function totalUploadedCount() {
+  return UPLOADS.reduce((acc,u) => acc + (uploadedFiles[u.id]?.length||0) + (uploadedFiles[u.id+'_existing']?.length||0), 0);
+}
+
+function updateUploadTotalUI() {
+  const el = document.getElementById('upload-total-count');
+  if (el) el.textContent = totalUploadedCount();
+  const reached = totalUploadedCount() >= GLOBAL_UPLOAD_MAX;
+  UPLOADS.forEach(u => {
+    const trigger = document.getElementById('uc-'+u.id)?.querySelector('.uc-trigger');
+    if (trigger) { trigger.style.opacity = reached ? '0.4' : '1'; trigger.style.pointerEvents = reached ? 'none' : ''; }
+  });
+}
+
+// ── TUTORIAL DRAWER ──────────────────────────────
+const BASE = './step/';
+
+const TUTORIALS = [
+  {
+    id: 'line_p', label: 'Line 好友', emoji: '💬',
+    images: [{ file: 'Line(個人)-手機.png', caption: '手機步驟' }]
+  },
+  {
+    id: 'line_o', label: 'Line 官方帳號', emoji: '🏢',
+    images: [
+      { file: 'Line(官方)-手機.png', caption: '手機步驟' },
+      { file: 'Line(官方)-電腦.png', caption: '電腦步驟' },
+    ]
+  },
+  {
+    id: 'fb_page', label: 'FB 粉絲專頁', emoji: '📣',
+    images: [{ file: 'FB.png', caption: '手機 / 電腦通用' }]
+  },
+  {
+    id: 'fb_per', label: 'FB 個人帳號', emoji: '👤',
+    images: [{ file: 'FB.png', caption: '手機 / 電腦通用' }]
+  },
+  {
+    id: 'ig_co', label: 'IG 公司帳號', emoji: '📸',
+    images: [{ file: 'Instagram.png', caption: '手機步驟' }]
+  },
+  {
+    id: 'ig_per', label: 'IG 個人帳號', emoji: '📷',
+    images: [{ file: 'Instagram.png', caption: '手機步驟' }]
+  },
+  {
+    id: 'threads', label: 'Threads', emoji: '🧵',
+    images: [{ file: 'Threads.png', caption: '手機步驟' }]
+  },
+  {
+    id: 'gmaps', label: 'Google 導航', emoji: '🗺️',
+    images: [
+      { file: 'Google 導航-手機.png', caption: '手機步驟' },
+      { file: 'Google 導航-電腦.png', caption: '電腦步驟' },
+    ]
+  },
+  {
+    id: 'signup', label: '報名系統 / Google 表單', emoji: '📝',
+    images: [{ file: 'Google 表單-電腦.png', caption: '電腦步驟' }]
+  },
+  {
+    id: 'booking', label: '預約系統 / Google 表單', emoji: '📅',
+    images: [{ file: 'Google 表單-電腦.png', caption: '電腦步驟' }]
+  },
+  {
+    id: 'cloud', label: '雲端資料夾', emoji: '☁️',
+    images: [
+      { file: '雲端資料夾-手機.png', caption: '手機步驟' },
+      { file: '雲端資料夾-電腦.png', caption: '電腦步驟' },
+    ]
+  },
+  // 以下暫無圖片，保留文字說明
+  { id: 'shop_web', label: '購物車網站',  emoji: '🛒', text: '用瀏覽器開啟您的購物網站首頁，複製網址列的完整網址即可。' },
+  { id: 'shop_plt', label: '購物平台',    emoji: '🛍️', text: '進入蝦皮 / MOMO / PCHome 您的賣家主頁，複製瀏覽器網址列的連結。' },
+  { id: 'shopcom',  label: 'SHOP.COM',   emoji: '🏪', text: '登入後台，進入您的商店頁面，複製瀏覽器網址列的連結。' },
+  { id: 'youtube',  label: 'YouTube',    emoji: '▶️', text: '開啟 YouTube → 點右上角頭像 → 「您的頻道」→ 複製瀏覽器網址。' },
+  { id: 'podcast',  label: 'Podcast',    emoji: '🎙️', text: '進入您節目的主頁，複製瀏覽器網址列的連結。' },
+  { id: 'tiktok',   label: 'TikTok',     emoji: '🎵', text: '開啟 TikTok → 個人頁面 → 右上角「⋯」→「分享個人檔案」→「複製連結」。' },
+  { id: 'eatgether',label: 'Eatgether',  emoji: '🍽️', text: '登入 Eatgether 後台，進入餐廳頁面，複製瀏覽器網址列的連結。' },
+];
+
+let currentTutId = null;
+
+// ── 燈箱放大 ──────────────────────────────────────
+window.openLightbox = function(src, caption) {
+  let lb = document.getElementById('lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out;padding:20px';
+    lb.onclick = () => lb.remove();
+    document.body.appendChild(lb);
+  }
+  lb.innerHTML = `
+    <img src="${src}" style="max-width:100%;max-height:85vh;object-fit:contain;border-radius:4px;box-shadow:0 8px 40px rgba(0,0,0,.5)">
+    ${caption ? `<div style="color:rgba(255,255,255,.7);font-size:12px;margin-top:12px;letter-spacing:.08em">${caption}</div>` : ''}
+    <div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:8px">點任意處關閉</div>
+  `;
+  lb.style.display = 'flex';
+};
+
+window.openTutorial = function(preselect) {
+  const overlay = document.getElementById('tutorial-overlay');
+  const drawer  = document.getElementById('tutorial-drawer');
+  const tabs    = document.getElementById('tut-tabs');
+
+  // Build tabs — only show platforms the user has checked, or all if none checked yet
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked).map(p=>p.id);
+  const toShow  = TUTORIALS.filter(t => !checked.length || checked.includes(t.id));
+  const list    = toShow.length ? toShow : TUTORIALS;
+
+  tabs.innerHTML = '';
+  list.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'tut-tab';
+    btn.id = 'tut-tab-'+t.id;
+    btn.innerHTML = `${t.emoji} ${t.label}`;
+    btn.onclick = () => showTutorial(t.id);
+    tabs.appendChild(btn);
+  });
+
+  overlay.style.display = 'block';
+  requestAnimationFrame(() => { drawer.style.transform = 'translateX(0)'; });
+
+  // Preselect: the platform whose "?" was clicked, or the first checked, or first in list
+  const first = preselect || (checked.length ? checked[0] : list[0]?.id);
+  if (first) showTutorial(first);
+};
+
+window.closeTutorial = function() {
+  const drawer  = document.getElementById('tutorial-drawer');
+  const overlay = document.getElementById('tutorial-overlay');
+  drawer.style.transform = 'translateX(100%)';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+};
+
+function showTutorial(id) {
+  currentTutId = id;
+  document.querySelectorAll('.tut-tab').forEach(b => b.classList.toggle('active', b.id === 'tut-tab-'+id));
+  const t = TUTORIALS.find(x => x.id === id);
+  if (!t) return;
+
+  let html = `<div style="font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px">${t.emoji} ${t.label}</div>`;
+
+  if (t.images?.length) {
+    // 多張圖片（手機/電腦）
+    if (t.images.length > 1) {
+      html += `<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">`;
+      t.images.forEach((img, i) => {
+        html += `<button onclick="switchTutImg('${id}', ${i})" id="tut-img-tab-${id}-${i}"
+          style="font-size:11px;letter-spacing:.06em;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:var(--sans);
+          background:${i===0?'var(--ink)':'var(--white)'};color:${i===0?'var(--white)':'var(--ink-mid)'};
+          border:1px solid ${i===0?'var(--ink)':'var(--rule)'};transition:all .15s"
+        >${img.caption}</button>`;
+      });
+      html += `</div>`;
+    }
+
+    t.images.forEach((img, i) => {
+      const src = BASE + img.file;
+      html += `<div id="tut-img-wrap-${id}-${i}" style="display:${i===0?'block':'none'}">
+        <div style="position:relative;cursor:zoom-in" onclick="openLightbox('${src}', '${t.label} — ${img.caption}')">
+          <img src="${src}" alt="${t.label} ${img.caption}"
+            style="width:100%;border-radius:6px;border:1px solid var(--rule);display:block"
+            onerror="this.parentElement.parentElement.innerHTML='<div style=\'padding:24px;text-align:center;color:var(--ink-light);font-size:13px;background:var(--cream);border-radius:6px\'>📷 圖片準備中</div>'"
+          >
+          <div style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.5);color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;pointer-events:none">
+            🔍 點擊放大
+          </div>
+        </div>
+      </div>`;
+    });
+
+  } else if (t.text) {
+    // 純文字說明（暫無圖片的平台）
+    html += `<div style="background:var(--cream);border-radius:6px;padding:16px 18px;font-size:13px;color:var(--ink-mid);line-height:1.8;margin-top:8px">
+      ${t.text}
+    </div>`;
+  }
+
+  // 回到表單按鈕
+  html += `<div style="margin-top:24px;padding:14px;background:var(--cream);border-radius:6px;text-align:center">
+    <p style="font-size:12px;color:var(--ink-light);margin-bottom:10px">對照圖片操作完成後，複製連結貼到表單對應欄位。</p>
+    <button class="btn btn-ghost btn-sm" onclick="closeTutorial()" style="width:100%">← 回到表單填寫</button>
+  </div>`;
+
+  document.getElementById('tut-body').innerHTML = html;
+}
+
+window.switchTutImg = function(id, idx) {
+  const t = TUTORIALS.find(x => x.id === id);
+  if (!t?.images) return;
+  t.images.forEach((_, i) => {
+    const wrap = document.getElementById(`tut-img-wrap-${id}-${i}`);
+    const tab  = document.getElementById(`tut-img-tab-${id}-${i}`);
+    if (wrap) wrap.style.display = i === idx ? 'block' : 'none';
+    if (tab) {
+      tab.style.background = i === idx ? 'var(--ink)' : 'var(--white)';
+      tab.style.color      = i === idx ? 'var(--white)' : 'var(--ink-mid)';
+      tab.style.borderColor= i === idx ? 'var(--ink)' : 'var(--rule)';
+    }
+  });
+};
+let brandColors = []; // array of hex strings, max 5
+let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
+let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
+
+function buildSwatches() {
+  const row = document.getElementById('swatch-row');
+  row.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const filled = brandColors[i];
+    const slot = document.createElement('div');
+    slot.className = 'swatch-slot';
+    slot.innerHTML = `
+      <div class="swatch-circle ${filled ? 'filled' : ''}" id="swatch-circle-${i}" style="${filled ? `background:${filled}` : ''}">
+        <span class="swatch-plus">+</span>
+        <input type="color" id="swatch-input-${i}" value="${filled || '#b5924a'}" oninput="setSwatchColor(${i}, this.value)">
+      </div>
+      ${filled
+        ? `<span class="swatch-hex">${filled.toUpperCase()}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>`
+        : `<span class="swatch-hex" style="color:var(--ink-light);font-size:10px">點擊選色</span>`
+      }
+    `;
+    row.appendChild(slot);
+  }
+}
+
+window.setSwatchColor = function(i, hex) {
+  brandColors[i] = hex;
+  buildSwatches();
+  updateProgress();
+};
+
+window.removeSwatch = function(i) {
+  brandColors[i] = null;
+  buildSwatches();
+  updateProgress();
+};
+
+window.setColorMode = function(mode) {
+  colorMode = mode;
+  ['has','expect','logo','free'].forEach(m => {
+    document.getElementById('cm-'+m).classList.toggle('active', m===mode);
+  });
+  document.getElementById('color-swatch-wrap').classList.toggle('show', mode==='has');
+  document.getElementById('color-other-note').style.display = mode==='expect' ? 'block' : 'none';
+  if (mode === 'has' && document.getElementById('swatch-row').children.length === 0) buildSwatches();
+  updateProgress();
+};
+
+window.togglePlatform = function(id) {
+  const checked = document.getElementById('cb-'+id).checked;
+  const wrap = document.getElementById('pw-'+id);
+  document.getElementById('pi-'+id).classList.toggle('checked', checked);
+  if (wrap) wrap.classList.toggle('show', checked);
+  updateProgress();
+};
+
+window.handleUpload = function(uid, input) {
+  const incoming = Array.from(input.files);
+  const remaining = GLOBAL_UPLOAD_MAX - totalUploadedCount();
+  if (remaining <= 0) {
+    toast(`全部圖片加起來最多 ${GLOBAL_UPLOAD_MAX} 張，如需上傳更多請另外通知顧問`, 'err');
+    input.value = '';
+    return;
+  }
+  if (incoming.length > remaining) {
+    toast(`全部圖片加起來最多 ${GLOBAL_UPLOAD_MAX} 張，已略過超出的檔案，如需上傳更多請另外通知顧問`, 'err');
+  }
+  incoming.slice(0, remaining).forEach(f => uploadedFiles[uid].push({file:f, name:f.name}));
+  input.value = '';
+  renderFileList(uid);
+};
+
+function renderFileList(uid) {
+  const flDiv = document.getElementById('ufl-'+uid);
+  flDiv.innerHTML = '';
+  uploadedFiles[uid].forEach((f,i) => {
+    const d = document.createElement('div');
+    d.className = 'uc-file';
+    d.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px">${f.name}</span><span class="uc-remove" onclick="removeFile('${uid}',${i})">×</span>`;
+    flDiv.appendChild(d);
+  });
+  const card = document.getElementById('uc-'+uid);
+  const countEl = document.getElementById('uc-count-'+uid);
+  const count = uploadedFiles[uid].length;
+  card.classList.toggle('has-file', count > 0);
+  if (countEl) { countEl.style.display = count > 0 ? 'block' : 'none'; countEl.querySelector('span').textContent = count; }
+  updateUploadTotalUI();
+  updateProgress();
+}
+
+window.removeFile = function(uid, idx) {
+  uploadedFiles[uid].splice(idx,1);
+  renderFileList(uid);
+};
+
+function updateProgress() {
+  let total=1, done=0;
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+  if (checked.length>0) done++;
+  checked.forEach(p => {
+    if (p.url||p.note) {
+      total++;
+      if (document.getElementById('pi-val-'+p.id)?.value?.trim()) done++;
+    }
+  });
+  UPLOADS.filter(u=>u.req).forEach(u => {
+    total++;
+    if (uploadedFiles[u.id]?.length>0) done++;
+  });
+  const pct = Math.round((done/total)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-text').textContent = pct+'%';
+}
+
+async function loadProject() {
+  if (!db) {
+    showState('loading', false);
+    document.getElementById('c-loading').innerHTML = `
+      <div class="state-symbol">!</div>
+      <div class="state-title">系統尚未設定</div>
+      <p class="state-body">Firebase 尚未完成設定，請聯繫您的業務顧問。</p>`;
+    return;
+  }
+  try {
+    const snap = await getDoc(doc(db,'projects',projectId));
+    if (!snap.exists()) { showState('notfound', true); return; }
+    const d = snap.data();
+    cachedPrevData = d; // 快取供送出比對用
+    document.getElementById('c-title').innerHTML = `${d.clientName}，<em>歡迎</em>填寫`;
+    if (d.submitted) {
+      document.getElementById('c-success-msg').textContent = d.clientName + '，您已完成資料填寫，感謝您！';
+      showState('success', true);
+    } else {
+      showState('form', true);
+    }
+  } catch(e) {
+    showState('loading', false);
+    document.getElementById('c-loading').innerHTML = `
+      <div class="state-symbol">!</div>
+      <div class="state-title">載入失敗</div>
+      <p class="state-body">${e.message}</p>`;
+  }
+}
+
+// 編輯模式：載入已填寫內容填回表單
+window.startEdit = async function() {
+  try {
+    const snap = await getDoc(doc(db,'projects',projectId));
+    const d = snap.data();
+    showState('form', true);
+    // 還原平台
+    if (d.platforms) {
+      Object.entries(d.platforms).forEach(([k,v]) => {
+        const cb = document.getElementById('cb-'+k);
+        if (cb) {
+          cb.checked = true;
+          document.getElementById('pi-'+k)?.classList.add('checked');
+          const pw = document.getElementById('pw-'+k);
+          if (pw) pw.classList.add('show');
+          const val = document.getElementById('pi-val-'+k);
+          if (val) val.value = v.url || v.note || '';
+        }
+      });
+    }
+    // 還原圖片說明（無法還原已壓縮的 base64，提示客戶重新上傳即可）
+    if (d.uploads && Object.keys(d.uploads).length) {
+      const note = document.createElement('p');
+      note.style.cssText = 'font-size:12px;color:var(--gold);font-style:italic;margin-bottom:16px';
+      note.textContent = '編輯模式：之前上傳的圖片若不重新上傳，則保留原有的；重新上傳則會覆蓋。';
+      document.getElementById('upload-grid').before(note);
+      // 標記哪些已有檔案
+      Object.keys(d.uploads).forEach(k => {
+        const card = document.getElementById('uc-'+k);
+        if (card && d.uploads[k]?.length) {
+          card.classList.add('has-file');
+          const fl = document.getElementById('ufl-'+k);
+          if (fl) {
+            fl.innerHTML = '';
+            d.uploads[k].forEach(f => {
+              const div = document.createElement('div');
+              div.className = 'uc-file';
+              div.style.color = 'var(--ink-light)';
+              div.innerHTML = `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px">✓ ${f.name}（已有）</span>`;
+              fl.appendChild(div);
+            });
+            const countEl = document.getElementById('uc-count-'+k);
+            const upDef = UPLOADS.find(u=>u.id===k);
+            if (countEl && upDef) {
+              countEl.style.display = 'block';
+              countEl.querySelector('span').textContent = d.uploads[k].length;
+            }
+          }
+          // 記錄原有資料以便 merge 送出
+          uploadedFiles[k+'_existing'] = d.uploads[k];
+        }
+      });
+    }
+    // 還原圖片附加說明
+    if (d.uploadNotes) {
+      Object.entries(d.uploadNotes).forEach(([k,v]) => {
+        const el = document.getElementById('uc-note-'+k);
+        if (el) el.value = v;
+      });
+    }
+    // 還原品牌色系
+    cachedPrevData = d; // 存起來供送出時比對，避免重複讀取造成誤判
+    if (d.brandColorData) {
+      if (d.brandColorData.mode) {
+        setColorMode(d.brandColorData.mode);
+      }
+      if (d.brandColorData.colors?.length) {
+        brandColors = [...d.brandColorData.colors];
+        buildSwatches();
+      }
+      if (d.brandColorData.note) {
+        const el = document.getElementById('color-expect-text');
+        if (el) el.value = d.brandColorData.note;
+      }
+    }
+    if (d.brandCopy) {
+      const el = document.getElementById('brand-copy');
+      if (el) el.value = d.brandCopy;
+    }
+    if (d.otherNeeds) {
+      const el = document.getElementById('other-needs');
+      if (el) el.value = d.otherNeeds;
+    }
+    updateUploadTotalUI();
+    updateProgress();
+    toast('已載入原本填寫的內容', 'ok');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
+};
+
+window.viewHistory = async function(id) {
+  try {
+    const snap = await getDoc(doc(db,'projects',id));
+    const d = snap.data();
+    const log = d.changeLog || [];
+    document.getElementById('modal-title').textContent = (d.clientName || '') + ' · 變更紀錄';
+    if (!log.length) {
+      const submittedAt = d.submittedAt ? new Date(d.submittedAt).toLocaleDateString('zh-TW',{month:'numeric',day:'numeric'}) : null;
+      document.getElementById('modal-body').innerHTML = submittedAt
+        ? `<div style="padding:16px 0">
+            <div style="font-family:var(--serif);font-size:15px;color:var(--ink);margin-bottom:10px">${submittedAt}</div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:8px 12px;background:#e8eef5;border-radius:4px">
+              <span style="flex-shrink:0;font-size:10px;letter-spacing:.06em;color:var(--accent);background:var(--white);border:1px solid var(--accent);border-radius:3px;padding:2px 7px">填寫</span>
+              <div style="font-size:12px;color:var(--ink-mid)"><span style="font-weight:500;color:var(--ink)">填寫資訊</span><br><span style="color:var(--ink-light)">此專案在變更紀錄功能上線前已建立，無詳細紀錄</span></div>
+            </div>
+          </div>`
+        : '<p style="color:var(--ink-light);font-size:13px">尚無變更紀錄。</p>';
+    } else {
+      const typeStyle = {
+        added:   {color:'var(--success)', bg:'#eef5ee', label:'新增'},
+        changed: {color:'#9a7a2a',        bg:'#faf5eb', label:'更新'},
+        removed: {color:'var(--danger)',  bg:'#f7eaea', label:'移除'},
+        new:     {color:'var(--accent)',  bg:'var(--accent-light)', label:'填寫'},
+      };
+      let html = '';
+      [...log].reverse().forEach(entry => {
+        const dateStr = new Date(entry.at).toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'});
+        const timeStr = new Date(entry.at).toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
+        html += `<div style="padding:16px 0;border-bottom:1px solid var(--rule)">
+          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px">
+            <span style="font-family:var(--serif);font-size:15px;color:var(--ink)">${dateStr}</span>
+            <span style="font-size:11px;color:var(--ink-light)">${timeStr}</span>
+          </div>`;
+        if (entry.diff?.length) {
+          entry.diff.forEach(item => {
+            const st = typeStyle[item.type] || typeStyle.changed;
+            html += `<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px 12px;background:${st.bg};border-radius:4px">
+              <span style="flex-shrink:0;font-size:10px;letter-spacing:.06em;color:${st.color};background:var(--white);border:1px solid ${st.color};border-radius:3px;padding:2px 7px;margin-top:1px">${st.label}</span>
+              <div style="flex:1;font-size:12px;color:var(--ink-mid);line-height:1.6">
+                <span style="font-weight:500;color:var(--ink)">${item.label}</span>
+                ${item.type==='changed' && (item.before||item.after) ? `<br><span style="color:var(--ink-light);text-decoration:line-through">${item.before||'（空白）'}</span> → <span style="color:${st.color}">${item.after||'（空白）'}</span>` : ''}
+                ${item.detail ? `<br><span style="color:var(--ink-light)">${item.detail}</span>` : ''}
+              </div>
+            </div>`;
+          });
+        } else if (entry.summary) {
+          html += `<div style="font-size:13px;color:var(--ink-mid)">${entry.summary}</div>`;
+        }
+        html += `</div>`;
+      });
+      document.getElementById('modal-body').innerHTML = html;
+    }
+    document.getElementById('modal').classList.add('show');
+  } catch(e) { toast('載入失敗：'+e.message, 'err'); }
+};
+
+function showState(s, show) {
+  ['loading','notfound','success','rewrite','form'].forEach(n => {
+    const el = document.getElementById('c-'+n);
+    if (el) el.style.display = (n===s&&show) ? 'block' : 'none';
+  });
+}
+
+window.submitForm = async function() {
+  const msg = document.getElementById('val-msg');
+  msg.style.color = 'var(--danger)';
+  msg.textContent = '';
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+  if (!checked.length) { msg.textContent = '請至少勾選一個平台'; return; }
+  for (const p of checked) {
+    if (p.url||p.note) {
+      const v = document.getElementById('pi-val-'+p.id)?.value?.trim();
+      if (!v) { msg.textContent = `請填寫「${p.label}」的${p.note?'說明':'連結'}`; document.getElementById('pi-'+p.id).scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    }
+  }
+
+  // 檢查是否完全沒有上傳圖片（新檔案 + 既有檔案都沒有）
+  const hasAnyFile = UPLOADS.some(u =>
+    uploadedFiles[u.id]?.length > 0 || uploadedFiles[u.id+'_existing']?.length > 0
+  );
+  if (!hasAnyFile) {
+    // 顯示確認警告
+    msg.style.color = 'var(--gold)';
+    msg.innerHTML = '⚠ 目前沒有上傳任何圖片，是否仍然送出？ <button class="btn btn-ghost btn-sm" style="margin-left:8px;vertical-align:middle" onclick="doSubmit()">確認送出</button>';
+    return;
+  }
+  await doSubmit();
+};
+
+window.doSubmit = async function() {
+  const msg = document.getElementById('val-msg');
+  msg.style.color = 'var(--ink-mid)';
+
+  const totalNewFiles = UPLOADS.reduce((acc, u) => acc + (uploadedFiles[u.id]?.length||0), 0);
+  let doneFiles = 0;
+  const updateMsg = () => {
+    msg.textContent = totalNewFiles > 0
+      ? `壓縮並儲存中⋯（${doneFiles}/${totalNewFiles}）請勿關閉頁面`
+      : '儲存中，請勿關閉頁面⋯';
+  };
+  updateMsg();
+
+  if (!db) { msg.style.color='var(--danger)'; msg.textContent = 'Firebase 未設定，無法送出'; return; }
+
+  const checked = PLATFORMS.filter(p => document.getElementById('cb-'+p.id)?.checked);
+
+  try {
+    const platforms = {};
+    checked.forEach(p => {
+      const v = document.getElementById('pi-val-'+p.id)?.value?.trim()||'';
+      platforms[p.id] = p.note ? {note:v} : {url:v};
+    });
+
+    const brandColorData = {
+      mode: colorMode,
+      colors: colorMode === 'has' ? brandColors.filter(Boolean) : [],
+      note: colorMode === 'expect' ? (document.getElementById('color-expect-text')?.value.trim()||'') : ''
+    };
+    const brandCopy = document.getElementById('brand-copy')?.value.trim() || '';
+    const otherNeeds = document.getElementById('other-needs')?.value.trim() || '';
+
+    const uploads = {};
+    for (const u of UPLOADS) {
+      const existing = uploadedFiles[u.id+'_existing'] || [];
+      const newFiles = uploadedFiles[u.id] || [];
+      if (existing.length > 0 || newFiles.length > 0) {
+        uploads[u.id] = [...existing];
+        for (const f of newFiles) {
+          const compressed = await compressImage(f.file);
+          uploads[u.id].push({ name: compressed.name, dataUrl: compressed.dataUrl });
+          doneFiles++;
+          updateMsg();
+        }
+      }
+    }
+
+    const uploadNotes = {};
+    UPLOADS.filter(u => u.hasNote).forEach(u => {
+      const v = document.getElementById('uc-note-'+u.id)?.value.trim();
+      if (v) uploadNotes[u.id] = v;
+    });
+
+    // 比對先前資料，產生變更摘要與詳細差異
+    // 直接用 startEdit 時已載入的快取，避免再讀一次 Firestore 造成比對誤差
+    const prevData = cachedPrevData || {};
+
+    const isFirstSubmit = !prevData.submitted && !(prevData.changeLog?.length);
+    const diff = []; // [{type, label, before, after}]
+
+    if (isFirstSubmit) {
+      diff.push({type:'new', label:'填寫資訊', detail:'首次完成表單填寫'});
+    } else {
+      const prevPlatformKeys = Object.keys(prevData.platforms||{});
+      const newPlatformKeys = Object.keys(platforms);
+      newPlatformKeys.filter(k => !prevPlatformKeys.includes(k)).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'added', label:(pl?pl.label:k), detail: platforms[k].url||platforms[k].note||''});
+      });
+      newPlatformKeys.filter(k => prevPlatformKeys.includes(k) &&
+        JSON.stringify(platforms[k]) !== JSON.stringify(prevData.platforms[k])).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'changed', label:(pl?pl.label:k), before: prevData.platforms[k].url||prevData.platforms[k].note||'', after: platforms[k].url||platforms[k].note||''});
+      });
+      prevPlatformKeys.filter(k => !newPlatformKeys.includes(k)).forEach(k => {
+        const pl = PLATFORMS.find(p=>p.id===k);
+        diff.push({type:'removed', label:(pl?pl.label:k), detail: prevData.platforms[k].url||prevData.platforms[k].note||''});
+      });
+
+      UPLOADS.forEach(u => {
+        const prevCount = prevData.uploads?.[u.id]?.length || 0;
+        const newCount = uploads[u.id]?.length || 0;
+        if (newCount > prevCount) diff.push({type:'added', label:u.label+' 圖片', detail:`新增 ${newCount-prevCount} 張`});
+        else if (newCount < prevCount) diff.push({type:'removed', label:u.label+' 圖片', detail:`減少 ${prevCount-newCount} 張`});
+      });
+
+      // 品牌色系：逐項精準比對，避免物件序列化差異造成誤判
+      if (brandColorData.mode) {
+        const prev = prevData.brandColorData || {};
+        const modeChanged = brandColorData.mode !== prev.mode;
+        const colorsChanged = brandColorData.mode === 'has'
+          ? JSON.stringify([...(brandColorData.colors||[])].sort()) !== JSON.stringify([...(prev.colors||[])].sort())
+          : false;
+        const noteChanged = brandColorData.mode === 'expect'
+          ? (brandColorData.note||'') !== (prev.note||'')
+          : false;
+        if (modeChanged || colorsChanged || noteChanged) {
+          diff.push({type: prev.mode ? 'changed':'added', label:'品牌色系', before:'', after:''});
+        }
+      }
+      if (brandCopy !== (prevData.brandCopy||'')) {
+        diff.push({type: prevData.brandCopy ? 'changed':'added', label:'品牌文案', before: prevData.brandCopy||'', after: brandCopy});
+      }
+      if (otherNeeds !== (prevData.otherNeeds||'')) {
+        diff.push({type: prevData.otherNeeds ? 'changed':'added', label:'其他需求', before: prevData.otherNeeds||'', after: otherNeeds});
+      }
+
+      if (!diff.length) diff.push({type:'changed', label:'更新資料', detail:''});
+    }
+
+    const typeLabels = {added:'新增', changed:'更新', removed:'移除', new:'填寫'};
+    const summary = [...new Set(diff.map(d => typeLabels[d.type]+d.label))].join('、');
+
+    await setDoc(doc(db,'projects',projectId), {
+      platforms, uploads, uploadNotes, brandColorData, brandCopy, otherNeeds, submitted:true, submittedAt:Date.now(),
+      changeLog: arrayUnion({ at: Date.now(), summary, diff })
+    }, {merge:true});
+    cachedPrevData = null; // 清除快取，下次編輯重新載入
+    showState('success', true);
+  } catch(e) {
+    msg.style.color = 'var(--danger)';
+    msg.textContent = '送出失敗：'+e.message;
+  }
+};
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const MAX = 900, QUALITY = 0.82;
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+          else { w = Math.round(w * MAX / h); h = MAX; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve({ name: file.name, dataUrl: canvas.toDataURL('image/jpeg', QUALITY) });
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── HELPERS ───────────────────────────────────────
+window.toggleView = function() {
+  const aActive = document.getElementById('view-admin').classList.contains('active');
+  document.getElementById('view-admin').classList.toggle('active', !aActive);
+  document.getElementById('view-client').classList.toggle('active', aActive);
+  document.getElementById('admin-tabs').style.display = !aActive ? 'block' : 'none';
+};
+
+window.copyEl = function(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>toast('已複製','ok'));
+};
+window.copyText = function(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>toast('已複製','ok'));
+};
+
+let toastT;
+function toast(msg, cls='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show '+(cls==='ok'?'ok':cls==='err'?'err':'');
+  clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+init();
+</script>
+</body>
+</html>
