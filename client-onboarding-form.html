@@ -111,13 +111,24 @@ body.fs-large  #view-client .section-num { white-space: normal !important; }
 body.fs-large  .masthead-inner,
 body.fs-medium .masthead-inner { flex-wrap: wrap; gap: 8px; }
 
-/* 大字體：platform-item padding 加大讓點擊更容易 */
-body.fs-large  #view-client .platform-item { padding: 20px 16px; }
-body.fs-medium #view-client .platform-item { padding: 18px 16px; }
-
-/* 大字體：pi-header 讓 label 可以換行 */
-body.fs-large  #view-client .pi-header { align-items: flex-start; }
-body.fs-medium #view-client .pi-header { align-items: flex-start; }
+/* 大字體：platform-item 強制文字換行不溢出 */
+body.fs-large #view-client .platform-item {
+  padding: 20px 16px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+body.fs-large #view-client .pi-label {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  flex: 1;
+}
+body.fs-large #view-client .pi-header {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
 
 /* 大字體：card padding 調整 */
 body.fs-large  #view-client .card { padding: 20px 16px; }
@@ -410,7 +421,7 @@ body {
   cursor: pointer;
   flex-shrink: 0;
 }
-.pi-emoji { font-size: 14px; }
+.pi-emoji { font-size: 14px; flex-shrink: 0; }
 .pi-label {
   font-size: 13px;
   color: var(--ink);
