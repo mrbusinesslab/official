@@ -71,6 +71,9 @@ body.fs-large #view-client {
 #view-client .color-pill,
 #view-client .uc-note,
 #view-client .tut-tab,
+#view-client .upload-limit-text,
+#view-client .upload-count-text,
+#view-client .validation-msg,
 #view-client .platform-group-label { font-size: var(--fs-base); line-height: 1.7; }
 
 #view-client label,
@@ -129,6 +132,10 @@ body.fs-large #view-client .pi-header {
   align-items: flex-start;
   flex-wrap: nowrap;
 }
+
+/* 大字體：送出按鈕 padding 加大 */
+body.fs-large  #view-client .submit-area .btn { padding: 22px 48px; }
+body.fs-medium #view-client .submit-area .btn { padding: 18px 44px; }
 
 /* 大字體：card padding 調整 */
 body.fs-large  #view-client .card { padding: 20px 16px; }
@@ -1119,8 +1126,8 @@ service cloud.firestore {
           <h2 class="section-title">圖片與檔案</h2>
           <div class="section-rule"></div>
         </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
-        <p style="font-size:12px;color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
+        <p class="upload-limit-text" style="color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
+        <p class="upload-count-text" style="color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
         <div class="upload-grid" id="upload-grid"></div>
       </div>
 
@@ -1179,7 +1186,7 @@ service cloud.firestore {
 
       <!-- Submit -->
       <div class="submit-area">
-        <button class="btn btn-gold" onclick="submitForm()" style="font-size:13px;padding:14px 40px">送出表單</button>
+        <button class="btn btn-gold" onclick="submitForm()" style="padding:14px 40px">送出表單</button>
         <p class="validation-msg" id="val-msg"></p>
       </div>
 
