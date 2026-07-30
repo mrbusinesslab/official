@@ -28,13 +28,38 @@
   --fs-scale: 1;
 }
 
-/* 三段字體大小 — 只影響客戶表單，不影響後台 */
-#view-client { --fs-body: 14px; --fs-label: 11px; --fs-section: 22px; --fs-hero: 42px; }
+/* ════════════════════════════════════════════════
+   字體大小系統 — 只影響 #view-client，後台不受影響
+   小：現有大小（基準 14px）
+   中：所有字體等比 ×1.5（基準 21px）
+   大：最小字體 = 標題大小（基準 42px），等比 ×3
+   ════════════════════════════════════════════════ */
+#view-client {
+  /* 預設 = 小 */
+  --fs-base:    14px;   /* 一般內文、input、label */
+  --fs-small:   11px;   /* 最小標註文字 */
+  --fs-hint:    12px;   /* 提示文字 */
+  --fs-section: 22px;   /* section 標題 */
+  --fs-hero:    42px;   /* 最大標題，固定不動 */
+}
 
-body.fs-small  #view-client { --fs-body: 14px; --fs-label: 11px; --fs-section: 22px; --fs-hero: 42px; }
-body.fs-medium #view-client { --fs-body: 17px; --fs-label: 13px; --fs-section: 26px; --fs-hero: 42px; }
-body.fs-large  #view-client { --fs-body: 21px; --fs-label: 16px; --fs-section: 30px; --fs-hero: 42px; }
+body.fs-medium #view-client {
+  --fs-base:    21px;
+  --fs-small:   17px;
+  --fs-hint:    18px;
+  --fs-section: 33px;
+  --fs-hero:    42px;
+}
 
+body.fs-large #view-client {
+  --fs-base:    42px;
+  --fs-small:   42px;
+  --fs-hint:    42px;
+  --fs-section: 52px;
+  --fs-hero:    52px;
+}
+
+/* 套用字體大小 */
 #view-client p,
 #view-client input,
 #view-client textarea,
@@ -42,21 +67,65 @@ body.fs-large  #view-client { --fs-body: 21px; --fs-label: 16px; --fs-section: 3
 #view-client .hero-body,
 #view-client .pi-label,
 #view-client .uc-label,
-#view-client .uc-hint,
-#view-client .copy-field-hint,
+#view-client .copy-field-label,
 #view-client .color-pill,
 #view-client .uc-note,
-#view-client .tut-tab { font-size: var(--fs-body); }
+#view-client .tut-tab,
+#view-client .platform-group-label { font-size: var(--fs-base); line-height: 1.7; }
 
 #view-client label,
 #view-client .section-num,
-#view-client .copy-field-label,
-#view-client .platform-group-label,
+#view-client .copy-field-hint,
+#view-client .hero-eyebrow,
 #view-client .status-chip,
-#view-client .hero-eyebrow { font-size: var(--fs-label); }
+#view-client .uc-hint,
+#view-client .pi-url-wrap input { font-size: var(--fs-hint); }
 
 #view-client .section-title { font-size: var(--fs-section); }
 #view-client .hero-title     { font-size: var(--fs-hero); }
+
+/* 大字體時：移除 nowrap，讓文字自動換行，格子自動加寬 */
+body.fs-large #view-client .pi-label,
+body.fs-large #view-client .hero-body { white-space: normal !important; }
+
+/* 大字體時：平台格子改為一欄 */
+body.fs-large #view-client .platform-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* 大字體時：上傳圖片格子改為一欄 */
+body.fs-large #view-client .upload-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* 中字體時：上傳圖片格子也縮為一欄 */
+body.fs-medium #view-client .upload-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* checkbox 跟著字體放大 */
+body.fs-medium #view-client .pi-header input[type="checkbox"],
+body.fs-large  #view-client .pi-header input[type="checkbox"] {
+  width: 22px; height: 22px;
+}
+
+/* input / textarea padding 在大字體時加大 */
+body.fs-large #view-client input,
+body.fs-large #view-client textarea { padding: 14px 16px; }
+body.fs-large #view-client .pi-url-wrap input { padding: 10px 0; }
+
+/* upload card 在大字體時左對齊、拿掉 text-align:center */
+body.fs-large #view-client .upload-card { text-align: left; padding: 28px 24px; }
+body.fs-large #view-client .uc-emoji    { font-size: 36px; }
+
+/* color pill 在大字體時換行顯示 */
+body.fs-large #view-client .color-pill-row { flex-direction: column; }
+body.fs-large #view-client .color-pill { width: 100%; text-align: center; }
+
+/* 中字體時 platform 格子最小寬度調整 */
+body.fs-medium #view-client .platform-grid {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1139,17 +1208,18 @@ service cloud.firestore {
 // ── 字體大小切換（全域，onclick 可直接呼叫） ──────
 function setFontSize(size) {
   document.body.classList.remove('fs-small','fs-medium','fs-large');
-  document.body.classList.add('fs-'+size);
+  if (size !== 'small') document.body.classList.add('fs-'+size);
   document.querySelectorAll('.fs-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.trim() === {small:'小',medium:'中',large:'大'}[size]);
+    const map = {small:'小', medium:'中', large:'大'};
+    b.classList.toggle('active', b.textContent.trim() === map[size]);
   });
   localStorage.setItem('pref-fs', size);
 }
 // 載入時恢復上次選擇（預設小）
-(function(){
+document.addEventListener('DOMContentLoaded', function(){
   const saved = localStorage.getItem('pref-fs') || 'small';
   setFontSize(saved);
-})();
+});
 
 // ── 縮放控制：表單禁止放大，教學抽屜開放 ──────────
 function setZoom(allow) {
