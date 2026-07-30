@@ -1135,6 +1135,31 @@ service cloud.firestore {
 <div class="toast" id="toast"></div>
 
 <!-- FIREBASE -->
+<script>
+// ── 字體大小切換（全域，onclick 可直接呼叫） ──────
+function setFontSize(size) {
+  document.body.classList.remove('fs-small','fs-medium','fs-large');
+  document.body.classList.add('fs-'+size);
+  document.querySelectorAll('.fs-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === {small:'小',medium:'中',large:'大'}[size]);
+  });
+  localStorage.setItem('pref-fs', size);
+}
+// 載入時恢復上次選擇（預設小）
+(function(){
+  const saved = localStorage.getItem('pref-fs') || 'small';
+  setFontSize(saved);
+})();
+
+// ── 縮放控制：表單禁止放大，教學抽屜開放 ──────────
+function setZoom(allow) {
+  const meta = document.querySelector('meta[name="viewport"]');
+  meta.content = allow
+    ? 'width=device-width, initial-scale=1.0'
+    : 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+}
+</script>
+
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -1772,31 +1797,6 @@ const TUTORIALS = [
 ];
 
 let currentTutId = null;
-
-// ── 字體大小切換（僅客戶表單） ─────────────────────
-function setFontSize(size) {
-  document.body.classList.remove('fs-small','fs-medium','fs-large');
-  document.body.classList.add('fs-'+size);
-  document.querySelectorAll('.fs-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === {small:'小',medium:'中',large:'大'}[size]);
-  });
-  localStorage.setItem('pref-fs', size);
-}
-// 載入時恢復上次選擇
-(function(){
-  const saved = localStorage.getItem('pref-fs') || 'small';
-  setFontSize(saved);
-})();
-
-// ── 縮放控制：表單禁止、教學抽屜允許 ──────────────
-function setZoom(allow) {
-  const meta = document.querySelector('meta[name="viewport"]');
-  if (allow) {
-    meta.content = 'width=device-width, initial-scale=1.0';
-  } else {
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-  }
-}
 
 window.openTutorial = function(preselect) {
   const overlay = document.getElementById('tutorial-overlay');
