@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>客戶資料收集 — MR. business.lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -24,7 +24,39 @@
   --serif: 'Playfair Display', 'Georgia', serif;
   --sans: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
   --radius: 3px;
+  /* 字體縮放比例 */
+  --fs-scale: 1;
 }
+
+/* 三段字體大小 — 只影響客戶表單，不影響後台 */
+#view-client { --fs-body: 14px; --fs-label: 11px; --fs-section: 22px; --fs-hero: 42px; }
+
+body.fs-small  #view-client { --fs-body: 14px; --fs-label: 11px; --fs-section: 22px; --fs-hero: 42px; }
+body.fs-medium #view-client { --fs-body: 17px; --fs-label: 13px; --fs-section: 26px; --fs-hero: 42px; }
+body.fs-large  #view-client { --fs-body: 21px; --fs-label: 16px; --fs-section: 30px; --fs-hero: 42px; }
+
+#view-client p,
+#view-client input,
+#view-client textarea,
+#view-client .btn,
+#view-client .hero-body,
+#view-client .pi-label,
+#view-client .uc-label,
+#view-client .uc-hint,
+#view-client .copy-field-hint,
+#view-client .color-pill,
+#view-client .uc-note,
+#view-client .tut-tab { font-size: var(--fs-body); }
+
+#view-client label,
+#view-client .section-num,
+#view-client .copy-field-label,
+#view-client .platform-group-label,
+#view-client .status-chip,
+#view-client .hero-eyebrow { font-size: var(--fs-label); }
+
+#view-client .section-title { font-size: var(--fs-section); }
+#view-client .hero-title     { font-size: var(--fs-hero); }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,6 +68,33 @@ body {
   font-size: 14px;
   line-height: 1.7;
 }
+
+/* ─── FONT SIZE TOGGLE ─── */
+.fs-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 3px 5px;
+}
+.fs-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  color: var(--ink-light);
+  border-radius: 14px;
+  padding: 3px 9px;
+  line-height: 1;
+  transition: all .15s;
+  letter-spacing: 0;
+}
+.fs-btn.active { background: var(--ink); color: var(--white); }
+.fs-btn:nth-child(1) { font-size: 11px; }
+.fs-btn:nth-child(2) { font-size: 13px; }
+.fs-btn:nth-child(3) { font-size: 16px; }
 
 /* ─── MASTHEAD ─── */
 .masthead {
@@ -702,6 +761,11 @@ body {
     </div>
     <div class="masthead-right">
       <span id="fb-badge" class="status-chip">● 連線中</span>
+      <div class="fs-toggle" id="fs-toggle" style="display:none" title="調整字體大小">
+        <button class="fs-btn active" onclick="setFontSize('small')">小</button>
+        <button class="fs-btn" onclick="setFontSize('medium')">中</button>
+        <button class="fs-btn" onclick="setFontSize('large')">大</button>
+      </div>
     </div>
   </div>
 </header>
@@ -1709,6 +1773,31 @@ const TUTORIALS = [
 
 let currentTutId = null;
 
+// ── 字體大小切換（僅客戶表單） ─────────────────────
+function setFontSize(size) {
+  document.body.classList.remove('fs-small','fs-medium','fs-large');
+  document.body.classList.add('fs-'+size);
+  document.querySelectorAll('.fs-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === {small:'小',medium:'中',large:'大'}[size]);
+  });
+  localStorage.setItem('pref-fs', size);
+}
+// 載入時恢復上次選擇
+(function(){
+  const saved = localStorage.getItem('pref-fs') || 'small';
+  setFontSize(saved);
+})();
+
+// ── 縮放控制：表單禁止、教學抽屜允許 ──────────────
+function setZoom(allow) {
+  const meta = document.querySelector('meta[name="viewport"]');
+  if (allow) {
+    meta.content = 'width=device-width, initial-scale=1.0';
+  } else {
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+  }
+}
+
 window.openTutorial = function(preselect) {
   const overlay = document.getElementById('tutorial-overlay');
   const drawer  = document.getElementById('tutorial-drawer');
@@ -1730,6 +1819,7 @@ window.openTutorial = function(preselect) {
   });
 
   overlay.style.display = 'block';
+  setZoom(true);
   requestAnimationFrame(() => { drawer.style.transform = 'translateX(0)'; });
 
   // Preselect: the platform whose "?" was clicked, or the first checked, or first in list
@@ -1741,6 +1831,7 @@ window.closeTutorial = function() {
   const drawer  = document.getElementById('tutorial-drawer');
   const overlay = document.getElementById('tutorial-overlay');
   drawer.style.transform = 'translateX(100%)';
+  setZoom(false);
   setTimeout(() => { overlay.style.display = 'none'; }, 300);
 };
 
@@ -2068,6 +2159,9 @@ function showState(s, show) {
     const el = document.getElementById('c-'+n);
     if (el) el.style.display = (n===s&&show) ? 'block' : 'none';
   });
+  // 只在表單填寫畫面顯示字體大小切換
+  const fst = document.getElementById('fs-toggle');
+  if (fst) fst.style.display = (s==='form'&&show) ? 'flex' : 'none';
 }
 
 window.submitForm = async function() {
