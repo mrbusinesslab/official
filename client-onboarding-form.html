@@ -193,32 +193,84 @@ body {
   line-height: 1.7;
 }
 
-/* ─── FONT SIZE TOGGLE ─── */
+/* ─── FONT SIZE TOGGLE：固定浮動於畫面角落，滾動時不消失 ─── */
 .fs-toggle {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 500;
   display: flex;
   align-items: center;
-  gap: 2px;
-  background: var(--cream);
+  gap: 3px;
+  background: var(--white);
   border: 1px solid var(--rule);
-  border-radius: 20px;
-  padding: 3px 5px;
+  border-radius: 24px;
+  padding: 6px 8px 6px 14px;
+  box-shadow: 0 8px 24px rgba(26,23,20,.16);
 }
-.fs-btn {
+.fs-toggle-label {
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: .04em;
+  padding-right: 2px;
+  white-space: nowrap;
+}
+.fs-toggle .fs-btn {
   border: none;
   background: none;
   cursor: pointer;
   font-family: var(--sans);
+  font-size: 13px;
   color: var(--ink-light);
-  border-radius: 14px;
-  padding: 3px 9px;
+  border-radius: 18px;
+  padding: 7px 13px;
   line-height: 1;
   transition: all .15s;
   letter-spacing: 0;
 }
-.fs-btn.active { background: var(--ink); color: var(--white); }
-.fs-btn:nth-child(1) { font-size: 11px; }
-.fs-btn:nth-child(2) { font-size: 13px; }
-.fs-btn:nth-child(3) { font-size: 16px; }
+.fs-toggle .fs-btn.active { background: var(--ink); color: var(--white); }
+
+/* ─── FONT SIZE PICKER：表單一開始的大卡片提示，Aa 直接預覽大小 ─── */
+.fs-hero-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: var(--cream-dark);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 28px 0 36px;
+}
+.fs-hero-text {
+  font-size: 13px;
+  color: var(--ink-mid);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fs-hero-options { display: flex; gap: 8px; }
+.fs-hero-options .fs-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 56px;
+  padding: 8px 14px 7px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink-mid);
+  cursor: pointer;
+  font-family: var(--sans);
+  line-height: 1;
+  transition: all .15s;
+}
+.fs-hero-options .fs-btn span { font-size: 11px; letter-spacing: .04em; }
+.fs-hero-options .fs-btn.active { border-color: var(--gold); background: var(--ink); color: var(--white); }
+.fs-hero-options .fs-btn.active span { color: var(--gold-light); }
 
 /* ─── MASTHEAD ─── */
 .masthead {
@@ -866,6 +918,10 @@ body {
   .card { padding: 24px 20px; }
   .platform-grid { grid-template-columns: 1fr; }
   .upload-grid { grid-template-columns: 1fr 1fr; }
+  .fs-toggle { right: 14px; bottom: 14px; padding: 5px 6px 5px 12px; }
+  .fs-toggle-label { display: none; }
+  .fs-hero-box { padding: 14px 16px; }
+  .fs-hero-options .fs-btn { min-width: 48px; padding: 7px 10px 6px; }
 }
 </style>
 </head>
@@ -883,14 +939,17 @@ body {
     </div>
     <div class="masthead-right">
       <span id="fb-badge" class="status-chip">● 連線中</span>
-      <div class="fs-toggle" id="fs-toggle" style="display:none" title="調整字體大小">
-        <button class="fs-btn active" onclick="setFontSize('small')">小</button>
-        <button class="fs-btn" onclick="setFontSize('medium')">中</button>
-        <button class="fs-btn" onclick="setFontSize('large')">大</button>
-      </div>
     </div>
   </div>
 </header>
+
+<!-- FONT SIZE TOGGLE：固定浮動，客戶填表時全程可見（由 showState 控制顯示） -->
+<div class="fs-toggle" id="fs-toggle" style="display:none" title="調整字體大小">
+  <span class="fs-toggle-label">文字大小</span>
+  <button type="button" class="fs-btn" data-size="small" onclick="setFontSize('small')">小</button>
+  <button type="button" class="fs-btn" data-size="medium" onclick="setFontSize('medium')">中</button>
+  <button type="button" class="fs-btn" data-size="large" onclick="setFontSize('large')">大</button>
+</div>
 
 <!-- ADMIN TABS -->
 <div class="tab-bar" id="admin-tabs">
@@ -1092,6 +1151,16 @@ service cloud.firestore {
         <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
       </div>
 
+      <!-- Font Size Picker：一進入表單就明顯提示，Aa 直接看得出大小差異 -->
+      <div class="fs-hero-box">
+        <div class="fs-hero-text">👓 <span>字太小看不清楚？可以先調整</span></div>
+        <div class="fs-hero-options">
+          <button type="button" class="fs-btn" data-size="small" style="font-size:15px" onclick="setFontSize('small')">Aa<span>小</span></button>
+          <button type="button" class="fs-btn" data-size="medium" style="font-size:20px" onclick="setFontSize('medium')">Aa<span>中</span></button>
+          <button type="button" class="fs-btn" data-size="large" style="font-size:26px" onclick="setFontSize('large')">Aa<span>大</span></button>
+        </div>
+      </div>
+
       <!-- Progress -->
       <div class="progress-wrap">
         <div class="progress-meta">
@@ -1263,8 +1332,7 @@ function setFontSize(size) {
   document.body.classList.remove('fs-small','fs-medium','fs-large');
   if (size !== 'small') document.body.classList.add('fs-'+size);
   document.querySelectorAll('.fs-btn').forEach(b => {
-    const map = {small:'小', medium:'中', large:'大'};
-    b.classList.toggle('active', b.textContent.trim() === map[size]);
+    b.classList.toggle('active', b.dataset.size === size);
   });
   // 中、大字體時隱藏連線狀態標籤，節省 masthead 空間
   const badge = document.getElementById('fb-badge');
