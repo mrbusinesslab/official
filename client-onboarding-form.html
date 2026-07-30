@@ -84,9 +84,43 @@ body.fs-large #view-client {
 #view-client .section-title { font-size: var(--fs-section); }
 #view-client .hero-title     { font-size: var(--fs-hero); }
 
-/* 大字體時：移除 nowrap，讓文字自動換行，格子自動加寬 */
-body.fs-large #view-client .pi-label,
-body.fs-large #view-client .hero-body { white-space: normal !important; }
+/* 中、大字體：section-head 改垂直排列，section-num 在上，title 在下，橫線移到最底 */
+body.fs-medium #view-client .section-head,
+body.fs-large  #view-client .section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+body.fs-medium #view-client .section-rule,
+body.fs-large  #view-client .section-rule {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* 中、大字體：拿掉所有 nowrap，讓文字自由換行 */
+body.fs-medium #view-client .pi-label,
+body.fs-medium #view-client .hero-body,
+body.fs-medium #view-client .hero-body.nowrap-line,
+body.fs-medium #view-client .section-num,
+body.fs-large  #view-client .pi-label,
+body.fs-large  #view-client .hero-body,
+body.fs-large  #view-client .hero-body.nowrap-line,
+body.fs-large  #view-client .section-num { white-space: normal !important; }
+
+/* 大字體：fb-badge 隱藏（由 JS 控制），masthead 允許換行 */
+body.fs-large  .masthead-inner,
+body.fs-medium .masthead-inner { flex-wrap: wrap; gap: 8px; }
+
+/* 大字體：platform-item padding 加大讓點擊更容易 */
+body.fs-large  #view-client .platform-item { padding: 20px 16px; }
+body.fs-medium #view-client .platform-item { padding: 18px 16px; }
+
+/* 大字體：pi-header 讓 label 可以換行 */
+body.fs-large  #view-client .pi-header { align-items: flex-start; }
+body.fs-medium #view-client .pi-header { align-items: flex-start; }
+
+/* 大字體：card padding 調整 */
+body.fs-large  #view-client .card { padding: 20px 16px; }
 
 /* 大字體時：平台格子改為一欄 */
 body.fs-large #view-client .platform-grid {
@@ -1213,6 +1247,9 @@ function setFontSize(size) {
     const map = {small:'小', medium:'中', large:'大'};
     b.classList.toggle('active', b.textContent.trim() === map[size]);
   });
+  // 中、大字體時隱藏連線狀態標籤，節省 masthead 空間
+  const badge = document.getElementById('fb-badge');
+  if (badge) badge.style.display = (size === 'small') ? '' : 'none';
   localStorage.setItem('pref-fs', size);
 }
 // 載入時恢復上次選擇（預設小）
