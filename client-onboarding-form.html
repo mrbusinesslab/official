@@ -163,6 +163,9 @@ body.fs-medium #view-client .platform-grid {
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* 防止任何元素橫向撐破畫面 */
+html, body { overflow-x: hidden; max-width: 100vw; }
+
 body {
   font-family: var(--sans);
   background: var(--cream);
@@ -314,19 +317,19 @@ body {
   font-weight: 400;
   line-height: 1.15;
   color: var(--ink);
-  max-width: 560px;
+  max-width: min(560px, 100%);
 }
 .hero-title em { font-style: italic; }
 .hero-body {
   margin-top: 18px;
   font-size: 14px;
   color: var(--ink-mid);
-  max-width: 480px;
+  max-width: min(480px, 100%);
   line-height: 1.8;
 }
 .hero-body.nowrap-line {
   max-width: none;
-  white-space: nowrap;
+  white-space: normal;
 }
 .hero-note {
   margin-top: 12px;
@@ -348,7 +351,6 @@ body {
   letter-spacing: 0.2em;
   color: var(--gold);
   text-transform: uppercase;
-  white-space: nowrap;
 }
 .section-title {
   font-family: var(--serif);
@@ -414,7 +416,6 @@ body {
   color: var(--ink);
   cursor: pointer;
   letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 .pi-url-wrap { margin-top: 10px; display: none; }
 .pi-url-wrap.show { display: block; }
