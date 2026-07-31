@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<title>MR. 品牌診斷報告產生器</title>
+<title>MR. 品牌策略診斷系統</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
@@ -11,51 +11,56 @@
   }
   *{box-sizing:border-box;}
   body{ font-family:"Microsoft JhengHei","PingFang TC",sans-serif; background:#EDE7DA; margin:0; padding:24px; color:#2B2820; }
-  .wrap{ max-width:1680px; margin:0 auto; display:grid; grid-template-columns:640px 1fr; gap:24px; }
+  .wrap{ max-width:1760px; margin:0 auto; display:grid; grid-template-columns:170px 620px 1fr; gap:20px; align-items:start; }
+  .tabs-col{ background:#fff; border-radius:10px; padding:16px 12px; box-shadow:0 1px 3px rgba(0,0,0,0.08); display:flex; flex-direction:column; gap:8px; position:sticky; top:24px; }
+  .tab-btn{padding:10px 12px;font-size:13px;text-align:left;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;}
+  .tab-btn.active{background:var(--black);color:var(--gold);border-color:var(--black);font-weight:bold;}
   .panel{ background:#fff; border-radius:10px; padding:22px 26px; max-height:96vh; overflow-y:auto; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
   h1{font-size:19px;margin:0 0 4px;}
   h2{font-size:14px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);color:var(--gold-dark);}
+  h3.sub-label{font-size:12px;margin:12px 0 4px;color:var(--gold-dark);font-weight:bold;}
   .sub{font-size:12px;color:#888;margin-bottom:14px;}
   label{display:block;font-size:12px;font-weight:bold;margin:10px 0 4px;color:#333;}
   input[type=text],input[type=date],select,textarea{
     width:100%;padding:8px 10px;font-size:13px;border:1px solid #ccc;border-radius:5px;font-family:inherit;background:#fafafa;
   }
-  textarea{resize:vertical;min-height:56px;}
+  textarea{resize:vertical;min-height:52px;}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .domain-block{border:1px solid var(--line);border-radius:8px;padding:14px;margin-top:12px;background:#FCFAF4;}
-  .domain-block h3{font-size:13px;margin:0 0 8px;color:var(--black);}
-  .status-row{display:flex;gap:6px;margin-bottom:8px;}
-  .status-btn{flex:1;padding:7px;font-size:12px;text-align:center;border:1px solid #ccc;border-radius:5px;cursor:pointer;background:#fff;}
-  .status-btn.active-green{background:#dff0d8;border-color:#5cb85c;font-weight:bold;}
-  .status-btn.active-yellow{background:#fcf3d0;border-color:var(--gold);font-weight:bold;}
-  .status-btn.active-red{background:#f6dede;border-color:#c0392b;font-weight:bold;}
+  .domain-block h3{font-size:14px;margin:0 0 6px;color:var(--black);}
   .generate-btn{ width:100%;padding:15px;margin-top:20px;background:var(--black);color:var(--gold);border:none;border-radius:8px;font-size:15px;font-weight:bold;cursor:pointer;letter-spacing:1px; }
   .generate-btn:hover{opacity:0.9;}
   .auto-btn{ width:100%;padding:12px;margin-top:14px;background:var(--gold);color:var(--black);border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer; }
   .auto-btn:hover{opacity:0.9;}
   .hint{font-size:12px;color:#999;text-align:center;margin-top:10px;}
   .fixed-info{background:#F3F0E8;border-radius:6px;padding:10px 12px;font-size:13px;color:#555;margin-top:8px;}
+  .note-static{background:#F3F0E8;border-radius:6px;padding:12px 14px;font-size:12px;color:#666;line-height:1.7;}
+  .divider{border:none;border-top:1px dashed var(--line);margin:20px 0;}
 
   .choice-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
   .choice-chip{padding:7px 12px;font-size:12px;border:1px solid #ccc;border-radius:16px;background:#fff;cursor:pointer;}
   .choice-chip.selected{background:var(--gold);border-color:var(--gold-dark);color:#3a2c0d;font-weight:bold;}
 
+  .star-row{display:flex;gap:4px;margin-top:4px;}
+  .star-btn{font-size:20px;cursor:pointer;color:#ddd;user-select:none;}
+  .star-btn.on{color:var(--gold);}
+
   .preview-panel{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
-  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
-  .tab-btn{padding:6px 12px;font-size:12px;border:1px solid #ccc;border-radius:16px;background:#fff;cursor:pointer;}
-  .tab-btn.active{background:var(--black);color:var(--gold);border-color:var(--black);}
   #previewCanvas{width:100%;max-width:640px;border:1px solid #ddd;display:block;margin:0 auto;background:#fff;}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- LEFT: FORM -->
-  <div class="panel" id="formPanel">
-    <h1>MR. 品牌診斷報告產生器</h1>
-    <div class="sub">上方切換章節，只會顯示該章節需要填寫的欄位</div>
+  <!-- LEFT: VERTICAL TABS -->
+  <div class="tabs-col" id="tabsBar"></div>
 
-    <!-- 封面 -->
+  <!-- MIDDLE: FORM -->
+  <div class="panel" id="formPanel">
+    <h1>MR. 品牌策略診斷系統</h1>
+    <div class="sub">左側切換章節，只會顯示該章節需要填寫的欄位</div>
+
+    <!-- 封面 + 品牌背景 -->
     <div class="form-section" data-section="cover">
       <h2>封面資訊</h2>
       <div class="row2">
@@ -72,99 +77,90 @@
         <option value="__custom__">其他（自行輸入）</option>
       </select>
       <input type="text" id="consultantCustom" placeholder="輸入顧問姓名" style="display:none;margin-top:6px;">
-    </div>
 
-    <!-- 診斷背景（Context 選擇題 + 一鍵生成） -->
-    <div class="form-section" data-section="dashboard">
-      <h2>診斷背景 Context</h2>
-      <label>商業模式</label>
-      <div class="choice-group" id="q-bizModel"></div>
-      <label>產業類型</label>
-      <div class="choice-group" id="q-industry"></div>
-      <label>品牌生命週期</label>
-      <div class="choice-group" id="q-lifecycle"></div>
-      <label>品牌規模</label>
-      <div class="choice-group" id="q-scale"></div>
-      <label>銷售模式（可複選）</label>
-      <div class="choice-group" id="q-salesModes"></div>
-      <label>主要客群</label>
-      <div class="choice-group" id="q-audience"></div>
-      <label>決策模式</label>
-      <div class="choice-group" id="q-decisionMode"></div>
-      <label>客單價</label>
-      <div class="choice-group" id="q-priceTier"></div>
-      <label>購買頻率</label>
-      <div class="choice-group" id="q-purchaseFreq"></div>
-      <label>商業成長階段（目前卡在哪，而非目標）</label>
-      <div class="choice-group" id="q-growthStage"></div>
-      <label>目前主要競爭力（靠什麼成交）</label>
-      <div class="choice-group" id="q-competitiveEdge"></div>
-      <label>品牌目標（可複選，建議最多3項）</label>
-      <div class="choice-group" id="q-goals"></div>
+      <hr class="divider">
+      <h2>品牌背景 Context</h2>
+      <label>一、商業模式</label><div class="choice-group" id="q-bizModel"></div>
+      <label>二、產業類型</label><div class="choice-group" id="q-industry"></div>
+      <label>三、品牌生命週期</label><div class="choice-group" id="q-lifecycle"></div>
+      <label>四、品牌規模</label><div class="choice-group" id="q-scale"></div>
+      <label>五、銷售模式（可複選）</label><div class="choice-group" id="q-salesModes"></div>
+      <label>六、主要客群</label><div class="choice-group" id="q-audience"></div>
+      <label>七、決策模式</label><div class="choice-group" id="q-decisionMode"></div>
+      <label>八、客單價</label><div class="choice-group" id="q-priceTier"></div>
+      <label>九、購買頻率</label><div class="choice-group" id="q-purchaseFreq"></div>
+      <label>十、品牌目標（可複選，建議最多3項）</label><div class="choice-group" id="q-goals"></div>
+      <label>商業成長階段（目前卡在哪，而非目標）</label><div class="choice-group" id="q-growthStage"></div>
+      <label>目前主要競爭力來源（可複選）</label><div class="choice-group" id="q-competitiveSource"></div>
 
-      <button type="button" class="auto-btn" onclick="generateFromContext()">依上方選擇，一鍵生成AI分析與報告內容</button>
+      <button type="button" class="auto-btn" onclick="generateFromContext()">依上方選擇，一鍵生成全份報告內容</button>
       <div class="hint">生成後仍可到各章節手動微調文字</div>
-    </div>
-
-    <!-- AI品牌分析（AI自動推論，無需填寫） -->
-    <div class="form-section" data-section="aiAnalysis">
-      <h2>AI品牌分析（自動推論）</h2>
-      <div class="fixed-info">此頁面依左側「診斷背景 Context」自動推論品牌DNA、成熟度需求與品牌風險，無需另外填寫。如需調整結果，請回到「診斷背景」修改選項即可即時更新。</div>
-    </div>
-
-    <!-- 品牌雷達圖與經營重心 -->
-    <div class="form-section" data-section="radar">
-      <h2>品牌雷達圖與經營重心</h2>
-      <div class="fixed-info">六大面向分數基準值與資源配置比例，由AI依「診斷背景」自動計算；可再搭配下方六大診斷面向的紅黃綠燈手動微調實際狀況。</div>
     </div>
 
     <!-- 訪談洞察 -->
     <div class="form-section" data-section="insight">
       <h2>訪談洞察摘要</h2>
-      <textarea id="insight" placeholder="主題式短文，呈現「客戶以為 vs 我們觀察到」的落差"></textarea>
+      <label>客戶目前認為</label>
+      <textarea id="insightBelief" placeholder="客戶自己怎麼描述問題"></textarea>
+      <label>我們觀察到</label>
+      <textarea id="insightObserved" placeholder="深入訪談後實際觀察到的落差"></textarea>
+      <label>真正問題</label>
+      <textarea id="insightRealProblem" placeholder="真正的根本問題是什麼"></textarea>
+      <label>本次策略方向（一句話總結）</label>
+      <textarea id="insightStrategy" placeholder="例：目前真正需要改善的是品牌一致性，而不是增加更多曝光。" style="min-height:40px;"></textarea>
+    </div>
+
+    <!-- 診斷總覽 Dashboard -->
+    <div class="form-section" data-section="overview">
+      <h2>品牌診斷總覽</h2>
+      <div class="note-static">六大燈號、雷達圖、優先改善順序皆由六大面向的優先程度自動運算。以下兩項可微調文字：</div>
+      <label>三大優勢（每行一項，已依優先程度自動帶入）</label>
+      <textarea id="advantagesText"></textarea>
+      <label>三大待改善（每行一項，已依優先程度自動帶入）</label>
+      <textarea id="toImproveText"></textarea>
     </div>
 
     <!-- 六大診斷面向 -->
     <div class="form-section" data-section="domain">
-      <h2>六大診斷面向</h2>
+      <h2>六大診斷面向詳述</h2>
       <div id="domainsContainer"></div>
     </div>
 
-    <!-- 品牌策略藍圖 -->
+    <!-- 策略藍圖 -->
     <div class="form-section" data-section="strategy">
       <h2>品牌策略藍圖</h2>
-      <label>一句話定位</label>
-      <textarea id="stratPositioning" placeholder="例：高端肌膚管理專家，不是美容院，而是肌膚管理品牌"></textarea>
-      <label>品牌核心價值（頓號分隔）</label>
-      <textarea id="stratValues" placeholder="例：專業、安心、陪伴" style="min-height:40px;"></textarea>
-      <label>品牌個性（頓號分隔）</label>
-      <textarea id="stratPersonality" placeholder="例：成熟、可信任、有溫度" style="min-height:40px;"></textarea>
-      <label>品牌關鍵字（頓號分隔）</label>
-      <textarea id="stratKeywords" placeholder="例：高端、科技、安心" style="min-height:40px;"></textarea>
-      <label>品牌主軸</label>
-      <textarea id="stratThesis" placeholder="例：不是做一次療程，而是陪伴肌膚十年"></textarea>
-      <button type="button" class="auto-btn" onclick="generateFromContext()">重新依上方背景生成策略藍圖</button>
-      <div class="hint">生成後可直接微調文字，客戶可直接拿去做網站文案</div>
+      <label>一句話品牌定位</label>
+      <input type="text" id="positioning" placeholder="例：專注於為高資產客群提供值得信賴的醫美服務">
+      <label>品牌核心價值（可複選）</label>
+      <div class="choice-group" id="q-coreValues"></div>
+      <label>品牌個性（可複選）</label>
+      <div class="choice-group" id="q-personality"></div>
+      <label>品牌關鍵字（可複選）</label>
+      <div class="choice-group" id="q-keywords"></div>
+      <label>品牌核心主張</label>
+      <textarea id="coreMessage" placeholder="例：不是賣療程，而是管理肌膚。" style="min-height:40px;"></textarea>
+      <label>品牌發展方向</label>
+      <textarea id="direction" placeholder="例：建立會員制度、建立內容品牌、建立教育系統"></textarea>
     </div>
 
-    <!-- 建議方向 -->
-    <div class="form-section" data-section="rec">
-      <h2>建議方向</h2>
-      <label>立即可做</label><textarea id="recNow"></textarea>
-      <label>中期規劃</label><textarea id="recMid"></textarea>
-      <label>長期方向</label><textarea id="recLong"></textarea>
+    <!-- 行動藍圖 -->
+    <div class="form-section" data-section="roadmap">
+      <h2>品牌行動藍圖</h2>
+      <label>立即（30天）</label><textarea id="recNow"></textarea>
+      <label>中期（90天）</label><textarea id="recMid"></textarea>
+      <label>長期（一年）</label><textarea id="recLong"></textarea>
     </div>
 
-    <!-- 服務對應 -->
-    <div class="form-section" data-section="service">
-      <h2>建議服務項目對應</h2>
-      <textarea id="serviceMap" placeholder="每項一行" style="min-height:90px;"></textarea>
+    <!-- MR 解決方案 -->
+    <div class="form-section" data-section="solutions">
+      <h2>MR 解決方案</h2>
+      <textarea id="serviceMap" placeholder="每項一行，例：品牌定位 → 品牌策略規劃" style="min-height:90px;"></textarea>
     </div>
 
     <!-- 結語 -->
     <div class="form-section" data-section="closing">
       <h2>結語與下一步</h2>
-      <textarea id="closing" placeholder="例：建議安排30分鐘提案會議，討論具體執行方向"></textarea>
+      <textarea id="closing" placeholder="例：目前品牌最大的問題不是品牌不好，而是品牌沒有一致性。"></textarea>
       <label>聯絡窗口（固定）</label>
       <div class="fixed-info">LINE：@038xuzzx</div>
     </div>
@@ -175,9 +171,8 @@
 
   <!-- RIGHT: PREVIEW -->
   <div class="preview-panel">
-    <div class="tabs" id="tabsBar"></div>
     <canvas id="previewCanvas" width="794" height="1123"></canvas>
-    <div class="hint">點上方章節可切換預覽該頁與對應填寫欄；匯出PDF為高解析度版本</div>
+    <div class="hint">左側切換章節可切換預覽該頁與對應填寫欄；匯出PDF為高解析度版本</div>
   </div>
 
 </div>
@@ -193,6 +188,10 @@ const COLORS = {
 const PAGE_W = 794, PAGE_H = 1123, M = 62, MT = 76, MB = 76;
 const SCALE_PREVIEW = 1.5, SCALE_EXPORT = 3;
 const FOOTER_Y = PAGE_H - MB + 26;
+const FIELD_LABELS = {
+  observation:'現況觀察 Observation', rootCause:'根本原因 Root Cause',
+  impact:'對品牌造成的影響 Impact', recommendation:'改善方向 Recommendation'
+};
 
 // ---------- QR image ----------
 const qrImg = new Image();
@@ -217,20 +216,27 @@ const QUESTIONS = {
   decisionMode:{ multi:false, options:['個人決策','家庭共同決策','企業採購(單一窗口)','企業採購(多人審核)'] },
   priceTier:   { multi:false, options:['低客單','中客單','高客單'] },
   purchaseFreq:{ multi:false, options:['高頻消費','低頻消費'] },
-  growthStage: { multi:false, options:['找不到客人','客人很多但成交率差','成交很多但沒回購','回購很好但客單太低','生意很好但無法複製','想展店','想加盟','想建立品牌'] },
-  competitiveEdge: { multi:false, options:['價格','技術','品牌','速度','服務','口碑','地點','關係','個人魅力'] },
-  goals:       { multi:true,  options:['沒客人／曝光不足','有客人但沒回購','品牌形象老舊','社群沒流量','客戶不信任／成交率低','無法提高客單價','招募不到人才','展店規劃','加盟規劃','建立個人品牌'] }
+  goals:       { multi:true,  options:['沒客人／曝光不足','有客人但沒回購','品牌形象老舊','社群沒流量','客戶不信任／成交率低','無法提高客單價','招募不到人才','展店規劃','加盟規劃','建立個人品牌'] },
+  growthStage: { multi:false, options:['流量／曝光不足','成交率／信任不足','回購／黏著度不足','人才／複製能力不足'] },
+  competitiveSource: { multi:true, options:['技術／專業能力','口碑／老客戶介紹','價格優勢','品牌形象','服務品質','獨家資源／通路'] }
 };
 const ctxState = {};
-function renderChoiceGroups(){
+function initContext(){
   Object.keys(QUESTIONS).forEach(key=>{
     const q = QUESTIONS[key];
     ctxState[key] = q.multi ? [] : q.options[0];
+  });
+}
+function renderChoiceGroups(){
+  Object.keys(QUESTIONS).forEach(key=>{
+    const q = QUESTIONS[key];
     const el = document.getElementById('q-'+key);
+    if(!el) return;
     el.innerHTML = '';
     q.options.forEach(opt=>{
       const chip = document.createElement('div');
-      chip.className = 'choice-chip' + (!q.multi && opt===ctxState[key] ? ' selected' : '');
+      const isSelected = q.multi ? ctxState[key].includes(opt) : ctxState[key]===opt;
+      chip.className = 'choice-chip' + (isSelected ? ' selected' : '');
       chip.textContent = opt;
       chip.onclick = () => {
         if(q.multi){
@@ -241,167 +247,100 @@ function renderChoiceGroups(){
           ctxState[key] = opt;
         }
         renderChoiceGroups();
+        renderTabsBar();
       };
       el.appendChild(chip);
     });
   });
 }
+initContext();
 renderChoiceGroups();
 
-// ---------- AI推論引擎（不用讓使用者填，依診斷背景自動運算）----------
-const COMPETITIVE_GUIDE = {
-  '價格': '目前主要靠價格取勝，品牌診斷方向應著重提高價值感、建立願意付費的理由，而非持續削價競爭。',
-  '技術': '目前主要靠技術取勝，品牌診斷方向應強化案例佐證、專業形象與權威感的建立。',
-  '品牌': '目前已具備一定品牌辨識度，診斷重點在於如何維持並放大既有的品牌資產。',
-  '速度': '目前主要靠速度取勝，品牌診斷方向應強調流程效率與即時服務的視覺化呈現。',
-  '服務': '目前主要靠服務取勝，品牌診斷方向應著重服務體驗的一致性與可複製性。',
-  '口碑': '目前主要靠口碑取勝，品牌診斷方向應著重案例與推薦機制的系統化收集與曝光。',
-  '地點': '目前主要靠地點優勢取勝，品牌診斷方向應留意當地點優勢消失時的品牌韌性。',
-  '關係': '目前主要靠關係／人脈取勝，品牌診斷方向應思考如何將個人關係轉化為品牌信任資產。',
-  '個人魅力': '目前主要靠老闆個人魅力取勝，品牌診斷方向應著重建立個人品牌，並逐步發展團隊複製能力，降低對單一個人的依賴。'
+// ---------- Strategy blueprint choice groups ----------
+const STRATEGY_QUESTIONS = {
+  coreValues:  ['專業','信任','安心','陪伴','效率','創新','品質','溫暖'],
+  personality: ['可信任','成熟穩重','溫暖親切','專業幹練','活潑年輕','前衛創新'],
+  keywords:    ['科技','高端','安全','溫馨','在地','傳承','年輕','永續']
 };
-const GROWTH_STAGE_GUIDE = {
-  '找不到客人': '目前處於「找不到客人」階段，最優先要解決的是曝光與導流問題，品牌精緻度可以稍後再處理。',
-  '客人很多但成交率差': '目前處於「客人很多但成交率差」階段，問題核心通常在信任建立與銷售流程，而非曝光不足。',
-  '成交很多但沒回購': '目前處於「成交很多但沒回購」階段，需要建立售後與回訪機制，把單次交易轉換成長期關係。',
-  '回購很好但客單太低': '目前處於「回購很好但客單太低」階段，重點在於服務分級與價值溝通，提升客單價而非增加客量。',
-  '生意很好但無法複製': '目前處於「生意很好但無法複製」階段，核心問題在流程標準化與團隊訓練，而非品牌形象。',
-  '想展店': '目前處於「想展店」階段，需要優先建立可複製的SOP與品牌規範，確保多店呈現一致。',
-  '想加盟': '目前處於「想加盟」階段，需要完整的加盟手冊與品牌一致性規範，保護品牌資產不因授權而稀釋。',
-  '想建立品牌': '目前處於「想建立品牌」階段，適合從一句話定位與核心價值著手，建立長期可依循的品牌基礎。'
-};
-
-function computeRadarBaseline(c){
-  const base = 55;
-  const clamp = v => Math.max(10, Math.min(95, Math.round(v)));
-  const goals = c.goals || [];
-  const visual = base + (c.lifecycle==='新品牌（0-2年）'?-5:0) + (c.lifecycle==='老品牌（15年以上）'?-15:0) + (c.scale==='大型/連鎖（20人以上）'?-10:5);
-  const message = base + (goals.includes('客戶不信任／成交率低')?-20:0) + (c.competitiveEdge==='品牌'?15:0);
-  const channel = base + ((c.salesModes||[]).includes('電商')?10:-5) + (c.audience==='年輕族群(重視社群)'?10:-5);
-  const experience = base + (c.growthStage==='成交很多但沒回購'?-20:0) + (c.growthStage==='回購很好但客單太低'?10:0);
-  const team = base + (['個人品牌','微型（1-5人）'].includes(c.scale)?-15:5) + (c.growthStage==='生意很好但無法複製'?-20:0);
-  const competition = base + (c.competitiveEdge==='技術'?15:0) + (c.lifecycle==='老品牌（15年以上）'?-10:0);
-  return {visual:clamp(visual), message:clamp(message), channel:clamp(channel), experience:clamp(experience), team:clamp(team), competition:clamp(competition)};
+const strategyState = { coreValues:[], personality:[], keywords:[] };
+function renderStrategyChips(){
+  Object.keys(STRATEGY_QUESTIONS).forEach(key=>{
+    const el = document.getElementById('q-'+key);
+    if(!el) return;
+    el.innerHTML = '';
+    STRATEGY_QUESTIONS[key].forEach(opt=>{
+      const chip = document.createElement('div');
+      chip.className = 'choice-chip' + (strategyState[key].includes(opt) ? ' selected' : '');
+      chip.textContent = opt;
+      chip.onclick = () => {
+        const arr = strategyState[key];
+        const idx = arr.indexOf(opt);
+        if(idx>-1) arr.splice(idx,1); else arr.push(opt);
+        renderStrategyChips();
+        renderTabsBar();
+      };
+      el.appendChild(chip);
+    });
+  });
 }
+renderStrategyChips();
 
-function computeAIAnalysis(c){
-  const s = v => Math.max(1, Math.min(5, Math.round(v)));
-  const isB2B = c.bizModel === 'B2B';
-  const isHighTicket = c.priceTier === '高客單';
-  const isLowFreq = c.purchaseFreq === '低頻消費';
-  const isYoung = c.audience === '年輕族群(重視社群)';
-  const isEngineering = c.industry === '工程業' || c.industry === '醫療美容';
-  const goals = c.goals || [];
-
-  const dna = {
-    trust: s(1 + (isB2B?2:0) + (isHighTicket?1:0) + (isLowFreq?1:0)),
-    story: s(1 + (c.competitiveEdge==='個人魅力'?3:0) + (c.bizModel==='B2C'?1:0)),
-    caseStudy: s(1 + (isB2B?2:0) + (isHighTicket?1:0) + (isEngineering?1:0)),
-    social: s(1 + (isYoung?3:0) + (c.bizModel==='B2C'?1:0)),
-    website: s(1 + (isB2B?3:0) + (isHighTicket?1:0)),
-    afterSales: s(1 + (isEngineering?2:0) + (isHighTicket?2:0))
-  };
-
-  const lifecycleScore = {'新品牌（0-2年）':2,'成長期（2-5年）':3,'成熟期（5-15年）':4,'老品牌（15年以上）':5}[c.lifecycle] || 3;
-  const maturity = s(lifecycleScore);
-  const trustDemand = s(1 + (isB2B?2:0) + (isHighTicket?2:0));
-  const standardization = s(1 + (c.scale==='大型/連鎖（20人以上）'?2:0) + (['想展店','想加盟','生意很好但無法複製'].includes(c.growthStage)?2:0));
-  const exposure = s(1 + (goals.includes('沒客人／曝光不足')?3:0) + (c.growthStage==='找不到客人'?2:0));
-  const education = s(1 + (['企業採購(多人審核)','家庭共同決策'].includes(c.decisionMode)?2:0) + (goals.includes('客戶不信任／成交率低')?2:0));
-  const differentiation = s(1 + (c.competitiveEdge==='價格'?3:0) + (c.lifecycle==='老品牌（15年以上）'?1:0) + (goals.includes('無法提高客單價')?1:0));
-
-  const risk = {
-    ownerDependency: s(1 + (['個人品牌','微型（1-5人）'].includes(c.scale)?3:0) + (c.competitiveEdge==='個人魅力'?1:0)),
-    lowRecognition: s(1 + (c.lifecycle==='新品牌（0-2年）'?2:0) + (goals.includes('沒客人／曝光不足')?2:0)),
-    aging: s(1 + (c.lifecycle==='老品牌（15年以上）'?4:0) + (goals.includes('品牌形象老舊')?1:0)),
-    processChaos: s(1 + (['成交很多但沒回購','生意很好但無法複製'].includes(c.growthStage)?3:0) + (goals.includes('有客人但沒回購')?1:0)),
-    educationLack: s(1 + (c.scale!=='個人品牌'?1:0) + (c.decisionMode==='企業採購(多人審核)'?2:0) + (goals.includes('招募不到人才')?1:0))
-  };
-
-  const riskAvg = (risk.ownerDependency+risk.lowRecognition+risk.aging+risk.processChaos+risk.educationLack)/5;
-  const healthIndex = Math.max(30, Math.min(95, Math.round(100 - (riskAvg-1)*15)));
-
-  const radar = computeRadarBaseline(c);
-  const gap = k => 100 - radar[k];
-  const brandGap = (gap('visual')+gap('competition'))/2;
-  const marketingGap = (gap('message')+gap('channel'))/2;
-  const processGap = gap('experience');
-  const teamGap = gap('team');
-  const totalGap = brandGap+marketingGap+processGap+teamGap || 1;
-  const brandPct = Math.round(brandGap/totalGap*100);
-  const marketingPct = Math.round(marketingGap/totalGap*100);
-  const processPct = Math.round(processGap/totalGap*100);
-  const teamPct = 100 - brandPct - marketingPct - processPct;
-  const focus = {brand:brandPct, marketing:marketingPct, process:processPct, team:teamPct};
-
-  return {dna, maturity, trustDemand, standardization, exposure, education, differentiation, risk, healthIndex, focus};
-}
-
-function generateStrategyBlueprint(c, a){
-  const industry = c.industry;
-  const edge = c.competitiveEdge;
-
-  let positioning;
-  if(edge==='個人魅力') positioning = `${industry}領域中，值得信賴的個人品牌專家，而不只是一家店。`;
-  else if(edge==='技術') positioning = `${industry}領域中，以專業技術為核心的可信賴選擇。`;
-  else if(edge==='品牌') positioning = `${industry}領域中，具備清楚辨識度與一致體驗的專業品牌。`;
-  else if(a.differentiation>=4) positioning = `${industry}領域中，走出價格戰、以獨特價值取勝的專業品牌。`;
-  else positioning = `${industry}領域中，${c.audience||'目標客群'}最信賴的選擇。`;
-
-  const valuePool = [];
-  if(a.trustDemand>=4) valuePool.push('專業','安心');
-  if(a.dna.story>=4) valuePool.push('陪伴','溫度');
-  if(a.differentiation>=4) valuePool.push('獨特');
-  if(edge==='服務'||edge==='口碑') valuePool.push('用心');
-  if(valuePool.length<3) valuePool.push('值得信賴','細心','誠信');
-  const values = [...new Set(valuePool)].slice(0,3).join('、');
-
-  const personalityPool = [];
-  if(c.lifecycle==='老品牌（15年以上）') personalityPool.push('成熟','穩重','可信賴');
-  else if(c.lifecycle==='新品牌（0-2年）') personalityPool.push('創新','活力','貼近');
-  else personalityPool.push('專業','親切','可靠');
-  if(edge==='個人魅力') personalityPool.push('有溫度');
-  const personality = [...new Set(personalityPool)].slice(0,3).join('、');
-
-  const keywordPool = [industry.replace('業',''), edge];
-  if(a.trustDemand>=4) keywordPool.push('安心');
-  if(c.priceTier==='高客單') keywordPool.push('高端');
-  const keywords = [...new Set(keywordPool)].filter(Boolean).slice(0,3).join('、');
-
-  let thesis;
-  if(c.purchaseFreq==='低頻消費' && c.priceTier==='高客單') thesis = '不是做一次交易，而是陪伴客戶做出一輩子受用的決定。';
-  else if(['成交很多但沒回購','回購很好但客單太低'].includes(c.growthStage)) thesis = '不是追求單次成交，而是經營長期關係與回購價值。';
-  else if(['想展店','想加盟'].includes(c.growthStage)) thesis = '不是複製一家店，而是複製一套可信賴的品牌體驗。';
-  else thesis = `不是做一次性的${industry}服務，而是陪伴客戶長期成長。`;
-
-  return {positioning, values, personality, keywords, thesis};
-}
-
-// ---------- Domain input blocks ----------
+// ---------- Domain input blocks (consultant structure) ----------
+const domainPriority = {};   // 1-5
+const domainRelated = {};    // array of related domain names
 const domainsContainer = document.getElementById('domainsContainer');
 DOMAIN_NAMES.forEach((name, i) => {
+  domainPriority[i] = 3;
+  domainRelated[i] = [];
   const div = document.createElement('div');
   div.className = 'domain-block';
   div.dataset.domain = i;
   div.innerHTML = `
     <h3>${name}</h3>
-    <div class="status-row" id="status-${i}">
-      <div class="status-btn" data-status="green" onclick="setStatus(${i},'green')">🟢 綠燈</div>
-      <div class="status-btn" data-status="yellow" onclick="setStatus(${i},'yellow')">🟡 黃燈</div>
-      <div class="status-btn" data-status="red" onclick="setStatus(${i},'red')">🔴 紅燈</div>
-    </div>
-    <textarea id="domain-content-${i}" placeholder="現況觀察與分析..."></textarea>
-    <textarea id="domain-rec-${i}" placeholder="建議方向（選填）" style="margin-top:8px;min-height:40px;"></textarea>
+    <h3 class="sub-label">${FIELD_LABELS.observation}</h3>
+    <textarea id="domain-observation-${i}" placeholder="客觀描述目前看到的事實，不下結論"></textarea>
+    <h3 class="sub-label">${FIELD_LABELS.rootCause}</h3>
+    <textarea id="domain-rootcause-${i}" placeholder="造成問題的真正原因"></textarea>
+    <h3 class="sub-label">${FIELD_LABELS.impact}</h3>
+    <textarea id="domain-impact-${i}" placeholder="若不改善，未來會發生什麼"></textarea>
+    <h3 class="sub-label">${FIELD_LABELS.recommendation}</h3>
+    <textarea id="domain-recommendation-${i}" placeholder="改善方向，而非執行細節"></textarea>
+    <h3 class="sub-label">優先程度 Priority</h3>
+    <div class="star-row" id="priority-${i}"></div>
+    <h3 class="sub-label">關聯面向 Related Domains</h3>
+    <div class="choice-group" id="related-${i}"></div>
   `;
   domainsContainer.appendChild(div);
 });
-const domainStatus = {};
-function setStatus(i, status){
-  domainStatus[i] = status;
-  const row = document.getElementById('status-'+i);
-  [...row.children].forEach(btn=>{ btn.className = 'status-btn' + (btn.dataset.status===status ? ' active-'+status : ''); });
-  renderTabsBar();
+function renderPriorityStars(i){
+  const row = document.getElementById('priority-'+i);
+  row.innerHTML = '';
+  for(let s=1; s<=5; s++){
+    const star = document.createElement('span');
+    star.className = 'star-btn' + (s <= domainPriority[i] ? ' on' : '');
+    star.textContent = '★';
+    star.onclick = () => { domainPriority[i] = s; renderPriorityStars(i); renderTabsBar(); };
+    row.appendChild(star);
+  }
 }
+function renderRelatedChips(i){
+  const el = document.getElementById('related-'+i);
+  el.innerHTML = '';
+  DOMAIN_NAMES.forEach((name, j) => {
+    if(j===i) return;
+    const chip = document.createElement('div');
+    chip.className = 'choice-chip' + (domainRelated[i].includes(name) ? ' selected' : '');
+    chip.textContent = name;
+    chip.onclick = () => {
+      const idx = domainRelated[i].indexOf(name);
+      if(idx>-1) domainRelated[i].splice(idx,1); else domainRelated[i].push(name);
+      renderRelatedChips(i);
+      renderTabsBar();
+    };
+    el.appendChild(chip);
+  });
+}
+DOMAIN_NAMES.forEach((_,i)=>{ renderPriorityStars(i); renderRelatedChips(i); });
 
 // ---------- Auto-generation engine ----------
 function generateFromContext(){
@@ -409,61 +348,71 @@ function generateFromContext(){
   const has = (arr, v) => arr.includes(v);
 
   const domGen = [
-    () => { // 視覺識別
-      let s = [];
-      s.push({'B2B':'目前的視覺呈現應優先強化專業與權威感，讓潛在客戶第一眼就感受到值得信賴的專業形象。',
-               'B2C':'視覺呈現需要兼顧吸引力與質感，第一眼就要能抓住目標客群的目光並留下記憶點。',
-               'B2B2C（加盟/代理）':'視覺識別需要在總部規範與各據點實際呈現之間取得一致性，避免品牌形象因通路不同而失焦。'}[c.bizModel]);
-      if(c.lifecycle==='老品牌（15年以上）') s.push('品牌已累積一定辨識度，但部分視覺元素可能已跟不上市場審美，建議謹慎評估哪些該保留、哪些該更新。');
-      if(c.lifecycle==='新品牌（0-2年）') s.push('目前視覺系統尚未定型，正是建立完整識別規範的好時機。');
-      if(c.scale==='大型/連鎖（20人以上）') s.push('多據點/多人員的情況下，統一的視覺規範與素材庫尤其重要。');
-      return {content:s.filter(Boolean).join(''), rec:'統一主色、字體與版面規範，確保跨通路一致。'};
-    },
-    () => { // 訊息溝通
-      let s = ['需要有一句話能清楚說明「為什麼選我們而不是別人」，並確保官網、社群、業務話術講的是同一套故事。'];
-      if(c.bizModel==='B2B' && c.priceTier==='高客單') s.unshift('溝通需要有案例、數據與專業背書佐證，避免只靠形容詞堆疊。');
-      if(c.bizModel==='B2C' && c.purchaseFreq==='高頻消費') s.unshift('訊息可以更情感化、生活化，強調讓人記得住、有共鳴。');
-      if(c.decisionMode==='家庭共同決策' || c.decisionMode==='企業採購(多人審核)') s.push('訊息需要同時說服眼前接觸的人，以及背後實際做決定的人。');
-      return {content:s.join(''), rec:'整理一句話定位與3個核心賣點，統一各通路用語。'};
-    },
-    () => { // 通路呈現
-      let s = ['需要檢視LINE官方帳號、社群、官網跨通路的呈現是否一致。'];
-      if(has(c.salesModes,'預約制')) s.push('LINE的預約流程、提醒機制與取消率是觀察重點。');
-      if(has(c.salesModes,'電商')) s.push('商品頁的轉換率與金流物流順暢度需要特別檢視。');
-      if(c.bizModel==='B2B') s.push('官網與型錄的完整度比社群更重要，社群可作為加分項。');
-      if(c.audience==='年輕族群(重視社群)') s.push('IG/短影音的經營狀況會直接影響觸及與轉換。');
-      return {content:s.join(''), rec:'盤點各通路現況，補齊資訊落差最大的一項。'};
-    },
-    () => { // 客戶體驗流程
-      let s = ['從第一次接觸到成交、售後，整體流程是否標準化、順暢，需要完整檢視。'];
-      if(c.bizModel==='B2B') s.push('報價→簽約→施工→保固，每一步流程的清晰度都直接影響信任建立。');
-      if(c.bizModel==='B2C' && c.purchaseFreq==='高頻消費') s.push('回購機制（會員制、回訪提醒）是否存在，是這裡的觀察重點。');
-      if(c.purchaseFreq==='低頻消費') s.push('客戶在等待決策期間，品牌是否持續維繫信任感，是低頻消費品牌最容易失分的地方。');
-      return {content:s.join(''), rec:'標準化關鍵流程節點，減少客戶等待與資訊落差。'};
-    },
-    () => { // 內部品牌認知
-      let s = [];
-      if(c.scale==='個人品牌' || c.scale==='微型（1-5人）') s.push('團隊規模小，老闆即品牌，這個面向可以簡化評估。');
-      else s.push('員工／團隊對品牌定位、話術的理解是否一致，是核心觀察點，尤其要留意新舊成員之間的認知落差。');
-      if(c.bizModel==='B2B') s.push('業務團隊的話術是否統一，避免不同業務講出不同版本的品牌故事。');
-      return {content:s.join(''), rec:'建立品牌一句話定位的內部共識與新人教育材料。'};
-    },
-    () => { // 市場競爭定位
-      let s = ['需要釐清1-3個主要競品，以及是否說得出「我們跟別人不一樣在哪」。'];
-      if(c.lifecycle==='新品牌（0-2年）') s.unshift('品牌尚未有明確的競品意識，可以先記錄目前如何想像自己的市場位置，作為後續定位的起點。');
-      if(c.lifecycle==='老品牌（15年以上）') s.unshift('常見問題是定位僵化沒跟上市場，需要盤點品牌創立時的定位與現在市場實況的落差。');
-      if(c.priceTier==='高客單') s.push('差異化必須具體到案例、專業與保證，不能只是抽象的「品質好」。');
-      if(COMPETITIVE_GUIDE[c.competitiveEdge]) s.push(COMPETITIVE_GUIDE[c.competitiveEdge]);
-      return {content:s.join(''), rec:'明確一項可佔據的差異化定位，並在各通路一致傳遞。'};
-    }
+    () => ({
+      observation: `目前品牌在LINE、社群、官網等通路使用的色彩與字體風格不完全一致，尚未建立完整的視覺識別規範。${c.lifecycle==='老品牌（15年以上）'?'部分視覺元素仍延用早期版本，與現在市場審美有落差。':''}`,
+      rootCause: '尚未建立統一的品牌識別規範，設計素材依賴不同人員或廠商各自製作，長期下來品牌辨識度逐漸分散。',
+      impact: '容易降低品牌辨識度，增加消費者理解成本，進而影響第一印象的信任感與後續成交機會。',
+      recommendation: '建立品牌識別規範，統一色彩、字體與版型，並建立可重複使用的設計素材庫。',
+      priority: c.goals.includes('品牌形象老舊') ? 5 : 4,
+      related: ['訊息溝通','通路呈現']
+    }),
+    () => ({
+      observation: `品牌目前主要強調服務內容本身，但沒有一句能代表品牌定位的核心訊息，${c.decisionMode==='家庭共同決策'||c.decisionMode==='企業採購(多人審核)'?'且不同對象接收到的說法也不一致。':'不同通路使用的說法也略有差異。'}`,
+      rootCause: '品牌定位並非不清楚，而是尚未整理成一套可重複使用的品牌語言，因此每個人講出來的版本都不同。',
+      impact: '客戶需要花更多時間理解品牌價值，容易在比較階段流失，也難以形成清楚的口碑轉述。',
+      recommendation: c.bizModel==='B2B' && c.priceTier==='高客單' ? '整理一句話定位與3個核心賣點，並搭配具體案例與數據佐證。' : '整理一句話定位與3個核心賣點，統一各通路用語。',
+      priority: 4,
+      related: ['視覺識別','市場競爭定位']
+    }),
+    () => ({
+      observation: `${has(c.salesModes,'預約制')?'LINE的預約流程與提醒機制尚未標準化，':''}${has(c.salesModes,'電商')?'商品頁與金流物流的體驗仍有優化空間，':''}各通路（LINE、社群、官網）的呈現方式尚未統一。`,
+      rootCause: '各通路多為各自獨立經營、缺乏統一管理與更新節奏，導致呈現品質與頻率落差大。',
+      impact: '客戶在不同通路看到的品牌樣貌不一致，容易產生「這是同一個品牌嗎」的疑慮，降低信任感。',
+      recommendation: c.bizModel==='B2B' ? '優先強化官網與型錄的完整度，社群作為輔助曝光管道。' : '盤點各通路現況，優先補齊資訊落差最大的一項。',
+      priority: 3,
+      related: ['視覺識別','客戶體驗流程']
+    }),
+    () => ({
+      observation: `客戶從第一次接觸品牌到完成成交，中間經過的步驟尚未標準化，${c.purchaseFreq==='低頻消費'?'尤其在等待決策的期間缺乏持續互動。':'售後回訪機制也尚未建立。'}`,
+      rootCause: c.bizModel==='B2B' ? '報價、簽約、施工、保固等關鍵節點分散在不同人員手上處理，缺乏統一的流程規範。' : '客戶關係經營仰賴個人記憶與習慣，沒有系統化的紀錄與提醒機制。',
+      impact: '流程不透明容易讓客戶在決策過程中失去耐心或信任，直接影響成交率與回購率。',
+      recommendation: '標準化關鍵流程節點，明確每個階段客戶應該收到的訊息與回應時間。',
+      priority: c.purchaseFreq==='低頻消費' ? 4 : 3,
+      related: ['訊息溝通','內部品牌認知']
+    }),
+    () => ({
+      observation: (c.scale==='個人品牌'||c.scale==='微型（1-5人）') ? '團隊規模小，品牌認知主要集中在負責人身上，尚未有明顯的內部落差。' : '團隊成員對品牌定位與話術的理解程度不一，新舊成員之間存在認知落差。',
+      rootCause: '品牌定位與核心訊息尚未整理成教育訓練材料，主要靠口頭傳遞與個人經驗累積。',
+      impact: '第一線人員傳遞的品牌訊息不一致，容易讓客戶感受到「不同人說法不一樣」，削弱專業感。',
+      recommendation: '建立品牌一句話定位的內部共識文件，作為新人教育與話術統一的依據。',
+      priority: (c.scale==='大型/連鎖（20人以上）'||c.scale==='中小企業（6-20人）') ? 4 : 2,
+      related: ['訊息溝通','客戶體驗流程']
+    }),
+    () => ({
+      observation: c.lifecycle==='新品牌（0-2年）' ? '品牌尚未對主要競品與市場位置有明確描述。' : c.lifecycle==='老品牌（15年以上）' ? '品牌創立時的定位與現在的市場實況之間，出現一定落差。' : '目前對市場位置有基本輪廓，但尚未形成清楚且可傳遞的差異化描述。',
+      rootCause: '缺乏定期檢視市場與競品的機制，定位多半停留在品牌創立初期的認知，未隨市場調整。',
+      impact: '若持續維持現況，隨著同業增加或市場轉變，品牌差異化會逐漸模糊，價格競爭壓力也會提高。',
+      recommendation: c.priceTier==='高客單' ? '盤點1-3個主要競品，並用具體案例、專業與保證來支撐差異化定位。' : '盤點1-3個主要競品，整理出一項可長期主打的差異化定位。',
+      priority: c.lifecycle==='老品牌（15年以上）' ? 5 : 3,
+      related: ['訊息溝通','視覺識別']
+    })
   ];
 
   domGen.forEach((fn,i)=>{
-    const {content, rec} = fn();
-    document.getElementById('domain-content-'+i).value = content;
-    document.getElementById('domain-rec-'+i).value = rec;
-    setStatus(i, 'yellow');
+    const r = fn();
+    document.getElementById('domain-observation-'+i).value = r.observation;
+    document.getElementById('domain-rootcause-'+i).value = r.rootCause;
+    document.getElementById('domain-impact-'+i).value = r.impact;
+    document.getElementById('domain-recommendation-'+i).value = r.recommendation;
+    domainPriority[i] = r.priority;
+    domainRelated[i] = r.related.slice();
+    renderPriorityStars(i);
+    renderRelatedChips(i);
   });
+
+  const sorted = DOMAIN_NAMES.map((n,i)=>({n,i,p:domainPriority[i]})).sort((a,b)=>a.p-b.p);
+  document.getElementById('advantagesText').value = sorted.slice(0,3).map(x=>x.n).join('\n');
+  document.getElementById('toImproveText').value = sorted.slice(-3).reverse().map(x=>x.n).join('\n');
 
   const GOAL_ACTIONS = {
     '沒客人／曝光不足': {now:'檢視並優化各通路曝光缺口（社群/LINE/官網）', service:'社群內容顧問／經營'},
@@ -492,21 +441,23 @@ function generateFromContext(){
   document.getElementById('serviceMap').value = svc.join('\n');
 
   const goalsText = c.goals.length ? c.goals.join('、') : '目前品牌整體形象的優化';
-  const stageGuide = GROWTH_STAGE_GUIDE[c.growthStage] || '';
-  document.getElementById('insight').value =
-    `${stageGuide}目前最想解決的是：${goalsText}。從訪談中觀察，這類需求背後常見的根本落差，往往不只在表面呈現，而是在整體流程與訊息一致性上——建議在後續六大面向分析中特別留意這幾點。`;
+  document.getElementById('insightBelief').value = `客戶認為目前的問題主要是：${goalsText}。`;
+  document.getElementById('insightObserved').value = `從訪談與現況觀察，真正的落差多半不只在表面呈現，而是在整體流程與訊息一致性上——尤其是「${sorted[sorted.length-1].n}」與「${sorted[sorted.length-2].n}」這兩個面向。`;
+  document.getElementById('insightRealProblem').value = `真正需要優先處理的，是${sorted[sorted.length-1].n}背後缺乏系統化的規範與流程，而不只是單一表面問題。`;
+  document.getElementById('insightStrategy').value = `目前真正需要改善的是${sorted[sorted.length-1].n}，而不是單純增加更多曝光或投入。`;
+
+  const isPremiumB2B = c.bizModel==='B2B' && c.priceTier==='高客單';
+  const isYoungB2C = c.audience==='年輕族群(重視社群)';
+  strategyState.coreValues = isPremiumB2B ? ['專業','信任','品質'] : isYoungB2C ? ['創新','陪伴','品質'] : ['專業','安心','陪伴'];
+  strategyState.personality = isPremiumB2B ? ['專業幹練','成熟穩重','可信任'] : isYoungB2C ? ['活潑年輕','前衛創新','溫暖親切'] : ['可信任','溫暖親切','成熟穩重'];
+  strategyState.keywords = isPremiumB2B ? ['高端','安全','傳承'] : isYoungB2C ? ['年輕','科技','永續'] : ['溫馨','在地','安全'];
+  renderStrategyChips();
+  document.getElementById('positioning').value = `專注於為${c.audience}提供值得信賴的${c.industry}服務`;
+  document.getElementById('coreMessage').value = `不只是提供${c.industry}服務，而是成為客戶可以長期信賴的夥伴。`;
+  document.getElementById('direction').value = long.join('、') || '建立系統化的品牌識別與服務流程';
 
   document.getElementById('closing').value =
-    `根據以上診斷，建議安排進一步討論，具體規劃改善方向與執行優先順序，讓品牌形象與實際客戶體驗真正對齊。`;
-
-  // AI品牌策略藍圖（第④層，依AI推論結果生成，可再手動微調）
-  const analysis = computeAIAnalysis(c);
-  const strat = generateStrategyBlueprint(c, analysis);
-  document.getElementById('stratPositioning').value = strat.positioning;
-  document.getElementById('stratValues').value = strat.values;
-  document.getElementById('stratPersonality').value = strat.personality;
-  document.getElementById('stratKeywords').value = strat.keywords;
-  document.getElementById('stratThesis').value = strat.thesis;
+    `目前品牌最大的問題不是條件不好，而是${sorted[sorted.length-1].n}尚未系統化。若優先完成關鍵面向的調整，後續投入的行銷與經營資源將更有效率。建議安排進一步討論，具體規劃改善方向與執行優先順序。`;
 
   renderTabsBar();
 }
@@ -538,7 +489,7 @@ function roundRect(ctx,x,y,w,h,r){
 function bgCream(ctx){ ctx.fillStyle = COLORS.cream; ctx.fillRect(0,0,PAGE_W,PAGE_H); }
 function drawFooter(ctx, pageLabel, data){
   ctx.fillStyle = COLORS.gray; ctx.font = '11px Microsoft JhengHei';
-  ctx.textAlign = 'left'; ctx.fillText(`${data.brandName || ''} 品牌診斷報告`, M, FOOTER_Y);
+  ctx.textAlign = 'left'; ctx.fillText(`${data.brandName || ''} 品牌策略診斷報告`, M, FOOTER_Y);
   ctx.textAlign = 'right'; ctx.fillText(pageLabel, PAGE_W-M, FOOTER_Y);
   ctx.textAlign = 'left';
 }
@@ -556,271 +507,282 @@ function drawChip(ctx, text, x, y){
   ctx.fillStyle = COLORS.goldDark; ctx.fillText(text, x+9, y+16);
   return w;
 }
-function drawStarRating(ctx, x, y, label, value, labelWidth){
-  ctx.fillStyle = COLORS.black; ctx.font = '13px Microsoft JhengHei'; ctx.textAlign='left';
-  ctx.fillText(label, x, y);
-  const stars = '★★★★★'.slice(0, value) + '☆☆☆☆☆'.slice(0, 5-value);
-  ctx.fillStyle = COLORS.goldDark; ctx.font = '15px Microsoft JhengHei';
-  ctx.textAlign = 'right';
-  ctx.fillText(stars, x + (labelWidth || 220), y);
-  ctx.textAlign = 'left';
+function drawChipRow(ctx, items, x, y, maxWidth){
+  let cx = x, cy = y;
+  items.forEach(t=>{
+    const w = drawChip(ctx, t, cx, cy);
+    cx += w + 8;
+    if(cx > x + maxWidth - 60){ cx = x; cy += 32; }
+  });
+  return cy + 32;
 }
+function priorityToStatus(p){ return p>=4 ? 'red' : (p===3 ? 'yellow' : 'green'); }
 
 // ---------- Page draw functions ----------
+function drawContextRow(ctx, x, y, colWidth, label, value){
+  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 11px Microsoft JhengHei';
+  ctx.fillText(label, x, y);
+  y += 15;
+  ctx.fillStyle = COLORS.black; ctx.font = '12px Microsoft JhengHei';
+  y = wrapText(ctx, value || '（未填寫）', x, y, colWidth, 16);
+  return y + 10;
+}
+
 function drawCover(ctx, data){
   bgCream(ctx);
   ctx.fillStyle = COLORS.gold; ctx.font = 'bold 12px Arial';
-  ctx.fillText('PERSONAL BRAND CONSULTING', M, 58);
-  ctx.fillStyle = COLORS.black; ctx.font = 'bold 42px Microsoft JhengHei';
-  ctx.fillText('MR. business.lab', M, 112);
-  ctx.font = '20px Microsoft JhengHei';
-  ctx.fillText('品牌診斷報告', M, 146);
+  ctx.fillText('PERSONAL BRAND CONSULTING', M, 54);
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 36px Microsoft JhengHei';
+  ctx.fillText('MR. business.lab', M, 98);
+  ctx.font = '17px Microsoft JhengHei';
+  ctx.fillText('品牌策略診斷報告', M, 128);
 
-  const bannerY = 190, bannerH = 108;
+  const bannerY = 156, bannerH = 100;
   ctx.fillStyle = COLORS.black; ctx.fillRect(0, bannerY, PAGE_W, bannerH);
   ctx.fillStyle = COLORS.gold; ctx.font = 'bold 16px Microsoft JhengHei';
-  ctx.fillText(`品牌名稱：${data.brandName || '（未填寫）'}`, M, bannerY+34);
+  ctx.fillText(`品牌名稱：${data.brandName || '（未填寫）'}`, M, bannerY+32);
   ctx.fillStyle = COLORS.white; ctx.font = '13px Microsoft JhengHei';
-  ctx.fillText(`客戶名稱：${data.customerName || ''}`, M, bannerY+58);
-  ctx.fillText(`診斷日期：${data.reportDate || ''}　　報告編號：${data.reportNo || ''}`, M, bannerY+80);
-  ctx.fillText(`診斷顧問：${data.consultant || ''}`, M, bannerY+100);
+  ctx.fillText(`客戶名稱：${data.customerName || ''}`, M, bannerY+54);
+  ctx.fillText(`診斷日期：${data.reportDate || ''}　　報告編號：${data.reportNo || ''}`, M, bannerY+74);
+  ctx.fillText(`診斷顧問：${data.consultant || ''}`, M, bannerY+92);
 
-  let cy = bannerY + bannerH + 46;
-  ctx.fillStyle = COLORS.black; ctx.font = 'bold 14px Microsoft JhengHei';
-  ctx.fillText('診斷背景', M, cy);
-  cy += 20;
-  let cx = M;
-  [ctxState.bizModel, ctxState.industry, ctxState.lifecycle, ctxState.scale, ctxState.growthStage, ctxState.competitiveEdge].filter(Boolean).forEach(t=>{
-    const w = drawChip(ctx, t, cx, cy);
-    cx += w + 10;
-    if(cx > PAGE_W - M - 100){ cx = M; cy += 34; }
-  });
+  let y = bannerY + bannerH + 42;
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 16px Microsoft JhengHei';
+  ctx.fillText('品牌背景 Context', M, y);
+  ctx.strokeStyle = COLORS.gold; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(M, y+10); ctx.lineTo(M+50, y+10); ctx.stroke();
+  y += 34;
 
-  cy += 56;
-  ctx.fillStyle = COLORS.gray; ctx.font = '13px Microsoft JhengHei';
-  ctx.fillText('主要客群', M, cy);
-  ctx.fillStyle = COLORS.black; ctx.font = '14px Microsoft JhengHei';
-  cy = wrapText(ctx, ctxState.audience || '', M, cy+22, PAGE_W-2*M, 22);
+  const colGap = 30, colW = (PAGE_W-2*M-colGap)/2;
+  const col1 = [
+    ['商業模式', ctxState.bizModel], ['產業類型', ctxState.industry],
+    ['品牌生命週期', ctxState.lifecycle], ['品牌規模', ctxState.scale],
+    ['銷售模式', ctxState.salesModes.join('、')], ['主要客群', ctxState.audience]
+  ];
+  const col2 = [
+    ['決策模式', ctxState.decisionMode], ['客單價', ctxState.priceTier],
+    ['購買頻率', ctxState.purchaseFreq], ['品牌目標', ctxState.goals.join('、')],
+    ['商業成長階段', ctxState.growthStage], ['主要競爭力來源', ctxState.competitiveSource.join('、')]
+  ];
+  let y1 = y, y2 = y;
+  col1.forEach(([l,v])=>{ y1 = drawContextRow(ctx, M, y1, colW, l, v); });
+  col2.forEach(([l,v])=>{ y2 = drawContextRow(ctx, M+colW+colGap, y2, colW, l, v); });
 
-  cy += 20;
-  ctx.fillStyle = COLORS.gray; ctx.font = '13px Microsoft JhengHei';
-  ctx.fillText('目前最想解決的事', M, cy);
-  ctx.fillStyle = COLORS.black; ctx.font = '14px Microsoft JhengHei';
-  wrapText(ctx, (ctxState.goals||[]).join('、') || '', M, cy+22, PAGE_W-2*M, 22);
-
-  drawFooter(ctx, '封面', data);
-}
-
-function drawDashboard(ctx, data){
-  bgCream(ctx);
-  let y = sectionTitle(ctx, '品牌現況總覽');
-  const statusMap = {green:['綠燈',COLORS.green,COLORS.greenBg], yellow:['黃燈',COLORS.yellow,COLORS.yellowBg], red:['紅燈',COLORS.red,COLORS.redBg]};
-  const cols = 2, boxW = (PAGE_W-2*M-24)/cols, boxH = 100;
-  DOMAIN_NAMES.forEach((name,i)=>{
-    const col = i % cols, row = Math.floor(i/cols);
-    const bx = M + col*(boxW+24), by = y + row*(boxH+18);
-    const st = domainStatus[i] || 'yellow';
-    const [label, color, bg] = statusMap[st];
-    ctx.fillStyle = bg; roundRect(ctx, bx, by, boxW, boxH, 8); ctx.fill();
-    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(bx+22, by+26, 7, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = COLORS.black; ctx.font = 'bold 15px Microsoft JhengHei';
-    ctx.fillText(name, bx+40, by+31);
-    ctx.fillStyle = COLORS.gray; ctx.font = '12px Microsoft JhengHei';
-    const content = document.getElementById('domain-content-'+i).value;
-    wrapText(ctx, (content || '（尚未填寫）').slice(0,70), bx+22, by+56, boxW-44, 18);
-  });
-  drawFooter(ctx, '診斷背景與總覽', data);
-}
-
-function drawAIAnalysis(ctx, data){
-  bgCream(ctx);
-  let y = sectionTitle(ctx, 'AI品牌分析（自動推論）');
-  const c = ctxState;
-  const a = computeAIAnalysis(c);
-
-  ctx.fillStyle = COLORS.gray; ctx.font = '12px Microsoft JhengHei';
-  ctx.fillText('以下由AI依「診斷背景」自動推論，非使用者填寫內容', M, y);
-  y += 28;
-
-  const colW = (PAGE_W-2*M-30)/2;
-  let y1 = y;
-  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 14px Microsoft JhengHei';
-  ctx.fillText('品牌DNA', M, y1); y1 += 26;
-  [['信任權重',a.dna.trust],['品牌故事',a.dna.story],['案例需求',a.dna.caseStudy],
-   ['社群重要度',a.dna.social],['官網重要度',a.dna.website],['售後重要度',a.dna.afterSales]].forEach(([label,val])=>{
-    drawStarRating(ctx, M, y1, label, val, colW-20);
-    y1 += 25;
-  });
-
-  let y2 = y;
-  const x2 = M + colW + 30;
-  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 14px Microsoft JhengHei';
-  ctx.fillText('品牌成熟度分析', x2, y2); y2 += 26;
-  [['品牌成熟度',a.maturity],['品牌信任需求',a.trustDemand],['品牌標準化需求',a.standardization],
-   ['品牌曝光需求',a.exposure],['品牌教育需求',a.education],['品牌差異化需求',a.differentiation]].forEach(([label,val])=>{
-    drawStarRating(ctx, x2, y2, label, val, colW-20);
-    y2 += 25;
-  });
-
-  y = Math.max(y1,y2) + 24;
-  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 14px Microsoft JhengHei';
-  ctx.fillText('品牌風險', M, y); y += 26;
-  [['品牌依賴老闆',a.risk.ownerDependency],['品牌辨識不足',a.risk.lowRecognition],['品牌老化',a.risk.aging],
-   ['流程混亂',a.risk.processChaos],['教育不足',a.risk.educationLack]].forEach(([label,val])=>{
-    drawStarRating(ctx, M, y, label, val, colW-20);
-    y += 25;
-  });
-
-  y += 14;
-  const boxW = 210, boxH = 78;
-  ctx.fillStyle = COLORS.black; roundRect(ctx, M, y, boxW, boxH, 8); ctx.fill();
-  ctx.fillStyle = COLORS.gold; ctx.font = '12px Microsoft JhengHei';
-  ctx.fillText('品牌健康指數', M+16, y+26);
-  ctx.font = 'bold 30px Microsoft JhengHei';
-  ctx.fillText(`${a.healthIndex}/100`, M+16, y+58);
-
-  const gx = M + boxW + 24;
-  let gy = y + 16;
-  ctx.fillStyle = '#2B2820'; ctx.font = '13px Microsoft JhengHei';
-  if(c.growthStage){ gy = wrapText(ctx, `成長階段：${GROWTH_STAGE_GUIDE[c.growthStage]||c.growthStage}`, gx, gy, PAGE_W-M-gx, 20); gy += 6; }
-  if(c.competitiveEdge){ wrapText(ctx, `競爭力：${COMPETITIVE_GUIDE[c.competitiveEdge]||c.competitiveEdge}`, gx, gy, PAGE_W-M-gx, 20); }
-
-  drawFooter(ctx, 'AI品牌分析', data);
-}
-
-function drawRadar(ctx, data){
-  bgCream(ctx);
-  let y = sectionTitle(ctx, '品牌雷達圖與經營重心');
-  const c = ctxState;
-  const r = computeRadarBaseline(c);
-  const a = computeAIAnalysis(c);
-
-  const cx = M + 175, cy = y + 175, radius = 135;
-  const axes = [['視覺',r.visual],['訊息',r.message],['通路',r.channel],['體驗',r.experience],['團隊',r.team],['競爭',r.competition]];
-  const n = axes.length;
-  const angle = i => -Math.PI/2 + i*(2*Math.PI/n);
-
-  ctx.strokeStyle = COLORS.line; ctx.lineWidth = 1;
-  [0.25,0.5,0.75,1].forEach(f=>{
-    ctx.beginPath();
-    for(let i=0;i<=n;i++){
-      const a0 = angle(i%n), rad = radius*f;
-      const px = cx + rad*Math.cos(a0), py = cy + rad*Math.sin(a0);
-      i===0 ? ctx.moveTo(px,py) : ctx.lineTo(px,py);
-    }
-    ctx.stroke();
-  });
-
-  ctx.fillStyle = COLORS.black; ctx.font = 'bold 13px Microsoft JhengHei'; ctx.textAlign='center';
-  axes.forEach((ax,i)=>{
-    const a0 = angle(i);
-    const px = cx + radius*Math.cos(a0), py = cy + radius*Math.sin(a0);
-    ctx.strokeStyle = COLORS.line; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
-    const lx = cx + (radius+24)*Math.cos(a0), ly = cy + (radius+24)*Math.sin(a0);
-    ctx.fillText(ax[0], lx, ly);
-  });
-  ctx.textAlign='left';
-
-  ctx.beginPath();
-  axes.forEach((ax,i)=>{
-    const a0 = angle(i), rad = radius*(ax[1]/100);
-    const px = cx + rad*Math.cos(a0), py = cy + rad*Math.sin(a0);
-    i===0 ? ctx.moveTo(px,py) : ctx.lineTo(px,py);
-  });
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(201,169,97,0.35)'; ctx.fill();
-  ctx.strokeStyle = COLORS.goldDark; ctx.lineWidth = 2; ctx.stroke();
-  axes.forEach((ax,i)=>{
-    const a0 = angle(i), rad = radius*(ax[1]/100);
-    const px = cx + rad*Math.cos(a0), py = cy + rad*Math.sin(a0);
-    ctx.fillStyle = COLORS.goldDark; ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
-  });
-
-  const fx = cx + radius + 80;
-  let fy = y + 8;
-  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 14px Microsoft JhengHei';
-  ctx.fillText('建議經營重心配置', fx, fy); fy += 24;
-  const focus = a.focus;
-  [['品牌',focus.brand],['行銷',focus.marketing],['流程',focus.process],['團隊',focus.team]].forEach(([label,pct])=>{
-    ctx.fillStyle = COLORS.black; ctx.font = '12px Microsoft JhengHei';
-    ctx.fillText(`${label}　${pct}%`, fx, fy);
-    const barW = 130;
-    ctx.fillStyle = COLORS.line; roundRect(ctx, fx, fy+7, barW, 10, 5); ctx.fill();
-    ctx.fillStyle = COLORS.gold; roundRect(ctx, fx, fy+7, barW*pct/100, 10, 5); ctx.fill();
-    fy += 34;
-  });
-
-  y = cy + radius + 55;
-  ctx.fillStyle = '#2B2820'; ctx.font = '12px Microsoft JhengHei';
-  wrapText(ctx, '六大面向分數為AI依「診斷背景」推論之基準值，實際狀況仍以六大診斷面向的文字內容與紅黃綠燈為準。', M, y, PAGE_W-2*M, 20);
-
-  drawFooter(ctx, '品牌雷達圖與經營重心', data);
+  drawFooter(ctx, '封面與品牌背景', data);
 }
 
 function drawInsight(ctx, data){
   bgCream(ctx);
   let y = sectionTitle(ctx, '訪談洞察摘要');
-  ctx.fillStyle = '#2B2820'; ctx.font = '15px Microsoft JhengHei';
-  wrapText(ctx, data.insight || '（尚未填寫訪談洞察）', M, y, PAGE_W-2*M, 26);
+  const items = [
+    ['客戶目前認為', data.insightBelief],
+    ['我們觀察到', data.insightObserved],
+    ['真正問題', data.insightRealProblem]
+  ];
+  items.forEach(([label, text])=>{
+    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-14, 110, 22, 4); ctx.fill();
+    ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 12px Microsoft JhengHei';
+    ctx.fillText(label, M+8, y+1);
+    y += 26;
+    ctx.fillStyle = '#2B2820'; ctx.font = '14px Microsoft JhengHei';
+    y = wrapText(ctx, text || '（尚未填寫）', M, y, PAGE_W-2*M, 22);
+    y += 14;
+  });
+  y += 10;
+  ctx.fillStyle = COLORS.black; roundRect(ctx, M, y, PAGE_W-2*M, 64, 8); ctx.fill();
+  ctx.fillStyle = COLORS.gold; ctx.font = 'bold 12px Microsoft JhengHei';
+  ctx.fillText('本次策略方向', M+18, y+24);
+  ctx.fillStyle = COLORS.white; ctx.font = '13px Microsoft JhengHei';
+  wrapText(ctx, data.insightStrategy || '', M+18, y+44, PAGE_W-2*M-36, 18);
+
   drawFooter(ctx, '訪談洞察摘要', data);
+}
+
+function drawRadar(ctx, cx, cy, r, values, labels){
+  const n = values.length;
+  const step = (Math.PI*2)/n;
+  ctx.strokeStyle = COLORS.line; ctx.lineWidth = 1;
+  for(let ring=1; ring<=5; ring++){
+    ctx.beginPath();
+    for(let i=0;i<=n;i++){
+      const a = -Math.PI/2 + step*(i%n);
+      const rr = r*ring/5;
+      const x = cx + rr*Math.cos(a), y = cy + rr*Math.sin(a);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  ctx.fillStyle = COLORS.gray; ctx.font='11px Microsoft JhengHei'; ctx.textAlign='center';
+  for(let i=0;i<n;i++){
+    const a = -Math.PI/2 + step*i;
+    const x2 = cx + r*Math.cos(a), y2 = cy + r*Math.sin(a);
+    ctx.strokeStyle = COLORS.line;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x2,y2); ctx.stroke();
+    const lx = cx + (r+28)*Math.cos(a), ly = cy + (r+28)*Math.sin(a);
+    ctx.fillText(labels[i], lx, ly);
+  }
+  ctx.beginPath();
+  for(let i=0;i<=n;i++){
+    const idx = i % n;
+    const a = -Math.PI/2 + step*idx;
+    const rr = r*values[idx]/5;
+    const x = cx + rr*Math.cos(a), y = cy + rr*Math.sin(a);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(201,169,97,0.35)'; ctx.fill();
+  ctx.strokeStyle = COLORS.goldDark; ctx.lineWidth=2; ctx.stroke();
+  ctx.textAlign='left';
+}
+
+function drawOverview(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '品牌診斷總覽');
+
+  // six-light grid (2 columns)
+  const statusMap = {green:[COLORS.green,COLORS.greenBg], yellow:[COLORS.yellow,COLORS.yellowBg], red:[COLORS.red,COLORS.redBg]};
+  const cols = 2, boxW = (PAGE_W-2*M-20)/cols, boxH = 46;
+  DOMAIN_NAMES.forEach((name,i)=>{
+    const col = i % cols, row = Math.floor(i/cols);
+    const bx = M + col*(boxW+20), by = y + row*(boxH+12);
+    const st = priorityToStatus(domainPriority[i]||3);
+    const [color, bg] = statusMap[st];
+    ctx.fillStyle = bg; roundRect(ctx, bx, by, boxW, boxH, 6); ctx.fill();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(bx+18, by+boxH/2, 6, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = COLORS.black; ctx.font = 'bold 13px Microsoft JhengHei';
+    ctx.fillText(name, bx+32, by+boxH/2-2);
+    ctx.fillStyle = COLORS.goldDark; ctx.font = '11px Microsoft JhengHei';
+    ctx.fillText('★'.repeat(domainPriority[i]||3), bx+32, by+boxH/2+14);
+  });
+  y = y + 3*(boxH+12) + 30;
+
+  // radar chart, centered
+  const radius = 92;
+  const radarCy = y + radius;
+  drawRadar(ctx, PAGE_W/2, radarCy, radius, DOMAIN_NAMES.map((_,i)=> 6-(domainPriority[i]||3)), DOMAIN_NAMES.map(n=>n.slice(0,2)));
+  y = radarCy + radius + 40;
+
+  // advantages / to-improve
+  const colGap = 30, colW2 = (PAGE_W-2*M-colGap)/2;
+  ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y, colW2, 26, 5); ctx.fill();
+  ctx.fillStyle = COLORS.goldDark; ctx.font='bold 13px Microsoft JhengHei';
+  ctx.fillText('三大優勢', M+12, y+18);
+  ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M+colW2+colGap, y, colW2, 26, 5); ctx.fill();
+  ctx.fillText('三大待改善', M+colW2+colGap+12, y+18);
+  y += 36;
+
+  const adv = (data.advantagesText||'').split('\n').filter(Boolean);
+  const imp = (data.toImproveText||'').split('\n').filter(Boolean);
+  const maxRows = Math.max(adv.length, imp.length, 1);
+  ctx.font='13px Microsoft JhengHei';
+  for(let i=0;i<maxRows;i++){
+    ctx.fillStyle = '#2B2820';
+    if(adv[i]) ctx.fillText('✓ '+adv[i], M, y+i*22);
+    if(imp[i]) ctx.fillText('✓ '+imp[i], M+colW2+colGap, y+i*22);
+  }
+  y += maxRows*22 + 26;
+
+  // priority order
+  ctx.fillStyle = COLORS.goldDark; ctx.font='bold 13px Microsoft JhengHei';
+  ctx.fillText('優先改善順序', M, y);
+  y += 22;
+  const sorted = DOMAIN_NAMES.map((n,i)=>({n,p:domainPriority[i]||3})).sort((a,b)=>b.p-a.p);
+  sorted.forEach((item, idx)=>{
+    ctx.fillStyle = COLORS.gold; ctx.font='bold 13px Microsoft JhengHei';
+    ctx.fillText(`${idx+1}.`, M, y);
+    ctx.fillStyle = COLORS.black; ctx.font='13px Microsoft JhengHei';
+    ctx.fillText(item.n, M+22, y);
+    y += 22;
+  });
+
+  drawFooter(ctx, '品牌診斷總覽', data);
+}
+
+function drawDomainDetail(ctx, i, y){
+  const st = priorityToStatus(domainPriority[i] || 3);
+  const statusColor = {green:COLORS.green, yellow:COLORS.yellow, red:COLORS.red}[st];
+
+  ctx.fillStyle = statusColor; ctx.beginPath(); ctx.arc(M+8, y-5, 7, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 18px Microsoft JhengHei';
+  ctx.fillText(DOMAIN_NAMES[i], M+26, y);
+  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei'; ctx.textAlign='right';
+  ctx.fillText('★'.repeat(domainPriority[i]||3) + '☆'.repeat(5-(domainPriority[i]||3)), PAGE_W-M, y);
+  ctx.textAlign='left';
+  y += 30;
+
+  const fields = [
+    ['observation', document.getElementById('domain-observation-'+i).value],
+    ['rootCause', document.getElementById('domain-rootcause-'+i).value],
+    ['impact', document.getElementById('domain-impact-'+i).value],
+    ['recommendation', document.getElementById('domain-recommendation-'+i).value]
+  ];
+  fields.forEach(([key, text])=>{
+    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-14, 170, 22, 4); ctx.fill();
+    ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 11px Microsoft JhengHei';
+    ctx.fillText(FIELD_LABELS[key], M+8, y+1);
+    y += 24;
+    ctx.fillStyle = '#2B2820'; ctx.font = '13px Microsoft JhengHei';
+    y = wrapText(ctx, text || '（尚未填寫）', M, y, PAGE_W-2*M, 20);
+    y += 8;
+  });
+
+  if(domainRelated[i] && domainRelated[i].length){
+    ctx.fillStyle = COLORS.gray; ctx.font = '11px Microsoft JhengHei';
+    ctx.fillText('關聯面向：', M, y);
+    let rx = M + 66;
+    domainRelated[i].forEach(name=>{
+      const w = drawChip(ctx, name, rx, y-14);
+      rx += w + 8;
+    });
+    y += 22;
+  }
+  return y + 24;
 }
 
 function drawDomainPage(ctx, domainIdxs, data, pageLabel){
   bgCream(ctx);
-  let y = sectionTitle(ctx, '診斷面向詳述');
-  const statusMap = {green:['綠燈',COLORS.green], yellow:['黃燈',COLORS.yellow], red:['紅燈',COLORS.red]};
-  domainIdxs.forEach(i=>{
-    const st = domainStatus[i] || 'yellow';
-    const [label, color] = statusMap[st];
-    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(M+8, y-5, 7, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = COLORS.black; ctx.font = 'bold 17px Microsoft JhengHei';
-    ctx.fillText(DOMAIN_NAMES[i], M+26, y);
-    ctx.fillStyle = color; ctx.font = '12px Microsoft JhengHei';
-    ctx.fillText(label, PAGE_W-M-40, y);
-    y += 26;
-    ctx.fillStyle = '#2B2820'; ctx.font = '13px Microsoft JhengHei';
-    const content = document.getElementById('domain-content-'+i).value;
-    y = wrapText(ctx, content || '（尚未填寫）', M, y, PAGE_W-2*M, 21);
-    const rec = document.getElementById('domain-rec-'+i).value;
-    if(rec){
-      y += 6;
-      ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 12px Microsoft JhengHei';
-      ctx.fillText('建議：', M, y);
-      ctx.fillStyle = COLORS.gray; ctx.font = '12px Microsoft JhengHei';
-      y = wrapText(ctx, rec, M+42, y, PAGE_W-2*M-42, 19);
-    }
-    y += 36;
-  });
+  let y = sectionTitle(ctx, '六大診斷面向詳述');
+  domainIdxs.forEach(i=>{ y = drawDomainDetail(ctx, i, y); });
   drawFooter(ctx, pageLabel, data);
 }
 
 function drawStrategy(ctx, data){
   bgCream(ctx);
   let y = sectionTitle(ctx, '品牌策略藍圖');
-  const blocks = [
-    ['一句話定位', data.stratPositioning],
-    ['品牌核心價值', data.stratValues],
-    ['品牌個性', data.stratPersonality],
-    ['品牌關鍵字', data.stratKeywords],
-    ['品牌主軸', data.stratThesis]
-  ];
-  blocks.forEach(([title, text])=>{
-    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-20, 100, 28, 5); ctx.fill();
+
+  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
+  ctx.fillText('一句話品牌定位', M, y);
+  y += 20;
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 16px Microsoft JhengHei';
+  y = wrapText(ctx, data.positioning || '（尚未填寫）', M, y, PAGE_W-2*M, 24) + 16;
+
+  const groups = [['品牌核心價值', strategyState.coreValues], ['品牌個性', strategyState.personality], ['品牌關鍵字', strategyState.keywords]];
+  groups.forEach(([label, items])=>{
     ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
-    ctx.fillText(title, M+12, y);
-    y += 34;
-    ctx.fillStyle = '#2B2820'; ctx.font = 'bold 16px Microsoft JhengHei';
-    y = wrapText(ctx, text || '（尚未生成，請至「診斷背景」點擊一鍵生成）', M, y, PAGE_W-2*M, 26);
-    y += 28;
+    ctx.fillText(label, M, y);
+    y = drawChipRow(ctx, items, M, y+14, PAGE_W-2*M) + 6;
   });
+
+  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
+  ctx.fillText('品牌核心主張', M, y);
+  y += 20;
+  ctx.fillStyle = '#2B2820'; ctx.font = '14px Microsoft JhengHei';
+  y = wrapText(ctx, data.coreMessage || '（尚未填寫）', M, y, PAGE_W-2*M, 22) + 16;
+
+  ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
+  ctx.fillText('品牌發展方向', M, y);
+  y += 20;
+  ctx.fillStyle = '#2B2820'; ctx.font = '14px Microsoft JhengHei';
+  wrapText(ctx, data.direction || '（尚未填寫）', M, y, PAGE_W-2*M, 22);
+
   drawFooter(ctx, '品牌策略藍圖', data);
 }
 
-function drawRecommendations(ctx, data){
+function drawRoadmap(ctx, data){
   bgCream(ctx);
-  let y = sectionTitle(ctx, '建議方向');
-  [['立即可做', data.recNow], ['中期規劃', data.recMid], ['長期方向', data.recLong]].forEach(([title, text])=>{
-    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-20, 90, 28, 5); ctx.fill();
+  let y = sectionTitle(ctx, '品牌行動藍圖');
+  [['立即（30天）', data.recNow], ['中期（90天）', data.recMid], ['長期（一年）', data.recLong]].forEach(([title, text])=>{
+    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-20, 110, 28, 5); ctx.fill();
     ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
     ctx.fillText(title, M+12, y);
     y += 30;
@@ -828,12 +790,12 @@ function drawRecommendations(ctx, data){
     y = wrapText(ctx, text || '（尚未填寫）', M, y, PAGE_W-2*M, 23);
     y += 34;
   });
-  drawFooter(ctx, '建議方向', data);
+  drawFooter(ctx, '品牌行動藍圖', data);
 }
 
-function drawServiceMapping(ctx, data){
+function drawSolutions(ctx, data){
   bgCream(ctx);
-  let y = sectionTitle(ctx, '建議服務項目對應');
+  let y = sectionTitle(ctx, 'MR 解決方案');
   const lines = (data.serviceMap || '').split('\n').filter(l=>l.trim());
   if(lines.length===0) lines.push('（尚未填寫）');
   lines.forEach(line=>{
@@ -842,7 +804,7 @@ function drawServiceMapping(ctx, data){
     y = wrapText(ctx, line, M+22, y, PAGE_W-2*M-22, 24);
     y += 12;
   });
-  drawFooter(ctx, '建議服務項目對應', data);
+  drawFooter(ctx, 'MR 解決方案', data);
 }
 
 function drawClosing(ctx, data){
@@ -875,12 +837,15 @@ function drawClosing(ctx, data){
   drawFooter(ctx, '結語與下一步', data);
 }
 
-// ---------- Pagination ----------
+// ---------- Pagination for six domains ----------
 function paginateDomains(){
   const est = DOMAIN_NAMES.map((_,i)=>{
-    const content = document.getElementById('domain-content-'+i).value;
-    const rec = document.getElementById('domain-rec-'+i).value;
-    return 26 + estimateHeight(content, 46, 21) + (rec ? 20+estimateHeight(rec, 50, 19) : 0) + 36;
+    const o = document.getElementById('domain-observation-'+i).value;
+    const rc = document.getElementById('domain-rootcause-'+i).value;
+    const im = document.getElementById('domain-impact-'+i).value;
+    const rec = document.getElementById('domain-recommendation-'+i).value;
+    const fieldH = t => 24 + estimateHeight(t, 46, 20) + 8;
+    return 30 + fieldH(o) + fieldH(rc) + fieldH(im) + fieldH(rec) + 22 + 24;
   });
   const pages = []; let current = [], currentH = MT+70;
   const maxH = PAGE_H - MB - 20;
@@ -899,42 +864,39 @@ function collectData(){
   return {
     brandName:g('brandName'), customerName:g('customerName'), reportDate:g('reportDate'), reportNo:g('reportNo'),
     consultant: consultantSel === '__custom__' ? g('consultantCustom') : consultantSel,
-    insight:g('insight'), recNow:g('recNow'), recMid:g('recMid'), recLong:g('recLong'),
-    serviceMap:g('serviceMap'), closing:g('closing'),
-    stratPositioning:g('stratPositioning'), stratValues:g('stratValues'), stratPersonality:g('stratPersonality'),
-    stratKeywords:g('stratKeywords'), stratThesis:g('stratThesis')
+    insightBelief:g('insightBelief'), insightObserved:g('insightObserved'), insightRealProblem:g('insightRealProblem'), insightStrategy:g('insightStrategy'),
+    advantagesText:g('advantagesText'), toImproveText:g('toImproveText'),
+    positioning:g('positioning'), coreMessage:g('coreMessage'), direction:g('direction'),
+    recNow:g('recNow'), recMid:g('recMid'), recLong:g('recLong'),
+    serviceMap:g('serviceMap'), closing:g('closing')
   };
 }
 
-// ---------- Tabs (linked to form sections + preview) ----------
+// ---------- Tabs (vertical, linked to form sections + preview) ----------
 let currentTabIndex = 0;
 function getTabsList(){
   const domainPages = paginateDomains();
   const tabs = [
-    {label:'封面', type:'cover', pageLabel:'封面'},
-    {label:'診斷背景', type:'dashboard', pageLabel:'診斷背景與總覽'},
-    {label:'AI品牌分析', type:'aiAnalysis', pageLabel:'AI品牌分析'},
-    {label:'雷達圖/重心', type:'radar', pageLabel:'品牌雷達圖與經營重心'},
+    {label:'封面 / 品牌背景', type:'cover', pageLabel:'封面與品牌背景'},
     {label:'訪談洞察', type:'insight', pageLabel:'訪談洞察摘要'},
+    {label:'診斷總覽', type:'overview', pageLabel:'品牌診斷總覽'},
   ];
   domainPages.forEach((idxs,i)=> tabs.push({label:`面向 ${i+1}/${domainPages.length}`, type:'domain', idxs, pageLabel:`診斷面向詳述 ${i+1}/${domainPages.length}`}));
   tabs.push({label:'策略藍圖', type:'strategy', pageLabel:'品牌策略藍圖'});
-  tabs.push({label:'建議方向', type:'rec', pageLabel:'建議方向'});
-  tabs.push({label:'服務對應', type:'service', pageLabel:'建議服務項目對應'});
+  tabs.push({label:'行動藍圖', type:'roadmap', pageLabel:'品牌行動藍圖'});
+  tabs.push({label:'解決方案', type:'solutions', pageLabel:'MR 解決方案'});
   tabs.push({label:'結語', type:'closing', pageLabel:'結語與下一步'});
   return tabs;
 }
 function drawByTab(ctx, tab, data){
   switch(tab.type){
     case 'cover': drawCover(ctx,data); break;
-    case 'dashboard': drawDashboard(ctx,data); break;
-    case 'aiAnalysis': drawAIAnalysis(ctx,data); break;
-    case 'radar': drawRadar(ctx,data); break;
     case 'insight': drawInsight(ctx,data); break;
+    case 'overview': drawOverview(ctx,data); break;
     case 'domain': drawDomainPage(ctx, tab.idxs, data, tab.pageLabel); break;
     case 'strategy': drawStrategy(ctx,data); break;
-    case 'rec': drawRecommendations(ctx,data); break;
-    case 'service': drawServiceMapping(ctx,data); break;
+    case 'roadmap': drawRoadmap(ctx,data); break;
+    case 'solutions': drawSolutions(ctx,data); break;
     case 'closing': drawClosing(ctx,data); break;
   }
 }
@@ -989,7 +951,7 @@ async function generatePDF(){
     pdf.addImage(imgData, 'JPEG', 0, 0, PAGE_W, PAGE_H);
   }
 
-  const filename = (data.brandName || '品牌診斷報告').replace(/[\\/:*?"<>|]/g,'') + '_診斷報告.pdf';
+  const filename = (data.brandName || '品牌策略診斷報告').replace(/[\\/:*?"<>|]/g,'') + '_診斷報告.pdf';
   pdf.save(filename);
 }
 </script>
