@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>MR. 品牌診斷報告產生器</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --cream:#F7F1E6; --black:#17140F; --gold:#C9A961; --gold-dark:#8C6A2E;
+    --chip-bg:#E8D9AE; --gray:#5A564C; --line:#DCD3BE; --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{ font-family:"Microsoft JhengHei","PingFang TC",sans-serif; background:#EDE7DA; margin:0; padding:24px; color:#2B2820; }
+  .wrap{ max-width:1680px; margin:0 auto; display:grid; grid-template-columns:640px 1fr; gap:24px; }
+  .panel{ background:#fff; border-radius:10px; padding:22px 26px; max-height:96vh; overflow-y:auto; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  h1{font-size:19px;margin:0 0 4px;}
+  h2{font-size:14px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);color:var(--gold-dark);}
+  .sub{font-size:12px;color:#888;margin-bottom:14px;}
+  label{display:block;font-size:12px;font-weight:bold;margin:10px 0 4px;color:#333;}
+  input[type=text],input[type=date],select,textarea{
+    width:100%;padding:8px 10px;font-size:13px;border:1px solid #ccc;border-radius:5px;font-family:inherit;background:#fafafa;
+  }
+  textarea{resize:vertical;min-height:56px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .domain-block{border:1px solid var(--line);border-radius:8px;padding:14px;margin-top:12px;background:#FCFAF4;}
+  .domain-block h3{font-size:13px;margin:0 0 8px;color:var(--black);}
+  .status-row{display:flex;gap:6px;margin-bottom:8px;}
+  .status-btn{flex:1;padding:7px;font-size:12px;text-align:center;border:1px solid #ccc;border-radius:5px;cursor:pointer;background:#fff;}
+  .status-btn.active-green{background:#dff0d8;border-color:#5cb85c;font-weight:bold;}
+  .status-btn.active-yellow{background:#fcf3d0;border-color:var(--gold);font-weight:bold;}
+  .status-btn.active-red{background:#f6dede;border-color:#c0392b;font-weight:bold;}
+  .generate-btn{ width:100%;padding:15px;margin-top:20px;background:var(--black);color:var(--gold);border:none;border-radius:8px;font-size:15px;font-weight:bold;cursor:pointer;letter-spacing:1px; }
+  .generate-btn:hover{opacity:0.9;}
+  .auto-btn{ width:100%;padding:12px;margin-top:14px;background:var(--gold);color:var(--black);border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer; }
+  .auto-btn:hover{opacity:0.9;}
+  .hint{font-size:12px;color:#999;text-align:center;margin-top:10px;}
+  .fixed-info{background:#F3F0E8;border-radius:6px;padding:10px 12px;font-size:13px;color:#555;margin-top:8px;}
+
+  .choice-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+  .choice-chip{padding:7px 12px;font-size:12px;border:1px solid #ccc;border-radius:16px;background:#fff;cursor:pointer;}
+  .choice-chip.selected{background:var(--gold);border-color:var(--gold-dark);color:#3a2c0d;font-weight:bold;}
+
+  .preview-panel{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+  .tab-btn{padding:6px 12px;font-size:12px;border:1px solid #ccc;border-radius:16px;background:#fff;cursor:pointer;}
+  .tab-btn.active{background:var(--black);color:var(--gold);border-color:var(--black);}
+  #previewCanvas{width:100%;max-width:640px;border:1px solid #ddd;display:block;margin:0 auto;background:#fff;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LEFT: FORM -->
+  <div class="panel" id="formPanel">
+    <h1>MR. 品牌診斷報告產生器</h1>
+    <div class="sub">上方切換章節，只會顯示該章節需要填寫的欄位</div>
+
+    <!-- 封面 -->
+    <div class="form-section" data-section="cover">
+      <h2>封面資訊</h2>
+      <div class="row2">
+        <div><label>品牌名稱</label><input type="text" id="brandName" placeholder="例：MN13 Beauty"></div>
+        <div><label>客戶名稱</label><input type="text" id="customerName" placeholder="例：陳店長"></div>
+      </div>
+      <div class="row2">
+        <div><label>診斷日期</label><input type="date" id="reportDate"></div>
+        <div><label>報告編號</label><input type="text" id="reportNo" placeholder="MR-2026-001"></div>
+      </div>
+      <label>診斷顧問</label>
+      <select id="consultantSelect">
+        <option value="小如如">小如如</option>
+        <option value="__custom__">其他（自行輸入）</option>
+      </select>
+      <input type="text" id="consultantCustom" placeholder="輸入顧問姓名" style="display:none;margin-top:6px;">
+    </div>
+
+    <!-- 診斷背景（Context 選擇題 + 一鍵生成） -->
+    <div class="form-section" data-section="dashboard">
+      <h2>診斷背景 Context</h2>
+      <label>商業模式</label>
+      <div class="choice-group" id="q-bizModel"></div>
+      <label>產業類型</label>
+      <div class="choice-group" id="q-industry"></div>
+      <label>品牌生命週期</label>
+      <div class="choice-group" id="q-lifecycle"></div>
+      <label>品牌規模</label>
+      <div class="choice-group" id="q-scale"></div>
+      <label>銷售模式（可複選）</label>
+      <div class="choice-group" id="q-salesModes"></div>
+      <label>主要客群</label>
+      <div class="choice-group" id="q-audience"></div>
+      <label>決策模式</label>
+      <div class="choice-group" id="q-decisionMode"></div>
+      <label>客單價</label>
+      <div class="choice-group" id="q-priceTier"></div>
+      <label>購買頻率</label>
+      <div class="choice-group" id="q-purchaseFreq"></div>
+      <label>品牌目標（可複選，建議最多3項）</label>
+      <div class="choice-group" id="q-goals"></div>
+
+      <button type="button" class="auto-btn" onclick="generateFromContext()">依上方選擇，一鍵生成六大面向與報告內容</button>
+      <div class="hint">生成後仍可到各章節手動微調文字</div>
+    </div>
+
+    <!-- 訪談洞察 -->
+    <div class="form-section" data-section="insight">
+      <h2>訪談洞察摘要</h2>
+      <textarea id="insight" placeholder="主題式短文，呈現「客戶以為 vs 我們觀察到」的落差"></textarea>
+    </div>
+
+    <!-- 六大診斷面向 -->
+    <div class="form-section" data-section="domain">
+      <h2>六大診斷面向</h2>
+      <div id="domainsContainer"></div>
+    </div>
+
+    <!-- 建議方向 -->
+    <div class="form-section" data-section="rec">
+      <h2>建議方向</h2>
+      <label>立即可做</label><textarea id="recNow"></textarea>
+      <label>中期規劃</label><textarea id="recMid"></textarea>
+      <label>長期方向</label><textarea id="recLong"></textarea>
+    </div>
+
+    <!-- 服務對應 -->
+    <div class="form-section" data-section="service">
+      <h2>建議服務項目對應</h2>
+      <textarea id="serviceMap" placeholder="每項一行" style="min-height:90px;"></textarea>
+    </div>
+
+    <!-- 結語 -->
+    <div class="form-section" data-section="closing">
+      <h2>結語與下一步</h2>
+      <textarea id="closing" placeholder="例：建議安排30分鐘提案會議，討論具體執行方向"></textarea>
+      <label>聯絡窗口（固定）</label>
+      <div class="fixed-info">LINE：@038xuzzx</div>
+    </div>
+
+    <button class="generate-btn" onclick="generatePDF()">產生 PDF 診斷報告</button>
+    <div class="hint">六大面向會依內容長度自動決定分幾頁</div>
+  </div>
+
+  <!-- RIGHT: PREVIEW -->
+  <div class="preview-panel">
+    <div class="tabs" id="tabsBar"></div>
+    <canvas id="previewCanvas" width="794" height="1123"></canvas>
+    <div class="hint">點上方章節可切換預覽該頁與對應填寫欄；匯出PDF為高解析度版本</div>
+  </div>
+
+</div>
+
+<script>
+const DOMAIN_NAMES = ["視覺識別","訊息溝通","通路呈現","客戶體驗流程","內部品牌認知","市場競爭定位"];
+const COLORS = {
+  cream:"#F7F1E6", black:"#17140F", gold:"#C9A961", goldDark:"#8C6A2E",
+  chipBg:"#E8D9AE", gray:"#5A564C", line:"#DCD3BE", white:"#FFFFFF",
+  green:"#4E8C5A", greenBg:"#E1EEDD", yellow:"#C9A961", yellowBg:"#F4E9CE",
+  red:"#B4443A", redBg:"#F3DEDA"
+};
+const PAGE_W = 794, PAGE_H = 1123, M = 62, MT = 76, MB = 76;
+const SCALE_PREVIEW = 1.5, SCALE_EXPORT = 3;
+const FOOTER_Y = PAGE_H - MB + 26;
+
+// ---------- QR image ----------
+const qrImg = new Image();
+qrImg.src = 'line_QR.png';
+qrImg.onload = () => renderTabsBar();
+qrImg.onerror = () => {};
+
+// ---------- Defaults ----------
+document.getElementById('reportDate').value = new Date().toISOString().slice(0,10);
+document.getElementById('consultantSelect').addEventListener('change', e=>{
+  document.getElementById('consultantCustom').style.display = e.target.value === '__custom__' ? 'block' : 'none';
+});
+
+// ---------- Context choice groups ----------
+const QUESTIONS = {
+  bizModel:    { multi:false, options:['B2B','B2C','B2B2C（加盟/代理）'] },
+  industry:    { multi:false, options:['服務業','零售業','工程業','醫療美容','教育','餐飲','其他'] },
+  lifecycle:   { multi:false, options:['新品牌（0-2年）','成長期（2-5年）','成熟期（5-15年）','老品牌（15年以上）'] },
+  scale:       { multi:false, options:['個人品牌','微型（1-5人）','中小企業（6-20人）','大型/連鎖（20人以上）'] },
+  salesModes:  { multi:true,  options:['預約制','來店制','業務開發','電商','直播','加盟','批發經銷'] },
+  audience:    { multi:false, options:['一般消費大眾','高資產精緻客群','年輕族群(重視社群)','家庭客群','企業採購窗口','長者客群'] },
+  decisionMode:{ multi:false, options:['個人決策','家庭共同決策','企業採購(單一窗口)','企業採購(多人審核)'] },
+  priceTier:   { multi:false, options:['低客單','中客單','高客單'] },
+  purchaseFreq:{ multi:false, options:['高頻消費','低頻消費'] },
+  goals:       { multi:true,  options:['沒客人／曝光不足','有客人但沒回購','品牌形象老舊','社群沒流量','客戶不信任／成交率低','無法提高客單價','招募不到人才','展店規劃','加盟規劃','建立個人品牌'] }
+};
+const ctxState = {};
+function renderChoiceGroups(){
+  Object.keys(QUESTIONS).forEach(key=>{
+    const q = QUESTIONS[key];
+    ctxState[key] = q.multi ? [] : q.options[0];
+    const el = document.getElementById('q-'+key);
+    el.innerHTML = '';
+    q.options.forEach(opt=>{
+      const chip = document.createElement('div');
+      chip.className = 'choice-chip' + (!q.multi && opt===ctxState[key] ? ' selected' : '');
+      chip.textContent = opt;
+      chip.onclick = () => {
+        if(q.multi){
+          const arr = ctxState[key];
+          const idx = arr.indexOf(opt);
+          if(idx>-1) arr.splice(idx,1); else arr.push(opt);
+        } else {
+          ctxState[key] = opt;
+        }
+        renderChoiceGroups();
+      };
+      el.appendChild(chip);
+    });
+  });
+}
+renderChoiceGroups();
+
+// ---------- Domain input blocks ----------
+const domainsContainer = document.getElementById('domainsContainer');
+DOMAIN_NAMES.forEach((name, i) => {
+  const div = document.createElement('div');
+  div.className = 'domain-block';
+  div.dataset.domain = i;
+  div.innerHTML = `
+    <h3>${name}</h3>
+    <div class="status-row" id="status-${i}">
+      <div class="status-btn" data-status="green" onclick="setStatus(${i},'green')">🟢 綠燈</div>
+      <div class="status-btn" data-status="yellow" onclick="setStatus(${i},'yellow')">🟡 黃燈</div>
+      <div class="status-btn" data-status="red" onclick="setStatus(${i},'red')">🔴 紅燈</div>
+    </div>
+    <textarea id="domain-content-${i}" placeholder="現況觀察與分析..."></textarea>
+    <textarea id="domain-rec-${i}" placeholder="建議方向（選填）" style="margin-top:8px;min-height:40px;"></textarea>
+  `;
+  domainsContainer.appendChild(div);
+});
+const domainStatus = {};
+function setStatus(i, status){
+  domainStatus[i] = status;
+  const row = document.getElementById('status-'+i);
+  [...row.children].forEach(btn=>{ btn.className = 'status-btn' + (btn.dataset.status===status ? ' active-'+status : ''); });
+  renderTabsBar();
+}
+
+// ---------- Auto-generation engine ----------
+function generateFromContext(){
+  const c = ctxState;
+  const has = (arr, v) => arr.includes(v);
+
+  const domGen = [
+    () => { // 視覺識別
+      let s = [];
+      s.push({'B2B':'目前的視覺呈現應優先強化專業與權威感，讓潛在客戶第一眼就感受到值得信賴的專業形象。',
+               'B2C':'視覺呈現需要兼顧吸引力與質感，第一眼就要能抓住目標客群的目光並留下記憶點。',
+               'B2B2C（加盟/代理）':'視覺識別需要在總部規範與各據點實際呈現之間取得一致性，避免品牌形象因通路不同而失焦。'}[c.bizModel]);
+      if(c.lifecycle==='老品牌（15年以上）') s.push('品牌已累積一定辨識度，但部分視覺元素可能已跟不上市場審美，建議謹慎評估哪些該保留、哪些該更新。');
+      if(c.lifecycle==='新品牌（0-2年）') s.push('目前視覺系統尚未定型，正是建立完整識別規範的好時機。');
+      if(c.scale==='大型/連鎖（20人以上）') s.push('多據點/多人員的情況下，統一的視覺規範與素材庫尤其重要。');
+      return {content:s.filter(Boolean).join(''), rec:'統一主色、字體與版面規範，確保跨通路一致。'};
+    },
+    () => { // 訊息溝通
+      let s = ['需要有一句話能清楚說明「為什麼選我們而不是別人」，並確保官網、社群、業務話術講的是同一套故事。'];
+      if(c.bizModel==='B2B' && c.priceTier==='高客單') s.unshift('溝通需要有案例、數據與專業背書佐證，避免只靠形容詞堆疊。');
+      if(c.bizModel==='B2C' && c.purchaseFreq==='高頻消費') s.unshift('訊息可以更情感化、生活化，強調讓人記得住、有共鳴。');
+      if(c.decisionMode==='家庭共同決策' || c.decisionMode==='企業採購(多人審核)') s.push('訊息需要同時說服眼前接觸的人，以及背後實際做決定的人。');
+      return {content:s.join(''), rec:'整理一句話定位與3個核心賣點，統一各通路用語。'};
+    },
+    () => { // 通路呈現
+      let s = ['需要檢視LINE官方帳號、社群、官網跨通路的呈現是否一致。'];
+      if(has(c.salesModes,'預約制')) s.push('LINE的預約流程、提醒機制與取消率是觀察重點。');
+      if(has(c.salesModes,'電商')) s.push('商品頁的轉換率與金流物流順暢度需要特別檢視。');
+      if(c.bizModel==='B2B') s.push('官網與型錄的完整度比社群更重要，社群可作為加分項。');
+      if(c.audience==='年輕族群(重視社群)') s.push('IG/短影音的經營狀況會直接影響觸及與轉換。');
+      return {content:s.join(''), rec:'盤點各通路現況，補齊資訊落差最大的一項。'};
+    },
+    () => { // 客戶體驗流程
+      let s = ['從第一次接觸到成交、售後，整體流程是否標準化、順暢，需要完整檢視。'];
+      if(c.bizModel==='B2B') s.push('報價→簽約→施工→保固，每一步流程的清晰度都直接影響信任建立。');
+      if(c.bizModel==='B2C' && c.purchaseFreq==='高頻消費') s.push('回購機制（會員制、回訪提醒）是否存在，是這裡的觀察重點。');
+      if(c.purchaseFreq==='低頻消費') s.push('客戶在等待決策期間，品牌是否持續維繫信任感，是低頻消費品牌最容易失分的地方。');
+      return {content:s.join(''), rec:'標準化關鍵流程節點，減少客戶等待與資訊落差。'};
+    },
+    () => { // 內部品牌認知
+      let s = [];
+      if(c.scale==='個人品牌' || c.scale==='微型（1-5人）') s.push('團隊規模小，老闆即品牌，這個面向可以簡化評估。');
+      else s.push('員工／團隊對品牌定位、話術的理解是否一致，是核心觀察點，尤其要留意新舊成員之間的認知落差。');
+      if(c.bizModel==='B2B') s.push('業務團隊的話術是否統一，避免不同業務講出不同版本的品牌故事。');
+      return {content:s.join(''), rec:'建立品牌一句話定位的內部共識與新人教育材料。'};
+    },
+    () => { // 市場競爭定位
+      let s = ['需要釐清1-3個主要競品，以及是否說得出「我們跟別人不一樣在哪」。'];
+      if(c.lifecycle==='新品牌（0-2年）') s.unshift('品牌尚未有明確的競品意識，可以先記錄目前如何想像自己的市場位置，作為後續定位的起點。');
+      if(c.lifecycle==='老品牌（15年以上）') s.unshift('常見問題是定位僵化沒跟上市場，需要盤點品牌創立時的定位與現在市場實況的落差。');
+      if(c.priceTier==='高客單') s.push('差異化必須具體到案例、專業與保證，不能只是抽象的「品質好」。');
+      return {content:s.join(''), rec:'明確一項可佔據的差異化定位，並在各通路一致傳遞。'};
+    }
+  ];
+
+  domGen.forEach((fn,i)=>{
+    const {content, rec} = fn();
+    document.getElementById('domain-content-'+i).value = content;
+    document.getElementById('domain-rec-'+i).value = rec;
+    setStatus(i, 'yellow');
+  });
+
+  const GOAL_ACTIONS = {
+    '沒客人／曝光不足': {now:'檢視並優化各通路曝光缺口（社群/LINE/官網）', service:'社群內容顧問／經營'},
+    '有客人但沒回購': {now:'建立客戶關懷與回訪提醒機制', service:'客戶關係與回訪機制設計'},
+    '品牌形象老舊': {mid:'更新視覺識別系統，統一跨通路呈現', service:'品牌診斷 → 視覺識別設計'},
+    '社群沒流量': {now:'制定內容策略與固定發布節奏', service:'社群內容顧問／經營'},
+    '客戶不信任／成交率低': {mid:'建立案例佐證與信任建立流程', service:'案例包裝與信任素材製作'},
+    '無法提高客單價': {mid:'重新設計服務分級與價值溝通方式', service:'服務分級與定價策略顧問'},
+    '招募不到人才': {long:'建立雇主品牌與內部文化系統', service:'雇主品牌顧問'},
+    '展店規劃': {long:'建立可複製的品牌與教育訓練系統', service:'品牌系統化 → SOP與教育訓練文件'},
+    '加盟規劃': {long:'建立加盟手冊與品牌一致性規範', service:'加盟手冊與品牌規範制定'},
+    '建立個人品牌': {now:'打造個人品牌核心故事與定位', service:'個人品牌診斷 → 內容與形象顧問'}
+  };
+  const now=[], mid=[], long=[], svc=[];
+  (c.goals.length ? c.goals : ['品牌形象老舊']).forEach(g=>{
+    const a = GOAL_ACTIONS[g];
+    if(!a) return;
+    if(a.now) now.push(a.now);
+    if(a.mid) mid.push(a.mid);
+    if(a.long) long.push(a.long);
+    if(a.service && !svc.includes(a.service)) svc.push(a.service);
+  });
+  document.getElementById('recNow').value = now.join('\n') || '（依現況擬定）';
+  document.getElementById('recMid').value = mid.join('\n') || '（依現況擬定）';
+  document.getElementById('recLong').value = long.join('\n') || '（依現況擬定）';
+  document.getElementById('serviceMap').value = svc.join('\n');
+
+  const goalsText = c.goals.length ? c.goals.join('、') : '目前品牌整體形象的優化';
+  document.getElementById('insight').value =
+    `目前最想解決的是：${goalsText}。從訪談中觀察，這類需求背後常見的根本落差，往往不只在表面呈現，而是在整體流程與訊息一致性上——建議在後續六大面向分析中特別留意這幾點。`;
+
+  document.getElementById('closing').value =
+    `根據以上診斷，建議安排進一步討論，具體規劃改善方向與執行優先順序，讓品牌形象與實際客戶體驗真正對齊。`;
+
+  renderTabsBar();
+}
+
+// ---------- Helpers ----------
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  if(!text) return y;
+  text.split('\n').forEach(p=>{
+    let line = '';
+    for(const ch of p){
+      const test = line + ch;
+      if(ctx.measureText(test).width > maxWidth && line !== ''){ ctx.fillText(line, x, y); line = ch; y += lineHeight; }
+      else { line = test; }
+    }
+    ctx.fillText(line, x, y); y += lineHeight;
+  });
+  return y;
+}
+function estimateHeight(text, charsPerLine, lineHeight){
+  if(!text) return lineHeight;
+  const lines = text.split('\n').reduce((acc,p)=> acc + Math.max(1, Math.ceil(p.length/charsPerLine)), 0);
+  return lines * lineHeight;
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+function bgCream(ctx){ ctx.fillStyle = COLORS.cream; ctx.fillRect(0,0,PAGE_W,PAGE_H); }
+function drawFooter(ctx, pageLabel, data){
+  ctx.fillStyle = COLORS.gray; ctx.font = '11px Microsoft JhengHei';
+  ctx.textAlign = 'left'; ctx.fillText(`${data.brandName || ''} 品牌診斷報告`, M, FOOTER_Y);
+  ctx.textAlign = 'right'; ctx.fillText(pageLabel, PAGE_W-M, FOOTER_Y);
+  ctx.textAlign = 'left';
+}
+function sectionTitle(ctx, title){
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 22px Microsoft JhengHei';
+  ctx.fillText(title, M, MT+10);
+  ctx.strokeStyle = COLORS.gold; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(M, MT+24); ctx.lineTo(M+60, MT+24); ctx.stroke();
+  return MT + 70;
+}
+function drawChip(ctx, text, x, y){
+  ctx.font = 'bold 12px Microsoft JhengHei';
+  const w = ctx.measureText(text).width + 18;
+  ctx.fillStyle = COLORS.chipBg; roundRect(ctx, x, y, w, 24, 5); ctx.fill();
+  ctx.fillStyle = COLORS.goldDark; ctx.fillText(text, x+9, y+16);
+  return w;
+}
+
+// ---------- Page draw functions ----------
+function drawCover(ctx, data){
+  bgCream(ctx);
+  ctx.fillStyle = COLORS.gold; ctx.font = 'bold 12px Arial';
+  ctx.fillText('PERSONAL BRAND CONSULTING', M, 58);
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 42px Microsoft JhengHei';
+  ctx.fillText('MR. business.lab', M, 112);
+  ctx.font = '20px Microsoft JhengHei';
+  ctx.fillText('品牌診斷報告', M, 146);
+
+  const bannerY = 190, bannerH = 108;
+  ctx.fillStyle = COLORS.black; ctx.fillRect(0, bannerY, PAGE_W, bannerH);
+  ctx.fillStyle = COLORS.gold; ctx.font = 'bold 16px Microsoft JhengHei';
+  ctx.fillText(`品牌名稱：${data.brandName || '（未填寫）'}`, M, bannerY+34);
+  ctx.fillStyle = COLORS.white; ctx.font = '13px Microsoft JhengHei';
+  ctx.fillText(`客戶名稱：${data.customerName || ''}`, M, bannerY+58);
+  ctx.fillText(`診斷日期：${data.reportDate || ''}　　報告編號：${data.reportNo || ''}`, M, bannerY+80);
+  ctx.fillText(`診斷顧問：${data.consultant || ''}`, M, bannerY+100);
+
+  let cy = bannerY + bannerH + 46;
+  ctx.fillStyle = COLORS.black; ctx.font = 'bold 14px Microsoft JhengHei';
+  ctx.fillText('診斷背景', M, cy);
+  cy += 20;
+  let cx = M;
+  [ctxState.bizModel, ctxState.industry, ctxState.lifecycle, ctxState.scale].filter(Boolean).forEach(t=>{
+    const w = drawChip(ctx, t, cx, cy);
+    cx += w + 10;
+    if(cx > PAGE_W - M - 100){ cx = M; cy += 34; }
+  });
+
+  cy += 56;
+  ctx.fillStyle = COLORS.gray; ctx.font = '13px Microsoft JhengHei';
+  ctx.fillText('主要客群', M, cy);
+  ctx.fillStyle = COLORS.black; ctx.font = '14px Microsoft JhengHei';
+  cy = wrapText(ctx, ctxState.audience || '', M, cy+22, PAGE_W-2*M, 22);
+
+  cy += 20;
+  ctx.fillStyle = COLORS.gray; ctx.font = '13px Microsoft JhengHei';
+  ctx.fillText('目前最想解決的事', M, cy);
+  ctx.fillStyle = COLORS.black; ctx.font = '14px Microsoft JhengHei';
+  wrapText(ctx, (ctxState.goals||[]).join('、') || '', M, cy+22, PAGE_W-2*M, 22);
+
+  drawFooter(ctx, '封面', data);
+}
+
+function drawDashboard(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '品牌現況總覽');
+  const statusMap = {green:['綠燈',COLORS.green,COLORS.greenBg], yellow:['黃燈',COLORS.yellow,COLORS.yellowBg], red:['紅燈',COLORS.red,COLORS.redBg]};
+  const cols = 2, boxW = (PAGE_W-2*M-24)/cols, boxH = 100;
+  DOMAIN_NAMES.forEach((name,i)=>{
+    const col = i % cols, row = Math.floor(i/cols);
+    const bx = M + col*(boxW+24), by = y + row*(boxH+18);
+    const st = domainStatus[i] || 'yellow';
+    const [label, color, bg] = statusMap[st];
+    ctx.fillStyle = bg; roundRect(ctx, bx, by, boxW, boxH, 8); ctx.fill();
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(bx+22, by+26, 7, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = COLORS.black; ctx.font = 'bold 15px Microsoft JhengHei';
+    ctx.fillText(name, bx+40, by+31);
+    ctx.fillStyle = COLORS.gray; ctx.font = '12px Microsoft JhengHei';
+    const content = document.getElementById('domain-content-'+i).value;
+    wrapText(ctx, (content || '（尚未填寫）').slice(0,70), bx+22, by+56, boxW-44, 18);
+  });
+  drawFooter(ctx, '診斷背景與總覽', data);
+}
+
+function drawInsight(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '訪談洞察摘要');
+  ctx.fillStyle = '#2B2820'; ctx.font = '15px Microsoft JhengHei';
+  wrapText(ctx, data.insight || '（尚未填寫訪談洞察）', M, y, PAGE_W-2*M, 26);
+  drawFooter(ctx, '訪談洞察摘要', data);
+}
+
+function drawDomainPage(ctx, domainIdxs, data, pageLabel){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '診斷面向詳述');
+  const statusMap = {green:['綠燈',COLORS.green], yellow:['黃燈',COLORS.yellow], red:['紅燈',COLORS.red]};
+  domainIdxs.forEach(i=>{
+    const st = domainStatus[i] || 'yellow';
+    const [label, color] = statusMap[st];
+    ctx.fillStyle = color; ctx.beginPath(); ctx.arc(M+8, y-5, 7, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = COLORS.black; ctx.font = 'bold 17px Microsoft JhengHei';
+    ctx.fillText(DOMAIN_NAMES[i], M+26, y);
+    ctx.fillStyle = color; ctx.font = '12px Microsoft JhengHei';
+    ctx.fillText(label, PAGE_W-M-40, y);
+    y += 26;
+    ctx.fillStyle = '#2B2820'; ctx.font = '13px Microsoft JhengHei';
+    const content = document.getElementById('domain-content-'+i).value;
+    y = wrapText(ctx, content || '（尚未填寫）', M, y, PAGE_W-2*M, 21);
+    const rec = document.getElementById('domain-rec-'+i).value;
+    if(rec){
+      y += 6;
+      ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 12px Microsoft JhengHei';
+      ctx.fillText('建議：', M, y);
+      ctx.fillStyle = COLORS.gray; ctx.font = '12px Microsoft JhengHei';
+      y = wrapText(ctx, rec, M+42, y, PAGE_W-2*M-42, 19);
+    }
+    y += 36;
+  });
+  drawFooter(ctx, pageLabel, data);
+}
+
+function drawRecommendations(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '建議方向');
+  [['立即可做', data.recNow], ['中期規劃', data.recMid], ['長期方向', data.recLong]].forEach(([title, text])=>{
+    ctx.fillStyle = COLORS.chipBg; roundRect(ctx, M, y-20, 90, 28, 5); ctx.fill();
+    ctx.fillStyle = COLORS.goldDark; ctx.font = 'bold 13px Microsoft JhengHei';
+    ctx.fillText(title, M+12, y);
+    y += 30;
+    ctx.fillStyle = '#2B2820'; ctx.font = '14px Microsoft JhengHei';
+    y = wrapText(ctx, text || '（尚未填寫）', M, y, PAGE_W-2*M, 23);
+    y += 34;
+  });
+  drawFooter(ctx, '建議方向', data);
+}
+
+function drawServiceMapping(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '建議服務項目對應');
+  const lines = (data.serviceMap || '').split('\n').filter(l=>l.trim());
+  if(lines.length===0) lines.push('（尚未填寫）');
+  lines.forEach(line=>{
+    ctx.fillStyle = COLORS.gold; ctx.beginPath(); ctx.arc(M+6, y-5, 4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = COLORS.black; ctx.font = '15px Microsoft JhengHei';
+    y = wrapText(ctx, line, M+22, y, PAGE_W-2*M-22, 24);
+    y += 12;
+  });
+  drawFooter(ctx, '建議服務項目對應', data);
+}
+
+function drawClosing(ctx, data){
+  bgCream(ctx);
+  let y = sectionTitle(ctx, '結語與下一步');
+  ctx.fillStyle = '#2B2820'; ctx.font = '15px Microsoft JhengHei';
+  y = wrapText(ctx, data.closing || '', M, y, PAGE_W-2*M, 26);
+
+  y += 40;
+  const boxH = 110, qrSize = 78;
+  ctx.fillStyle = COLORS.black; roundRect(ctx, M, y, PAGE_W-2*M, boxH, 8); ctx.fill();
+  ctx.fillStyle = COLORS.gold; ctx.font = 'bold 15px Microsoft JhengHei';
+  ctx.fillText('MR. business.lab', M+24, y+36);
+  ctx.fillStyle = COLORS.white; ctx.font = '13px Microsoft JhengHei';
+  ctx.fillText('LINE：@038xuzzx', M+24, y+62);
+  ctx.font = '11px Microsoft JhengHei'; ctx.fillStyle = COLORS.gold;
+  ctx.fillText('掃描右方 QR Code 加入好友', M+24, y+86);
+
+  const qx = PAGE_W - M - qrSize - 16, qy = y + (boxH-qrSize)/2;
+  if(qrImg.complete && qrImg.naturalWidth > 0){
+    ctx.fillStyle = COLORS.white; roundRect(ctx, qx-6, qy-6, qrSize+12, qrSize+12, 6); ctx.fill();
+    ctx.drawImage(qrImg, qx, qy, qrSize, qrSize);
+  } else {
+    ctx.strokeStyle = COLORS.gold; ctx.setLineDash([4,3]);
+    roundRect(ctx, qx, qy, qrSize, qrSize, 6); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = COLORS.gold; ctx.font = '10px Microsoft JhengHei'; ctx.textAlign='center';
+    ctx.fillText('line_QR.png', qx+qrSize/2, qy+qrSize/2);
+    ctx.textAlign='left';
+  }
+  drawFooter(ctx, '結語與下一步', data);
+}
+
+// ---------- Pagination ----------
+function paginateDomains(){
+  const est = DOMAIN_NAMES.map((_,i)=>{
+    const content = document.getElementById('domain-content-'+i).value;
+    const rec = document.getElementById('domain-rec-'+i).value;
+    return 26 + estimateHeight(content, 46, 21) + (rec ? 20+estimateHeight(rec, 50, 19) : 0) + 36;
+  });
+  const pages = []; let current = [], currentH = MT+70;
+  const maxH = PAGE_H - MB - 20;
+  DOMAIN_NAMES.forEach((_,i)=>{
+    if(currentH + est[i] > maxH && current.length>0){ pages.push(current); current = []; currentH = MT+70; }
+    current.push(i); currentH += est[i];
+  });
+  if(current.length) pages.push(current);
+  return pages;
+}
+
+// ---------- Data ----------
+function collectData(){
+  const g = id => document.getElementById(id).value;
+  const consultantSel = g('consultantSelect');
+  return {
+    brandName:g('brandName'), customerName:g('customerName'), reportDate:g('reportDate'), reportNo:g('reportNo'),
+    consultant: consultantSel === '__custom__' ? g('consultantCustom') : consultantSel,
+    insight:g('insight'), recNow:g('recNow'), recMid:g('recMid'), recLong:g('recLong'),
+    serviceMap:g('serviceMap'), closing:g('closing')
+  };
+}
+
+// ---------- Tabs (linked to form sections + preview) ----------
+let currentTabIndex = 0;
+function getTabsList(){
+  const domainPages = paginateDomains();
+  const tabs = [
+    {label:'封面', type:'cover', pageLabel:'封面'},
+    {label:'診斷背景', type:'dashboard', pageLabel:'診斷背景與總覽'},
+    {label:'訪談洞察', type:'insight', pageLabel:'訪談洞察摘要'},
+  ];
+  domainPages.forEach((idxs,i)=> tabs.push({label:`面向 ${i+1}/${domainPages.length}`, type:'domain', idxs, pageLabel:`診斷面向詳述 ${i+1}/${domainPages.length}`}));
+  tabs.push({label:'建議方向', type:'rec', pageLabel:'建議方向'});
+  tabs.push({label:'服務對應', type:'service', pageLabel:'建議服務項目對應'});
+  tabs.push({label:'結語', type:'closing', pageLabel:'結語與下一步'});
+  return tabs;
+}
+function drawByTab(ctx, tab, data){
+  switch(tab.type){
+    case 'cover': drawCover(ctx,data); break;
+    case 'dashboard': drawDashboard(ctx,data); break;
+    case 'insight': drawInsight(ctx,data); break;
+    case 'domain': drawDomainPage(ctx, tab.idxs, data, tab.pageLabel); break;
+    case 'rec': drawRecommendations(ctx,data); break;
+    case 'service': drawServiceMapping(ctx,data); break;
+    case 'closing': drawClosing(ctx,data); break;
+  }
+}
+function showFormForTab(tab){
+  document.querySelectorAll('.form-section').forEach(el=>{
+    el.style.display = (el.dataset.section === tab.type) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.domain-block').forEach(el=>{
+    const idx = parseInt(el.dataset.domain, 10);
+    el.style.display = (tab.type==='domain' && tab.idxs.includes(idx)) ? 'block' : 'none';
+  });
+}
+function renderTabsBar(){
+  const tabs = getTabsList();
+  if(currentTabIndex >= tabs.length) currentTabIndex = tabs.length-1;
+  const bar = document.getElementById('tabsBar');
+  bar.innerHTML = '';
+  tabs.forEach((t,i)=>{
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab-btn' + (i===currentTabIndex ? ' active':'');
+    b.textContent = t.label;
+    b.onclick = ()=>{ currentTabIndex = i; renderTabsBar(); document.getElementById('formPanel').scrollTop = 0; };
+    bar.appendChild(b);
+  });
+  const canvas = document.getElementById('previewCanvas');
+  canvas.width = PAGE_W*SCALE_PREVIEW; canvas.height = PAGE_H*SCALE_PREVIEW;
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(SCALE_PREVIEW,0,0,SCALE_PREVIEW,0,0);
+  const activeTab = tabs[currentTabIndex];
+  drawByTab(ctx, activeTab, collectData());
+  showFormForTab(activeTab);
+}
+document.addEventListener('input', renderTabsBar);
+renderTabsBar();
+
+// ---------- Generate full-resolution PDF ----------
+async function generatePDF(){
+  const data = collectData();
+  const tabs = getTabsList();
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ unit:'px', format:[PAGE_W, PAGE_H] });
+
+  for(let i=0;i<tabs.length;i++){
+    const c = document.createElement('canvas');
+    c.width = PAGE_W*SCALE_EXPORT; c.height = PAGE_H*SCALE_EXPORT;
+    const ctx = c.getContext('2d');
+    ctx.setTransform(SCALE_EXPORT,0,0,SCALE_EXPORT,0,0);
+    drawByTab(ctx, tabs[i], data);
+    const imgData = c.toDataURL('image/jpeg', 0.95);
+    if(i>0) pdf.addPage([PAGE_W, PAGE_H]);
+    pdf.addImage(imgData, 'JPEG', 0, 0, PAGE_W, PAGE_H);
+  }
+
+  const filename = (data.brandName || '品牌診斷報告').replace(/[\\/:*?"<>|]/g,'') + '_診斷報告.pdf';
+  pdf.save(filename);
+}
+</script>
+</body>
+</html>
