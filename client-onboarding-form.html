@@ -630,51 +630,107 @@ body {
 }
 .color-swatch-wrap { display: none; margin-top: 18px; }
 .color-swatch-wrap.show { display: block; }
-.swatch-row {
+
+/* 提示橫幅 */
+.swatch-pick-hint {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
+  background: rgba(124,106,247,.08);
+  border: 1.5px dashed rgba(124,106,247,.35);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
 }
-.swatch-slot {
+.swatch-pick-hint-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.swatch-pick-hint-text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.swatch-pick-hint-text span {
+  font-size: 12px;
+  color: var(--ink-light);
+}
+
+/* 橫條色塊 */
+.swatch-bar {
+  display: flex;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 68px;
+}
+.swatch-filled {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 7px;
+  cursor: pointer;
+  min-width: 0;
+  transition: filter .15s;
+}
+.swatch-filled:hover { filter: brightness(.92); }
+.swatch-filled .swatch-hex {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  background: rgba(0,0,0,.28);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 5px;
+  pointer-events: none;
+  letter-spacing: .04em;
+}
+.swatch-filled .swatch-x {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.32);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff; line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+.swatch-filled .swatch-x:hover { background: rgba(0,0,0,.55); }
+.swatch-filled input[type="color"] {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none; padding: 0;
+  opacity: 0; cursor: pointer;
+}
+.swatch-empty {
+  flex: 0 0 60px;
+  border-left: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-}
-.swatch-circle {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  border: 1px solid var(--rule);
-  position: relative;
+  justify-content: center;
+  gap: 3px;
   cursor: pointer;
   background: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+  transition: background .15s;
 }
-.swatch-circle input[type="color"] {
-  position: absolute; inset: -4px;
-  width: calc(100% + 8px); height: calc(100% + 8px);
-  border: none; padding: 0; cursor: pointer;
-  opacity: 0;
+.swatch-empty:first-child { border-left: none; }
+.swatch-empty:hover { background: var(--cream-dark); }
+.swatch-empty-icon { font-size: 18px; color: var(--ink-light); }
+.swatch-empty-label { font-size: 10px; color: var(--ink-light); }
+.swatch-empty input[type="color"] {
+  position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none;
 }
-.swatch-circle .swatch-plus {
-  font-size: 18px;
-  color: var(--ink-light);
-  pointer-events: none;
-}
-.swatch-circle.filled .swatch-plus { display: none; }
-.swatch-hex {
+.swatch-note {
   font-size: 11px;
-  color: var(--ink-mid);
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-}
-.swatch-remove {
-  font-size: 10px;
-  color: var(--danger);
-  cursor: pointer;
-  letter-spacing: 0.04em;
+  color: var(--ink-light);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .color-other-note {
   margin-top: 16px;
@@ -1217,8 +1273,15 @@ service cloud.firestore {
         </div>
 
         <div class="color-swatch-wrap" id="color-swatch-wrap">
-          <div class="swatch-row" id="swatch-row"></div>
-          <p style="font-size:11px;color:var(--ink-light);margin-top:14px">點擊圓圈以滴管挑選顏色，最多可選 5 個。</p>
+          <div class="swatch-pick-hint">
+            <span class="swatch-pick-hint-icon">🎨</span>
+            <div class="swatch-pick-hint-text">
+              <strong>點擊下方色塊即可選取顏色</strong>
+              <span>最多加入 5 個品牌色，已選的色塊點一下可更換</span>
+            </div>
+          </div>
+          <div class="swatch-bar" id="swatch-row"></div>
+          <div class="swatch-note">💡 點色塊更換顏色，點右上角 × 移除</div>
         </div>
 
         <div class="color-other-note" id="color-other-note" style="display:none">
@@ -2064,23 +2127,36 @@ let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
 let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
 
 function buildSwatches() {
-  const row = document.getElementById('swatch-row');
-  row.innerHTML = '';
+  const bar = document.getElementById('swatch-row');
+  bar.innerHTML = '';
+
   for (let i = 0; i < 5; i++) {
     const filled = brandColors[i];
-    const slot = document.createElement('div');
-    slot.className = 'swatch-slot';
-    slot.innerHTML = `
-      <div class="swatch-circle ${filled ? 'filled' : ''}" id="swatch-circle-${i}" style="${filled ? `background:${filled}` : ''}">
-        <span class="swatch-plus">+</span>
-        <input type="color" id="swatch-input-${i}" value="${filled || '#b5924a'}" oninput="setSwatchColor(${i}, this.value)">
-      </div>
-      ${filled
-        ? `<span class="swatch-hex">${filled.toUpperCase()}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>`
-        : `<span class="swatch-hex" style="color:var(--ink-light);font-size:10px">點擊選色</span>`
-      }
-    `;
-    row.appendChild(slot);
+    if (filled) {
+      // 已填色塊
+      const div = document.createElement('div');
+      div.className = 'swatch-filled';
+      div.style.background = filled;
+      div.innerHTML = `
+        <span class="swatch-x" onclick="removeSwatch(${i});event.stopPropagation()">×</span>
+        <input type="color" value="${filled}" oninput="setSwatchColor(${i}, this.value)">
+        <span class="swatch-hex">${filled.toUpperCase()}</span>
+      `;
+      bar.appendChild(div);
+    } else {
+      // 空格新增槽
+      const div = document.createElement('div');
+      div.className = 'swatch-empty';
+      div.style.position = 'relative';
+      div.innerHTML = `
+        <input type="color" id="swatch-input-${i}" value="#b5924a"
+          style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer"
+          oninput="setSwatchColor(${i}, this.value)">
+        <span class="swatch-empty-icon">＋</span>
+        <span class="swatch-empty-label">新增</span>
+      `;
+      bar.appendChild(div);
+    }
   }
 }
 
