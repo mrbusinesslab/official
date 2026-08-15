@@ -1512,13 +1512,7 @@ service cloud.firestore {
     </div>
     <div class="field">
       <label>標籤</label>
-      <div class="tag-list" id="settings-tag-list"></div>
-      <div class="tag-input-wrap">
-        <input type="text" class="tag-input" id="settings-tag-input"
-          placeholder="輸入標籤後按 Enter 新增，例：VIP、廣告合作"
-          onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}">
-        <button class="btn btn-ghost btn-sm" onclick="addTag()">新增</button>
-      </div>
+      <div id="settings-tag-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
     </div>
     <button class="btn btn-primary" style="width:100%;margin-bottom:24px" onclick="saveProjectSettings()">儲存變更</button>
 
@@ -1911,12 +1905,13 @@ window.renderProjectList = function() {
     row.className = 'project-row';
     row.innerHTML = `
       <div style="min-width:0;flex:1">
-        <div class="pr-name">${p.clientName || p.id}</div>
+        <div class="pr-name" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+          <span>${p.clientName || p.id}</span>
+          ${tags}
+        </div>
         <div class="pr-meta">建立：${p.createdAt ? new Date(p.createdAt).toLocaleDateString('zh-TW') : '-'}${p.note ? ' · ' + p.note : ''}</div>
-        ${tags ? `<div class="tag-list" style="margin-top:6px">${tags}</div>` : ''}
       </div>
       <div class="pr-actions">
-        <span class="status-tag ${p.submitted ? 'status-done' : 'status-pending'}">${p.submitted ? '已完成' : '待填寫'}</span>
         <button class="btn btn-ghost btn-sm" onclick="copyLink('${p.id}')">複製連結</button>
         ${p.submitted ? `<button class="btn btn-primary btn-sm" onclick="viewData('${p.id}')">查看資料</button>` : ''}
         ${p.submitted ? `<button class="btn btn-ghost btn-sm" onclick="viewHistory('${p.id}')">變更紀錄</button>` : ''}
@@ -1926,27 +1921,27 @@ window.renderProjectList = function() {
   });
 };
 
-// ── TAG MANAGEMENT ────────────────────────────────
-window.addTag = function() {
-  const input = document.getElementById('settings-tag-input');
-  const val = input.value.trim();
-  if (!val) return;
-  if (!settingsTags.includes(val)) settingsTags.push(val);
-  input.value = '';
-  renderSettingsTags();
-};
-
-window.removeTag = function(tag) {
-  settingsTags = settingsTags.filter(t => t !== tag);
+// ── TAG MANAGEMENT（專案設定：從預先建立的標籤清單勾選，複選）────
+window.toggleSettingsTag = function(tag) {
+  if (settingsTags.includes(tag)) {
+    settingsTags = settingsTags.filter(t => t !== tag);
+  } else {
+    settingsTags.push(tag);
+  }
   renderSettingsTags();
 };
 
 function renderSettingsTags() {
   const container = document.getElementById('settings-tag-list');
   if (!container) return;
-  container.innerHTML = settingsTags.map(t =>
-    `<span class="tag-chip" style="${tagChipStyle(t)}">${t}<span class="tag-remove" onclick="removeTag('${t}')">×</span></span>`
-  ).join('');
+  if (!globalTags.length) {
+    container.innerHTML = '<p style="font-size:12px;color:var(--ink-light);font-style:italic">尚未建立任何標籤，請先至「標籤管理」新增。</p>';
+    return;
+  }
+  container.innerHTML = globalTags.map(t => {
+    const selected = settingsTags.includes(t.name);
+    return `<span class="tag-select-chip" style="${selected?tagChipSolidStyle(t.name):tagChipStyle(t.name)}" onclick="toggleSettingsTag('${t.name}')">${t.name}</span>`;
+  }).join('');
 }
 
 window.createProject = async function() {
