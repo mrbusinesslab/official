@@ -2673,6 +2673,15 @@ window.closeTutorial = function() {
   setTimeout(() => { overlay.style.display = 'none'; }, 300);
 };
 
+// 截圖載入失敗時的備援：若圖片全部失敗，改顯示文字步驟
+window.checkTutFallback = function() {
+  const imgContainer = document.getElementById('tut-img-container');
+  const stepsContainer = document.getElementById('tut-steps-container');
+  if (!imgContainer || !stepsContainer) return;
+  const anyVisible = Array.from(imgContainer.children).some(c => c.style.display !== 'none');
+  stepsContainer.style.display = anyVisible ? 'none' : 'block';
+};
+
 function showTutorial(id) {
   currentTutId = id;
   document.querySelectorAll('.tut-tab').forEach(b => b.classList.toggle('active', b.id === 'tut-tab-'+id));
@@ -2681,13 +2690,15 @@ function showTutorial(id) {
   const pl = PLATFORMS.find(p => p.id === id);
   let html = `<div style="font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:20px">${t.emoji} ${t.label}</div>`;
 
+  const hasImages = !!t.images;
+
   // 截圖（放在文字步驟上方，讓客戶先對照畫面）
-  if (t.images) {
+  if (hasImages) {
     const imgTag = (src, label) => `<div class="tut-img-block" style="flex:1;min-width:130px">
       ${label ? `<div style="font-size:10px;letter-spacing:.08em;color:var(--ink-light);margin-bottom:6px">${label}</div>` : ''}
       <img src="${TUTORIAL_IMG_BASE}${src}" alt="${t.label}"
         style="width:100%;border:1px solid var(--rule);border-radius:6px;display:block"
-        onerror="this.closest('.tut-img-block').style.display='none'">
+        onerror="this.closest('.tut-img-block').style.display='none';checkTutFallback()">
     </div>`;
     let blocks = '';
     if (t.images.generic) blocks += imgTag(t.images.generic, '');
@@ -2695,9 +2706,12 @@ function showTutorial(id) {
       if (t.images.mobile) blocks += imgTag(t.images.mobile, '📱 手機畫面');
       if (t.images.desktop) blocks += imgTag(t.images.desktop, '💻 電腦畫面');
     }
-    if (blocks) html += `<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">${blocks}</div>`;
+    html += `<div id="tut-img-container" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">${blocks}</div>`;
   }
 
+  // 有截圖時，文字步驟先隱藏（避免跟截圖內容不一致造成混淆）；
+  // 若截圖載入失敗（onerror），checkTutFallback() 會自動把文字步驟顯示回來當備援
+  html += `<div id="tut-steps-container" style="${hasImages ? 'display:none' : ''}">`;
   if (!t.steps.length) {
     html += `<p style="font-size:13px;color:var(--ink-light);padding:12px 0">此平台的教學步驟尚未提供，若不確定怎麼找連結，請直接與您的顧問聯繫協助。</p>`;
   }
@@ -2714,6 +2728,7 @@ function showTutorial(id) {
       </div>`;
     }
   });
+  html += `</div>`;
   // Quick-fill button if the user has this platform checked
   const isChecked = document.getElementById('cb-'+id)?.checked;
   if (isChecked) {
