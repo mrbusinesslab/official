@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>客戶資料收集 — MR. business.lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -24,9 +24,165 @@
   --serif: 'Playfair Display', 'Georgia', serif;
   --sans: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
   --radius: 3px;
+  /* 字體縮放比例 */
+  --fs-scale: 1;
+}
+
+/* ════════════════════════════════════════════════
+   字體大小系統 — 只影響 #view-client，後台不受影響
+   小：現有大小（基準 14px）
+   中：所有字體等比 ×1.5（基準 21px）
+   大：最小字體 = 標題大小（基準 42px），等比 ×3
+   ════════════════════════════════════════════════ */
+#view-client {
+  /* 預設 = 小 */
+  --fs-base:    14px;   /* 一般內文、input、label */
+  --fs-small:   11px;   /* 最小標註文字 */
+  --fs-hint:    12px;   /* 提示文字 */
+  --fs-section: 22px;   /* section 標題 */
+  --fs-hero:    42px;   /* 最大標題，固定不動 */
+}
+
+body.fs-medium #view-client {
+  --fs-base:    21px;
+  --fs-small:   17px;
+  --fs-hint:    18px;
+  --fs-section: 33px;
+  --fs-hero:    42px;
+}
+
+body.fs-large #view-client {
+  --fs-base:    42px;
+  --fs-small:   42px;
+  --fs-hint:    42px;
+  --fs-section: 52px;
+  --fs-hero:    52px;
+}
+
+/* 套用字體大小 */
+#view-client p,
+#view-client input,
+#view-client textarea,
+#view-client .btn,
+#view-client .hero-body,
+#view-client .pi-label,
+#view-client .uc-label,
+#view-client .copy-field-label,
+#view-client .color-pill,
+#view-client .uc-note,
+#view-client .tut-tab,
+#view-client .upload-limit-text,
+#view-client .upload-count-text,
+#view-client .validation-msg,
+#view-client .platform-group-label { font-size: var(--fs-base); line-height: 1.7; }
+
+#view-client label,
+#view-client .section-num,
+#view-client .copy-field-hint,
+#view-client .hero-eyebrow,
+#view-client .status-chip,
+#view-client .uc-hint,
+#view-client .pi-url-wrap input { font-size: var(--fs-hint); }
+
+#view-client .section-title { font-size: var(--fs-section); }
+#view-client .hero-title     { font-size: var(--fs-hero); }
+
+/* 中、大字體：section-head 改垂直排列，section-num 在上，title 在下，橫線移到最底 */
+body.fs-medium #view-client .section-head,
+body.fs-large  #view-client .section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+body.fs-medium #view-client .section-rule,
+body.fs-large  #view-client .section-rule {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* 中、大字體：拿掉所有 nowrap，讓文字自由換行 */
+body.fs-medium #view-client .pi-label,
+body.fs-medium #view-client .hero-body,
+body.fs-medium #view-client .hero-body.nowrap-line,
+body.fs-medium #view-client .section-num,
+body.fs-large  #view-client .pi-label,
+body.fs-large  #view-client .hero-body,
+body.fs-large  #view-client .hero-body.nowrap-line,
+body.fs-large  #view-client .section-num { white-space: normal !important; }
+
+/* 大字體：fb-badge 隱藏（由 JS 控制），masthead 允許換行 */
+body.fs-large  .masthead-inner,
+body.fs-medium .masthead-inner { flex-wrap: wrap; gap: 8px; }
+
+/* 大字體：platform-item 強制文字換行不溢出 */
+body.fs-large #view-client .platform-item {
+  padding: 20px 16px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+}
+body.fs-large #view-client .pi-label {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  flex: 1;
+}
+body.fs-large #view-client .pi-header {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+/* 大字體：送出按鈕 padding 加大 */
+body.fs-large  #view-client .submit-area .btn { padding: 22px 48px; }
+body.fs-medium #view-client .submit-area .btn { padding: 18px 44px; }
+
+/* 大字體：card padding 調整 */
+body.fs-large  #view-client .card { padding: 20px 16px; }
+
+/* 大字體時：平台格子改為一欄 */
+body.fs-large #view-client .platform-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* 大字體時：上傳圖片格子改為一欄 */
+body.fs-large #view-client .upload-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* 中字體時：上傳圖片格子也縮為一欄 */
+body.fs-medium #view-client .upload-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* checkbox 跟著字體放大 */
+body.fs-medium #view-client .pi-header input[type="checkbox"],
+body.fs-large  #view-client .pi-header input[type="checkbox"] {
+  width: 22px; height: 22px;
+}
+
+/* input / textarea padding 在大字體時加大 */
+body.fs-large #view-client input,
+body.fs-large #view-client textarea { padding: 14px 16px; }
+body.fs-large #view-client .pi-url-wrap input { padding: 10px 0; }
+
+/* upload card 在大字體時左對齊、拿掉 text-align:center */
+body.fs-large #view-client .upload-card { text-align: left; padding: 28px 24px; }
+body.fs-large #view-client .uc-emoji    { font-size: 36px; }
+
+/* color pill 在大字體時換行顯示 */
+body.fs-large #view-client .color-pill-row { flex-direction: column; }
+body.fs-large #view-client .color-pill { width: 100%; text-align: center; }
+
+/* 中字體時 platform 格子最小寬度調整 */
+body.fs-medium #view-client .platform-grid {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* 防止任何元素橫向撐破畫面 */
+html, body { overflow-x: hidden; max-width: 100vw; }
 
 body {
   font-family: var(--sans);
@@ -36,6 +192,85 @@ body {
   font-size: 14px;
   line-height: 1.7;
 }
+
+/* ─── FONT SIZE TOGGLE：固定浮動於畫面角落，滾動時不消失 ─── */
+.fs-toggle {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  padding: 6px 8px 6px 14px;
+  box-shadow: 0 8px 24px rgba(26,23,20,.16);
+}
+.fs-toggle-label {
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: .04em;
+  padding-right: 2px;
+  white-space: nowrap;
+}
+.fs-toggle .fs-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-light);
+  border-radius: 18px;
+  padding: 7px 13px;
+  line-height: 1;
+  transition: all .15s;
+  letter-spacing: 0;
+}
+.fs-toggle .fs-btn.active { background: var(--ink); color: var(--white); }
+
+/* ─── FONT SIZE PICKER：表單一開始的大卡片提示，Aa 直接預覽大小 ─── */
+.fs-hero-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: var(--cream-dark);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 28px 0 36px;
+}
+.fs-hero-text {
+  font-size: 13px;
+  color: var(--ink-mid);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fs-hero-options { display: flex; gap: 8px; }
+.fs-hero-options .fs-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 56px;
+  padding: 8px 14px 7px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink-mid);
+  cursor: pointer;
+  font-family: var(--sans);
+  line-height: 1;
+  transition: all .15s;
+}
+.fs-hero-options .fs-btn span { font-size: 11px; letter-spacing: .04em; }
+.fs-hero-options .fs-btn.active { border-color: var(--gold); background: var(--ink); color: var(--white); }
+.fs-hero-options .fs-btn.active span { color: var(--gold-light); }
 
 /* ─── MASTHEAD ─── */
 .masthead {
@@ -152,19 +387,19 @@ body {
   font-weight: 400;
   line-height: 1.15;
   color: var(--ink);
-  max-width: 560px;
+  max-width: min(560px, 100%);
 }
 .hero-title em { font-style: italic; }
 .hero-body {
   margin-top: 18px;
   font-size: 14px;
   color: var(--ink-mid);
-  max-width: 480px;
+  max-width: min(480px, 100%);
   line-height: 1.8;
 }
 .hero-body.nowrap-line {
   max-width: none;
-  white-space: nowrap;
+  white-space: normal;
 }
 .hero-note {
   margin-top: 12px;
@@ -186,7 +421,6 @@ body {
   letter-spacing: 0.2em;
   color: var(--gold);
   text-transform: uppercase;
-  white-space: nowrap;
 }
 .section-title {
   font-family: var(--serif);
@@ -246,13 +480,12 @@ body {
   cursor: pointer;
   flex-shrink: 0;
 }
-.pi-emoji { font-size: 14px; }
+.pi-emoji { font-size: 14px; flex-shrink: 0; }
 .pi-label {
   font-size: 13px;
   color: var(--ink);
   cursor: pointer;
   letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 .pi-url-wrap { margin-top: 10px; display: none; }
 .pi-url-wrap.show { display: block; }
@@ -556,7 +789,157 @@ body {
   flex: 1;
 }
 
-/* ─── PROJECT ROW ─── */
+/* ─── PROJECT SEARCH & FILTER ─── */
+.project-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 8px 14px;
+  flex: 1;
+  min-width: 180px;
+}
+.search-box input {
+  border: none;
+  background: none;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  width: 100%;
+}
+.search-box input::placeholder { color: var(--ink-light); }
+.search-icon { color: var(--ink-light); font-size: 15px; flex-shrink: 0; }
+.filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn {
+  font-family: var(--sans); font-size: 11px;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--white);
+  color: var(--ink-light); transition: all .15s;
+}
+.filter-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
+.filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.project-count {
+  font-size: 11px; color: var(--ink-light);
+  letter-spacing: .06em; white-space: nowrap; align-self: center;
+}
+
+/* ─── TAGS ─── */
+.tag-list { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+.tag-input-wrap {
+  display: flex; gap: 6px; align-items: center; margin-top: 8px;
+}
+.tag-input {
+  font-family: var(--sans); font-size: 12px;
+  border: none; border-bottom: 1px solid var(--rule);
+  background: transparent; color: var(--ink);
+  padding: 4px 0; outline: none; flex: 1;
+  transition: border-color .2s;
+}
+.tag-input:focus { border-bottom-color: var(--ink); }
+.tag-input::placeholder { color: var(--ink-light); }
+
+/* ─── SORT SELECT ─── */
+.sort-select {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .06em;
+  padding: 7px 28px 7px 12px;
+  border: 1px solid var(--rule); border-radius: 4px;
+  background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239a9490' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+  color: var(--ink-mid); cursor: pointer; outline: none; appearance: none;
+  transition: border-color .15s;
+}
+.sort-select:hover { border-color: var(--ink-mid); }
+.sort-select:focus { border-color: var(--ink); }
+
+/* ─── TAG FILTER ROW ─── */
+.tag-filter-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 16px; align-items: center;
+}
+.tag-filter-label {
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-light); margin-right: 2px; white-space: nowrap;
+}
+/* 顏色由 JS 依標籤名稱動態指定（inline style），這裡只定義形狀 */
+.tag-filter-all {
+  font-family: var(--sans); font-size: 11px;
+  padding: 4px 12px; border-radius: 20px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--cream-dark); color: var(--ink-mid);
+  transition: all .15s;
+}
+.tag-filter-all:hover { border-color: var(--ink-mid); }
+.tag-filter-all.active { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.tag-filter-btn {
+  font-family: var(--sans); font-size: 11px;
+  padding: 4px 12px; border-radius: 20px; cursor: pointer;
+  border: 1px solid transparent;
+  transition: filter .15s;
+}
+.tag-filter-btn:hover { filter: brightness(0.96); }
+
+/* ─── TAG MANAGEMENT TAB ─── */
+.tag-manage-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tag-manage-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 20px; padding: 6px 8px 6px 14px;
+  font-size: 13px;
+}
+.tag-manage-chip .tag-del {
+  cursor: pointer; font-size: 16px; line-height: 1; opacity: .55;
+}
+.tag-manage-chip .tag-del:hover { opacity: 1; }
+.tag-manage-chip .tag-edit {
+  cursor: pointer; font-size: 13px; line-height: 1; opacity: .55;
+}
+.tag-manage-chip .tag-edit:hover { opacity: 1; }
+.tag-count-badge {
+  font-size: 10px; background: rgba(255,255,255,.55); color: inherit;
+  border-radius: 20px; padding: 1px 7px; border: 1px solid currentColor; opacity: .85;
+}
+
+/* ─── 新增標籤：顏色選擇器 ─── */
+.tag-color-swatch {
+  width: 26px; height: 26px; border-radius: 50%;
+  cursor: pointer; border: 2px solid transparent;
+  transition: all .15s; position: relative;
+}
+.tag-color-swatch:hover { transform: scale(1.08); }
+.tag-color-swatch.selected { border-color: var(--ink); box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--ink); }
+
+/* ─── TAG SELECT CHIP（建立專案時複選預先建立的標籤）─── */
+/* 顏色由 JS 依標籤名稱動態指定（inline style），這裡只定義形狀 */
+.tag-select-chip {
+  font-family: var(--sans); font-size: 12px;
+  padding: 6px 14px; border-radius: 20px; cursor: pointer;
+  border: 1px solid transparent;
+  transition: filter .15s; user-select: none;
+}
+.tag-select-chip:hover { filter: brightness(0.96); }
+
+/* ─── 一般標籤顯示 chip（專案列表、專案設定）─── */
+.tag-chip {
+  font-size: 10px; letter-spacing: .04em;
+  padding: 2px 8px; border-radius: 20px;
+  border: 1px solid transparent;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.tag-chip .tag-remove {
+  cursor: pointer; font-size: 12px; line-height: 1;
+  opacity: .6;
+}
+.tag-chip .tag-remove:hover { opacity: 1; }
+
 .project-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 0;
@@ -685,6 +1068,10 @@ body {
   .card { padding: 24px 20px; }
   .platform-grid { grid-template-columns: 1fr; }
   .upload-grid { grid-template-columns: 1fr 1fr; }
+  .fs-toggle { right: 14px; bottom: 14px; padding: 5px 6px 5px 12px; }
+  .fs-toggle-label { display: none; }
+  .fs-hero-box { padding: 14px 16px; }
+  .fs-hero-options .fs-btn { min-width: 48px; padding: 7px 10px 6px; }
 }
 </style>
 </head>
@@ -706,12 +1093,24 @@ body {
   </div>
 </header>
 
+<!-- FONT SIZE TOGGLE：固定浮動，客戶填表時全程可見（由 showState 控制顯示） -->
+<div class="fs-toggle" id="fs-toggle" style="display:none" title="調整字體大小">
+  <span class="fs-toggle-label">文字大小</span>
+  <button type="button" class="fs-btn" data-size="small" onclick="setFontSize('small')">小</button>
+  <button type="button" class="fs-btn" data-size="medium" onclick="setFontSize('medium')">中</button>
+  <button type="button" class="fs-btn" data-size="large" onclick="setFontSize('large')">大</button>
+</div>
+
 <!-- ADMIN TABS -->
 <div class="tab-bar" id="admin-tabs">
-  <div class="tab-bar-inner">
-    <button class="tab-btn active" onclick="switchTab('projects')">專案列表</button>
-    <button class="tab-btn" onclick="switchTab('create')">建立專案</button>
-    <button class="tab-btn" onclick="switchTab('firebase')">Firebase 設定</button>
+  <div class="tab-bar-inner" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 0">
+    <div style="display:flex;flex-wrap:wrap">
+      <button class="tab-btn active" onclick="switchTab('projects')">專案列表</button>
+      <button class="tab-btn" onclick="switchTab('create')">建立專案</button>
+      <button class="tab-btn" onclick="switchTab('tags')">標籤管理</button>
+      <button class="tab-btn" onclick="switchTab('firebase')">Firebase 設定</button>
+    </div>
+    <button class="btn btn-ghost btn-sm" style="margin-right:4px" onclick="adminLogout()">登出</button>
   </div>
 </div>
 
@@ -742,6 +1141,35 @@ body {
           <div class="hero-eyebrow">Project Management</div>
           <h1 class="hero-title">客戶<em>專案</em>管理</h1>
         </div>
+
+        <!-- 搜尋 + 篩選工具列 -->
+        <div class="project-toolbar">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="project-search" placeholder="搜尋客戶名稱、備註、標籤⋯" oninput="renderProjectList()">
+          </div>
+          <div class="filter-btns">
+            <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">全部</button>
+            <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">待填寫</button>
+            <button class="filter-btn" data-filter="done" onclick="setFilter('done')">已完成</button>
+          </div>
+          <select class="sort-select" id="sort-select" onchange="renderProjectList()">
+            <option value="createdDesc">建立時間（新→舊）</option>
+            <option value="createdAsc">建立時間（舊→新）</option>
+            <option value="submittedDesc">最後填寫時間（新→舊）</option>
+            <option value="submittedAsc">最後填寫時間（舊→新）</option>
+            <option value="statusPending">狀態（待填寫優先）</option>
+            <option value="statusDone">狀態（已完成優先）</option>
+          </select>
+          <span class="project-count" id="project-count"></span>
+        </div>
+
+        <!-- 標籤快速篩選列 -->
+        <div class="tag-filter-row" id="tag-filter-row" style="display:none">
+          <span class="tag-filter-label">標籤</span>
+          <div id="tag-filter-btns"></div>
+        </div>
+
         <div id="project-list">
           <p style="color:var(--ink-light);font-size:13px">載入中⋯</p>
         </div>
@@ -765,6 +1193,12 @@ body {
             <label>業務備註（客戶不可見）</label>
             <input type="text" id="new-client-note" placeholder="例：FB 廣告合作 · 品牌建立計畫">
           </div>
+          <div class="field">
+            <label>選擇標籤（可複選）</label>
+            <div id="new-project-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+              <p style="font-size:12px;color:var(--ink-light);font-style:italic">尚未建立任何標籤，請先至「標籤管理」新增。</p>
+            </div>
+          </div>
           <button class="btn btn-gold" onclick="createProject()">產生客戶連結</button>
         </div>
         <div id="new-result" style="display:none;margin-top:24px">
@@ -772,6 +1206,38 @@ body {
           <div class="link-box">
             <code id="new-link"></code>
             <button class="btn btn-ghost btn-sm" onclick="copyEl('new-link')">複製</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAGS TAB -->
+      <div id="tab-tags" style="display:none">
+        <div class="page-hero">
+          <div class="hero-eyebrow">Tag Management</div>
+          <h1 class="hero-title">標籤<em>管理</em></h1>
+        </div>
+        <div class="card" style="max-width:540px">
+          <div class="card-title" style="font-size:15px;font-weight:500;color:var(--gold);margin-bottom:16px;letter-spacing:.04em">新增標籤</div>
+          <div class="tag-input-wrap">
+            <input type="text" class="tag-input" id="global-tag-input"
+              placeholder="輸入標籤名稱，例：VIP、廣告合作、品牌建立"
+              oninput="renderNewTagPreview()"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();addGlobalTag();}">
+            <button class="btn btn-primary btn-sm" onclick="addGlobalTag()">新增</button>
+          </div>
+          <div style="margin-top:14px">
+            <label style="font-size:11px;letter-spacing:.06em;color:var(--ink-light)">選擇顏色</label>
+            <div id="new-tag-color-picker" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+          </div>
+          <div style="margin-top:14px">
+            <label style="font-size:11px;letter-spacing:.06em;color:var(--ink-light)">預覽</label>
+            <div id="new-tag-preview" style="display:flex;gap:8px;margin-top:8px;align-items:center"></div>
+          </div>
+        </div>
+        <div class="card" style="max-width:540px;margin-top:0">
+          <div class="card-title" style="font-size:15px;font-weight:500;color:var(--gold);margin-bottom:16px;letter-spacing:.04em">所有標籤</div>
+          <div class="tag-manage-list" id="global-tag-list">
+            <p style="font-size:13px;color:var(--ink-light)">尚無標籤</p>
           </div>
         </div>
       </div>
@@ -906,6 +1372,16 @@ service cloud.firestore {
         <p class="hero-note">所有資料僅您的業務顧問可見，其他客戶無法查看。</p>
       </div>
 
+      <!-- Font Size Picker：一進入表單就明顯提示，Aa 直接看得出大小差異 -->
+      <div class="fs-hero-box">
+        <div class="fs-hero-text">👓 <span>字太小看不清楚？可以先調整</span></div>
+        <div class="fs-hero-options">
+          <button type="button" class="fs-btn" data-size="small" style="font-size:15px" onclick="setFontSize('small')">Aa<span>小</span></button>
+          <button type="button" class="fs-btn" data-size="medium" style="font-size:20px" onclick="setFontSize('medium')">Aa<span>中</span></button>
+          <button type="button" class="fs-btn" data-size="large" style="font-size:26px" onclick="setFontSize('large')">Aa<span>大</span></button>
+        </div>
+      </div>
+
       <!-- Progress -->
       <div class="progress-wrap">
         <div class="progress-meta">
@@ -940,8 +1416,8 @@ service cloud.firestore {
           <h2 class="section-title">圖片與檔案</h2>
           <div class="section-rule"></div>
         </div>
-        <p style="font-size:13px;color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
-        <p style="font-size:12px;color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
+        <p class="upload-limit-text" style="color:var(--ink-light);margin-bottom:8px">請上傳對應的圖片資料，<strong style="color:var(--ink-mid)">全部加起來最多 5 張</strong>，如想上傳更多內容請另外通知顧問。</p>
+        <p class="upload-count-text" style="color:var(--gold);margin-bottom:20px">目前已上傳 <span id="upload-total-count">0</span> / 5 張</p>
         <div class="upload-grid" id="upload-grid"></div>
       </div>
 
@@ -1000,7 +1476,7 @@ service cloud.firestore {
 
       <!-- Submit -->
       <div class="submit-area">
-        <button class="btn btn-gold" onclick="submitForm()" style="font-size:13px;padding:14px 40px">送出表單</button>
+        <button class="btn btn-gold" onclick="submitForm()" style="padding:14px 40px">送出表單</button>
         <p class="validation-msg" id="val-msg"></p>
       </div>
 
@@ -1034,12 +1510,40 @@ service cloud.firestore {
       <label>業務備註（客戶不可見）</label>
       <input type="text" id="settings-note-input">
     </div>
+    <div class="field">
+      <label>標籤</label>
+      <div id="settings-tag-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
+    </div>
     <button class="btn btn-primary" style="width:100%;margin-bottom:24px" onclick="saveProjectSettings()">儲存變更</button>
 
     <div style="border-top:1px solid var(--rule);padding-top:20px;display:flex;flex-direction:column;gap:10px">
       <button class="btn btn-ghost" style="width:100%" onclick="exportProject()">匯出專案資料（JSON）</button>
       <button class="btn btn-ghost" style="width:100%;border-color:var(--danger);color:var(--danger)" onclick="confirmDeleteProject()">刪除此專案</button>
     </div>
+  </div>
+</div>
+
+<!-- TAG EDIT MODAL -->
+<div class="modal-overlay" id="modal-tag-edit">
+  <div class="modal" style="max-width:440px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div class="modal-title">編輯標籤</div>
+      <button class="modal-close" onclick="closeTagEditModal()">×</button>
+    </div>
+    <div class="field">
+      <label>標籤名稱</label>
+      <input type="text" id="tag-edit-name-input" oninput="renderTagEditPreview()">
+    </div>
+    <div style="margin-top:14px">
+      <label style="font-size:11px;letter-spacing:.06em;color:var(--ink-light)">選擇顏色</label>
+      <div id="tag-edit-color-picker" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+    </div>
+    <div style="margin-top:14px;margin-bottom:24px">
+      <label style="font-size:11px;letter-spacing:.06em;color:var(--ink-light)">預覽</label>
+      <div id="tag-edit-preview" style="display:flex;gap:8px;margin-top:8px;align-items:center"></div>
+    </div>
+    <p style="font-size:11px;color:var(--ink-light);margin-bottom:16px">若修改名稱，所有已套用此標籤的專案會一併同步更新。</p>
+    <button class="btn btn-primary" style="width:100%" onclick="saveTagEdit()">儲存變更</button>
   </div>
 </div>
 
@@ -1071,6 +1575,34 @@ service cloud.firestore {
 <div class="toast" id="toast"></div>
 
 <!-- FIREBASE -->
+<script>
+// ── 字體大小切換（全域，onclick 可直接呼叫） ──────
+function setFontSize(size) {
+  document.body.classList.remove('fs-small','fs-medium','fs-large');
+  if (size !== 'small') document.body.classList.add('fs-'+size);
+  document.querySelectorAll('.fs-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.size === size);
+  });
+  // 中、大字體時隱藏連線狀態標籤，節省 masthead 空間
+  const badge = document.getElementById('fb-badge');
+  if (badge) badge.style.display = (size === 'small') ? '' : 'none';
+  localStorage.setItem('pref-fs', size);
+}
+// 載入時恢復上次選擇（預設小）
+document.addEventListener('DOMContentLoaded', function(){
+  const saved = localStorage.getItem('pref-fs') || 'small';
+  setFontSize(saved);
+});
+
+// ── 縮放控制：表單禁止放大，教學抽屜開放 ──────────
+function setZoom(allow) {
+  const meta = document.querySelector('meta[name="viewport"]');
+  meta.content = allow
+    ? 'width=device-width, initial-scale=1.0'
+    : 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+}
+</script>
+
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, getDocs, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
@@ -1154,7 +1686,7 @@ async function tryFirebase() {
     db = getFirestore(app);
     setFb('已連線', 'ok');
     if (isAdmin) {
-      if (sessionStorage.getItem('admin_ok')) showAdminPanel();
+      if (isAdminSessionValid()) showAdminPanel();
       loadCfgFields();
     } else {
       loadProject();
@@ -1175,19 +1707,33 @@ function setFb(text, cls) {
 }
 
 // ── ADMIN ──────────────────────────────────────────
+const ADMIN_SESSION_DAYS = 30;
+
+function isAdminSessionValid() {
+  const expires = parseInt(localStorage.getItem('admin_ok_expires') || '0', 10);
+  return expires > Date.now();
+}
+
 window.adminLogin = function() {
   const pwd = document.getElementById('admin-pwd').value;
   const saved = localStorage.getItem('admin_pwd') || '119292';
   if (pwd === saved) {
-    sessionStorage.setItem('admin_ok', '1');
+    const expires = Date.now() + ADMIN_SESSION_DAYS * 24 * 60 * 60 * 1000;
+    localStorage.setItem('admin_ok_expires', String(expires));
     showAdminPanel();
   } else toast('密碼錯誤', 'err');
+};
+
+window.adminLogout = function() {
+  localStorage.removeItem('admin_ok_expires');
+  location.reload();
 };
 
 function showAdminPanel() {
   document.getElementById('admin-login').style.display = 'none';
   document.getElementById('admin-panel').style.display = 'block';
   document.getElementById('admin-tabs').style.display = 'block';
+  loadGlobalTags();
   loadProjects();
 }
 
@@ -1217,32 +1763,185 @@ window.saveConfig = function() {
   toast('密碼已更新', 'ok');
 };
 
+let allProjects = []; // 快取所有專案，供搜尋/篩選用
+let currentFilter = 'all';
+let currentTagFilter = null; // 目前選取的標籤篩選（null = 全部）
+let settingsTags = [];
+let globalTags = []; // 預先建立的標籤清單
+
+// ── TAG COLORS：每個標籤依名稱固定分配一組配色，不同標籤顯示不同顏色 ──
+const TAG_PALETTE = [
+  { bg:'#faf5eb', text:'#9a7a2a', border:'#e8d8a0', solid:'#c9a154' }, // 金
+  { bg:'#eef5ee', text:'#3a6b4a', border:'#b8d8b8', solid:'#4f8a63' }, // 綠
+  { bg:'#e8eef5', text:'#2c4a6e', border:'#b9cbdd', solid:'#3d6089' }, // 藍
+  { bg:'#f7eee9', text:'#9a5a35', border:'#e6c7b0', solid:'#b97a4c' }, // 赭
+  { bg:'#f3ecf2', text:'#6b3a5e', border:'#d9bcd4', solid:'#8a5279' }, // 梅
+  { bg:'#e8f4f2', text:'#2a6b63', border:'#b8dbd4', solid:'#3d8f83' }, // 青
+  { bg:'#f7f0dc', text:'#8a6d1f', border:'#e0cf9a', solid:'#a8862c' }, // 米黃
+  { bg:'#ecebf5', text:'#4a4a8a', border:'#c9c8e0', solid:'#5f5fa8' }, // 藍紫
+  { bg:'#f5ecec', text:'#8a3a4a', border:'#e0bcc4', solid:'#a8536a' }, // 玫紅
+  { bg:'#eef2e8', text:'#5a6e2f', border:'#cddab0', solid:'#7a944a' }, // 橄欖
+];
+function tagColor(tag) {
+  // 優先使用使用者在「新增標籤」時手動選擇的顏色
+  const entry = globalTags.find(t => t.name === tag);
+  if (entry && typeof entry.colorIndex === 'number') return TAG_PALETTE[entry.colorIndex % TAG_PALETTE.length];
+  // 找不到對應設定時（例如舊資料或已刪除的標籤），退回依名稱自動配色
+  return TAG_PALETTE[tagColorHashIndex(tag)];
+}
+function tagColorHashIndex(tag) {
+  let hash = 0;
+  for (let i = 0; i < tag.length; i++) hash = (hash * 31 + tag.charCodeAt(i)) >>> 0;
+  return hash % TAG_PALETTE.length;
+}
+// 淺色版（一般顯示 / 未選取）
+function tagChipStyle(tag) {
+  const c = tagColor(tag);
+  return `background:${c.bg};color:${c.text};border-color:${c.border}`;
+}
+// 實色版（選取中 / active 狀態）
+function tagChipSolidStyle(tag) {
+  const c = tagColor(tag);
+  return `background:${c.solid};color:#fff;border-color:${c.solid}`;
+}
+// 依「輸入中的名稱＋選擇的顏色索引」即時產生預覽 chip（新增／編輯標籤共用）
+function buildTagPreviewHTML(text, colorIndex) {
+  const c = TAG_PALETTE[colorIndex % TAG_PALETTE.length];
+  const label = (text && text.trim()) ? text.trim() : '標籤預覽';
+  return `<span class="tag-chip" style="background:${c.bg};color:${c.text};border-color:${c.border}">${label}</span>
+    <span class="tag-chip" style="background:${c.solid};color:#fff;border-color:${c.solid}">${label}（選取中）</span>`;
+}
+
+let newProjectSelectedTags = []; // 建立新專案時勾選的標籤
+let selectedNewTagColorIndex = 0; // 新增標籤時目前選擇的顏色
+
 async function loadProjects() {
   const list = document.getElementById('project-list');
   if (!db) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">Firebase 尚未設定。</p>'; return; }
   try {
+    list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">載入中⋯</p>';
     const snap = await getDocs(collection(db, 'projects'));
-    if (snap.empty) { list.innerHTML = '<p style="color:var(--ink-light);font-size:13px">尚無專案。</p>'; return; }
-    list.innerHTML = '';
-    snap.forEach(d => {
-      const p = d.data();
-      const row = document.createElement('div');
-      row.className = 'project-row';
-      row.innerHTML = `
-        <div>
-          <div class="pr-name">${p.clientName||d.id}</div>
-          <div class="pr-meta">建立：${p.createdAt?new Date(p.createdAt).toLocaleDateString('zh-TW'):'-'}${p.note?' · '+p.note:''}</div>
-        </div>
-        <div class="pr-actions">
-          <span class="status-tag ${p.submitted?'status-done':'status-pending'}">${p.submitted?'已填寫':'待填寫'}</span>
-          <button class="btn btn-ghost btn-sm" onclick="copyLink('${d.id}')">複製連結</button>
-          ${p.submitted?`<button class="btn btn-primary btn-sm" onclick="viewData('${d.id}')">查看資料</button>`:''}
-          ${p.submitted?`<button class="btn btn-ghost btn-sm" onclick="viewHistory('${d.id}')">變更紀錄</button>`:''}
-          <button class="btn btn-ghost btn-sm" onclick="openProjectSettings('${d.id}')" aria-label="專案設定" title="專案設定">⋯</button>
-        </div>`;
-      list.appendChild(row);
-    });
+    allProjects = [];
+    snap.forEach(d => allProjects.push({ id: d.id, ...d.data() }));
+    // 按建立時間由新到舊排序
+    allProjects.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    renderProjectList();
+    renderGlobalTagList(); // 標籤數量徽章依賴 allProjects，專案重新載入後一併刷新
   } catch(e) { list.innerHTML = `<p style="color:var(--danger);font-size:13px">載入失敗：${e.message}</p>`; }
+}
+
+window.setFilter = function(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  renderProjectList();
+};
+
+// 標籤快速篩選：點標籤直接篩選（與 全部/待填寫/已完成 操作邏輯一致）
+window.setTagFilter = function(tag) {
+  currentTagFilter = tag; // null = 全部
+  renderTagFilterButtons(); // 重繪以套用正確的 active/未 active 顏色
+  renderProjectList();
+};
+
+function sortProjects(list) {
+  const by = document.getElementById('sort-select')?.value || 'createdDesc';
+  const arr = [...list];
+  switch (by) {
+    case 'createdAsc':
+      arr.sort((a,b) => (a.createdAt||0) - (b.createdAt||0)); break;
+    case 'submittedDesc':
+      arr.sort((a,b) => (b.submittedAt||0) - (a.submittedAt||0)); break;
+    case 'submittedAsc':
+      // 尚未填寫（無 submittedAt）排在最後
+      arr.sort((a,b) => {
+        if (!a.submittedAt && !b.submittedAt) return (b.createdAt||0) - (a.createdAt||0);
+        if (!a.submittedAt) return 1;
+        if (!b.submittedAt) return -1;
+        return a.submittedAt - b.submittedAt;
+      }); break;
+    case 'statusPending':
+      arr.sort((a,b) => (a.submitted===b.submitted) ? (b.createdAt||0)-(a.createdAt||0) : (a.submitted?1:-1)); break;
+    case 'statusDone':
+      arr.sort((a,b) => (a.submitted===b.submitted) ? (b.createdAt||0)-(a.createdAt||0) : (a.submitted?-1:1)); break;
+    case 'createdDesc':
+    default:
+      arr.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  }
+  return arr;
+}
+
+window.renderProjectList = function() {
+  const q = (document.getElementById('project-search')?.value || '').toLowerCase().trim();
+  const list = document.getElementById('project-list');
+
+  let filtered = allProjects.filter(p => {
+    if (currentFilter === 'pending' && p.submitted) return false;
+    if (currentFilter === 'done' && !p.submitted) return false;
+    if (currentTagFilter && !(p.tags||[]).includes(currentTagFilter)) return false;
+    if (!q) return true;
+    const name = (p.clientName || '').toLowerCase();
+    const note = (p.note || '').toLowerCase();
+    const tags = (p.tags || []).join(' ').toLowerCase();
+    return name.includes(q) || note.includes(q) || tags.includes(q);
+  });
+
+  filtered = sortProjects(filtered);
+
+  const countEl = document.getElementById('project-count');
+  if (countEl) countEl.textContent = `共 ${filtered.length} 筆`;
+
+  if (!filtered.length) {
+    list.innerHTML = `<p style="color:var(--ink-light);font-size:13px">${allProjects.length ? '沒有符合條件的專案' : '尚無專案'}</p>`;
+    return;
+  }
+
+  list.innerHTML = '';
+  filtered.forEach(p => {
+    const tags = (p.tags || []).map(t =>
+      `<span class="tag-chip" style="${tagChipStyle(t)}">${t}</span>`
+    ).join('');
+
+    const row = document.createElement('div');
+    row.className = 'project-row';
+    row.innerHTML = `
+      <div style="min-width:0;flex:1">
+        <div class="pr-name" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+          <span>${p.clientName || p.id}</span>
+          ${tags}
+        </div>
+        <div class="pr-meta">建立：${p.createdAt ? new Date(p.createdAt).toLocaleDateString('zh-TW') : '-'}${p.note ? ' · ' + p.note : ''}</div>
+      </div>
+      <div class="pr-actions">
+        <button class="btn btn-ghost btn-sm" onclick="copyLink('${p.id}')">複製連結</button>
+        ${p.submitted ? `<button class="btn btn-primary btn-sm" onclick="viewData('${p.id}')">查看資料</button>` : ''}
+        ${p.submitted ? `<button class="btn btn-ghost btn-sm" onclick="viewHistory('${p.id}')">變更紀錄</button>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="openProjectSettings('${p.id}')" title="專案設定">⋯</button>
+      </div>`;
+    list.appendChild(row);
+  });
+};
+
+// ── TAG MANAGEMENT（專案設定：從預先建立的標籤清單勾選，複選）────
+window.toggleSettingsTag = function(tag) {
+  if (settingsTags.includes(tag)) {
+    settingsTags = settingsTags.filter(t => t !== tag);
+  } else {
+    settingsTags.push(tag);
+  }
+  renderSettingsTags();
+};
+
+function renderSettingsTags() {
+  const container = document.getElementById('settings-tag-list');
+  if (!container) return;
+  if (!globalTags.length) {
+    container.innerHTML = '<p style="font-size:12px;color:var(--ink-light);font-style:italic">尚未建立任何標籤，請先至「標籤管理」新增。</p>';
+    return;
+  }
+  container.innerHTML = globalTags.map(t => {
+    const selected = settingsTags.includes(t.name);
+    return `<span class="tag-select-chip" style="${selected?tagChipSolidStyle(t.name):tagChipStyle(t.name)}" onclick="toggleSettingsTag('${t.name}')">${t.name}</span>`;
+  }).join('');
 }
 
 window.createProject = async function() {
@@ -1252,15 +1951,225 @@ window.createProject = async function() {
   const note = document.getElementById('new-client-note').value.trim();
   const id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
   try {
-    await setDoc(doc(db,'projects',id), {clientName:name, note, submitted:false, createdAt:Date.now()});
+    await setDoc(doc(db,'projects',id), {clientName:name, note, tags:[...newProjectSelectedTags], submitted:false, createdAt:Date.now()});
     const link = location.origin + location.pathname + '?p=' + id;
     document.getElementById('new-link').textContent = link;
     document.getElementById('new-result').style.display = 'block';
     document.getElementById('new-client-name').value = '';
     document.getElementById('new-client-note').value = '';
+    newProjectSelectedTags = [];
+    renderNewProjectTagSelector();
     toast('專案已建立', 'ok');
   } catch(e) { toast('建立失敗：'+e.message, 'err'); }
 };
+
+// ── GLOBAL TAGS（預先建立的標籤，供「建立專案」勾選 / 專案列表篩選）────
+async function loadGlobalTags() {
+  if (!db) return;
+  try {
+    const snap = await getDoc(doc(db,'meta','tags'));
+    const raw = (snap.exists() ? snap.data().list : []) || [];
+    // 相容舊資料：舊版本標籤是純字串陣列，自動轉換成 {name, colorIndex} 物件
+    globalTags = raw.map(t => typeof t === 'string' ? { name: t, colorIndex: null } : t);
+  } catch(e) {
+    globalTags = [];
+  }
+  selectedNewTagColorIndex = globalTags.length % TAG_PALETTE.length;
+  renderGlobalTagList();
+  renderNewProjectTagSelector();
+  renderTagFilterButtons();
+  renderNewTagColorPicker();
+}
+
+async function saveGlobalTags() {
+  await setDoc(doc(db,'meta','tags'), { list: globalTags }, { merge: true });
+}
+
+// 新增標籤時的顏色選擇器
+function renderNewTagColorPicker() {
+  const container = document.getElementById('new-tag-color-picker');
+  if (!container) return;
+  container.innerHTML = TAG_PALETTE.map((c, i) =>
+    `<span class="tag-color-swatch ${selectedNewTagColorIndex===i?'selected':''}" style="background:${c.solid}" onclick="selectNewTagColor(${i})" title="選擇這個顏色"></span>`
+  ).join('');
+  renderNewTagPreview();
+}
+
+window.renderNewTagPreview = function() {
+  const container = document.getElementById('new-tag-preview');
+  if (!container) return;
+  const text = document.getElementById('global-tag-input')?.value || '';
+  container.innerHTML = buildTagPreviewHTML(text, selectedNewTagColorIndex);
+};
+
+window.selectNewTagColor = function(i) {
+  selectedNewTagColorIndex = i;
+  renderNewTagColorPicker();
+};
+
+window.addGlobalTag = async function() {
+  if (!db) { toast('請先設定 Firebase', 'err'); return; }
+  const input = document.getElementById('global-tag-input');
+  const val = input.value.trim();
+  if (!val) return;
+  if (globalTags.some(t => t.name === val)) { toast('此標籤已存在', 'err'); input.value=''; return; }
+  globalTags.push({ name: val, colorIndex: selectedNewTagColorIndex });
+  input.value = '';
+  try {
+    await saveGlobalTags();
+    selectedNewTagColorIndex = globalTags.length % TAG_PALETTE.length; // 下一個標籤預設建議不同顏色，仍可自行更改
+    renderGlobalTagList();
+    renderNewProjectTagSelector();
+    renderTagFilterButtons();
+    renderNewTagColorPicker();
+    toast('標籤已新增', 'ok');
+  } catch(e) { toast('新增失敗：'+e.message, 'err'); }
+};
+
+window.deleteGlobalTag = async function(tag) {
+  if (!confirm(`確定要刪除標籤「${tag}」嗎？已套用在專案上的標籤不會被移除，僅停止顯示於快速篩選與建立專案清單。`)) return;
+  globalTags = globalTags.filter(t => t.name !== tag);
+  try {
+    await saveGlobalTags();
+    if (currentTagFilter === tag) { currentTagFilter = null; renderProjectList(); }
+    newProjectSelectedTags = newProjectSelectedTags.filter(t => t !== tag);
+    renderGlobalTagList();
+    renderNewProjectTagSelector();
+    renderTagFilterButtons();
+    toast('標籤已刪除', 'ok');
+  } catch(e) { toast('刪除失敗：'+e.message, 'err'); }
+};
+
+// ── 編輯標籤（改名稱／顏色，並同步更新已套用此標籤的專案）────
+let tagEditOriginalName = null;
+let tagEditColorIndex = 0;
+
+window.openTagEditModal = function(name) {
+  const entry = globalTags.find(t => t.name === name);
+  tagEditOriginalName = name;
+  tagEditColorIndex = (entry && typeof entry.colorIndex === 'number') ? entry.colorIndex : tagColorHashIndex(name);
+  document.getElementById('tag-edit-name-input').value = name;
+  renderTagEditColorPicker();
+  document.getElementById('modal-tag-edit').classList.add('show');
+};
+
+window.closeTagEditModal = function() {
+  document.getElementById('modal-tag-edit').classList.remove('show');
+};
+
+function renderTagEditColorPicker() {
+  const container = document.getElementById('tag-edit-color-picker');
+  if (!container) return;
+  container.innerHTML = TAG_PALETTE.map((c, i) =>
+    `<span class="tag-color-swatch ${tagEditColorIndex===i?'selected':''}" style="background:${c.solid}" onclick="selectTagEditColor(${i})" title="選擇這個顏色"></span>`
+  ).join('');
+  renderTagEditPreview();
+}
+
+window.selectTagEditColor = function(i) {
+  tagEditColorIndex = i;
+  renderTagEditColorPicker();
+};
+
+window.renderTagEditPreview = function() {
+  const container = document.getElementById('tag-edit-preview');
+  if (!container) return;
+  const text = document.getElementById('tag-edit-name-input')?.value || '';
+  container.innerHTML = buildTagPreviewHTML(text, tagEditColorIndex);
+};
+
+window.saveTagEdit = async function() {
+  if (!db) { toast('請先設定 Firebase', 'err'); return; }
+  const newName = document.getElementById('tag-edit-name-input').value.trim();
+  if (!newName) { toast('標籤名稱不可空白', 'err'); return; }
+  const oldName = tagEditOriginalName;
+  const nameChanged = newName !== oldName;
+  if (nameChanged && globalTags.some(t => t.name === newName)) {
+    toast('已有相同名稱的標籤', 'err'); return;
+  }
+  const idx = globalTags.findIndex(t => t.name === oldName);
+  if (idx === -1) { toast('找不到此標籤', 'err'); return; }
+
+  const prevGlobalTags = globalTags.map(t => ({...t})); // 失敗時可還原
+  globalTags[idx] = { name: newName, colorIndex: tagEditColorIndex };
+
+  try {
+    await saveGlobalTags();
+
+    if (nameChanged) {
+      // 同步更新所有已套用這個標籤的專案
+      const affected = allProjects.filter(p => (p.tags||[]).includes(oldName));
+      await Promise.all(affected.map(p => {
+        const newTags = [...new Set((p.tags||[]).map(t => t === oldName ? newName : t))];
+        p.tags = newTags; // 更新本地快取，列表立即反映
+        return setDoc(doc(db,'projects',p.id), { tags: newTags }, { merge: true });
+      }));
+      if (currentTagFilter === oldName) currentTagFilter = newName;
+      newProjectSelectedTags = newProjectSelectedTags.map(t => t === oldName ? newName : t);
+    }
+
+    closeTagEditModal();
+    renderGlobalTagList();
+    renderNewProjectTagSelector();
+    renderTagFilterButtons();
+    renderProjectList();
+    toast(nameChanged ? `標籤已更新，已同步 ${allProjects.filter(p=>(p.tags||[]).includes(newName)).length} 個專案` : '標籤已更新', 'ok');
+  } catch(e) {
+    globalTags = prevGlobalTags; // 還原，避免畫面與雲端資料不一致
+    toast('更新失敗：'+e.message, 'err');
+  }
+};
+
+function renderGlobalTagList() {
+  const container = document.getElementById('global-tag-list');
+  if (!container) return;
+  if (!globalTags.length) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--ink-light)">尚無標籤</p>';
+    return;
+  }
+  container.innerHTML = globalTags.map(t => {
+    const count = allProjects.filter(p => (p.tags||[]).includes(t.name)).length;
+    return `<span class="tag-manage-chip" style="${tagChipStyle(t.name)}">${t.name}<span class="tag-count-badge">${count}</span><span class="tag-edit" onclick="openTagEditModal('${t.name}')" title="編輯標籤">✎</span><span class="tag-del" onclick="deleteGlobalTag('${t.name}')" title="刪除標籤">×</span></span>`;
+  }).join('');
+}
+
+// 建立專案 Tab：勾選預先建立的標籤（可複選）
+function renderNewProjectTagSelector() {
+  const container = document.getElementById('new-project-tags');
+  if (!container) return;
+  if (!globalTags.length) {
+    container.innerHTML = '<p style="font-size:12px;color:var(--ink-light);font-style:italic">尚未建立任何標籤，請先至「標籤管理」新增。</p>';
+    return;
+  }
+  container.innerHTML = globalTags.map(t => {
+    const selected = newProjectSelectedTags.includes(t.name);
+    return `<span class="tag-select-chip" style="${selected?tagChipSolidStyle(t.name):tagChipStyle(t.name)}" onclick="toggleNewProjectTag('${t.name}')">${t.name}</span>`;
+  }).join('');
+}
+
+window.toggleNewProjectTag = function(tag) {
+  if (newProjectSelectedTags.includes(tag)) {
+    newProjectSelectedTags = newProjectSelectedTags.filter(t => t !== tag);
+  } else {
+    newProjectSelectedTags.push(tag);
+  }
+  renderNewProjectTagSelector();
+};
+
+// 專案列表：標籤快速篩選列（點標籤直接篩選，同 全部/待填寫/已完成 的操作方式）
+function renderTagFilterButtons() {
+  const row = document.getElementById('tag-filter-row');
+  const container = document.getElementById('tag-filter-btns');
+  if (!row || !container) return;
+  if (!globalTags.length) { row.style.display = 'none'; return; }
+  row.style.display = 'flex';
+  const btns = [`<span class="tag-filter-all ${!currentTagFilter?'active':''}" onclick="setTagFilter(null)">全部</span>`]
+    .concat(globalTags.map(t => {
+      const active = currentTagFilter===t.name;
+      return `<span class="tag-filter-btn" style="${active?tagChipSolidStyle(t.name):tagChipStyle(t.name)}" data-tag="${t.name}" onclick="setTagFilter('${t.name}')">${t.name}</span>`;
+    }));
+  container.innerHTML = btns.join('');
+}
 
 window.copyLink = function(id) {
   navigator.clipboard.writeText(location.origin + location.pathname + '?p=' + id)
@@ -1400,6 +2309,8 @@ window.openProjectSettings = async function(id) {
     const p = snap.data();
     document.getElementById('settings-name-input').value = p.clientName || '';
     document.getElementById('settings-note-input').value = p.note || '';
+    settingsTags = [...(p.tags || [])];
+    renderSettingsTags();
     document.getElementById('modal-settings').classList.add('show');
   } catch(e) { toast('載入失敗：'+e.message, 'err'); }
 };
@@ -1412,10 +2323,13 @@ window.saveProjectSettings = async function() {
   if (!name) { toast('客戶名稱不可空白', 'err'); return; }
   const note = document.getElementById('settings-note-input').value.trim();
   try {
-    await setDoc(doc(db,'projects',settingsProjectId), {clientName:name, note}, {merge:true});
+    await setDoc(doc(db,'projects',settingsProjectId), {clientName:name, note, tags: settingsTags}, {merge:true});
+    // 同步更新本地快取
+    const idx = allProjects.findIndex(p => p.id === settingsProjectId);
+    if (idx !== -1) { allProjects[idx].clientName = name; allProjects[idx].note = note; allProjects[idx].tags = settingsTags; }
     toast('已儲存', 'ok');
     closeSettingsModal();
-    loadProjects();
+    renderProjectList();
   } catch(e) { toast('儲存失敗：'+e.message, 'err'); }
 };
 
@@ -1446,20 +2360,24 @@ window.confirmDeleteProject = function() {
 async function deleteProjectNow() {
   try {
     await deleteDoc(doc(db,'projects',settingsProjectId));
+    allProjects = allProjects.filter(p => p.id !== settingsProjectId);
     toast('專案已刪除', 'ok');
     closeSettingsModal();
-    loadProjects();
+    renderProjectList();
   } catch(e) { toast('刪除失敗：'+e.message, 'err'); }
 }
 
 window.switchTab = function(t) {
-  ['projects','create','firebase'].forEach(n => {
+  const tabs = ['projects','create','tags','firebase'];
+  tabs.forEach(n => {
     document.getElementById('tab-'+n).style.display = n===t?'block':'none';
   });
   document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', ['projects','create','firebase'][i]===t);
+    b.classList.toggle('active', tabs[i]===t);
   });
   if (t==='projects') loadProjects();
+  if (t==='create') { newProjectSelectedTags = []; renderNewProjectTagSelector(); }
+  if (t==='tags') renderGlobalTagList();
 };
 
 // ── CLIENT ─────────────────────────────────────────
@@ -1540,91 +2458,183 @@ function updateUploadTotalUI() {
 }
 
 // ── TUTORIAL DRAWER ──────────────────────────────
-const BASE = './step/';
-
 const TUTORIALS = [
   {
     id: 'line_p', label: 'Line 好友', emoji: '💬',
-    images: [{ file: 'Line(個人)-手機.png', caption: '手機步驟' }]
+    images: { mobile: 'Line(個人)-手機.png' },
+    steps: [
+      { icon: '①', text: '打開 Line App，點右上角「⋯」或「設定」' },
+      { icon: '②', text: '點「個人檔案」→ 找到「我的主頁網址」或「邀請」' },
+      { icon: '③', text: '點「分享」→「複製連結」，即可貼入表單' },
+      { icon: '💡', text: '也可以長按 Line ID 旁邊的連結圖示複製', tip: true },
+    ]
   },
   {
     id: 'line_o', label: 'Line 官方帳號', emoji: '🏢',
-    images: [
-      { file: 'Line(官方)-手機.png', caption: '手機步驟' },
-      { file: 'Line(官方)-電腦.png', caption: '電腦步驟' },
+    images: { mobile: 'Line(官方)-手機.png', desktop: 'Line(官方)-電腦.png' },
+    steps: [
+      { icon: '①', text: '登入 LINE Official Account Manager（官方帳號管理後台）' },
+      { icon: '②', text: '點左側「帳號首頁」→「基本設定」' },
+      { icon: '③', text: '找到「帳號 URL」欄位，點右側「複製」' },
+      { icon: '💡', text: '帳號 URL 格式通常為 https://lin.ee/xxxxxxx', tip: true },
     ]
   },
   {
     id: 'fb_page', label: 'FB 粉絲專頁', emoji: '📣',
-    images: [{ file: 'FB.png', caption: '手機 / 電腦通用' }]
+    images: { generic: 'FB.png' },
+    steps: [
+      { icon: '①', text: '手機：開啟 Facebook App，進入您的粉絲專頁' },
+      { icon: '②', text: '點右上角「⋯」→「複製連結」' },
+      { icon: '③', text: '電腦：進入粉絲專頁，複製瀏覽器網址列的連結即可' },
+      { icon: '💡', text: '網址格式：facebook.com/你的專頁名稱', tip: true },
+    ]
   },
   {
     id: 'fb_per', label: 'FB 個人帳號', emoji: '👤',
-    images: [{ file: 'FB.png', caption: '手機 / 電腦通用' }]
+    images: { generic: 'FB.png' },
+    steps: [
+      { icon: '①', text: '開啟 Facebook，點右下角個人頭像進入個人頁面' },
+      { icon: '②', text: '電腦：複製瀏覽器上方的網址' },
+      { icon: '③', text: '手機：點「⋯」→「複製個人主頁連結」' },
+      { icon: '💡', text: '網址格式：facebook.com/你的帳號名稱', tip: true },
+    ]
   },
   {
     id: 'ig_co', label: 'IG 公司帳號', emoji: '📸',
-    images: [{ file: 'Instagram.png', caption: '手機步驟' }]
+    images: { generic: 'Instagram.png' },
+    steps: [
+      { icon: '①', text: '開啟 Instagram，進入您的公司帳號主頁' },
+      { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
+      { icon: '③', text: '或在電腦版複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '網址格式：instagram.com/你的帳號', tip: true },
+    ]
   },
   {
     id: 'ig_per', label: 'IG 個人帳號', emoji: '📷',
-    images: [{ file: 'Instagram.png', caption: '手機步驟' }]
+    images: { generic: 'Instagram.png' },
+    steps: [
+      { icon: '①', text: '開啟 Instagram，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
+      { icon: '③', text: '或在電腦版複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '網址格式：instagram.com/你的帳號', tip: true },
+    ]
   },
   {
     id: 'threads', label: 'Threads', emoji: '🧵',
-    images: [{ file: 'Threads.png', caption: '手機步驟' }]
-  },
-  {
-    id: 'gmaps', label: 'Google 導航', emoji: '🗺️',
-    images: [
-      { file: 'Google 導航-手機.png', caption: '手機步驟' },
-      { file: 'Google 導航-電腦.png', caption: '電腦步驟' },
+    images: { generic: 'Threads.png' },
+    steps: [
+      { icon: '①', text: '開啟 Threads App，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「複製連結」' },
+      { icon: '💡', text: '網址格式：threads.net/@你的帳號', tip: true },
     ]
   },
   {
-    id: 'signup', label: '報名系統 / Google 表單', emoji: '📝',
-    images: [{ file: 'Google 表單-電腦.png', caption: '電腦步驟' }]
+    id: 'website', label: '形象官網', emoji: '🌐',
+    steps: [
+      { icon: '①', text: '用瀏覽器開啟您的官方網站' },
+      { icon: '②', text: '複製瀏覽器上方網址列的完整網址' },
+      { icon: '💡', text: '通常是 https://www.你的品牌.com 開頭', tip: true },
+    ]
   },
   {
-    id: 'booking', label: '預約系統 / Google 表單', emoji: '📅',
-    images: [{ file: 'Google 表單-電腦.png', caption: '電腦步驟' }]
+    id: 'shop_web', label: '購物車網站', emoji: '🛒',
+    steps: [
+      { icon: '①', text: '用瀏覽器開啟您的購物網站首頁' },
+      { icon: '②', text: '複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '例如 Shopline、91APP、WACA 等平台的網址', tip: true },
+    ]
+  },
+  {
+    id: 'shop_plt', label: '購物平台', emoji: '🛍️',
+    steps: [
+      { icon: '①', text: '開啟蝦皮、MOMO 或 PCHome，進入您的賣場頁面' },
+      { icon: '②', text: '蝦皮：點右上角「⋯」→「複製連結」' },
+      { icon: '③', text: 'MOMO / PCHome：複製瀏覽器網址列的連結' },
+      { icon: '💡', text: '填入您的「賣家主頁」連結，非單一商品頁', tip: true },
+    ]
+  },
+  {
+    id: 'shopcom', label: 'SHOP.COM', emoji: '🏪',
+    steps: [
+      { icon: '①', text: '登入 SHOP.COM 後台，進入您的個人商店頁面' },
+      { icon: '②', text: '複製瀏覽器網址列的商店連結' },
+      { icon: '💡', text: '或在後台「商店設定」裡找到「商店連結」', tip: true },
+    ]
+  },
+  {
+    id: 'signup', label: '報名系統', emoji: '📝',
+    images: { desktop: 'Google 表單-電腦.png' },
+    steps: [
+      { icon: '①', text: '開啟您的報名系統後台（例如 Google 表單）' },
+      { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
+      { icon: '③', text: '其他報名系統：進入活動頁面，複製瀏覽器網址' },
+      { icon: '💡', text: '填入客戶可直接點選報名的連結', tip: true },
+    ]
+  },
+  {
+    id: 'booking', label: '預約系統', emoji: '📅',
+    images: { desktop: 'Google 表單-電腦.png' },
+    steps: [
+      { icon: '①', text: '開啟您的預約系統後台（例如 Google 表單）' },
+      { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
+      { icon: '③', text: '其他預約系統：進入預約頁面，複製瀏覽器網址' },
+      { icon: '💡', text: '填入客戶可直接點選預約的連結', tip: true },
+    ]
   },
   {
     id: 'cloud', label: '雲端資料夾', emoji: '☁️',
-    images: [
-      { file: '雲端資料夾-手機.png', caption: '手機步驟' },
-      { file: '雲端資料夾-電腦.png', caption: '電腦步驟' },
+    images: { mobile: '雲端資料夾-手機.png', desktop: '雲端資料夾-電腦.png' },
+    steps: [
+      { icon: '①', text: '開啟 Google 雲端硬碟或 Dropbox，找到您的資料夾' },
+      { icon: '②', text: '右鍵點擊資料夾 → 「取得連結」→ 設定為「任何人皆可查看」' },
+      { icon: '③', text: '複製連結後貼入表單' },
+      { icon: '💡', text: '請確認連結設定為「任何人可以查看」，否則我們無法開啟', tip: true },
     ]
   },
-  // 以下暫無圖片，保留文字說明
-  { id: 'shop_web', label: '購物車網站',  emoji: '🛒', text: '用瀏覽器開啟您的購物網站首頁，複製網址列的完整網址即可。' },
-  { id: 'shop_plt', label: '購物平台',    emoji: '🛍️', text: '進入蝦皮 / MOMO / PCHome 您的賣家主頁，複製瀏覽器網址列的連結。' },
-  { id: 'shopcom',  label: 'SHOP.COM',   emoji: '🏪', text: '登入後台，進入您的商店頁面，複製瀏覽器網址列的連結。' },
-  { id: 'youtube',  label: 'YouTube',    emoji: '▶️', text: '開啟 YouTube → 點右上角頭像 → 「您的頻道」→ 複製瀏覽器網址。' },
-  { id: 'podcast',  label: 'Podcast',    emoji: '🎙️', text: '進入您節目的主頁，複製瀏覽器網址列的連結。' },
-  { id: 'tiktok',   label: 'TikTok',     emoji: '🎵', text: '開啟 TikTok → 個人頁面 → 右上角「⋯」→「分享個人檔案」→「複製連結」。' },
-  { id: 'eatgether',label: 'Eatgether',  emoji: '🍽️', text: '登入 Eatgether 後台，進入餐廳頁面，複製瀏覽器網址列的連結。' },
+  {
+    id: 'gmaps', label: 'Google 導航', emoji: '🗺️',
+    images: { mobile: 'Google 導航-手機.png', desktop: 'Google 導航-電腦.png' },
+    steps: [
+      { icon: '①', text: '在 Google 地圖搜尋您的公司或店面名稱' },
+      { icon: '②', text: '確認是正確的店家後，點「分享」' },
+      { icon: '③', text: '點「複製連結」，即可貼入表單' },
+      { icon: '💡', text: '若尚未建立 Google 商家，可先在 Google 商家中心申請', tip: true },
+    ]
+  },
+  {
+    id: 'youtube', label: 'YouTube 頻道', emoji: '▶️',
+    steps: [
+      { icon: '①', text: '開啟 YouTube，點右上角頭像 → 「您的頻道」' },
+      { icon: '②', text: '複製瀏覽器網址列的連結' },
+      { icon: '③', text: '或點「自訂頻道」→「基本資訊」→ 複製「頻道網址」' },
+      { icon: '💡', text: '網址格式：youtube.com/@你的頻道名稱', tip: true },
+    ]
+  },
+  {
+    id: 'podcast', label: 'Podcast', emoji: '🎙️',
+    steps: [
+      { icon: '①', text: '開啟您的 Podcast 平台（Spotify、Apple Podcast 等）' },
+      { icon: '②', text: '進入您的節目主頁，複製瀏覽器網址' },
+      { icon: '③', text: 'Spotify：點「⋯」→「分享」→「複製連結」' },
+      { icon: '💡', text: '填入節目主頁連結，非單集連結', tip: true },
+    ]
+  },
+  {
+    id: 'tiktok', label: '抖音 / TikTok', emoji: '🎵',
+    steps: [
+      { icon: '①', text: '開啟 TikTok App，點右下角頭像進入個人頁面' },
+      { icon: '②', text: '點右上角「⋯」→「分享個人檔案」→「複製連結」' },
+      { icon: '💡', text: '網址格式：tiktok.com/@你的帳號', tip: true },
+    ]
+  },
+  {
+    id: 'eatgether', label: 'Eatgether', emoji: '🍽️',
+    steps: [],
+  },
 ];
 
 let currentTutId = null;
-
-// ── 燈箱放大 ──────────────────────────────────────
-window.openLightbox = function(src, caption) {
-  let lb = document.getElementById('lightbox');
-  if (!lb) {
-    lb = document.createElement('div');
-    lb.id = 'lightbox';
-    lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out;padding:20px';
-    lb.onclick = () => lb.remove();
-    document.body.appendChild(lb);
-  }
-  lb.innerHTML = `
-    <img src="${src}" style="max-width:100%;max-height:85vh;object-fit:contain;border-radius:4px;box-shadow:0 8px 40px rgba(0,0,0,.5)">
-    ${caption ? `<div style="color:rgba(255,255,255,.7);font-size:12px;margin-top:12px;letter-spacing:.08em">${caption}</div>` : ''}
-    <div style="color:rgba(255,255,255,.4);font-size:11px;margin-top:8px">點任意處關閉</div>
-  `;
-  lb.style.display = 'flex';
-};
+const TUTORIAL_IMG_BASE = 'client-form/step/'; // 教學截圖資料夾路徑（與 form.html 同層）
 
 window.openTutorial = function(preselect) {
   const overlay = document.getElementById('tutorial-overlay');
@@ -1647,6 +2657,7 @@ window.openTutorial = function(preselect) {
   });
 
   overlay.style.display = 'block';
+  setZoom(true);
   requestAnimationFrame(() => { drawer.style.transform = 'translateX(0)'; });
 
   // Preselect: the platform whose "?" was clicked, or the first checked, or first in list
@@ -1658,6 +2669,7 @@ window.closeTutorial = function() {
   const drawer  = document.getElementById('tutorial-drawer');
   const overlay = document.getElementById('tutorial-overlay');
   drawer.style.transform = 'translateX(100%)';
+  setZoom(false);
   setTimeout(() => { overlay.style.display = 'none'; }, 300);
 };
 
@@ -1666,68 +2678,52 @@ function showTutorial(id) {
   document.querySelectorAll('.tut-tab').forEach(b => b.classList.toggle('active', b.id === 'tut-tab-'+id));
   const t = TUTORIALS.find(x => x.id === id);
   if (!t) return;
+  const pl = PLATFORMS.find(p => p.id === id);
+  let html = `<div style="font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:20px">${t.emoji} ${t.label}</div>`;
 
-  let html = `<div style="font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:6px">${t.emoji} ${t.label}</div>`;
-
-  if (t.images?.length) {
-    // 多張圖片（手機/電腦）
-    if (t.images.length > 1) {
-      html += `<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">`;
-      t.images.forEach((img, i) => {
-        html += `<button onclick="switchTutImg('${id}', ${i})" id="tut-img-tab-${id}-${i}"
-          style="font-size:11px;letter-spacing:.06em;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:var(--sans);
-          background:${i===0?'var(--ink)':'var(--white)'};color:${i===0?'var(--white)':'var(--ink-mid)'};
-          border:1px solid ${i===0?'var(--ink)':'var(--rule)'};transition:all .15s"
-        >${img.caption}</button>`;
-      });
-      html += `</div>`;
-    }
-
-    t.images.forEach((img, i) => {
-      const src = BASE + img.file;
-      html += `<div id="tut-img-wrap-${id}-${i}" style="display:${i===0?'block':'none'}">
-        <div style="position:relative;cursor:zoom-in" onclick="openLightbox('${src}', '${t.label} — ${img.caption}')">
-          <img src="${src}" alt="${t.label} ${img.caption}"
-            style="width:100%;border-radius:6px;border:1px solid var(--rule);display:block"
-            onerror="this.parentElement.parentElement.innerHTML='<div style=\'padding:24px;text-align:center;color:var(--ink-light);font-size:13px;background:var(--cream);border-radius:6px\'>📷 圖片準備中</div>'"
-          >
-          <div style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.5);color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;pointer-events:none">
-            🔍 點擊放大
-          </div>
-        </div>
-      </div>`;
-    });
-
-  } else if (t.text) {
-    // 純文字說明（暫無圖片的平台）
-    html += `<div style="background:var(--cream);border-radius:6px;padding:16px 18px;font-size:13px;color:var(--ink-mid);line-height:1.8;margin-top:8px">
-      ${t.text}
+  // 截圖（放在文字步驟上方，讓客戶先對照畫面）
+  if (t.images) {
+    const imgTag = (src, label) => `<div class="tut-img-block" style="flex:1;min-width:130px">
+      ${label ? `<div style="font-size:10px;letter-spacing:.08em;color:var(--ink-light);margin-bottom:6px">${label}</div>` : ''}
+      <img src="${TUTORIAL_IMG_BASE}${src}" alt="${t.label}"
+        style="width:100%;border:1px solid var(--rule);border-radius:6px;display:block"
+        onerror="this.closest('.tut-img-block').style.display='none'">
     </div>`;
+    let blocks = '';
+    if (t.images.generic) blocks += imgTag(t.images.generic, '');
+    else {
+      if (t.images.mobile) blocks += imgTag(t.images.mobile, '📱 手機畫面');
+      if (t.images.desktop) blocks += imgTag(t.images.desktop, '💻 電腦畫面');
+    }
+    if (blocks) html += `<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">${blocks}</div>`;
   }
 
-  // 回到表單按鈕
-  html += `<div style="margin-top:24px;padding:14px;background:var(--cream);border-radius:6px;text-align:center">
-    <p style="font-size:12px;color:var(--ink-light);margin-bottom:10px">對照圖片操作完成後，複製連結貼到表單對應欄位。</p>
-    <button class="btn btn-ghost btn-sm" onclick="closeTutorial()" style="width:100%">← 回到表單填寫</button>
-  </div>`;
-
-  document.getElementById('tut-body').innerHTML = html;
-}
-
-window.switchTutImg = function(id, idx) {
-  const t = TUTORIALS.find(x => x.id === id);
-  if (!t?.images) return;
-  t.images.forEach((_, i) => {
-    const wrap = document.getElementById(`tut-img-wrap-${id}-${i}`);
-    const tab  = document.getElementById(`tut-img-tab-${id}-${i}`);
-    if (wrap) wrap.style.display = i === idx ? 'block' : 'none';
-    if (tab) {
-      tab.style.background = i === idx ? 'var(--ink)' : 'var(--white)';
-      tab.style.color      = i === idx ? 'var(--white)' : 'var(--ink-mid)';
-      tab.style.borderColor= i === idx ? 'var(--ink)' : 'var(--rule)';
+  if (!t.steps.length) {
+    html += `<p style="font-size:13px;color:var(--ink-light);padding:12px 0">此平台的教學步驟尚未提供，若不確定怎麼找連結，請直接與您的顧問聯繫協助。</p>`;
+  }
+  t.steps.forEach(s => {
+    if (s.tip) {
+      html += `<div style="background:#faf7f2;border:1px solid #e8dfc8;border-radius:6px;padding:11px 14px;display:flex;gap:10px;margin-top:16px">
+        <span style="font-size:14px;flex-shrink:0">💡</span>
+        <span style="font-size:12px;color:var(--ink-mid);line-height:1.6">${s.text}</span>
+      </div>`;
+    } else {
+      html += `<div style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rule)">
+        <span style="flex-shrink:0;font-family:var(--serif);font-size:18px;color:var(--gold);min-width:24px;text-align:center">${s.icon}</span>
+        <span style="font-size:13px;color:var(--ink-mid);line-height:1.7">${s.text}</span>
+      </div>`;
     }
   });
-};
+  // Quick-fill button if the user has this platform checked
+  const isChecked = document.getElementById('cb-'+id)?.checked;
+  if (isChecked) {
+    html += `<div style="margin-top:24px;padding:14px;background:var(--cream);border-radius:6px;text-align:center">
+      <p style="font-size:12px;color:var(--ink-light);margin-bottom:10px">複製完連結後，關閉這個面板貼到對應欄位即可。</p>
+      <button class="btn btn-ghost btn-sm" onclick="closeTutorial()" style="width:100%">← 回到表單填寫</button>
+    </div>`;
+  }
+  document.getElementById('tut-body').innerHTML = html;
+}
 let brandColors = []; // array of hex strings, max 5
 let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
 let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
@@ -2022,6 +3018,9 @@ function showState(s, show) {
     const el = document.getElementById('c-'+n);
     if (el) el.style.display = (n===s&&show) ? 'block' : 'none';
   });
+  // 只在表單填寫畫面顯示字體大小切換
+  const fst = document.getElementById('fs-toggle');
+  if (fst) fst.style.display = (s==='form'&&show) ? 'flex' : 'none';
 }
 
 window.submitForm = async function() {
