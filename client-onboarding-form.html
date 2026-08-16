@@ -2461,6 +2461,7 @@ function updateUploadTotalUI() {
 const TUTORIALS = [
   {
     id: 'line_p', label: 'Line 好友', emoji: '💬',
+    images: { mobile: 'Line(個人)-手機.png' },
     steps: [
       { icon: '①', text: '打開 Line App，點右上角「⋯」或「設定」' },
       { icon: '②', text: '點「個人檔案」→ 找到「我的主頁網址」或「邀請」' },
@@ -2470,6 +2471,7 @@ const TUTORIALS = [
   },
   {
     id: 'line_o', label: 'Line 官方帳號', emoji: '🏢',
+    images: { mobile: 'Line(官方)-手機.png', desktop: 'Line(官方)-電腦.png' },
     steps: [
       { icon: '①', text: '登入 LINE Official Account Manager（官方帳號管理後台）' },
       { icon: '②', text: '點左側「帳號首頁」→「基本設定」' },
@@ -2479,6 +2481,7 @@ const TUTORIALS = [
   },
   {
     id: 'fb_page', label: 'FB 粉絲專頁', emoji: '📣',
+    images: { generic: 'FB.png' },
     steps: [
       { icon: '①', text: '手機：開啟 Facebook App，進入您的粉絲專頁' },
       { icon: '②', text: '點右上角「⋯」→「複製連結」' },
@@ -2488,6 +2491,7 @@ const TUTORIALS = [
   },
   {
     id: 'fb_per', label: 'FB 個人帳號', emoji: '👤',
+    images: { generic: 'FB.png' },
     steps: [
       { icon: '①', text: '開啟 Facebook，點右下角個人頭像進入個人頁面' },
       { icon: '②', text: '電腦：複製瀏覽器上方的網址' },
@@ -2497,6 +2501,7 @@ const TUTORIALS = [
   },
   {
     id: 'ig_co', label: 'IG 公司帳號', emoji: '📸',
+    images: { generic: 'Instagram.png' },
     steps: [
       { icon: '①', text: '開啟 Instagram，進入您的公司帳號主頁' },
       { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
@@ -2506,6 +2511,7 @@ const TUTORIALS = [
   },
   {
     id: 'ig_per', label: 'IG 個人帳號', emoji: '📷',
+    images: { generic: 'Instagram.png' },
     steps: [
       { icon: '①', text: '開啟 Instagram，點右下角頭像進入個人頁面' },
       { icon: '②', text: '點右上角「⋯」→「複製個人檔案連結」' },
@@ -2515,6 +2521,7 @@ const TUTORIALS = [
   },
   {
     id: 'threads', label: 'Threads', emoji: '🧵',
+    images: { generic: 'Threads.png' },
     steps: [
       { icon: '①', text: '開啟 Threads App，點右下角頭像進入個人頁面' },
       { icon: '②', text: '點右上角「⋯」→「複製連結」' },
@@ -2556,6 +2563,7 @@ const TUTORIALS = [
   },
   {
     id: 'signup', label: '報名系統', emoji: '📝',
+    images: { desktop: 'Google 表單-電腦.png' },
     steps: [
       { icon: '①', text: '開啟您的報名系統後台（例如 Google 表單）' },
       { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
@@ -2565,6 +2573,7 @@ const TUTORIALS = [
   },
   {
     id: 'booking', label: '預約系統', emoji: '📅',
+    images: { desktop: 'Google 表單-電腦.png' },
     steps: [
       { icon: '①', text: '開啟您的預約系統後台（例如 Google 表單）' },
       { icon: '②', text: 'Google 表單：點右上角「傳送」→ 點連結圖示 → 複製' },
@@ -2574,6 +2583,7 @@ const TUTORIALS = [
   },
   {
     id: 'cloud', label: '雲端資料夾', emoji: '☁️',
+    images: { mobile: '雲端資料夾-手機.png', desktop: '雲端資料夾-電腦.png' },
     steps: [
       { icon: '①', text: '開啟 Google 雲端硬碟或 Dropbox，找到您的資料夾' },
       { icon: '②', text: '右鍵點擊資料夾 → 「取得連結」→ 設定為「任何人皆可查看」' },
@@ -2583,6 +2593,7 @@ const TUTORIALS = [
   },
   {
     id: 'gmaps', label: 'Google 導航', emoji: '🗺️',
+    images: { mobile: 'Google 導航-手機.png', desktop: 'Google 導航-電腦.png' },
     steps: [
       { icon: '①', text: '在 Google 地圖搜尋您的公司或店面名稱' },
       { icon: '②', text: '確認是正確的店家後，點「分享」' },
@@ -2618,14 +2629,12 @@ const TUTORIALS = [
   },
   {
     id: 'eatgether', label: 'Eatgether', emoji: '🍽️',
-    steps: [
-      { icon: '①', text: '登入 Eatgether 後台，進入您的餐廳頁面' },
-      { icon: '②', text: '複製瀏覽器網址列的連結，或在後台「基本設定」裡找到「公開頁面連結」' },
-    ]
+    steps: [],
   },
 ];
 
 let currentTutId = null;
+const TUTORIAL_IMG_BASE = 'client-form/step/'; // 教學截圖資料夾路徑（與 form.html 同層）
 
 window.openTutorial = function(preselect) {
   const overlay = document.getElementById('tutorial-overlay');
@@ -2671,6 +2680,27 @@ function showTutorial(id) {
   if (!t) return;
   const pl = PLATFORMS.find(p => p.id === id);
   let html = `<div style="font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:20px">${t.emoji} ${t.label}</div>`;
+
+  // 截圖（放在文字步驟上方，讓客戶先對照畫面）
+  if (t.images) {
+    const imgTag = (src, label) => `<div class="tut-img-block" style="flex:1;min-width:130px">
+      ${label ? `<div style="font-size:10px;letter-spacing:.08em;color:var(--ink-light);margin-bottom:6px">${label}</div>` : ''}
+      <img src="${TUTORIAL_IMG_BASE}${src}" alt="${t.label}"
+        style="width:100%;border:1px solid var(--rule);border-radius:6px;display:block"
+        onerror="this.closest('.tut-img-block').style.display='none'">
+    </div>`;
+    let blocks = '';
+    if (t.images.generic) blocks += imgTag(t.images.generic, '');
+    else {
+      if (t.images.mobile) blocks += imgTag(t.images.mobile, '📱 手機畫面');
+      if (t.images.desktop) blocks += imgTag(t.images.desktop, '💻 電腦畫面');
+    }
+    if (blocks) html += `<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">${blocks}</div>`;
+  }
+
+  if (!t.steps.length) {
+    html += `<p style="font-size:13px;color:var(--ink-light);padding:12px 0">此平台的教學步驟尚未提供，若不確定怎麼找連結，請直接與您的顧問聯繫協助。</p>`;
+  }
   t.steps.forEach(s => {
     if (s.tip) {
       html += `<div style="background:#faf7f2;border:1px solid #e8dfc8;border-radius:6px;padding:11px 14px;display:flex;gap:10px;margin-top:16px">
