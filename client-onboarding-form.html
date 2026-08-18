@@ -630,51 +630,192 @@ body {
 }
 .color-swatch-wrap { display: none; margin-top: 18px; }
 .color-swatch-wrap.show { display: block; }
-.swatch-row {
+
+/* 提示橫幅 */
+.swatch-pick-hint {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
+  background: rgba(124,106,247,.08);
+  border: 1.5px dashed rgba(124,106,247,.35);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
 }
-.swatch-slot {
+.swatch-pick-hint-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.swatch-pick-hint-text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.swatch-pick-hint-text span {
+  font-size: 12px;
+  color: var(--ink-light);
+}
+
+/* 橫條色塊 */
+.swatch-bar {
+  display: flex;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 68px;
+}
+.swatch-filled {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 7px;
+  cursor: pointer;
+  min-width: 0;
+  transition: filter .15s;
+}
+.swatch-filled:hover { filter: brightness(.92); }
+.swatch-filled .swatch-hex {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  background: rgba(0,0,0,.28);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 5px;
+  pointer-events: none;
+  letter-spacing: .04em;
+}
+.swatch-filled .swatch-x {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.32);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff; line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+.swatch-filled .swatch-x:hover { background: rgba(0,0,0,.55); }
+.swatch-empty {
+  flex: 1;
+  border-left: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-}
-.swatch-circle {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  border: 1px solid var(--rule);
-  position: relative;
-  cursor: pointer;
+  justify-content: center;
+  gap: 3px;
   background: var(--cream);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
 }
-.swatch-circle input[type="color"] {
-  position: absolute; inset: -4px;
-  width: calc(100% + 8px); height: calc(100% + 8px);
-  border: none; padding: 0; cursor: pointer;
-  opacity: 0;
-}
-.swatch-circle .swatch-plus {
-  font-size: 18px;
-  color: var(--ink-light);
-  pointer-events: none;
-}
-.swatch-circle.filled .swatch-plus { display: none; }
-.swatch-hex {
+.swatch-empty:first-child { border-left: none; }
+.swatch-empty-icon { font-size: 14px; color: var(--ink-light); opacity: .5; }
+.swatch-empty-label { font-size: 10px; color: var(--ink-light); }
+.swatch-note {
   font-size: 11px;
-  color: var(--ink-mid);
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.04em;
-  font-weight: 500;
+  color: var(--ink-light);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-.swatch-remove {
-  font-size: 10px;
-  color: var(--danger);
-  cursor: pointer;
+
+/* ─── 色彩輸入面板（HEX / RGB / HSL） ─── */
+.color-input-panel { margin-top: 18px; }
+.color-mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.color-mode-tab {
+  font-family: var(--sans);
+  font-size: 12px;
   letter-spacing: 0.04em;
+  color: var(--ink-mid);
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.color-mode-tab:hover { border-color: var(--ink-mid); color: var(--ink); }
+.color-mode-tab.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.color-input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 16px;
+}
+.color-preview-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border: 1px solid var(--rule);
+  flex-shrink: 0;
+  background: var(--white);
+  transition: background .15s;
+}
+.color-input-fields {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.color-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 70px;
+  flex: 1;
+}
+.color-field-group label {
+  font-size: 10px;
+  color: var(--ink-light);
+  letter-spacing: .03em;
+}
+.color-field-group input {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 8px 10px;
+  outline: none;
+  width: 100%;
+  transition: border-color .2s;
+}
+.color-field-group input:focus { border-color: var(--gold); }
+.color-field-hint { font-size: 9px; color: var(--ink-light); }
+.color-add-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all .2s;
+}
+.color-add-btn:hover:not(:disabled) { background: var(--gold); border-color: var(--gold); }
+.color-add-btn:disabled { opacity: .35; cursor: not-allowed; }
+.color-input-msg {
+  font-size: 11px;
+  color: var(--danger);
+  margin-top: 8px;
+  min-height: 14px;
 }
 .color-other-note {
   margin-top: 16px;
@@ -1438,8 +1579,30 @@ service cloud.firestore {
         </div>
 
         <div class="color-swatch-wrap" id="color-swatch-wrap">
-          <div class="swatch-row" id="swatch-row"></div>
-          <p style="font-size:11px;color:var(--ink-light);margin-top:14px">點擊圓圈以滴管挑選顏色，最多可選 5 個。</p>
+          <div class="swatch-pick-hint">
+            <span class="swatch-pick-hint-icon">🎨</span>
+            <div class="swatch-pick-hint-text">
+              <strong>輸入色碼即可加入品牌色</strong>
+              <span>最多加入 5 個品牌色，已選的色塊點右上角 × 移除</span>
+            </div>
+          </div>
+          <div class="swatch-bar" id="swatch-row"></div>
+          <div class="swatch-note">💡 加入後格子會清空，可繼續輸入下一個顏色</div>
+
+          <div class="color-input-panel" id="color-input-panel">
+            <div class="color-mode-tabs" id="color-mode-tabs">
+              <button type="button" class="color-mode-tab active" data-mode="hex" onclick="setColorInputMode('hex')">HEX</button>
+              <button type="button" class="color-mode-tab" data-mode="rgb" onclick="setColorInputMode('rgb')">RGB</button>
+              <button type="button" class="color-mode-tab" data-mode="hsl" onclick="setColorInputMode('hsl')">HSL</button>
+              <button type="button" class="color-mode-tab" data-mode="picker" onclick="setColorInputMode('picker')">選取</button>
+            </div>
+            <div class="color-input-row">
+              <div class="color-preview-box" id="color-preview-box"></div>
+              <div class="color-input-fields" id="color-input-fields"></div>
+              <button type="button" class="color-add-btn" id="color-add-btn" onclick="addColorFromInput()" disabled>＋</button>
+            </div>
+            <p class="color-input-msg" id="color-input-msg"></p>
+          </div>
         </div>
 
         <div class="color-other-note" id="color-other-note" style="display:none">
@@ -2741,34 +2904,38 @@ function showTutorial(id) {
 }
 let brandColors = []; // array of hex strings, max 5
 let colorMode = null; // 'has' | 'expect' | 'free' | 'logo'
+let colorInputMode = 'hex'; // 'hex' | 'rgb' | 'hsl'
 let cachedPrevData = null; // 編輯時載入的舊資料，送出時直接用來比對
 
 function buildSwatches() {
-  const row = document.getElementById('swatch-row');
-  row.innerHTML = '';
+  const bar = document.getElementById('swatch-row');
+  bar.innerHTML = '';
+
   for (let i = 0; i < 5; i++) {
     const filled = brandColors[i];
-    const slot = document.createElement('div');
-    slot.className = 'swatch-slot';
-    slot.innerHTML = `
-      <div class="swatch-circle ${filled ? 'filled' : ''}" id="swatch-circle-${i}" style="${filled ? `background:${filled}` : ''}">
-        <span class="swatch-plus">+</span>
-        <input type="color" id="swatch-input-${i}" value="${filled || '#b5924a'}" oninput="setSwatchColor(${i}, this.value)">
-      </div>
-      ${filled
-        ? `<span class="swatch-hex">${filled.toUpperCase()}</span><span class="swatch-remove" onclick="removeSwatch(${i})">移除</span>`
-        : `<span class="swatch-hex" style="color:var(--ink-light);font-size:10px">點擊選色</span>`
-      }
-    `;
-    row.appendChild(slot);
+    if (filled) {
+      // 已填色塊
+      const div = document.createElement('div');
+      div.className = 'swatch-filled';
+      div.style.background = filled;
+      div.style.cursor = 'default';
+      div.innerHTML = `
+        <span class="swatch-x" onclick="removeSwatch(${i});event.stopPropagation()">×</span>
+        <span class="swatch-hex">${filled.toUpperCase()}</span>
+      `;
+      bar.appendChild(div);
+    } else {
+      // 空格佔位（透過下方輸入面板加入顏色）
+      const div = document.createElement('div');
+      div.className = 'swatch-empty';
+      div.innerHTML = `
+        <span class="swatch-empty-icon">＋</span>
+        <span class="swatch-empty-label">尚未選色</span>
+      `;
+      bar.appendChild(div);
+    }
   }
 }
-
-window.setSwatchColor = function(i, hex) {
-  brandColors[i] = hex;
-  buildSwatches();
-  updateProgress();
-};
 
 window.removeSwatch = function(i) {
   brandColors[i] = null;
@@ -2784,7 +2951,184 @@ window.setColorMode = function(mode) {
   document.getElementById('color-swatch-wrap').classList.toggle('show', mode==='has');
   document.getElementById('color-other-note').style.display = mode==='expect' ? 'block' : 'none';
   if (mode === 'has' && document.getElementById('swatch-row').children.length === 0) buildSwatches();
+  if (mode === 'has' && document.getElementById('color-input-fields').children.length === 0) {
+    renderColorInputFields('hex');
+  }
   updateProgress();
+};
+
+/* ─── 色彩輸入面板：HEX / RGB / HSL ─── */
+function clampNum(v, min, max) {
+  return Math.min(max, Math.max(min, v));
+}
+
+function normalizeHex(input) {
+  if (!input) return null;
+  let v = input.trim();
+  if (!v) return null;
+  if (v[0] !== '#') v = '#' + v;
+  let m = /^#([0-9a-fA-F]{6})$/.exec(v);
+  if (!m) m = /^#([0-9a-fA-F]{3})$/.exec(v);
+  if (!m) return null;
+  let hex = m[1];
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  return '#' + hex.toLowerCase();
+}
+
+function rgbToHex(r, g, b) {
+  if ([r, g, b].some(v => v === '' || v === null || v === undefined || isNaN(v))) return null;
+  r = clampNum(parseInt(r, 10), 0, 255);
+  g = clampNum(parseInt(g, 10), 0, 255);
+  b = clampNum(parseInt(b, 10), 0, 255);
+  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function hslToHex(h, s, l) {
+  if ([h, s, l].some(v => v === '' || v === null || v === undefined || isNaN(v))) return null;
+  h = clampNum(parseFloat(h), 0, 360);
+  s = clampNum(parseFloat(s), 0, 100) / 100;
+  l = clampNum(parseFloat(l), 0, 100) / 100;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const m = l - c / 2;
+  let r = 0, g = 0, b = 0;
+  if (h < 60) { r = c; g = x; b = 0; }
+  else if (h < 120) { r = x; g = c; b = 0; }
+  else if (h < 180) { r = 0; g = c; b = x; }
+  else if (h < 240) { r = 0; g = x; b = c; }
+  else if (h < 300) { r = x; g = 0; b = c; }
+  else { r = c; g = 0; b = x; }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+const colorFieldTemplates = {
+  hex: `
+    <div class="color-field-group" style="flex:2">
+      <label>HEX 色碼</label>
+      <input type="text" id="cf-hex" placeholder="#B5924A" maxlength="7" oninput="onColorFieldInput()">
+      <span class="color-field-hint">例如：#B5924A</span>
+    </div>`,
+  rgb: `
+    <div class="color-field-group">
+      <label>R 紅</label>
+      <input type="number" id="cf-r" min="0" max="255" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–255</span>
+    </div>
+    <div class="color-field-group">
+      <label>G 綠</label>
+      <input type="number" id="cf-g" min="0" max="255" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–255</span>
+    </div>
+    <div class="color-field-group">
+      <label>B 藍</label>
+      <input type="number" id="cf-b" min="0" max="255" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–255</span>
+    </div>`,
+  hsl: `
+    <div class="color-field-group">
+      <label>H 色相</label>
+      <input type="number" id="cf-h" min="0" max="360" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–360 度</span>
+    </div>
+    <div class="color-field-group">
+      <label>S 飽和度</label>
+      <input type="number" id="cf-s" min="0" max="100" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–100%</span>
+    </div>
+    <div class="color-field-group">
+      <label>L 明度</label>
+      <input type="number" id="cf-l" min="0" max="100" placeholder="0" oninput="onColorFieldInput()">
+      <span class="color-field-hint">0–100%</span>
+    </div>`,
+  picker: `
+    <div class="color-field-group" style="flex:2">
+      <label>選取顏色</label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <input type="color" id="cf-picker" value="#b5924a" oninput="onColorFieldInput()"
+          style="width:52px;height:40px;padding:2px;border:1px solid var(--rule);border-radius:6px;cursor:pointer;background:var(--white)">
+        <span class="color-field-hint" id="cf-picker-hex" style="font-family:'Courier New',monospace;font-size:13px;color:var(--ink-mid)">#B5924A</span>
+      </div>
+    </div>`
+};
+
+function renderColorInputFields(mode) {
+  document.getElementById('color-input-fields').innerHTML = colorFieldTemplates[mode];
+  document.getElementById('color-preview-box').style.background = 'var(--white)';
+  document.getElementById('color-add-btn').disabled = true;
+  const msg = document.getElementById('color-input-msg');
+  if (msg) msg.textContent = '';
+  if (mode === 'picker') onColorFieldInput();
+}
+
+function getCurrentHexFromInputs() {
+  if (colorInputMode === 'hex') {
+    return normalizeHex(document.getElementById('cf-hex')?.value);
+  } else if (colorInputMode === 'rgb') {
+    return rgbToHex(
+      document.getElementById('cf-r')?.value,
+      document.getElementById('cf-g')?.value,
+      document.getElementById('cf-b')?.value
+    );
+  } else if (colorInputMode === 'hsl') {
+    return hslToHex(
+      document.getElementById('cf-h')?.value,
+      document.getElementById('cf-s')?.value,
+      document.getElementById('cf-l')?.value
+    );
+  } else if (colorInputMode === 'picker') {
+    return normalizeHex(document.getElementById('cf-picker')?.value);
+  }
+  return null;
+}
+
+window.setColorInputMode = function(mode) {
+  colorInputMode = mode;
+  document.querySelectorAll('.color-mode-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  renderColorInputFields(mode);
+};
+
+window.onColorFieldInput = function() {
+  const hex = getCurrentHexFromInputs();
+  const preview = document.getElementById('color-preview-box');
+  const addBtn = document.getElementById('color-add-btn');
+  const msg = document.getElementById('color-input-msg');
+  if (colorInputMode === 'picker') {
+    const readout = document.getElementById('cf-picker-hex');
+    if (readout && hex) readout.textContent = hex.toUpperCase();
+  }
+  if (hex) {
+    preview.style.background = hex;
+    addBtn.disabled = false;
+    if (msg) msg.textContent = '';
+  } else {
+    preview.style.background = 'var(--white)';
+    addBtn.disabled = true;
+  }
+};
+
+window.addColorFromInput = function() {
+  const hex = getCurrentHexFromInputs();
+  const msg = document.getElementById('color-input-msg');
+  if (!hex) {
+    if (msg) msg.textContent = '請輸入正確的色碼格式';
+    return;
+  }
+  const filledCount = brandColors.filter(Boolean).length;
+  if (filledCount >= 5) {
+    if (msg) msg.textContent = '最多可加入 5 個品牌色';
+    return;
+  }
+  let idx = brandColors.findIndex(c => !c);
+  if (idx === -1) idx = brandColors.length;
+  brandColors[idx] = hex;
+  buildSwatches();
+  updateProgress();
+  renderColorInputFields(colorInputMode);
 };
 
 window.togglePlatform = function(id) {
@@ -3190,7 +3534,9 @@ window.doSubmit = async function() {
 };
 function compressImage(file) {
   return new Promise((resolve, reject) => {
-    const MAX = 900, QUALITY = 0.82;
+    const MAX = 720; // 最大邊長：900 → 720，資料量約減少 36%
+    const TARGET_BYTES = 150 * 1024; // 每張圖目標上限約 150KB
+    const MIN_QUALITY = 0.3;
     const reader = new FileReader();
     reader.onerror = reject;
     reader.onload = e => {
@@ -3205,7 +3551,15 @@ function compressImage(file) {
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve({ name: file.name, dataUrl: canvas.toDataURL('image/jpeg', QUALITY) });
+
+        // 動態品質調整：壓縮後若還是超過目標大小，逐步降低品質直到符合，最低 0.3
+        let quality = 0.82;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+        while (dataUrl.length * 0.75 > TARGET_BYTES && quality > MIN_QUALITY) {
+          quality = Math.max(MIN_QUALITY, quality - 0.1);
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+        resolve({ name: file.name, dataUrl });
       };
       img.src = e.target.result;
     };
