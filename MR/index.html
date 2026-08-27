@@ -2629,6 +2629,166 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v19-clients-images">
+/* ===== 服務客戶：重新規劃成乾淨 Logo 卡片網格 ===== */
+.clients-v19{
+  padding:82px clamp(24px,5vw,80px) 96px!important;
+  background:var(--paper)!important;
+}
+.clients-v19 .clients-inner{
+  max-width:1180px!important;
+  margin:0 auto!important;
+}
+.clients-v19-title{
+  margin:14px 0 0!important;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:clamp(34px,4vw,52px)!important;
+  line-height:1.2!important;
+  font-weight:500!important;
+  letter-spacing:-.035em!important;
+  color:var(--ink)!important;
+}
+.clients-v19-grid{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:14px!important;
+  margin-top:42px!important;
+  background:transparent!important;
+}
+.clients-v19-card{
+  min-width:0!important;
+  height:190px!important;
+  padding:24px 18px 20px!important;
+  background:#ece7dd!important;
+  border:1px solid #ddd5c8!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:18px!important;
+  transition:transform .2s ease,background .2s ease,border-color .2s ease!important;
+}
+.clients-v19-card:hover{
+  transform:translateY(-4px)!important;
+  background:#f5f1e8!important;
+  border-color:#c7b891!important;
+}
+.clients-v19-logo{
+  width:100%!important;
+  height:88px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.clients-v19-logo img{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:130px!important;
+  max-height:72px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  filter:none!important;
+}
+.clients-v19-name{
+  font-size:13px!important;
+  line-height:1.45!important;
+  font-weight:500!important;
+  text-align:center!important;
+  color:#292620!important;
+}
+
+/* ===== Selected Works：人物與電子名片都完整顯示，不再裁頭裁臉 ===== */
+.v4-work-img{
+  background:#111!important;
+}
+.v4-work-img img{
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+}
+.v4-work-card:hover .v4-work-img img{
+  transform:none!important;
+}
+
+/* 人物案例保留大型主視覺，但完整置中 */
+.v19-work-person{
+  height:760px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.v19-work-person img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+
+/* 電子名片本身是直式畫面，完整顯示，不使用 cover */
+.v19-work-cardimg{
+  height:420px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.v19-work-cardimg img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center top!important;
+}
+
+/* 品牌案例頁內的人物圖也預防任何舊規則裁切 */
+#page-cases .case-img-col img{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center top!important;
+}
+
+/* 如果其他人物區塊使用固定框，優先保留臉部與完整人物 */
+.v4-founder-image img{
+  object-position:center top!important;
+}
+
+/* Responsive */
+@media(max-width:1000px){
+  .clients-v19-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:720px){
+  .clients-v19-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .clients-v19-card{
+    height:170px!important;
+  }
+  .v19-work-person{
+    height:min(720px,120vw)!important;
+  }
+  .v19-work-cardimg{
+    height:380px!important;
+  }
+}
+@media(max-width:440px){
+  .clients-v19-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+  .clients-v19-card{
+    height:150px!important;
+    padding:18px 10px!important;
+  }
+  .clients-v19-logo{
+    height:70px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -2791,15 +2951,15 @@ body > .cta-band{
 </div>
 <div class="v4-work-grid">
 <a class="v4-work-card v4-work-wide" href="#cases" onclick="showPage('cases');return false;">
-<div class="v4-work-img"><img alt="詠順工程行 鍾師富品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/></div>
+<div class="v4-work-img v19-work-person"><img alt="詠順工程行 鍾師富品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/></div>
 <div class="v4-work-meta"><span>01 / PERSONAL BRAND</span><h3>鍾師富｜從工程師傅，到被記住的抓漏專家</h3><small>IMAGE / CONTENT / SHORT VIDEO / E-CARD</small></div>
 </a>
 <a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
-<div class="v4-work-img"><img alt="財務規劃師電子名片案例" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png"/></div>
+<div class="v4-work-img v19-work-cardimg"><img alt="財務規劃師電子名片案例" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png"/></div>
 <div class="v4-work-meta"><span>02 / DIGITAL IDENTITY</span><h3>財務規劃師｜讓陌生客 30 秒內理解專業</h3><small>POSITION / COPY / E-CARD</small></div>
 </a>
 <a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
-<div class="v4-work-img"><img alt="傑出油漆工程行品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 電子名片_傑出油漆.png"/></div>
+<div class="v4-work-img v19-work-cardimg"><img alt="傑出油漆工程行品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 電子名片_傑出油漆.png"/></div>
 <div class="v4-work-meta"><span>03 / BRAND TOOL</span><h3>傑出油漆｜把職人工藝變成可被分享的品牌</h3><small>POSITION / E-CARD / VISUAL</small></div>
 </a>
 </div>
@@ -3018,23 +3178,53 @@ body > .cta-band{
 </div>
 </div>
 <!-- Client logos -->
-<div class="clients-wrap">
-<div class="clients-inner">
-<span class="about-sec-label rv">Past Collaborations</span>
-<h3 class="about-title rv d1" style="font-size:32px;">服務<br/>客戶</h3>
-<div class="about-divider rv d2"></div>
-<div class="logo-grid rv d2">
-<div class="logo-cell"><img alt="詠順工程行" decoding="async" lazy"="" onerror="this.style.display='none';this.parentNode.innerHTML+='&lt;div class=logo-cell-txt loading=" src="assets/Mr.素材圖 - 詠順工程行logo.png"/>詠順工程行</div>'"&gt;</div>
-<div class="logo-cell"><img alt="平衡之道" decoding="async" lazy"="" onerror="this.style.display='none';this.parentNode.innerHTML+='&lt;div class=logo-cell-txt loading=" src="assets/Mr.素材圖 - 平衡之道logo.png"/>平衡之道</div>'"&gt;</div>
-<div class="logo-cell"><img alt="大象木地板" decoding="async" lazy"="" onerror="this.style.display='none';this.parentNode.innerHTML+='&lt;div class=logo-cell-txt loading=" src="assets/Mr.素材圖 - 大象木地板logo.png"/>大象木地板</div>'"&gt;</div>
-<div class="logo-cell"><img alt="傑出油漆" decoding="async" lazy"="" onerror="this.style.display='none';this.parentNode.innerHTML+='&lt;div class=logo-cell-txt loading=" src="assets/Mr.素材圖 - 傑出油漆工程行logo.png"/>傑出油漆工程行</div>'"&gt;</div>
-<div class="logo-cell"><img alt="禾農豐食" decoding="async" lazy"="" onerror="this.style.display='none';this.parentNode.innerHTML+='&lt;div class=logo-cell-txt loading=" src="assets/Mr.素材圖 - 禾農豐食logo.png"/>禾農豐食</div>'"&gt;</div>
+<section class="clients-wrap clients-v19">
+  <div class="clients-inner">
+    <span class="about-sec-label rv">PAST COLLABORATIONS</span>
+    <h3 class="clients-v19-title">服務客戶</h3>
+    <div class="about-divider"></div>
 
+    <div class="clients-v19-grid">
+      <div class="clients-v19-card">
+        <div class="clients-v19-logo">
+          <img src="assets/Mr.素材圖 - 詠順工程行logo.png" alt="詠順工程行" loading="lazy" decoding="async">
+        </div>
+        <div class="clients-v19-name">詠順工程行</div>
+      </div>
 
+      <div class="clients-v19-card">
+        <div class="clients-v19-logo">
+          <img src="assets/Mr.素材圖 - 平衡之道logo.png" alt="平衡之道" loading="lazy" decoding="async">
+        </div>
+        <div class="clients-v19-name">平衡之道</div>
+      </div>
 
-<!-- CTA -->
+      <div class="clients-v19-card">
+        <div class="clients-v19-logo">
+          <img src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
+        </div>
+        <div class="clients-v19-name">大象木地板</div>
+      </div>
 
+      <div class="clients-v19-card">
+        <div class="clients-v19-logo">
+          <img src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
+        </div>
+        <div class="clients-v19-name">傑出油漆工程行</div>
+      </div>
 
+      <div class="clients-v19-card">
+        <div class="clients-v19-logo">
+          <img src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
+        </div>
+        <div class="clients-v19-name">禾農豐食</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.case-page -->
+</div><!-- /#page-cases -->
 
 <!-- GLOBAL FOOTER -->
 <footer class="mr-footer-v17">
