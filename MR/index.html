@@ -324,8 +324,8 @@ nav.light .nav-links a{color:var(--ink2);}
 .case-block .vid-row{margin-bottom:0;}
 
 /* ── photo case layout ──
-   個人形象照 1080×450（超寬橫圖 2.4:1）→ width:100% height:auto 完整顯示
-   企業形象照 1080×810（橫圖 1.33:1）→ 同上 */
+   個人形象照 1080×450（超寬橫圖 2.4:1）→︎ width:100% height:auto 完整顯示
+   企業形象照 1080×810（橫圖 1.33:1）→︎ 同上 */
 .photo-case{display:grid;gap:3px;margin-bottom:3px;width:100%;}
 .pc-row{display:grid;gap:3px;}
 .pc-row img{width:100%;height:auto;display:block;object-fit:contain;}
@@ -336,7 +336,7 @@ nav.light .nav-links a{color:var(--ink2);}
 .pc-label.dark .pc-text{color:var(--white);}
 
 /* ── LINE@ 手機框 ──
-   LINE 案例 1080×1350（直圖）→ 手機框內 height:auto 完整顯示，不裁切 */
+   LINE 案例 1080×1350（直圖）→︎ 手機框內 height:auto 完整顯示，不裁切 */
 .phone-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem;width:100%;}
 .phone-wrap{text-align:center;}
 .ph-num{font-family:'Manrope',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:.4rem;}
@@ -349,17 +349,17 @@ nav.light .nav-links a{color:var(--ink2);}
    高度 220px + contain 顯示完整畫面，背景深色符合影音感 */
 .vid-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:4px;width:100%;}
 .vid-row img{width:100%;height:220px;object-fit:contain;background:#1a1a1a;display:block;}
-/* 貼文三格 1080×1080（正方形）→ 高度 160px contain */
+/* 貼文三格 1080×1080（正方形）→︎ 高度 160px contain */
 .vid-row.post-row img{height:160px;background:var(--cream);}
 .vid-cap{font-size:10px;color:var(--ink2);text-align:center;margin-top:2px;}
 
 /* ── 貼圖兩欄 ──
-   貼圖 1080×540（橫圖 2:1）→ height:auto 完整顯示，不需固定高度 */
+   貼圖 1080×540（橫圖 2:1）→︎ height:auto 完整顯示，不需固定高度 */
 .sticker-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;width:100%;}
 .sticker-item img{width:100%;height:auto;display:block;}
 
 /* ── 品牌簡報 ──
-   1920×1080（橫圖 16:9）→ width:100% height:auto 完整顯示 */
+   1920×1080（橫圖 16:9）→︎ width:100% height:auto 完整顯示 */
 .deck-item{margin-bottom:.5rem;}
 .deck-item img{width:100%;height:auto;display:block;}
 
@@ -373,8 +373,8 @@ nav.light .nav-links a{color:var(--ink2);}
 .ecard-item img{width:100%;height:auto;display:block;}
 
 /* ── 單欄堆疊（體態管理、運勢、簡報）──
-   體態管理 1080×810（橫圖 1.33:1）→ height:auto 完整顯示
-   企業運勢 1080×1080（正方形）→ height:auto 完整顯示 */
+   體態管理 1080×810（橫圖 1.33:1）→︎ height:auto 完整顯示
+   企業運勢 1080×1080（正方形）→︎ height:auto 完整顯示 */
 .cases-img-col{display:flex;flex-direction:column;gap:4px;width:100%;}
 .cases-img-col img{width:100%;height:auto;display:block;}
 .fortune-video-wrap{width:100%;}
@@ -1117,7 +1117,7 @@ footer{padding:4rem max(28px,calc((100vw - var(--content))/2));}
   box-shadow:0 10px 26px rgba(72,59,37,.05);
 }
 .method-card:not(:last-child)::after{
-  content:'→';
+  content:'→︎';
   position:absolute;right:-42px;top:50%;transform:translateY(-50%);
   font-family:'Manrope',sans-serif;font-size:28px;color:var(--v6-gold);
 }
@@ -2895,6 +2895,324 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v21-mobile-ecard-fix">
+/* 品牌案例：詳細頁只顯示 AFTER 01 */
+.v21-case-single{
+  position:relative!important;
+  width:100%!important;
+  background:#e9e3d8!important;
+  overflow:hidden!important;
+}
+.v21-case-single img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center top!important;
+}
+
+/* 服務客戶：Logo only */
+.clients-v19-card{
+  height:160px!important;
+  padding:24px!important;
+  gap:0!important;
+}
+.clients-v19-logo{
+  height:100%!important;
+}
+.clients-v19-logo img{
+  max-width:150px!important;
+  max-height:82px!important;
+}
+.clients-v19-name{
+  display:none!important;
+}
+
+/* Arrow glyphs stay text, not emoji */
+.v4-feature-arrow,
+.ecard-open,
+.svc-arr,
+.case-view-btn,
+.v4-hero-actions a,
+.v4-works-head a,
+.v4-statement-copy a,
+.v4-line-cta > a,
+.cta-btn,
+.mr-footer-v17__diagnosis{
+  font-family:'Manrope','Noto Sans TC',Arial,sans-serif!important;
+  font-variant-emoji:text!important;
+}
+
+@media(max-width:720px){
+  .ecard-home{
+    padding:76px 18px 66px!important;
+  }
+  .ecard-home-title{
+    font-size:36px!important;
+    line-height:1.18!important;
+  }
+  .ecard-home-intro{
+    font-size:13px!important;
+    line-height:1.85!important;
+    margin-bottom:28px!important;
+  }
+
+  .ecard-category-grid{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:12px!important;
+  }
+
+  .ecard-category,
+  .ecard-category.is-building{
+    display:block!important;
+    min-width:0!important;
+  }
+
+  .ecard-category-preview{
+    width:100%!important;
+    aspect-ratio:2/3!important;
+    min-height:0!important;
+    border-right:0!important;
+    border-bottom:1px solid var(--v6-line)!important;
+    background:#eee8dd!important;
+  }
+
+  .ecard-category-preview img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+  }
+
+  .ecard-category-body{
+    display:block!important;
+    padding:14px 12px 15px!important;
+  }
+
+  .ecard-category-no{
+    font-size:8px!important;
+    line-height:1.4!important;
+  }
+
+  .ecard-category h3{
+    font-size:14px!important;
+    line-height:1.45!important;
+    min-height:40px;
+  }
+
+  .ecard-category p{
+    font-size:10px!important;
+    line-height:1.65!important;
+  }
+
+  .ecard-open{
+    font-size:8.5px!important;
+    margin-top:12px!important;
+  }
+
+  .ecard-building-preview{
+    min-height:0!important;
+    height:100%!important;
+  }
+
+  .ecard-viewer-head{
+    padding:12px 14px!important;
+  }
+  .ecard-viewer-title{
+    font-size:14px!important;
+  }
+  .ecard-viewer-sub{
+    font-size:9px!important;
+  }
+  .ecard-viewer-close{
+    width:38px!important;
+    height:38px!important;
+    flex:0 0 38px!important;
+  }
+
+  .ecard-viewer-grid{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    padding:24px 0 54px!important;
+    overflow:visible!important;
+  }
+
+  .ecard-view-section-title{
+    padding:0 16px!important;
+    margin-bottom:16px!important;
+    font-size:20px!important;
+    line-height:1.35!important;
+  }
+
+  /* 五頁完整畫面：手機一次讀一頁，左右滑動 */
+  .ecard-overview-row{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:14px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:0 16px 18px!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-padding-left:16px!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-x:contain!important;
+  }
+
+  .ecard-overview-item{
+    flex:0 0 min(82vw,360px)!important;
+    width:min(82vw,360px)!important;
+    max-width:360px!important;
+    min-width:min(82vw,360px)!important;
+    scroll-snap-align:start!important;
+  }
+
+  .ecard-overview-label{
+    font-size:9px!important;
+    margin-bottom:8px!important;
+  }
+
+  .ecard-overview-card{
+    width:100%!important;
+    border-radius:10px!important;
+  }
+
+  .ecard-overview-image{
+    width:100%!important;
+    aspect-ratio:auto!important;
+    min-height:0!important;
+  }
+
+  .ecard-overview-image img{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:2/3!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+  }
+
+  .ecard-overview-actions{
+    padding:7px 10px 12px!important;
+    gap:8px!important;
+  }
+
+  .ecard-overview-actions .ecard-demo-button{
+    width:100%!important;
+    min-height:48px!important;
+    font-size:13px!important;
+  }
+
+  /* 說明區手機單欄 */
+  .ecard-explain-section{
+    margin-top:42px!important;
+    padding-top:28px!important;
+  }
+
+  .ecard-explain-list{
+    padding:0 14px!important;
+    gap:14px!important;
+  }
+
+  .ecard-explain-item{
+    display:block!important;
+    width:100%!important;
+    padding:18px!important;
+    border-radius:10px!important;
+  }
+
+  .ecard-explain-head{
+    width:100%!important;
+    padding:0 0 16px!important;
+    border-right:0!important;
+    border-bottom:1px solid #ddd4c5!important;
+    margin-bottom:16px!important;
+  }
+
+  .ecard-page-purpose{
+    max-width:none!important;
+    width:100%!important;
+    font-size:14px!important;
+    line-height:1.85!important;
+  }
+
+  .ecard-explain-buttons{
+    width:100%!important;
+    max-width:none!important;
+    gap:14px!important;
+  }
+
+  .ecard-explain-button-row{
+    display:block!important;
+    width:100%!important;
+  }
+
+  .ecard-explain-button-visual{
+    width:100%!important;
+  }
+
+  .ecard-explain-button-visual .ecard-demo-button{
+    width:100%!important;
+    min-height:52px!important;
+    font-size:14px!important;
+  }
+
+  .ecard-button-info{
+    width:100%!important;
+    min-height:0!important;
+    padding:9px 2px 2px!important;
+  }
+
+  .ecard-link-target{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:5px 9px!important;
+    margin-bottom:5px!important;
+  }
+
+  .ecard-link-target span{
+    font-size:11px!important;
+  }
+
+  .ecard-link-target strong{
+    font-size:14px!important;
+  }
+
+  .ecard-button-purpose{
+    font-size:13px!important;
+    line-height:1.75!important;
+  }
+}
+
+@media(max-width:430px){
+  .ecard-category-grid{
+    grid-template-columns:1fr!important;
+  }
+  .ecard-category h3{
+    min-height:0!important;
+    font-size:16px!important;
+  }
+  .ecard-category p{
+    font-size:11px!important;
+  }
+  .ecard-overview-item{
+    flex-basis:86vw!important;
+    width:86vw!important;
+    min-width:86vw!important;
+  }
+}
+
+@media(max-width:980px){
+  .v20-ba-shot img{
+    object-fit:contain!important;
+    background:#111!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -2929,8 +3247,8 @@ body > .cta-band{
 <div class="v4-hero-bottom">
 <p>把你的專業，變成別人<br/>一眼看得懂的品牌。</p>
 <div class="v4-hero-actions">
-<a href="#services" onclick="showPage('services');return false;">VIEW SERVICES ↗</a>
-<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">AI BRAND CHECK ↗</a>
+<a href="#services" onclick="showPage('services');return false;">VIEW SERVICES ↗︎</a>
+<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">AI BRAND CHECK ↗︎</a>
 </div>
 </div>
 </div>
@@ -2958,7 +3276,7 @@ body > .cta-band{
 <div class="ecard-category-no">01 / ENGINEERING</div>
 <h3>工程．居家類</h3>
 <p>適用：抓漏．防水．水電．油漆．弱電．統包．裝修．居家工程等</p>
-<div class="ecard-open"><span>查看完整範例</span><span>↗</span></div>
+<div class="ecard-open"><span>查看完整範例</span><span>↗︎</span></div>
 </div>
 </article>
 <article class="ecard-category" onclick="openEcardViewer('beauty')" role="button" tabindex="0">
@@ -2969,18 +3287,18 @@ body > .cta-band{
 <div class="ecard-category-no">02 / BEAUTY &amp; WELLNESS</div>
 <h3>美業．健康類</h3>
 <p>適用：美容．美髮．頭皮．皮膚管理．SPA．體態．健身．健康管理．芳療等</p>
-<div class="ecard-open"><span>查看完整範例</span><span>↗</span></div>
+<div class="ecard-open"><span>查看完整範例</span><span>↗︎</span></div>
 </div>
 </article>
 <article class="ecard-category" onclick="openEcardViewer('creative')" role="button" tabindex="0">
 <div class="ecard-category-preview">
-<img alt="創意教育知識型電子名片" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png"/>
+<img alt="創意教育知識型電子名片" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png?v=20260829"/>
 </div>
 <div class="ecard-category-body">
 <div class="ecard-category-no">03 / CREATIVE &amp; KNOWLEDGE</div>
 <h3>創意．教育．知識型</h3>
 <p>適用：攝影．設計．講師．教練．教育培訓．行銷．品牌顧問．內容創作者等</p>
-<div class="ecard-open"><span>查看完整範例</span><span>↗</span></div>
+<div class="ecard-open"><span>查看完整範例</span><span>↗︎</span></div>
 </div>
 </article>
 <article class="ecard-category" onclick="openEcardViewer('finance')" role="button" tabindex="0">
@@ -2991,7 +3309,7 @@ body > .cta-band{
 <div class="ecard-category-no">04 / PROFESSIONAL SERVICE</div>
 <h3>金融．保險．專業服務類</h3>
 <p>適用：保險．理財．會計．法律．稅務．企業顧問．人資顧問．管理顧問等</p>
-<div class="ecard-open"><span>查看完整範例</span><span>↗</span></div>
+<div class="ecard-open"><span>查看完整範例</span><span>↗︎</span></div>
 </div>
 </article>
 <article class="ecard-category is-building">
@@ -3035,7 +3353,7 @@ body > .cta-band{
 <div class="v4-feature-copy">
 <div class="v4-feature-no">01</div>
 <div><span>BUSINESS IMAGE</span><h3>外貌說服力</h3><p>穿著・形象照・男士美容・體態・頭皮</p></div>
-<div class="v4-feature-arrow">↗</div>
+<div class="v4-feature-arrow">↗︎</div>
 </div>
 </a>
 <a class="v4-service-feature" href="#services" onclick="showPage('services');return false;">
@@ -3044,7 +3362,7 @@ body > .cta-band{
 <div class="v4-feature-copy">
 <div class="v4-feature-no">02</div>
 <div><span>PERSONAL BRAND</span><h3>商業影響力</h3><p>定位・說詞・短影音・LINE・電子名片</p></div>
-<div class="v4-feature-arrow">↗</div>
+<div class="v4-feature-arrow">↗︎</div>
 </div>
 </a>
 </section>
@@ -3053,7 +3371,7 @@ body > .cta-band{
 <div class="v4-works-head">
 <div class="v4-section-index">02 / SELECTED WORKS</div>
 <h2 class="v7-balanced-title"><span>我們不展示服務清單。</span><em>我們展示改變之後的樣子。</em></h2>
-<a href="#cases" onclick="showPage('cases');return false;">VIEW ALL WORKS ↗</a>
+<a href="#cases" onclick="showPage('cases');return false;">VIEW ALL WORKS ↗︎</a>
 </div>
 <div class="v4-work-grid">
 <a class="v4-work-card v4-work-wide" href="#cases" onclick="showPage('cases');return false;">
@@ -3092,7 +3410,7 @@ body > .cta-band{
 <div class="v4-section-index">03 / THE MR. METHOD</div>
 <p>BE SEEN.</p><p>BE UNDERSTOOD.</p><p>BE REMEMBERED.</p><p><i>BE REFERRED.</i></p>
 <div class="v4-statement-cn">被看見・被理解・被記住・被轉介紹</div>
-<a href="#services" onclick="showPage('services');return false;">EXPLORE THE METHOD ↗</a>
+<a href="#services" onclick="showPage('services');return false;">EXPLORE THE METHOD ↗︎</a>
 </div>
 </section>
 <!-- FOUNDER -->
@@ -3114,7 +3432,7 @@ body > .cta-band{
 <div class="v4-line-label">NOT SURE WHERE TO START?</div>
 <h2 class="v7-balanced-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
 <p>進入 MR. 官方 LINE，由 AI 初步診斷帶你找到目前最需要改善的是形象、定位，還是品牌內容。</p>
-<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">START AI BRAND CHECK ↗</a>
+<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">START AI BRAND CHECK ↗︎</a>
 </section>
 </div>
 <!-- ═══════════════════════════════════════
@@ -3215,13 +3533,13 @@ body > .cta-band{
 <div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「第一眼就信任」</div>
 </div>
 <div class="svc-list">
-<a class="svc-row" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;"><span class="svc-nm">商務形象穿著</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=photo#services" onclick="openServiceModal('photo');return false;"><span class="svc-nm">形象照拍攝</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;"><span class="svc-nm">男士快速美容</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=body#services" onclick="openServiceModal('body');return false;"><span class="svc-nm">體態管理</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;"><span class="svc-nm">頭皮護理</span><span class="svc-arr">→→</span></a>
+<a class="svc-row" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;"><span class="svc-nm">商務形象穿著</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=photo#services" onclick="openServiceModal('photo');return false;"><span class="svc-nm">形象照拍攝</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;"><span class="svc-nm">男士快速美容</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=body#services" onclick="openServiceModal('body');return false;"><span class="svc-nm">體態管理</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;"><span class="svc-nm">頭皮護理</span><span class="svc-arr">→︎→︎</span></a>
 <div class="svc-cat">延伸合作服務</div>
-<a class="svc-row" href="?service=fortune#services" onclick="openServiceModal('fortune');return false;"><span class="svc-nm">品牌 / 企業運勢</span><span class="svc-arr">→→</span></a>
+<a class="svc-row" href="?service=fortune#services" onclick="openServiceModal('fortune');return false;"><span class="svc-nm">品牌 / 企業運勢</span><span class="svc-arr">→︎→︎</span></a>
 </div>
 </div>
 </div>
@@ -3234,15 +3552,15 @@ body > .cta-band{
 </div>
 <div class="svc-list">
 <div class="svc-cat">定位清晰化</div>
-<a class="svc-row" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→→</span></a>
+<a class="svc-row" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→︎→︎</span></a>
 <div class="svc-cat">內容擴散化</div>
-<a class="svc-row" href="?service=video#services" onclick="openServiceModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→→</span></a>
+<a class="svc-row" href="?service=video#services" onclick="openServiceModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→︎→︎</span></a>
 <div class="svc-cat">形象可視化</div>
-<a class="svc-row" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="svc-nm">品牌簡報設計</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=line#services" onclick="openServiceModal('line');return false;"><span class="svc-nm">LINE 官方帳號</span><span class="svc-arr">→→</span></a>
-<a class="svc-row" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;"><span class="svc-nm">電子名片</span><span class="svc-arr">→→</span></a>
+<a class="svc-row" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="svc-nm">品牌簡報設計</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=line#services" onclick="openServiceModal('line');return false;"><span class="svc-nm">LINE 官方帳號</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;"><span class="svc-nm">電子名片</span><span class="svc-arr">→︎→︎</span></a>
 </div>
 </div>
 </div>
@@ -3253,7 +3571,7 @@ body > .cta-band{
 <div class="cta-band">
 <h2 class="rv">你的專業，<br/>值得被更多人看見</h2>
 <p class="rv d1">先從官方 LINE 的 AI 初步診斷開始，找到你目前最需要改善的品牌缺口。</p>
-<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">開始 AI 初步診斷 →</a>
+<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">開始 AI 初步診斷 →︎</a>
 </div>
 </div>
 </div>
@@ -3271,19 +3589,10 @@ body > .cta-band{
 <div class="case-entry rv" onclick="openCaseModal()">
 <div class="case-img-col">
 <div class="case-num">01</div>
-<div class="v20-case-stack">
-  <div class="v20-case-tile before">
-    <img alt="鍾師富改造前" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造前.png"/>
-    <div class="v20-case-chip">BEFORE</div>
-  </div>
-  <div class="v20-case-tile after">
-    <img alt="鍾師富改造後一" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
-    <div class="v20-case-chip gold">AFTER 01</div>
-  </div>
-  <div class="v20-case-tile after">
-    <img alt="鍾師富改造後二" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後2.png"/>
-    <div class="v20-case-chip">AFTER 02</div>
-  </div>
+<div class="v21-case-single">
+  <img alt="鍾師富改造後" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
+  <div class="v20-case-chip gold">AFTER 01</div>
+</div>
 </div>
 </div>
 <div class="case-text-col">
@@ -3296,7 +3605,7 @@ body > .cta-band{
 <div class="c-stat"><span class="cs-big">3.5倍</span><span class="cs-sub">訂單成長</span><span class="cs-lb">業績</span></div>
 <div class="c-stat"><span class="cs-big">70%</span><span class="cs-sub">溝通成本降低</span><span class="cs-lb">效率</span></div>
 </div>
-<div class="case-view-btn">查看完整改造紀錄 →</div>
+<div class="case-view-btn">查看完整改造紀錄 →︎</div>
 </div>
 </div>
 <!-- Case 2 placeholder -->
@@ -3323,35 +3632,30 @@ body > .cta-band{
         <div class="clients-v19-logo">
           <img src="assets/Mr.素材圖 - 詠順工程行logo.png" alt="詠順工程行" loading="lazy" decoding="async">
         </div>
-        <div class="clients-v19-name">詠順工程行</div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
           <img src="assets/Mr.素材圖 - 平衡之道logo.png" alt="平衡之道" loading="lazy" decoding="async">
         </div>
-        <div class="clients-v19-name">平衡之道</div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
           <img src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
         </div>
-        <div class="clients-v19-name">大象木地板</div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
           <img src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
         </div>
-        <div class="clients-v19-name">傑出油漆工程行</div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
           <img src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
         </div>
-        <div class="clients-v19-name">禾農豐食</div>
       </div>
     </div>
   </div>
@@ -3399,7 +3703,7 @@ body > .cta-band{
       </a>
 <div class="mr-footer-v17__rule"></div>
 <a class="mr-footer-v17__diagnosis" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">
-        AI 初步診斷 ↗
+        AI 初步診斷 ↗︎
       </a>
 </section>
 </div>
@@ -3519,7 +3823,7 @@ function buildEcardServiceModal(){
         <span>美業．健康類</span>
       </button>
       <button type="button" class="service-ecard-item" onclick="openEcardViewer('creative')">
-        <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png" alt="創意教育知識型">
+        <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png?v=20260829" alt="創意教育知識型">
         <span>創意．教育．知識型</span>
       </button>
       <button type="button" class="service-ecard-item" onclick="openEcardViewer('finance')">
@@ -3766,7 +4070,7 @@ const MD={
     hl:'見面前先傳連結，讓對方開啟就信任你——電子名片是你在 LINE 裡最強的自我介紹工具。',
     cases:`
       <div class="case-duo">
-        <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png" alt="MR主理人" loading="lazy" decoding="async"><div class="img-label">MR. 主理人</div></div>
+        <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.png?v=20260829" alt="MR主理人" loading="lazy" decoding="async"><div class="img-label">MR. 主理人</div></div>
         <div class="case-block"><img src="assets/Mr.素材圖 - 電子名片_大象木地板.png" alt="大象木地板" loading="lazy" decoding="async"><div class="img-label gold">大象木地板</div></div>
       </div>
       <div class="case-duo">
@@ -3790,7 +4094,7 @@ const ECARD_SHOWCASES = {
   },
   creative:{
     title:'創意．教育．知識型',
-    json:'https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/card_%E9%BD%8A%E9%BD%8A.json'
+    json:'https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/card_%E9%BD%8A%E9%BD%8A.json?v=20260829'
   },
   finance:{
     title:'金融．保險．專業服務類',
@@ -3896,10 +4200,11 @@ function getImageUrl(bubble){
   const items=bubble?.body?.contents || [];
   const image=items.find(x=>x?.type==='image');
   if(!image?.url) return '';
-  return image.url
+  const base=image.url
     .replace('https://github.com/','https://raw.githubusercontent.com/')
     .replace('/blob/main/','/main/')
     .replace(/\?raw=true$/,'');
+  return base + (base.includes('?') ? '&' : '?') + 'v=20260829';
 }
 function getFooter(bubble){
   const items=bubble?.body?.contents || [];
