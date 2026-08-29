@@ -7839,6 +7839,91 @@ img{
 }
 </style>
 
+
+<style id="v64-mobile-three-fixes">
+/* 桌機維持原本內容 */
+.v64-mobile-only{
+  display:none!important;
+}
+.v64-desktop-only{
+  display:inline!important;
+}
+
+/* ===== 手機專用 ===== */
+@media (max-width:620px){
+
+  /* 1. WHAT WE DO：手機只顯示手機版句子，杜絕重複 */
+  .v64-desktop-only{
+    display:none!important;
+  }
+
+  .v64-mobile-only{
+    display:block!important;
+  }
+
+  .v64-mobile-only > span{
+    display:block!important;
+    width:100%!important;
+  }
+
+  .v41-line-top{
+    display:block!important;
+    width:100%!important;
+  }
+
+  /* 2. 黃底跑馬燈：強制單行、不中斷、持續水平移動 */
+  .v4-marquee{
+    overflow:hidden!important;
+    white-space:nowrap!important;
+    width:100%!important;
+  }
+
+  .v4-marquee-track{
+    display:inline-block!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    max-width:none!important;
+    white-space:nowrap!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+    flex-wrap:nowrap!important;
+  }
+
+  /* 避免 V60 全域文字規則把跑馬燈文字拆開 */
+  .v4-marquee-track,
+  .v4-marquee-track *{
+    white-space:nowrap!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+
+  /* 3. 電子名片標題固定兩行 */
+  .ecard-home-title .v64-mobile-only{
+    display:block!important;
+  }
+
+  .ecard-home-title .v64-mobile-only > span{
+    display:block!important;
+    width:100%!important;
+    white-space:nowrap!important;
+    overflow-wrap:normal!important;
+    word-break:keep-all!important;
+  }
+
+  .ecard-home-title{
+    font-size:clamp(32px,8.7vw,42px)!important;
+    line-height:1.08!important;
+  }
+}
+
+/* 更窄手機：標題只縮字，不改斷句 */
+@media (max-width:390px){
+  .ecard-home-title{
+    font-size:clamp(29px,8.2vw,36px)!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -7887,7 +7972,15 @@ img{
 <section class="ecard-home" id="ecard-showcase">
 <div class="ecard-home-inner">
 <div class="ecard-home-kicker">AI DIGITAL BUSINESS CARD / 電子名片案例</div>
-<h1 class="ecard-home-title">不同產業，<br/>需要不同的電子名片。</h1>
+
+<h1 class="ecard-home-title">
+  <span class="v64-desktop-only">不同產業，<br/>需要不同的電子名片。</span>
+  <span class="v64-mobile-only">
+    <span>不同產業，</span>
+    <span>需要不同的電子名片。</span>
+  </span>
+</h1>
+
 <p class="ecard-home-intro">
           不只把聯絡方式放進手機，而是依照你的產業、客群與成交情境，
           把「你是誰、你能解決什麼、為什麼值得信任」整理成一套可以直接被分享的商務入口。
@@ -7948,8 +8041,8 @@ img{
 <div class="v13-intro-copy">
 <h2 class="v13-intro-title v22-intro-title v41-intro-title">
   <span class="v41-line v41-line-top">
-    <span class="v62-desktop-line">我們不是幫你「看起來比較好」。</span>
-    <span class="v62-mobile-line">
+    <span class="v64-desktop-only">我們不是幫你「看起來比較好」。</span>
+    <span class="v64-mobile-only">
       <span>我們不是幫你</span>
       <span>「看起來比較好」。</span>
     </span>
@@ -7977,11 +8070,11 @@ img{
 </div>
 </a>
 <a class="v4-service-feature" href="#services" onclick="showPage('services');return false;">
-<img alt="商業影響力" decoding="async" loading="lazy" src="assets/商務.png"/>
+<img alt="商務影響力" decoding="async" loading="lazy" src="assets/商務.png"/>
 <div class="v4-feature-overlay"></div>
 <div class="v4-feature-copy">
 <div class="v4-feature-no">02</div>
-<div><span>PERSONAL BRAND</span><h3>商業影響力</h3><p>定位・說詞・短影音・LINE・電子名片</p></div>
+<div><span>PERSONAL BRAND</span><h3>商務影響力</h3><p>定位・說詞・短影音・LINE・電子名片</p></div>
 <div class="v4-feature-arrow">↗︎</div>
 </div>
 </a>
@@ -8144,7 +8237,7 @@ img{
 <span class="about-sec-label rv">SERVICE MODULES</span>
 <h2 class="about-title rv d1">依你的缺口，<br/>選擇需要的服務</h2>
 <div class="about-divider rv d2"></div>
-<p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:580px;margin-bottom:2.5rem;">服務分成「外貌說服力」與「商業影響力」兩大模組。初步診斷後，再依你目前最重要的品牌缺口安排，不需要一次全部做。</p>
+<p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:580px;margin-bottom:2.5rem;">服務分成「外貌說服力」與「商務影響力」兩大模組。初步診斷後，再依你目前最重要的品牌缺口安排，不需要一次全部做。</p>
 <div class="track-grid rv d2">
 <!-- Track 1 -->
 <div>
@@ -8168,7 +8261,7 @@ img{
 <div>
 <div class="track-box dark">
 <div class="track-head">
-<span class="track-tag tag-gold">02 商業影響力</span>
+<span class="track-tag tag-gold">02 商務影響力</span>
 <div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「主動介紹你」</div>
 </div>
 <div class="svc-list">
@@ -8847,7 +8940,7 @@ const MD={
 `
   },
   gains:{
-    tag:'商業影響力',title:'GAINS 表撰寫',
+    tag:'商務影響力',title:'GAINS 表撰寫',
     desc:'在填寫 GAINS 表之前，很多人卡在「不知道怎麼寫自己的品牌」——我們透過深度對談，帶你一步步釐清品牌定位、核心價值與市場優勢。',
     items:['GAINS 表各欄位引導撰寫','深度對談（1.5–2小時）','完稿校對與最終版本確認'],
     hl:'GAINS 表，是你的品牌說明書。一次對談，讓你在商會第一次亮相就留下印象。',
@@ -8858,14 +8951,14 @@ const MD={
       </div>`
   },
   script:{
-    tag:'商業影響力',title:'商務說詞架構',
+    tag:'商務影響力',title:'商務說詞架構',
     desc:'你在飯局、電梯、初次見面時說的那幾句話，決定了對方要不要記住你。我們幫你打造一套自然、精準、有說服力的商務自我介紹與說話架構。',
     items:['價值主張句型設計（你和其他人有什麼不同）','客戶常見疑慮應對話術','完稿校對與最終版本確認'],
     hl:'話說對了，客戶自己會主動問「你有沒有朋友也在做這個？」',
     cases:``
   },
   video:{
-    tag:'商業影響力',title:'商業短影音/貼文',
+    tag:'商務影響力',title:'商業短影音/貼文',
     desc:'短影音是目前觸及新客最有效的內容形式。我們幫你規劃、拍攝、剪輯符合你品牌調性的商業短影音，讓你的專業被更多潛在客戶看見。',
     items:['短影音內容策略規劃（主題 / 風格 / 頻率）','腳本撰寫與拍攝指導','後製剪輯與發佈'],
     hl:'我們客戶鍾師傅透過短影音，新客觸及率達到 85%，訂單 3.5 倍成長。你的技術也值得被更多人看見。',
@@ -8884,7 +8977,7 @@ const MD={
       <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>`
   },
   sticker:{
-    tag:'商業影響力',title:'專屬貼圖設計',
+    tag:'商務影響力',title:'專屬貼圖設計',
     desc:'專屬品牌貼圖是台灣獨有的人際行銷利器。當你的貼圖在對話框裡出現，你的品牌就在悄悄傳播，默默地幫你打廣告。',
     items:['品牌形象貼圖概念設計','LINE 貼圖上架格式製作','電子檔完整交付'],
     hl:'在台灣，貼圖就是最低成本、最高傳播力的品牌工具。',
@@ -8893,7 +8986,7 @@ const MD={
       <div class="case-block"><img src="assets/貼圖_案例2.png" alt="貼圖案例2" loading="lazy" decoding="async"><div class="img-label">貼圖設計 · 案例 02</div></div>`
   },
   deck:{
-    tag:'商業影響力',title:'品牌簡報設計',
+    tag:'商務影響力',title:'品牌簡報設計',
     desc:'無論是業務提案、簽約前的介紹，還是初次見面的自我介紹，一份設計精良的品牌簡報能讓你的專業度瞬間提升一個等級。以 PDF 格式交付，方便隨時分享給客戶。',
     items:['內容架構規劃（故事線設計）','PDF 格式交付，可直接傳送給客戶或列印','適用場景：自我介紹、短講、活動演講、公司內部'],
     hl:'不是只有大企業才需要好簡報。一份精美的品牌簡報，就是在說「我認真對待每一個客戶」。',
@@ -8904,7 +8997,7 @@ const MD={
       <div class="case-block"><img src="assets/品牌簡報_公司內部.png" alt="公司內部簡報" loading="lazy" decoding="async"><div class="img-label gold">品牌簡報 · 公司內部</div></div>`
   },
   line:{
-    tag:'商業影響力',title:'LINE 官方帳號',
+    tag:'商務影響力',title:'LINE 官方帳號',
     desc:'LINE 是台灣最主要的商業溝通工具。一個設計完整的 LINE@ 帳號，能讓客戶第一次接觸就感受到你的專業與用心。我們會先進行 1 對 1 諮詢，深入了解你的品牌定位與客戶使用情境，再量身設計。',
     items:['1 對 1 品牌諮詢——了解你的客戶使用情境','內容架構規劃（故事線設計）','圖文選單設計（服務介紹 / 預約 / 聯絡）','適用場景：業務拜訪、簽約前介紹、自我介紹'],
     hl:'LINE@ 是你的「數位門面」——客戶加你的第一秒，就在判斷你值不值得信任。',
@@ -8915,7 +9008,7 @@ const MD={
       </div>`
   },
   ecard:{
-    tag:'商業影響力',title:'電子名片',
+    tag:'商務影響力',title:'電子名片',
     desc:'專為 LINE 聊天室設計的個人品牌頁面——可以直接在對話中傳送連結，讓對方一鍵開啟、30 秒內理解你的價值。比實體名片更有說服力，在 LINE 對話中傳送即可使用。',
     items:['個人品牌定位梳理與文案撰寫','可直接在 LINE 聊天室傳送，對方一鍵開啟','手機版優化，開啟即完整呈現，無需下載 App'],
     hl:'見面前先傳連結，讓對方開啟就信任你——電子名片是你在 LINE 裡最強的自我介紹工具。',
