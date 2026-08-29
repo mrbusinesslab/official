@@ -2789,6 +2789,112 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v20-case-layout">
+/* ===== Selected Works：鍾師富前後對照 ===== */
+.v20-work-beforeafter{
+  padding:22px!important;
+  background:#0d0d0d!important;
+}
+.v20-ba-grid{
+  display:grid!important;
+  grid-template-columns:1.05fr 1fr 1fr!important;
+  gap:14px!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:720px!important;
+}
+.v20-ba-shot{
+  position:relative!important;
+  overflow:hidden!important;
+  background:#151515!important;
+}
+.v20-ba-shot img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  display:block!important;
+}
+.v20-ba-before img{
+  object-position:center top!important;
+}
+.v20-ba-label,
+.v20-case-chip{
+  position:absolute!important;
+  left:14px!important;
+  bottom:14px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  padding:7px 12px!important;
+  font-size:11px!important;
+  letter-spacing:.12em!important;
+  line-height:1!important;
+  font-weight:700!important;
+  color:#ffffff!important;
+  background:rgba(0,0,0,.62)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  backdrop-filter:blur(5px)!important;
+}
+.v20-ba-label.gold,
+.v20-case-chip.gold{
+  color:#e0bf72!important;
+}
+
+/* ===== 品牌案例頁：鍾師富 case 圖片 ===== */
+.v20-case-stack{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:10px!important;
+  width:100%!important;
+  align-items:stretch!important;
+}
+.v20-case-tile{
+  position:relative!important;
+  overflow:hidden!important;
+  min-height:360px!important;
+  background:#e8e2d8!important;
+}
+.v20-case-tile img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  display:block!important;
+}
+
+/* 讓案例圖欄寬一點，文字仍保留舒服比例 */
+#page-cases .case-entry{
+  grid-template-columns:minmax(400px, 1.15fr) minmax(0, 1fr)!important;
+}
+#page-cases .case-img-col{
+  padding-right:24px!important;
+}
+
+/* 手機版自動改成上下排列 */
+@media (max-width: 980px){
+  .v20-ba-grid{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+  }
+  .v20-ba-shot{
+    min-height:340px!important;
+  }
+  #page-cases .case-entry{
+    grid-template-columns:1fr!important;
+  }
+  #page-cases .case-img-col{
+    padding-right:0!important;
+  }
+  .v20-case-stack{
+    grid-template-columns:1fr!important;
+  }
+  .v20-case-tile{
+    min-height:300px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -2951,16 +3057,31 @@ body > .cta-band{
 </div>
 <div class="v4-work-grid">
 <a class="v4-work-card v4-work-wide" href="#cases" onclick="showPage('cases');return false;">
-<div class="v4-work-img v19-work-person"><img alt="詠順工程行 鍾師富品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/></div>
+<div class="v4-work-img v20-work-beforeafter">
+  <div class="v20-ba-grid">
+    <div class="v20-ba-shot v20-ba-before">
+      <img alt="鍾師富改造前" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造前.png"/>
+      <div class="v20-ba-label">BEFORE</div>
+    </div>
+    <div class="v20-ba-shot v20-ba-after">
+      <img alt="鍾師富改造後一" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
+      <div class="v20-ba-label gold">AFTER 01</div>
+    </div>
+    <div class="v20-ba-shot v20-ba-after">
+      <img alt="鍾師富改造後二" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後2.png"/>
+      <div class="v20-ba-label">AFTER 02</div>
+    </div>
+  </div>
+</div>
 <div class="v4-work-meta"><span>01 / PERSONAL BRAND</span><h3>鍾師富｜從工程師傅，到被記住的抓漏專家</h3><small>IMAGE / CONTENT / SHORT VIDEO / E-CARD</small></div>
 </a>
 <a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
-<div class="v4-work-img v19-work-cardimg"><img alt="財務規劃師電子名片案例" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png"/></div>
-<div class="v4-work-meta"><span>02 / DIGITAL IDENTITY</span><h3>財務規劃師｜讓陌生客 30 秒內理解專業</h3><small>POSITION / COPY / E-CARD</small></div>
+<div class="v4-work-img v19-work-cardimg"><img alt="美股投資教練電子名片案例" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png"/></div>
+<div class="v4-work-meta"><span>02 / DIGITAL IDENTITY</span><h3>美股投資教練｜讓陌生客 30 秒內理解專業</h3><small>POSITION / COPY / E-CARD</small></div>
 </a>
 <a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
 <div class="v4-work-img v19-work-cardimg"><img alt="傑出油漆工程行品牌案例" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 電子名片_傑出油漆.png"/></div>
-<div class="v4-work-meta"><span>03 / BRAND TOOL</span><h3>傑出油漆｜把職人工藝變成可被分享的品牌</h3><small>POSITION / E-CARD / VISUAL</small></div>
+<div class="v4-work-meta"><span>03 / BRAND TOOL</span><h3>傑出油漆｜把施工專長整理成一張好分享的合作名片</h3><small>POSITION / E-CARD / PARTNER TRUST</small></div>
 </a>
 </div>
 </section>
@@ -3150,7 +3271,20 @@ body > .cta-band{
 <div class="case-entry rv" onclick="openCaseModal()">
 <div class="case-img-col">
 <div class="case-num">01</div>
-<img alt="鍾師富" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
+<div class="v20-case-stack">
+  <div class="v20-case-tile before">
+    <img alt="鍾師富改造前" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造前.png"/>
+    <div class="v20-case-chip">BEFORE</div>
+  </div>
+  <div class="v20-case-tile after">
+    <img alt="鍾師富改造後一" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
+    <div class="v20-case-chip gold">AFTER 01</div>
+  </div>
+  <div class="v20-case-tile after">
+    <img alt="鍾師富改造後二" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後2.png"/>
+    <div class="v20-case-chip">AFTER 02</div>
+  </div>
+</div>
 </div>
 <div class="case-text-col">
 <div class="case-identity">詠順工程行老闆・抓漏專家</div>
@@ -3637,7 +3771,7 @@ const MD={
       </div>
       <div class="case-duo">
         <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富" loading="lazy" decoding="async"><div class="img-label">詠順工程行 鍾師富</div></div>
-        <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png" alt="財務規劃師" loading="lazy" decoding="async"><div class="img-label gold">財務規劃師</div></div>
+        <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png" alt="美股投資教練" loading="lazy" decoding="async"><div class="img-label gold">美股投資教練</div></div>
       </div>
       <div class="case-block" style="max-width:50%;"><img src="assets/Mr.素材圖 - 電子名片_傑出油漆.png" alt="傑出油漆" loading="lazy" decoding="async"><div class="img-label">傑出油漆工程行</div></div>`
   }
