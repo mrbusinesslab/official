@@ -7101,7 +7101,7 @@ body > .cta-band{
 <div class="ecard-category-grid">
 <article class="ecard-category" onclick="openEcardViewer('engineering')" role="button" tabindex="0">
 <div class="ecard-category-preview">
-<img alt="工程居家類電子名片" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png"/>
+<img alt="工程居家類電子名片" src="assets/電子名片_鍾師富.png"/>
 </div>
 <div class="ecard-category-body">
 <div class="ecard-category-no">01 / ENGINEERING</div>
@@ -7735,7 +7735,7 @@ function buildEcardServiceModal(){
     <p class="m-desc">依照不同產業的成交情境，電子名片會安排不同的內容順序與行動按鈕。點擊下方分類，可直接查看完整範例。</p>
     <div class="service-ecard-grid">
       <button type="button" class="service-ecard-item" onclick="openEcardViewer('engineering')">
-        <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="工程居家類">
+        <img src="assets/電子名片_鍾師富.png" alt="工程居家類">
         <span>工程．居家類</span>
       </button>
       <button type="button" class="service-ecard-item" onclick="openEcardViewer('beauty')">
@@ -8124,7 +8124,7 @@ const MD={
         <div class="case-block"><img src="assets/電子名片_大象木地板.png" alt="大象木地板" loading="lazy" decoding="async"><div class="img-label gold">大象木地板</div></div>
       </div>
       <div class="case-duo">
-        <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富" loading="lazy" decoding="async"><div class="img-label">詠順工程行 鍾師富</div></div>
+        <div class="case-block"><img src="assets/電子名片_鍾師富.png" alt="鍾師富" loading="lazy" decoding="async"><div class="img-label">詠順工程行 鍾師富</div></div>
         <div class="case-block"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png" alt="美股投資教練" loading="lazy" decoding="async"><div class="img-label gold">美股投資教練</div></div>
       </div>
       <div class="case-block" style="max-width:50%;"><img src="assets/電子名片_傑出油漆.png" alt="傑出油漆" loading="lazy" decoding="async"><div class="img-label">傑出油漆工程行</div></div>`
@@ -8510,6 +8510,92 @@ document.addEventListener('click', function(e){
   item.classList.toggle('is-mobile-open', !isOpen);
   btn.setAttribute('aria-expanded', String(!isOpen));
 });
+</script>
+<script id="v54-ecard-image-fallback">
+document.addEventListener('error', function(e){
+  const img = e.target;
+  if(!(img instanceof HTMLImageElement)) return;
+
+  const src = img.getAttribute('src') || '';
+  if(src.includes('電子名片_鍾師富.png') && !img.dataset.fallbackTried){
+    img.dataset.fallbackTried = '1';
+    img.src = 'https://raw.githubusercontent.com/mrbusinesslab/official/main/MR/assets/%E9%9B%BB%E5%AD%90%E5%90%8D%E7%89%87_%E9%8D%BE%E5%B8%AB%E5%AF%8C.png?v=' + Date.now();
+  }
+}, true);
+</script>
+
+
+<script id="v55-global-github-image-cache-bust">
+(function(){
+  const PAGE_STAMP = Date.now().toString();
+
+  function shouldBust(src){
+    if(!src) return false;
+
+    const clean = src.split('?')[0];
+
+    // 官網 repo 內本地資產
+    if(clean.startsWith('assets/')) return true;
+
+    // MR business lab GitHub Raw 圖片
+    if(/^https:\/\/raw\.githubusercontent\.com\/mrbusinesslab\//i.test(clean)) return true;
+
+    // GitHub Pages 上的 MR business lab 圖片
+    if(/^https:\/\/mrbusinesslab\.github\.io\//i.test(clean)) return true;
+
+    return false;
+  }
+
+  function bustOneImage(img){
+    if(!(img instanceof HTMLImageElement)) return;
+
+    const raw = img.getAttribute('src');
+    if(!shouldBust(raw)) return;
+
+    const clean = raw.split('?')[0];
+    const next = clean + '?v=' + PAGE_STAMP;
+
+    if(raw !== next){
+      img.setAttribute('src', next);
+    }
+  }
+
+  function bustImages(root=document){
+    if(root instanceof HTMLImageElement){
+      bustOneImage(root);
+      return;
+    }
+
+    if(root.querySelectorAll){
+      root.querySelectorAll('img').forEach(bustOneImage);
+    }
+  }
+
+  function init(){
+    bustImages(document);
+
+    // modal、電子名片 viewer、案例內容都是動態產生，因此持續監看新增圖片
+    const observer = new MutationObserver(mutations=>{
+      for(const mutation of mutations){
+        mutation.addedNodes.forEach(node=>{
+          if(node.nodeType !== 1) return;
+          bustImages(node);
+        });
+      }
+    });
+
+    observer.observe(document.body,{
+      childList:true,
+      subtree:true
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init, {once:true});
+  }else{
+    init();
+  }
+})();
 </script>
 
 </body>
