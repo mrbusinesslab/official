@@ -205,7 +205,6 @@ nav.light .nav-links a{color:var(--ink2);}
 .case-num{font-family:'Bodoni Moda',serif;font-size:72px;font-weight:300;color:var(--border);line-height:1;margin-bottom:.4rem;}
 .case-img-col img{width:100%;height:auto;display:block;transition:transform .4s;}
 .case-entry:hover .case-img-col img{transform:scale(1.02);}
-.case-placeholder{width:100%;height:300px;background:var(--cream);}
 .case-text-col{padding-top:.5rem;}
 .case-identity{font-family:'Manrope',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:.35rem;}
 .case-name{font-family:'Noto Sans TC',serif;font-size:34px;font-weight:400;color:var(--ink);margin-bottom:.75rem;}
@@ -392,10 +391,7 @@ nav.light .nav-links a{color:var(--ink2);}
 .s-val{font-family:'Bodoni Moda',serif;font-size:22px;font-weight:300;color:var(--ink);display:block;}
 .s-lb{font-size:10px;color:var(--ink2);display:block;}
 
-/* ── placeholder ── */
-.case-placeholder-box{background:var(--cream);border:1px dashed var(--border);padding:2rem 1.5rem;text-align:center;}
-.case-placeholder-box .cp-icon{font-size:22px;margin-bottom:.5rem;opacity:.3;}
-.case-placeholder-box .cp-text{font-family:'Manrope',monospace;font-size:9px;letter-spacing:2px;color:var(--ink2);line-height:1.8;}
+
 /* contact footer in modal */
 .m-contact{margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--border);}
 .m-contact-label{font-family:'Manrope',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:.5rem;}
@@ -4269,15 +4265,6 @@ body > .cta-band{
     <div class="case-view-btn">查看完整改造紀錄 →︎</div>
   </div>
 </div>
-<!-- Case 2 placeholder -->
-<div class="case-entry rv" style="opacity:.4;pointer-events:none;">
-<div class="case-img-col">
-<div class="case-num">02</div>
-<div class="case-placeholder"></div>
-</div>
-<div class="case-text-col" style="padding-top:.5rem;">
-<h3 class="case-name" style="font-size:22px;color:var(--ink2);">更多案例陸續公開⋯</h3>
-</div>
 </div>
 </div>
 </div>
@@ -4777,6 +4764,7 @@ function destinationLabel(uri='',buttonText=''){
   if(u.includes('liff.line.me')) return '分享電子名片';
 
   if(u.includes('line.me') || u.includes('lin.ee')){
+    if(t.includes('預約抓漏')) return '企業 LINE@';
     if(t.includes('官方') || t.includes('客服')) return '企業 LINE@';
     if(t.includes('預約') || t.includes('一對一') || t.includes('洽談') || t.includes('陪你') || t.includes('好友')) return '個人 LINE';
     return 'LINE';
@@ -4926,7 +4914,8 @@ function renderOverviewCard(bubble,index,title){
       </div>
     </div>`;
 }
-function renderExplanation(bubble,index){
+function renderExplanation(bubble,index,key){
+  if(key==='beauty' && index===4) return '';
   const buttons=getButtons(bubble);
   return `
     <section class="ecard-explain-item">
@@ -4985,7 +4974,7 @@ async function openEcardViewer(key){
       <div class="ecard-explain-section">
         <div class="ecard-view-section-title">每頁的設計目的與連結說明</div>
         <div class="ecard-explain-list">
-          ${bubbles.map((b,i)=>renderExplanation(b,i)).join('')}
+          ${bubbles.map((b,i)=>renderExplanation(b,i,key)).join('')}
         </div>
       </div>`;
   }catch(err){
