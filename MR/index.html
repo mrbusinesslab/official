@@ -7043,34 +7043,6 @@ body > .cta-band{
   .v53-real-top strong{font-size:9px;}
 }
 </style>
-
-
-<style id="v56-zhong-json-card-style">
-.v56-json-card{min-width:0;}
-.v56-json-card img{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:2/3;
-  object-fit:contain;
-  background:#f3efe8;
-}
-.v56-json-page{
-  margin-bottom:7px;
-  font-family:'Manrope',sans-serif;
-  font-size:8px;
-  letter-spacing:.15em;
-  color:#9c8b70;
-}
-.v56-json-loading{
-  width:100%;
-  padding:2rem;
-  text-align:center;
-  color:#8b8174;
-  font-size:12px;
-}
-</style>
-
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -7924,10 +7896,10 @@ function openCaseModal(){
 
       <div class="v49-zhong-action-col">
         <div class="m-cases-label">電子名片</div>
-        <button class="v48-ecard-open v49-zhong-action-link" type="button" onclick="closeModal();setTimeout(()=>openZhongEcardFromJson(),120);" aria-label="查看鍾師富完整電子名片">
+        <button class="v48-ecard-open v49-zhong-action-link" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
           <div class="case-block v48-ecard-preview v49-zhong-action-block">
             <div class="v48-ecard-image-wrap v49-zhong-action-frame">
-              <img id="zhongCaseEcardPreview" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
+              <img src="assets/電子名片_鍾師富.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
               <span class="v48-ecard-badge">查看完整名片 ↗︎</span>
             </div>
             <div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div>
@@ -8624,98 +8596,5 @@ document.addEventListener('error', function(e){
   }
 })();
 </script>
-
-
-<script id="v56-zhong-ecard-json">
-(function(){
-  const ZHONG_JSON = 'https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/card_%E9%8D%BE%E5%B8%AB%E5%AF%8C.json';
-
-  function toRawGithub(url){
-    if(!url) return '';
-    try{
-      const u = new URL(url);
-      if(u.hostname === 'github.com' && u.pathname.includes('/blob/')){
-        const p = u.pathname.split('/').filter(Boolean);
-        const bi = p.indexOf('blob');
-        if(bi >= 0){
-          const owner = p[0], repo = p[1], branch = p[bi+1];
-          const path = p.slice(bi+2).join('/');
-          return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
-        }
-      }
-      return url.split('?')[0];
-    }catch(e){
-      return url;
-    }
-  }
-
-  function imageFromBubble(bubble){
-    const items = bubble?.body?.contents || [];
-    const image = items.find(x => x?.type === 'image' && x?.url);
-    return image ? toRawGithub(image.url) : '';
-  }
-
-  async function loadJson(){
-    const r = await fetch(ZHONG_JSON + '?v=' + Date.now(), { cache:'no-store' });
-    if(!r.ok) throw new Error('JSON load failed');
-    return r.json();
-  }
-
-  window.refreshZhongCaseEcardPreview = async function(){
-    const img = document.getElementById('zhongCaseEcardPreview');
-    if(!img) return;
-    try{
-      const data = await loadJson();
-      const first = data?.contents?.[0];
-      const src = imageFromBubble(first);
-      if(src) img.src = src + '?v=' + Date.now();
-    }catch(e){
-      console.warn('鍾師富電子名片預覽載入失敗', e);
-    }
-  };
-
-  window.openZhongEcardFromJson = async function(){
-    const viewer = document.getElementById('ecardViewer');
-    const grid = document.getElementById('ecardViewerGrid');
-    const title = document.getElementById('ecardViewerTitle');
-    if(!viewer || !grid) return;
-
-    if(title) title.textContent = '鍾師富｜完整電子名片';
-    grid.innerHTML = '<div class="v56-json-loading">電子名片載入中⋯</div>';
-    viewer.classList.add('open');
-    viewer.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-
-    try{
-      const data = await loadJson();
-      const pages = (data?.contents || []).map((bubble, i) => ({
-        n:i+1,
-        src:imageFromBubble(bubble)
-      })).filter(x => x.src);
-
-      if(!pages.length) throw new Error('No card images');
-
-      grid.innerHTML = pages.map(p => `
-        <div class="v56-json-card">
-          <div class="v56-json-page">PAGE ${String(p.n).padStart(2,'0')}</div>
-          <img src="${p.src}?v=${Date.now()}" alt="鍾師富電子名片第 ${p.n} 頁" loading="lazy" decoding="async">
-        </div>
-      `).join('');
-    }catch(e){
-      console.error(e);
-      grid.innerHTML = '<div class="v56-json-loading">電子名片暫時無法載入</div>';
-    }
-  };
-
-  // openCaseModal 是動態插入 modal HTML，因此包一層，在開啟後再依 JSON 更新第一頁預覽
-  document.addEventListener('click', function(e){
-    const caseEntry = e.target.closest('.case-entry');
-    if(caseEntry){
-      setTimeout(() => window.refreshZhongCaseEcardPreview?.(), 120);
-    }
-  });
-})();
-</script>
-
 </body>
 </html>
