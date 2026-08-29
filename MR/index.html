@@ -6304,6 +6304,105 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v49-zhong-actions-desktop-row">
+/* 鍾師傅案例最後：LINE@ / 電子名片 */
+.v49-zhong-actions-grid{
+  display:block;
+}
+
+.v49-zhong-action-col{
+  display:block;
+}
+
+.v49-zhong-action-link{
+  color:inherit;
+  text-decoration:none;
+}
+
+.v49-zhong-action-block{
+  margin:0;
+}
+
+@media(min-width:721px){
+  .v49-zhong-actions-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:26px!important;
+    align-items:start!important;
+    margin-top:.35rem!important;
+  }
+
+  .v49-zhong-action-col{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    min-width:0!important;
+  }
+
+  .v49-zhong-action-col .m-cases-label{
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  .v49-zhong-action-link{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  .v49-zhong-action-block,
+  .v49-zhong-action-col .case-block,
+  .v49-zhong-action-col .v48-ecard-preview{
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  .v49-zhong-action-frame,
+  .v49-zhong-action-col .ph-frame,
+  .v49-zhong-action-col .v48-ecard-image-wrap{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:340px!important;
+    background:#f4efe5!important;
+    overflow:hidden!important;
+  }
+
+  .v49-zhong-action-col .ph-frame img,
+  .v49-zhong-action-col .v48-ecard-image-wrap img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    background:transparent!important;
+  }
+
+  .v49-zhong-action-col .img-label{
+    padding-top:10px!important;
+  }
+
+  .v49-zhong-action-link:hover .v49-zhong-action-frame{
+    background:#efe8db!important;
+  }
+}
+
+/* 手機維持上下排列 */
+@media(max-width:720px){
+  .v49-zhong-actions-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:0!important;
+  }
+
+  .v49-zhong-action-col + .v49-zhong-action-col{
+    margin-top:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -7047,27 +7146,33 @@ function openCaseModal(){
       </div>
     </section>
 
-    <div class="m-cases-label">LINE@ 帳號</div>
-    <a class="v47-line-link" href="https://line.me/R/ti/p/@799ydgjw?oat_content=url&ts=09231946" target="_blank" rel="noopener" aria-label="開啟詠順工程行 LINE 官方帳號">
-      <div class="case-block" style="max-width:280px;">
-        <div class="ph-frame">
-          <img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async">
-          <span class="v47-line-badge">OPEN LINE ↗︎</span>
-        </div>
-        <div class="img-label">LINE@ · 詠順工程行</div>
+    <div class="v49-zhong-actions-grid">
+      <div class="v49-zhong-action-col">
+        <div class="m-cases-label">LINE@ 帳號</div>
+        <a class="v47-line-link v49-zhong-action-link" href="https://line.me/R/ti/p/@799ydgjw?oat_content=url&ts=09231946" target="_blank" rel="noopener" aria-label="開啟詠順工程行 LINE 官方帳號">
+          <div class="case-block v49-zhong-action-block">
+            <div class="ph-frame v49-zhong-action-frame">
+              <img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async">
+              <span class="v47-line-badge">OPEN LINE ↗︎</span>
+            </div>
+            <div class="img-label">LINE@ · 詠順工程行</div>
+          </div>
+        </a>
       </div>
-    </a>
 
-    <div class="m-cases-label">電子名片</div>
-    <button class="v48-ecard-open" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
-      <div class="case-block v48-ecard-preview">
-        <div class="v48-ecard-image-wrap">
-          <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
-          <span class="v48-ecard-badge">查看完整名片 ↗︎</span>
-        </div>
-        <div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div>
+      <div class="v49-zhong-action-col">
+        <div class="m-cases-label">電子名片</div>
+        <button class="v48-ecard-open v49-zhong-action-link" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
+          <div class="case-block v48-ecard-preview v49-zhong-action-block">
+            <div class="v48-ecard-image-wrap v49-zhong-action-frame">
+              <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%98%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
+              <span class="v48-ecard-badge">查看完整名片 ↗︎</span>
+            </div>
+            <div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div>
+          </div>
+        </button>
       </div>
-    </button>
+    </div>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
