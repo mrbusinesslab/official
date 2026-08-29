@@ -7043,6 +7043,133 @@ body > .cta-band{
   .v53-real-top strong{font-size:9px;}
 }
 </style>
+
+<style id="v59-mobile-text-safety">
+/* ===== 手機文字安全：優先斷行，其次縮字，不允許橫向溢出 ===== */
+@media (max-width: 620px){
+
+  html, body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  /* 所有主要文字內容允許自然斷行 */
+  h1,h2,h3,h4,p,
+  .v4-hero-display,
+  .ecard-home-title,
+  .ecard-home-intro,
+  .v41-line,
+  .about-title,
+  .about-desc,
+  .v50-ops-title,
+  .v50-case-system-title,
+  .m-desc,
+  .m-hl,
+  .m-items li,
+  .v53-real-caption,
+  .img-label,
+  .ecard-category-body p{
+    max-width:100%;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    white-space:normal;
+  }
+
+  /* Hero 太大的英文字在窄手機自動縮小 */
+  .v4-hero-display{
+    font-size:clamp(48px,15vw,72px)!important;
+    line-height:.9!important;
+    letter-spacing:-.045em!important;
+  }
+
+  /* 電子名片首頁大標 */
+  .ecard-home-title{
+    font-size:clamp(34px,10vw,48px)!important;
+    line-height:1.08!important;
+  }
+
+  /* WHAT WE DO 兩句：保留語意，不硬擠成一行 */
+  .v41-line{
+    display:block!important;
+    width:100%!important;
+    font-size:clamp(30px,8.7vw,42px)!important;
+    line-height:1.12!important;
+  }
+
+  /* 內頁大標題 */
+  .about-title{
+    font-size:clamp(42px,12vw,58px)!important;
+    line-height:.98!important;
+  }
+
+  /* 品牌營運工具與案例中的長標題 */
+  .v50-ops-title,
+  .v50-case-system-title{
+    font-size:clamp(27px,7.7vw,38px)!important;
+    line-height:1.16!important;
+  }
+
+  /* Modal 內容避免因單字或網址撐寬 */
+  .modal-content,
+  .modal-inner,
+  .m-desc,
+  .m-items,
+  .m-hl{
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  /* 行動按鈕與標籤文字 */
+  .cta-btn,
+  .nav-cta,
+  .ecard-open,
+  .v48-ecard-badge,
+  .v47-line-badge{
+    max-width:100%;
+    white-space:normal;
+    text-align:center;
+    line-height:1.35;
+  }
+
+  /* 小尺寸手機再多一層保護 */
+  @media (max-width: 390px){
+    .v4-hero-display{
+      font-size:clamp(44px,14vw,58px)!important;
+    }
+
+    .v41-line{
+      font-size:clamp(28px,8.2vw,36px)!important;
+    }
+
+    .ecard-home-title{
+      font-size:clamp(32px,9.5vw,42px)!important;
+    }
+
+    .v50-ops-title,
+    .v50-case-system-title{
+      font-size:clamp(25px,7.4vw,34px)!important;
+    }
+  }
+}
+</style>
+
+
+<style id="v59-image-layout-safety">
+img{
+  max-width:100%;
+}
+@media(max-width:620px){
+  .v53-real-frame img,
+  .ecard-category-preview img,
+  .v48-ecard-image-wrap img,
+  .ph-frame img,
+  .case-block img{
+    width:100%;
+    height:auto;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8510,66 +8637,59 @@ document.addEventListener('click', function(e){
   btn.setAttribute('aria-expanded', String(!isOpen));
 });
 </script>
-<script id="v55-global-github-image-cache-bust">
+
+<script id="v59-stable-image-version">
 (function(){
-  const PAGE_STAMP = Date.now().toString();
+  const IMAGE_VERSION = '20260829';
 
-  function shouldBust(src){
+  function shouldVersion(src){
     if(!src) return false;
-
     const clean = src.split('?')[0];
 
-    // 官網 repo 內本地資產
     if(clean.startsWith('assets/')) return true;
-
-    // MR business lab GitHub Raw 圖片
     if(/^https:\/\/raw\.githubusercontent\.com\/mrbusinesslab\//i.test(clean)) return true;
-
-    // GitHub Pages 上的 MR business lab 圖片
     if(/^https:\/\/mrbusinesslab\.github\.io\//i.test(clean)) return true;
 
     return false;
   }
 
-  function bustOneImage(img){
+  function versionImage(img){
     if(!(img instanceof HTMLImageElement)) return;
-
     const raw = img.getAttribute('src');
-    if(!shouldBust(raw)) return;
+    if(!shouldVersion(raw)) return;
 
     const clean = raw.split('?')[0];
-    const next = clean + '?v=' + PAGE_STAMP;
+    const next = clean + '?v=' + IMAGE_VERSION;
 
     if(raw !== next){
       img.setAttribute('src', next);
     }
   }
 
-  function bustImages(root=document){
+  function applyVersions(root=document){
     if(root instanceof HTMLImageElement){
-      bustOneImage(root);
+      versionImage(root);
       return;
     }
-
     if(root.querySelectorAll){
-      root.querySelectorAll('img').forEach(bustOneImage);
+      root.querySelectorAll('img').forEach(versionImage);
     }
   }
 
   function init(){
-    bustImages(document);
+    applyVersions(document);
 
-    // modal、電子名片 viewer、案例內容都是動態產生，因此持續監看新增圖片
+    // modal / 電子名片為動態內容，新增圖片時同樣套固定版本號
     const observer = new MutationObserver(mutations=>{
       for(const mutation of mutations){
         mutation.addedNodes.forEach(node=>{
           if(node.nodeType !== 1) return;
-          bustImages(node);
+          applyVersions(node);
         });
       }
     });
 
-    observer.observe(document.body,{
+    observer.observe(document.body, {
       childList:true,
       subtree:true
     });
@@ -8582,5 +8702,6 @@ document.addEventListener('click', function(e){
   }
 })();
 </script>
+
 </body>
 </html>
