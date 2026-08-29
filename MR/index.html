@@ -4745,6 +4745,373 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v36-mobile-refinement">
+@media(max-width:720px){
+  .v36-intro-title{
+    width:100%!important;max-width:100%!important;
+    font-size:34px!important;line-height:1.16!important;
+    letter-spacing:-.045em!important;word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+  .v36-intro-title>span,.v36-intro-title>em,.v36-intro-title>em>span{
+    display:block!important;width:auto!important;max-width:100%!important;white-space:normal!important;
+  }
+  .v36-intro-title>em{margin-top:8px!important}
+
+  .v20-work-beforeafter{position:relative!important}
+  .v20-work-beforeafter::after{
+    content:'自動播放｜也可左右滑動'!important;
+    margin-top:8px!important;text-align:left!important;
+    font-size:10px!important;letter-spacing:.08em!important;
+    color:rgba(255,255,255,.42)!important;
+  }
+  .v36-ba-dots{display:flex!important;justify-content:center!important;gap:7px!important;margin-top:12px!important}
+  .v36-ba-dots span{display:block!important;width:5px!important;height:5px!important;border-radius:50%!important;background:rgba(255,255,255,.28)!important;transition:.25s!important}
+  .v36-ba-dots span.is-active{width:22px!important;border-radius:99px!important;background:#c3a76d!important}
+
+  .v4-founder{
+    display:flex!important;flex-direction:column!important;gap:0!important;
+    padding:78px 18px 88px!important;
+    background:radial-gradient(circle at 86% 8%,rgba(184,149,58,.14),transparent 34%),#f2ede3!important;
+  }
+  .v36-founder-image{
+    position:relative!important;width:100%!important;height:auto!important;
+    aspect-ratio:4/5!important;overflow:hidden!important;background:#d9d1c3!important;
+  }
+  .v36-founder-image::after{
+    content:''!important;position:absolute!important;inset:0!important;
+    background:linear-gradient(to top,rgba(13,12,10,.5),transparent 42%)!important;
+  }
+  .v36-founder-image img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important}
+  .v36-founder-photo-tag{
+    position:absolute!important;left:16px!important;right:16px!important;bottom:15px!important;
+    z-index:2!important;display:flex!important;justify-content:space-between!important;align-items:flex-end!important;color:#fff!important;
+  }
+  .v36-founder-photo-tag span{font-family:'Manrope',sans-serif!important;font-size:9px!important;letter-spacing:.18em!important;color:rgba(255,255,255,.68)!important}
+  .v36-founder-photo-tag strong{font-size:13px!important;font-weight:500!important}
+
+  .v4-founder-copy{
+    width:calc(100% - 20px)!important;margin:-18px 10px 0!important;padding:28px 20px 24px!important;
+    background:#fffdf8!important;border:1px solid rgba(107,91,61,.12)!important;
+    box-shadow:0 18px 55px rgba(43,36,25,.08)!important;z-index:2!important;
+  }
+  .v25-founder-name{font-size:27px!important;line-height:1.05!important;margin-bottom:7px!important}
+  .v25-founder-role{
+    font-size:11px!important;line-height:1.7!important;color:#726a5f!important;
+    padding-bottom:18px!important;margin-bottom:18px!important;border-bottom:1px solid #e6dfd3!important;
+  }
+  .v36-founder-trust{
+    display:flex!important;flex-direction:column!important;gap:2px!important;
+    margin:0 0 24px!important;font-size:13px!important;line-height:1.8!important;
+    color:#514b42!important;font-weight:500!important;
+  }
+  .v35-founder-title{margin:0 0 22px!important;font-size:32px!important;line-height:1.15!important}
+  .v34-founder-story{margin:0!important;gap:12px!important;font-size:13.5px!important;line-height:1.85!important}
+  .v4-founder-exp{display:grid!important;grid-template-columns:1fr!important;gap:0!important;margin-top:24px!important;padding-top:0!important}
+  .v4-founder-exp span{
+    display:flex!important;align-items:center!important;min-height:42px!important;
+    border-bottom:1px solid #eee8de!important;font-size:11px!important;
+  }
+  .v4-founder-exp span::before{content:'—'!important;margin-right:10px!important;color:#b8953a!important}
+}
+@media(max-width:390px){
+  .v36-intro-title{font-size:31px!important}
+  .v35-founder-title{font-size:30px!important}
+}
+</style>
+
+
+<style id="v37-desktop-copy-founder-redesign">
+/* =========================================================
+   V37 — 桌機斷句修正 + Founder 左側人物展示重設
+   ========================================================= */
+
+/* WHAT WE DO：桌機固定兩行，不讓手機用的巢狀 span 影響顏色/字體 */
+.v37-mobile-lines{
+  display:none;
+}
+.v37-intro-title .v37-desktop-line{
+  display:block;
+}
+.v37-intro-title > span.v37-desktop-line{
+  color:inherit;
+  font-style:normal;
+}
+.v37-intro-title > em.v37-desktop-line{
+  display:block;
+  font-family:inherit;
+  font-style:italic;
+  color:inherit;
+  margin-top:0;
+}
+
+/* Founder 左側：淺色編輯感人物展示，不加黑底 */
+.v37-founder-portrait{
+  position:relative!important;
+  overflow:visible!important;
+  background:transparent!important;
+  height:760px!important;
+  isolation:isolate;
+}
+
+/* 淡金細線框，參考使用者附圖的雜誌排版語彙 */
+.v37-founder-frame{
+  position:absolute;
+  left:-18px;
+  right:18px;
+  top:-18px;
+  bottom:56px;
+  border-top:1px solid rgba(169,139,89,.85);
+  border-left:1px solid rgba(169,139,89,.22);
+  z-index:0;
+  pointer-events:none;
+}
+.v37-founder-frame::after{
+  content:'';
+  position:absolute;
+  left:0;
+  right:36%;
+  bottom:0;
+  border-bottom:1px solid rgba(169,139,89,.42);
+}
+
+.v37-founder-portrait img{
+  position:relative;
+  z-index:1;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  background:#e9e3d8;
+}
+
+/* 名字直接壓在圖片下緣，但不是黑色塊 */
+.v37-founder-nameplate{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:3;
+  padding:56px 28px 24px;
+  background:linear-gradient(
+    to top,
+    rgba(24,22,19,.58) 0%,
+    rgba(24,22,19,.24) 45%,
+    rgba(24,22,19,0) 100%
+  );
+  color:#fff;
+}
+.v37-founder-name{
+  font-size:28px;
+  line-height:1.05;
+  font-weight:500;
+  letter-spacing:-.035em;
+  text-shadow:0 1px 14px rgba(0,0,0,.22);
+}
+.v37-founder-name span{
+  font-family:'Bodoni Moda',serif;
+  font-size:.95em;
+  font-style:italic;
+  font-weight:400;
+  color:#e7c981;
+  letter-spacing:0;
+}
+.v37-founder-kicker{
+  margin-top:9px;
+  padding-top:10px;
+  border-top:1px solid rgba(231,201,129,.6);
+  font-family:'Manrope',sans-serif;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.18em;
+  color:rgba(255,255,255,.78);
+}
+
+/* 右側因姓名移到照片，不要留下不自然的大空隙 */
+.v4-founder-copy > .v25-founder-role{
+  margin-top:10px;
+}
+
+/* ===== 手機 ===== */
+@media(max-width:720px){
+  /* 桌機文案隱藏，手機使用獨立斷句 */
+  .v37-intro-title > .v37-desktop-line{
+    display:none!important;
+  }
+  .v37-mobile-lines{
+    display:block!important;
+  }
+  .v37-mobile-lines > span,
+  .v37-mobile-lines > em,
+  .v37-mobile-lines > em > span{
+    display:block!important;
+    width:auto!important;
+    max-width:100%!important;
+    white-space:normal!important;
+  }
+  .v37-mobile-lines > em{
+    margin-top:8px!important;
+    font-family:inherit!important;
+    font-style:italic!important;
+    color:inherit!important;
+  }
+
+  .v37-intro-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:34px!important;
+    line-height:1.16!important;
+    letter-spacing:-.045em!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+
+  /* 手機 Founder 左側也維持新的人物展示，但尺寸縮短 */
+  .v37-founder-portrait{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4/5!important;
+    overflow:visible!important;
+    margin:0!important;
+  }
+  .v37-founder-frame{
+    left:-8px;
+    right:12px;
+    top:-10px;
+    bottom:42px;
+  }
+  .v37-founder-nameplate{
+    left:0;
+    right:0;
+    bottom:0;
+    padding:48px 18px 18px;
+  }
+  .v37-founder-name{
+    font-size:25px;
+  }
+  .v37-founder-kicker{
+    font-size:8px;
+    letter-spacing:.14em;
+  }
+
+  /* V36 的舊 tag 不再需要 */
+  .v36-founder-photo-tag{
+    display:none!important;
+  }
+}
+
+@media(max-width:390px){
+  .v37-intro-title{
+    font-size:31px!important;
+  }
+  .v37-founder-name{
+    font-size:23px;
+  }
+}
+</style>
+
+
+<style id="v38-final-fixes">
+/* ===== 1. WHAT WE DO：桌機只顯示一份 ===== */
+@media(min-width:721px){
+  .v37-intro-title > .v37-mobile-lines{
+    display:none!important;
+    visibility:hidden!important;
+    height:0!important;
+    overflow:hidden!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .v37-intro-title > .v37-desktop-line{
+    display:block!important;
+  }
+}
+
+/* ===== 2. Founder：品牌主理人作為明確小標題＋底線 ===== */
+.v38-founder-role{
+  display:block!important;
+  width:100%!important;
+  margin:14px 0 22px!important;
+  padding:0 0 13px!important;
+  border-bottom:1px solid rgba(169,139,89,.65)!important;
+  font-family:'Noto Sans TC',sans-serif!important;
+  font-size:22px!important;
+  line-height:1.25!important;
+  font-weight:500!important;
+  letter-spacing:-.025em!important;
+  color:#2b2823!important;
+}
+
+.v38-founder-role::after{
+  content:''!important;
+  display:block!important;
+  width:42px!important;
+  height:2px!important;
+  margin-top:12px!important;
+  background:#b8953a!important;
+}
+
+/* 原本 V36/V37 對 role 的小字與分隔設定不再套用 */
+.v4-founder-copy > .v38-founder-role{
+  margin-top:14px!important;
+}
+
+/* ===== 3. 全站「開始 AI 初步診斷」按鈕與服務項目頁尾一致 ===== */
+/* 首頁 CTA 原本被 .v4-line-cta>a 改成方形、不同字體；這裡完全同步服務頁 .cta-band 的 cta-btn */
+#mrFinalCta .cta-btn{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  padding:13px 24px!important;
+  background:var(--goldf)!important;
+  color:var(--deep)!important;
+  border:0!important;
+  border-radius:999px!important;
+  font-family:var(--sans)!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:600!important;
+  letter-spacing:.06em!important;
+  text-decoration:none!important;
+  box-shadow:none!important;
+}
+
+#mrFinalCta .cta-btn:hover{
+  background:var(--goldf)!important;
+  color:var(--deep)!important;
+  transform:translateY(-2px)!important;
+}
+
+/* 服務頁本身也鎖定同一組，避免後續舊 CSS 覆蓋 */
+.cta-band .cta-btn{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  padding:13px 24px!important;
+  background:var(--goldf)!important;
+  color:var(--deep)!important;
+  border:0!important;
+  border-radius:999px!important;
+  font-family:var(--sans)!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:600!important;
+  letter-spacing:.06em!important;
+  text-decoration:none!important;
+}
+
+@media(max-width:720px){
+  .v38-founder-role{
+    margin:12px 0 20px!important;
+    padding-bottom:11px!important;
+    font-size:20px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -4852,10 +5219,14 @@ body > .cta-band{
 <div class="v13-intro-inner">
 <div class="v4-section-index">01 / WHAT WE DO</div>
 <div class="v13-intro-copy">
-<h2 class="v13-intro-title v22-intro-title">
-<span>我們不是幫你</span>
-<span class="v22-quote-line">「看起來比較好」。</span>
-<em>而是讓專業，更容易被相信。</em>
+<h2 class="v13-intro-title v22-intro-title v37-intro-title">
+<span class="v37-desktop-line">我們不是幫你「看起來比較好」。</span>
+<em class="v37-desktop-line">而是讓專業，更容易被相信。</em>
+<span class="v37-mobile-lines" aria-hidden="true">
+  <span>我們不是幫你</span>
+  <span>「看起來比較好」。</span>
+  <em><span>而是讓專業，</span><span>更容易被相信。</span></em>
+</span>
 </h2>
 <p class="v13-intro-desc v35-mobile-copy">
 <span>MR. business.lab 把商務形象、個人定位與品牌內容，</span>
@@ -4897,7 +5268,7 @@ body > .cta-band{
 <div class="v4-work-grid">
 <a class="v4-work-card v4-work-wide" href="#cases" onclick="showPage('cases');return false;">
 <div class="v4-work-img v20-work-beforeafter">
-  <div class="v20-ba-grid">
+  <div class="v20-ba-grid" data-auto-beforeafter="true">
     <div class="v20-ba-shot v20-ba-before">
       <img alt="鍾師富改造前" decoding="async" loading="lazy" src="assets/鍾師富改造前.png"/>
       <div class="v20-ba-label">BEFORE</div>
@@ -4911,6 +5282,7 @@ body > .cta-band{
       <div class="v20-ba-label">AFTER 02</div>
     </div>
   </div>
+  <div class="v36-ba-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
 </div>
 <div class="v4-work-meta"><span>01 / PERSONAL BRAND</span><h3>鍾師富｜從工程師傅，到被記住的抓漏專家</h3><small>IMAGE / CONTENT / SHORT VIDEO / E-CARD</small></div>
 </a>
@@ -4936,14 +5308,18 @@ body > .cta-band{
 </section>
 <!-- FOUNDER -->
 <section class="v4-founder">
-<div class="v4-founder-image">
-<img alt="MR. business.lab 創辦人 潘昱如 Luru" decoding="async" loading="lazy" src="assets/LURU.png"/>
+<div class="v4-founder-image v36-founder-image v37-founder-portrait">
+  <div class="v37-founder-frame" aria-hidden="true"></div>
+  <img alt="MR. business.lab 創辦人 潘昱如 Luru" decoding="async" loading="lazy" src="assets/LURU.png"/>
+  <div class="v37-founder-nameplate">
+    <div class="v37-founder-name">潘昱如 <span>Luru</span></div>
+    <div class="v37-founder-kicker">FOUNDER, MR. BUSINESS.LAB</div>
+  </div>
 </div>
 <div class="v4-founder-copy">
 <div class="v4-section-index">04 / FOUNDER</div>
-<div class="v25-founder-name">潘昱如 <span>Luru</span></div>
-<div class="v25-founder-role">MR. business.lab 主理人・商務男士形象 × 個人品牌顧問</div>
-<div class="v33-founder-trust">專門協助專業工作者，把能力整理成更容易被相信、被理解與被轉介紹的品牌。</div>
+<div class="v25-founder-role v38-founder-role">品牌主理人</div>
+<div class="v33-founder-trust v36-founder-trust"><span>協助專業工作者，</span><span>把能力整理成更容易被相信、被理解、被轉介紹的品牌。</span></div>
 <h2 class="v7-balanced-title v35-founder-title"><span>看懂一個人，</span><span>再把他的專業</span><em>變成品牌。</em></h2>
 <p class="v34-founder-story"><span>從百貨男裝、連鎖美容到品牌經營，潘昱如長期觀察「一個專業的人，為什麼沒有被市場正確理解」。</span><span>她把外貌形象、商務表達與品牌內容放在同一套系統裡，協助專業工作者把原本只存在自己身上的經驗與能力，整理成客戶看得懂、記得住，也願意主動介紹的品牌。</span></p>
 <div class="v4-founder-exp">
@@ -5937,6 +6313,45 @@ document.addEventListener('click', function(e){
       moved=false;
     }
   }, true);
+})();
+</script>
+
+
+<script id="v36-auto-beforeafter">
+(function(){
+  function init(){
+    if(window.innerWidth>720) return;
+    const grid=document.querySelector('[data-auto-beforeafter="true"]');
+    if(!grid) return;
+    const shots=[...grid.querySelectorAll('.v20-ba-shot')];
+    const dots=[...grid.parentElement.querySelectorAll('.v36-ba-dots span')];
+    let index=0, timer=null, pauseUntil=0;
+
+    function go(i,smooth=true){
+      index=(i+shots.length)%shots.length;
+      grid.scrollTo({left:shots[index].offsetLeft,behavior:smooth?'smooth':'auto'});
+      dots.forEach((d,n)=>d.classList.toggle('is-active',n===index));
+    }
+    function start(){
+      clearInterval(timer);
+      timer=setInterval(()=>{
+        if(Date.now()>pauseUntil && document.visibilityState==='visible') go(index+1,true);
+      },2800);
+    }
+    grid.addEventListener('touchstart',()=>pauseUntil=Date.now()+5000,{passive:true});
+    grid.addEventListener('pointerdown',()=>pauseUntil=Date.now()+5000,{passive:true});
+    let t;
+    grid.addEventListener('scroll',()=>{
+      clearTimeout(t);
+      t=setTimeout(()=>{
+        let best=0,dist=Infinity;
+        shots.forEach((s,i)=>{const d=Math.abs(s.offsetLeft-grid.scrollLeft);if(d<dist){dist=d;best=i}});
+        index=best;dots.forEach((d,n)=>d.classList.toggle('is-active',n===index));
+      },80);
+    },{passive:true});
+    go(0,false);start();
+  }
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
 </script>
 
