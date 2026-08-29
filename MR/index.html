@@ -3521,6 +3521,122 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v24-logo-mobile-fixes">
+/* 移除可能留下的空白段落 */
+.v22-brand-system-intro p:empty,
+.v22-system-lead:empty{
+  display:none!important;
+}
+
+/* ===== 服務客戶 Logo 視覺平均 ===== */
+.clients-v19-card{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+.clients-v19-logo{
+  width:100%!important;
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.clients-v19-logo img{
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* 橫式 logo 稍寬一些 */
+.clients-v19-logo img.logo-wide{
+  max-width:225px!important;
+  max-height:88px!important;
+}
+
+/* 方正 logo 提高顯示高度，避免看起來太小 */
+.clients-v19-logo img.logo-square{
+  max-width:150px!important;
+  max-height:120px!important;
+}
+
+/* 桌機再微調，讓五個卡片更平均 */
+@media(min-width:721px){
+  .clients-v19-card{
+    height:208px!important;
+  }
+}
+
+/* ===== 手機版：鍾師富三張圖橫向一排 ===== */
+@media (max-width: 980px){
+  .v4-work-wide .v4-work-img{
+    height:auto!important;
+  }
+  .v20-work-beforeafter{
+    padding:12px!important;
+  }
+  .v20-ba-grid{
+    grid-template-columns:repeat(3, 1fr)!important;
+    min-height:0!important;
+    gap:8px!important;
+    align-items:stretch!important;
+  }
+  .v20-ba-shot{
+    min-height:0!important;
+    aspect-ratio:3/4.2!important;
+    background:#111!important;
+  }
+  .v20-ba-shot img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+    background:#111!important;
+  }
+  .v20-ba-label{
+    left:6px!important;
+    right:6px!important;
+    bottom:6px!important;
+    padding:5px 6px!important;
+    font-size:9px!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+}
+
+/* 小手機再壓縮一些，仍維持三張橫排 */
+@media (max-width: 520px){
+  .v20-work-beforeafter{
+    padding:10px!important;
+  }
+  .v20-ba-grid{
+    gap:6px!important;
+  }
+  .v20-ba-shot{
+    aspect-ratio:3/4.5!important;
+  }
+  .v20-ba-label{
+    font-size:8px!important;
+    letter-spacing:.08em!important;
+  }
+
+  .clients-v19-card{
+    height:138px!important;
+    padding:12px!important;
+  }
+  .clients-v19-logo img.logo-wide{
+    max-width:132px!important;
+    max-height:54px!important;
+  }
+  .clients-v19-logo img.logo-square{
+    max-width:96px!important;
+    max-height:78px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -3789,7 +3905,7 @@ body > .cta-band{
 <span class="about-sec-label rv">THE MR. METHOD</span>
 <h2 class="about-title rv d1 v7-balanced-title"><span>不是堆服務，</span><em>而是建立一套品牌系統。</em></h2>
 <div class="about-divider rv d2"></div>
-<p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:680px;">我們先判斷你現在卡在哪一層，再安排最需要的服務。不是每個人都要全部做，而是先把最影響信任與轉介紹的缺口補起來。</p>
+<p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:680px;"></p>
 <div class="v22-brand-system rv d2">
   <div class="v22-brand-system-intro">
     <div class="v22-system-lead">不是每一項都要做，而是每一項都要做得有理由。</div>
@@ -3942,31 +4058,31 @@ body > .cta-band{
     <div class="clients-v19-grid">
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img src="assets/Mr.素材圖 - 詠順工程行logo.png" alt="詠順工程行" loading="lazy" decoding="async">
+          <img class="logo-wide" src="assets/Mr.素材圖 - 詠順工程行logo.png" alt="詠順工程行" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img src="assets/Mr.素材圖 - 平衡之道logo.png" alt="平衡之道" loading="lazy" decoding="async">
+          <img class="logo-wide" src="assets/Mr.素材圖 - 平衡之道logo.png" alt="平衡之道" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
+          <img class="logo-square" src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
+          <img class="logo-square" src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
+          <img class="logo-square" src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
