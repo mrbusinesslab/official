@@ -6031,6 +6031,85 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v47-case-links">
+.v47-media-link,
+.v47-line-link{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+}
+
+.v47-media-link{
+  min-width:0;
+}
+
+.v46-video-frame,
+.v47-post-frame,
+.ph-frame{
+  position:relative;
+}
+
+.v47-post-frame{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  background:#eee8dc;
+}
+
+.v47-post-frame img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+
+.v47-media-badge,
+.v47-line-badge{
+  position:absolute;
+  right:9px;
+  bottom:9px;
+  z-index:3;
+  padding:6px 8px;
+  background:rgba(15,15,15,.78);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  line-height:1;
+  letter-spacing:.1em;
+  backdrop-filter:blur(5px);
+  transition:transform .2s ease, background .2s ease;
+}
+
+.v47-line-badge{
+  right:13px;
+  bottom:13px;
+}
+
+.v47-media-link:hover .v47-media-badge,
+.v47-line-link:hover .v47-line-badge{
+  transform:translateY(-2px);
+  background:#b8953a;
+}
+
+.v47-media-link:hover img,
+.v47-line-link:hover img{
+  opacity:.94;
+}
+
+@media(max-width:620px){
+  .v47-media-link{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+  }
+  .v46-video-grid .v47-media-link{
+    flex-basis:min(66vw,250px);
+  }
+  .v46-post-grid .v47-media-link{
+    flex-basis:min(72vw,280px);
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -6739,12 +6818,15 @@ function openCaseModal(){
         </div>
         <div class="v46-video-grid">
           ${['短影音1','短影音2','短影音3'].map((n,i)=>`
-            <figure class="v46-video-card">
-              <div class="v46-video-frame">
-                <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
-              </div>
-              <figcaption>VIDEO ${String(i+1).padStart(2,'0')}</figcaption>
-            </figure>`).join('')}
+            <a class="v47-media-link" href="${['https://www.instagram.com/reel/DTFe5kWEwbn/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==','https://www.instagram.com/reel/DWBl3ZLE5Qk/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==','https://www.instagram.com/reel/DVlMFCFE1nF/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA=='][i]}" target="_blank" rel="noopener" aria-label="前往 Instagram 查看短影音 ${i+1}">
+              <figure class="v46-video-card">
+                <div class="v46-video-frame">
+                  <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
+                  <span class="v47-media-badge">VIEW REEL ↗︎</span>
+                </div>
+                <figcaption>VIDEO ${String(i+1).padStart(2,'0')}</figcaption>
+              </figure>
+            </a>`).join('')}
         </div>
       </div>
 
@@ -6758,16 +6840,29 @@ function openCaseModal(){
         </div>
         <div class="v46-post-grid">
           ${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map((n,i)=>`
-            <figure class="v46-post-card">
-              <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
-              <figcaption>POST ${String(i+1).padStart(2,'0')}</figcaption>
-            </figure>`).join('')}
+            <a class="v47-media-link" href="${['https://www.instagram.com/p/DW5xZjCjgxz/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==','https://www.instagram.com/p/DPxmBsYE5DO/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==','https://www.instagram.com/p/DXG1396k7GK/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA=='][i]}" target="_blank" rel="noopener" aria-label="前往 Instagram 查看貼文 ${i+1}">
+              <figure class="v46-post-card">
+                <div class="v47-post-frame">
+                  <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
+                  <span class="v47-media-badge">VIEW POST ↗︎</span>
+                </div>
+                <figcaption>POST ${String(i+1).padStart(2,'0')}</figcaption>
+              </figure>
+            </a>`).join('')}
         </div>
       </div>
     </section>
 
     <div class="m-cases-label">LINE@ 帳號</div>
-    <div class="case-block" style="max-width:280px;"><div class="ph-frame"><img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
+    <a class="v47-line-link" href="https://line.me/R/ti/p/@799ydgjw?oat_content=url&ts=09231946" target="_blank" rel="noopener" aria-label="開啟詠順工程行 LINE 官方帳號">
+      <div class="case-block" style="max-width:280px;">
+        <div class="ph-frame">
+          <img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async">
+          <span class="v47-line-badge">OPEN LINE ↗︎</span>
+        </div>
+        <div class="img-label">LINE@ · 詠順工程行</div>
+      </div>
+    </a>
 
     <div class="m-cases-label">電子名片</div>
     <div class="case-block" style="max-width:280px;"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async"><div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div></div>
