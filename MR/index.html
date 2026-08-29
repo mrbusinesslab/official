@@ -6110,6 +6110,200 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v48-zhong-mobile-case-reading">
+/* ===== 鍾師傅完整案例：桌機維持原版 ===== */
+.v48-zhong-clothing-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:3px;
+  margin-bottom:3px;
+}
+
+.v48-ecard-open{
+  display:block;
+  width:100%;
+  max-width:280px;
+  padding:0;
+  border:0;
+  background:transparent;
+  text-align:left;
+  color:inherit;
+  cursor:pointer;
+}
+
+.v48-ecard-preview{
+  max-width:280px;
+  margin:0;
+}
+
+.v48-ecard-image-wrap{
+  position:relative;
+  overflow:hidden;
+}
+
+.v48-ecard-image-wrap img{
+  width:100%!important;
+  height:auto!important;
+  display:block;
+}
+
+.v48-ecard-badge{
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  padding:7px 9px;
+  background:rgba(17,17,17,.82);
+  color:#fff;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:10px;
+  line-height:1;
+  letter-spacing:.04em;
+  backdrop-filter:blur(5px);
+  transition:transform .2s ease,background .2s ease;
+}
+
+.v48-ecard-open:hover .v48-ecard-badge{
+  transform:translateY(-2px);
+  background:#b8953a;
+}
+
+/* ===== 手機：案例圖片改為「單張閱讀」而不是縮成小圖 / 左右滑 ===== */
+@media(max-width:620px){
+
+  /* modal 內容寬度稍放大，減少無效左右留白 */
+  #modalOverlay .modal-body{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  /* 穿著改造：三張依序往下看 */
+  .v48-zhong-clothing-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:14px!important;
+    margin-bottom:18px!important;
+  }
+
+  .v48-zhong-clothing-grid .case-block{
+    width:100%!important;
+    max-width:360px!important;
+    margin:0 auto!important;
+  }
+
+  .v48-zhong-clothing-grid img{
+    width:100%!important;
+    height:auto!important;
+    max-height:none!important;
+    object-fit:contain!important;
+  }
+
+  /* 男士美容：上下排列 */
+  .v48-zhong-beauty-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:14px!important;
+    margin-bottom:18px!important;
+  }
+
+  .v48-zhong-beauty-grid .case-block{
+    width:100%!important;
+    max-width:360px!important;
+    margin:0 auto!important;
+  }
+
+  /* 商業短影音：取消橫滑，每支一張大卡 */
+  .v46-video-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    overflow:visible!important;
+    gap:18px!important;
+    padding:0!important;
+    scroll-snap-type:none!important;
+  }
+
+  .v46-video-grid .v47-media-link,
+  .v46-video-card{
+    flex:none!important;
+    width:100%!important;
+    max-width:300px!important;
+    margin:0 auto!important;
+  }
+
+  .v46-video-frame{
+    width:100%!important;
+    aspect-ratio:9/16!important;
+  }
+
+  /* 貼文：取消橫滑，每張正方形大圖 */
+  .v46-post-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    overflow:visible!important;
+    gap:18px!important;
+    padding:0!important;
+    scroll-snap-type:none!important;
+  }
+
+  .v46-post-grid .v47-media-link,
+  .v46-post-card{
+    flex:none!important;
+    width:100%!important;
+    max-width:330px!important;
+    margin:0 auto!important;
+  }
+
+  .v47-post-frame{
+    width:100%!important;
+    aspect-ratio:1/1!important;
+  }
+
+  /* section 間距讓長頁面仍有呼吸感 */
+  .v46-media-section{
+    padding-top:1.45rem!important;
+    padding-bottom:1.9rem!important;
+  }
+
+  .v46-video-card figcaption,
+  .v46-post-card figcaption{
+    padding-top:.55rem!important;
+    font-size:9px!important;
+  }
+
+  /* LINE@ 與電子名片都置中，且手機不要太小 */
+  .v47-line-link{
+    width:100%!important;
+    max-width:330px!important;
+    margin:0 auto!important;
+  }
+
+  .v47-line-link .case-block{
+    max-width:330px!important;
+  }
+
+  .v48-ecard-open{
+    width:100%!important;
+    max-width:330px!important;
+    margin:0 auto!important;
+  }
+
+  .v48-ecard-preview{
+    max-width:330px!important;
+  }
+
+  .v48-ecard-badge{
+    right:12px;
+    bottom:12px;
+    padding:8px 10px;
+    font-size:10px;
+  }
+
+  .m-cases-label{
+    margin-top:2.1rem!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -6769,14 +6963,14 @@ function openCaseModal(){
     <div class="m-hl">同樣的技術，穿對衣服、說對話、做對內容，客戶終於「看懂他的價值」。</div>
 
     <div class="m-cases-label">商務形象穿著改造</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:3px;">
+    <div class="v48-zhong-clothing-grid">
       <div class="case-block"><img src="assets/鍾師富改造前.png" alt="改造前" loading="lazy" decoding="async"><div class="img-label">BEFORE</div></div>
       <div class="case-block"><img src="assets/鍾師富改造後1.png" alt="改造後1" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 01</div></div>
       <div class="case-block"><img src="assets/鍾師富改造後2.png" alt="改造後2" loading="lazy" decoding="async"><div class="img-label">AFTER · 02</div></div>
     </div>
 
     <div class="m-cases-label">男士快速美容</div>
-    <div class="case-duo">
+    <div class="case-duo v48-zhong-beauty-grid">
       <div class="case-block"><img src="assets/鍾師富做臉前.png" alt="美容前" loading="lazy" decoding="async"><div class="img-label">BEFORE · 眼神疲憊 輪廓較沉</div></div>
       <div class="case-block"><img src="assets/鍾師富做臉後.png" alt="美容後" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 擺脫疲憊感 眼睛有神</div></div>
     </div>
@@ -6865,7 +7059,15 @@ function openCaseModal(){
     </a>
 
     <div class="m-cases-label">電子名片</div>
-    <div class="case-block" style="max-width:280px;"><img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async"><div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div></div>
+    <button class="v48-ecard-open" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
+      <div class="case-block v48-ecard-preview">
+        <div class="v48-ecard-image-wrap">
+          <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
+          <span class="v48-ecard-badge">查看完整名片 ↗︎</span>
+        </div>
+        <div class="img-label gold">電子名片 · 詠順工程行 鍾師富</div>
+      </div>
+    </button>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
