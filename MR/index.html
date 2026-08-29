@@ -7170,6 +7170,547 @@ img{
 }
 </style>
 
+
+<style id="v60-mobile-global-overflow-fix">
+/* =========================================================
+   V60 — MOBILE ONLY 全站防溢出
+   只在 620px 以下生效，不影響桌機
+========================================================= */
+@media (max-width: 620px){
+
+  /* ---------- 全域盒模型與橫向溢出 ---------- */
+  html,
+  body{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+
+  *,
+  *::before,
+  *::after{
+    box-sizing:border-box!important;
+    min-width:0;
+  }
+
+  body > *,
+  .page,
+  section,
+  header,
+  footer,
+  main,
+  nav,
+  .case-wrap,
+  .case-inner,
+  .about-inner,
+  .ecard-home-inner,
+  .v4-hero-inner,
+  .v13-intro-inner,
+  .v4-works,
+  .v4-works-head,
+  .v4-work-grid,
+  .v4-services-showcase,
+  .v50-ops-inner,
+  .modal-inner,
+  .modal-content,
+  .m-body{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  /* ---------- 所有文字允許斷行 ---------- */
+  h1,h2,h3,h4,h5,h6,
+  p,span,strong,em,small,label,
+  a,button,li,div{
+    overflow-wrap:anywhere;
+    word-wrap:break-word;
+  }
+
+  /* 不允許主要文案維持 nowrap */
+  .v4-hero-display,
+  .v4-hero-topline,
+  .v4-section-index,
+  .ecard-home-kicker,
+  .ecard-home-title,
+  .ecard-home-intro,
+  .ecard-category-no,
+  .ecard-open,
+  .about-sec-label,
+  .about-title,
+  .about-desc,
+  .v41-line,
+  .v4-feature-copy,
+  .v4-work-meta,
+  .v50-ops-title,
+  .v50-ops-kicker,
+  .v50-ops-case-title,
+  .v50-case-system-title,
+  .v50-case-system-index,
+  .m-cases-label,
+  .m-desc,
+  .m-hl,
+  .img-label,
+  .v53-real-caption,
+  .v53-real-top,
+  .v47-line-badge,
+  .v48-ecard-badge,
+  .cta-btn{
+    white-space:normal!important;
+  }
+
+  /* ---------- 圖片 / 影片 / iframe ---------- */
+  img,
+  video,
+  iframe,
+  canvas,
+  svg{
+    max-width:100%!important;
+  }
+
+  img{
+    height:auto;
+  }
+
+  /* ---------- FLEX / GRID 撐寬保護 ---------- */
+  .v4-hero-bottom,
+  .v4-hero-actions,
+  .v13-intro-copy,
+  .v4-services-showcase,
+  .v4-work-grid,
+  .ecard-category-grid,
+  .case-duo,
+  .case-grid,
+  .v49-zhong-actions-grid,
+  .v50-ops-capabilities,
+  .v50-ops-cases,
+  .v50-case-system-head,
+  .v50-case-system-card,
+  .v50-case-system-grid,
+  .v53-real-caption{
+    min-width:0!important;
+    max-width:100%!important;
+  }
+
+  /* 原本桌機橫排，在手機一律可安全換行 */
+  .v4-hero-bottom,
+  .v4-hero-actions,
+  .v50-case-system-head,
+  .v53-real-caption{
+    flex-wrap:wrap!important;
+  }
+
+  /* ---------- Hero ---------- */
+  .v4-hero{
+    overflow:hidden!important;
+  }
+
+  .v4-hero-inner{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .v4-hero-display{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(42px,13.5vw,60px)!important;
+    line-height:.91!important;
+    letter-spacing:-.04em!important;
+  }
+
+  .v4-hero-topline{
+    max-width:100%!important;
+    font-size:10px!important;
+    letter-spacing:.11em!important;
+  }
+
+  .v4-hero-bottom{
+    gap:18px!important;
+  }
+
+  .v4-hero-bottom p{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .v4-hero-actions{
+    width:100%!important;
+    gap:10px!important;
+  }
+
+  .v4-hero-actions a{
+    max-width:100%!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+
+  /* ---------- 電子名片首頁 ---------- */
+  .ecard-home-inner{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .ecard-home-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(32px,9vw,42px)!important;
+    line-height:1.08!important;
+  }
+
+  .ecard-category-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .ecard-category{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .ecard-category-body,
+  .ecard-category-preview{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .ecard-category-body p{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  /* ---------- WHAT WE DO ---------- */
+  .v13-intro-inner{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .v13-intro-copy{
+    width:100%!important;
+  }
+
+  .v41-line{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(27px,7.8vw,36px)!important;
+    line-height:1.14!important;
+    letter-spacing:-.025em!important;
+  }
+
+  .v35-mobile-copy,
+  .v35-mobile-copy span{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  /* ---------- 服務主視覺 ---------- */
+  .v4-services-showcase{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .v4-service-feature{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .v4-feature-copy{
+    width:100%!important;
+    max-width:100%!important;
+    gap:10px!important;
+  }
+
+  .v4-feature-copy > div{
+    min-width:0!important;
+  }
+
+  .v4-feature-copy h3{
+    font-size:clamp(26px,7vw,34px)!important;
+  }
+
+  .v4-feature-copy p{
+    font-size:12px!important;
+  }
+
+  /* ---------- Selected Works ---------- */
+  .v4-works{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .v4-works-head{
+    width:100%!important;
+  }
+
+  .v7-balanced-title,
+  .v35-works-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(28px,8vw,38px)!important;
+    line-height:1.12!important;
+  }
+
+  .v4-work-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .v4-work-card{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  /* ---------- 內頁 / About / Founder ---------- */
+  .about-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(38px,10.5vw,52px)!important;
+    line-height:1!important;
+  }
+
+  .about-desc{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  /* ---------- 品牌營運工具 ---------- */
+  .v50-ops-inner{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .v50-ops-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(27px,7.5vw,36px)!important;
+    line-height:1.15!important;
+  }
+
+  .v50-ops-capabilities,
+  .v50-ops-cases{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .v50-ops-cap,
+  .v50-ops-case{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .v53-real-frame,
+  .v53-case-real-frame{
+    width:100%!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+  }
+
+  .v53-real-top{
+    width:100%!important;
+    align-items:flex-start!important;
+  }
+
+  .v53-real-top span,
+  .v53-real-top strong{
+    max-width:48%!important;
+  }
+
+  /* ---------- 品牌案例 / 鍾師富 ---------- */
+  .case-inner,
+  .case-wrap{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .case-entry,
+  .case-img-col,
+  .case-text-col,
+  .case-block,
+  .ph-frame,
+  .v49-zhong-action-col,
+  .v49-zhong-action-link,
+  .v49-zhong-action-block,
+  .v49-zhong-action-frame{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .v49-zhong-actions-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    overflow-x:hidden!important;
+  }
+
+  .modal-content,
+  .modal-inner{
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
+    min-width:0!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    overflow-x:hidden!important;
+  }
+
+  .m-body,
+  .m-desc,
+  .m-items,
+  .m-items li,
+  .m-hl,
+  .m-contact{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .case-duo,
+  .case-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .case-block[style*="max-width:50%"]{
+    max-width:100%!important;
+  }
+
+  /* ---------- 鍾師富商務系統 ---------- */
+  .v50-case-system{
+    width:100%!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+  }
+
+  .v50-case-system-head{
+    display:block!important;
+  }
+
+  .v50-case-system-index{
+    margin-top:14px!important;
+    text-align:left!important;
+  }
+
+  .v50-case-system-card{
+    display:block!important;
+  }
+
+  .v50-case-system-left{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .v50-case-system-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .v50-case-system-grid > div{
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  .v50-case-system-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(25px,7vw,33px)!important;
+    line-height:1.16!important;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+    overflow:hidden!important;
+  }
+
+  .cta-band h2{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(34px,9vw,46px)!important;
+    line-height:1.08!important;
+  }
+
+  .cta-band p{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .cta-btn{
+    display:inline-flex!important;
+    width:auto!important;
+    max-width:100%!important;
+  }
+
+  /* ---------- 電子名片 Viewer ---------- */
+  .ecard-viewer,
+  .ecard-viewer-inner,
+  .ecard-viewer-grid,
+  #ecardViewerGrid{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+
+  .ecard-viewer-grid,
+  #ecardViewerGrid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+
+  .ecard-viewer-card,
+  .ecard-page,
+  .ecard-card{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+}
+
+/* 極窄手機再縮一次，但仍只影響手機 */
+@media (max-width: 390px){
+  .v4-hero-inner,
+  .ecard-home-inner,
+  .v13-intro-inner,
+  .v4-works,
+  .v50-ops-inner,
+  .case-inner,
+  .case-wrap,
+  .cta-band{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  .v4-hero-display{
+    font-size:clamp(40px,13vw,52px)!important;
+  }
+
+  .v41-line{
+    font-size:clamp(25px,7.3vw,32px)!important;
+  }
+
+  .v7-balanced-title,
+  .v35-works-title{
+    font-size:clamp(26px,7.4vw,34px)!important;
+  }
+
+  .about-title{
+    font-size:clamp(36px,10vw,46px)!important;
+  }
+
+  .v50-ops-title,
+  .v50-case-system-title{
+    font-size:clamp(24px,6.8vw,31px)!important;
+  }
+
+  .modal-content,
+  .modal-inner{
+    width:calc(100vw - 16px)!important;
+    max-width:calc(100vw - 16px)!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8700,6 +9241,45 @@ document.addEventListener('click', function(e){
   }else{
     init();
   }
+})();
+</script>
+
+
+<script id="v60-mobile-overflow-guard">
+(function(){
+  function guardMobileOverflow(){
+    if(window.innerWidth > 620) return;
+
+    const vw = document.documentElement.clientWidth;
+    document.querySelectorAll('body *').forEach(el=>{
+      const r = el.getBoundingClientRect();
+      if(r.width > vw + 2){
+        el.style.maxWidth = '100%';
+        el.style.minWidth = '0';
+        if(getComputedStyle(el).whiteSpace === 'nowrap'){
+          el.style.whiteSpace = 'normal';
+        }
+      }
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ()=>setTimeout(guardMobileOverflow,150), {once:true});
+  }else{
+    setTimeout(guardMobileOverflow,150);
+  }
+
+  window.addEventListener('resize', guardMobileOverflow);
+
+  const observer = new MutationObserver(()=>{
+    if(window.innerWidth <= 620){
+      requestAnimationFrame(guardMobileOverflow);
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    observer.observe(document.body,{childList:true,subtree:true});
+  });
 })();
 </script>
 
