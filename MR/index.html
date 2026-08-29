@@ -3637,6 +3637,204 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v25-fixes">
+/* ===== 主理人姓名與定位 ===== */
+.v25-founder-name{
+  font-family:'Noto Sans TC',sans-serif!important;
+  font-size:clamp(28px,3vw,42px)!important;
+  line-height:1.2!important;
+  font-weight:650!important;
+  color:var(--v6-ink,#28251f)!important;
+  margin:18px 0 7px!important;
+  letter-spacing:-.035em!important;
+}
+.v25-founder-name span{
+  font-family:'Manrope',sans-serif!important;
+  font-size:.54em!important;
+  font-weight:600!important;
+  letter-spacing:.06em!important;
+  color:#9f7c24!important;
+  margin-left:7px!important;
+}
+.v25-founder-role{
+  font-size:12px!important;
+  line-height:1.7!important;
+  letter-spacing:.06em!important;
+  color:#8d806d!important;
+  margin-bottom:30px!important;
+}
+
+/* ===== 服務客戶：改成自由比例品牌牆，不再五個同尺寸方塊 ===== */
+.clients-v19{
+  padding-bottom:90px!important;
+}
+.clients-v19-grid{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:28px 52px!important;
+  margin-top:42px!important;
+}
+.clients-v19-card{
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  padding:12px 4px!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  flex:0 0 auto!important;
+}
+.clients-v19-card:hover{
+  transform:none!important;
+  background:transparent!important;
+  border-color:transparent!important;
+}
+.clients-v19-logo{
+  width:auto!important;
+  height:auto!important;
+  min-height:78px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.clients-v19-logo img{
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+  filter:none!important;
+}
+
+/* 橫式品牌較寬；方形品牌較高，讓視覺重量接近 */
+.clients-v19-logo img.logo-wide{
+  max-width:220px!important;
+  max-height:76px!important;
+}
+.clients-v19-logo img.logo-square{
+  max-width:126px!important;
+  max-height:104px!important;
+}
+
+/* ===== 手機：Selected Works 鍾師富三張圖固定同一橫排且一定有高度 ===== */
+@media(max-width:980px){
+  .v4-work-wide .v4-work-img.v20-work-beforeafter{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:10px!important;
+    overflow:visible!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-grid{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    width:100%!important;
+    height:260px!important;
+    min-height:260px!important;
+    max-height:260px!important;
+    gap:7px!important;
+    overflow:hidden!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-shot{
+    display:block!important;
+    position:relative!important;
+    width:100%!important;
+    height:260px!important;
+    min-height:260px!important;
+    max-height:260px!important;
+    aspect-ratio:auto!important;
+    overflow:hidden!important;
+    background:#151515!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-shot img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    opacity:1!important;
+    visibility:visible!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+    background:#151515!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-label{
+    display:flex!important;
+    left:5px!important;
+    right:5px!important;
+    bottom:5px!important;
+    padding:5px 3px!important;
+    font-size:8px!important;
+    line-height:1!important;
+    justify-content:center!important;
+  }
+}
+
+/* 手機品牌牆：2~3 個自然換行，不做方塊 */
+@media(max-width:720px){
+  .clients-v19-grid{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:24px 34px!important;
+    justify-content:flex-start!important;
+  }
+  .clients-v19-card{
+    width:auto!important;
+    height:auto!important;
+    padding:5px 0!important;
+  }
+  .clients-v19-logo{
+    min-height:60px!important;
+  }
+  .clients-v19-logo img.logo-wide{
+    max-width:145px!important;
+    max-height:54px!important;
+  }
+  .clients-v19-logo img.logo-square{
+    max-width:90px!important;
+    max-height:76px!important;
+  }
+
+  .v25-founder-name{
+    font-size:32px!important;
+  }
+  .v25-founder-role{
+    font-size:11px!important;
+    margin-bottom:24px!important;
+  }
+}
+
+@media(max-width:430px){
+  .v20-work-beforeafter .v20-ba-grid{
+    height:210px!important;
+    min-height:210px!important;
+    max-height:210px!important;
+    gap:5px!important;
+  }
+  .v20-work-beforeafter .v20-ba-shot{
+    height:210px!important;
+    min-height:210px!important;
+    max-height:210px!important;
+  }
+
+  .clients-v19-grid{
+    gap:20px 26px!important;
+  }
+  .clients-v19-logo img.logo-wide{
+    max-width:128px!important;
+  }
+  .clients-v19-logo img.logo-square{
+    max-width:82px!important;
+    max-height:70px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -3736,19 +3934,6 @@ body > .cta-band{
 <div class="ecard-open"><span>查看完整範例</span><span>↗︎</span></div>
 </div>
 </article>
-<article class="ecard-category is-building">
-<div class="ecard-category-preview">
-<div class="ecard-building-preview">
-<div><strong>製作中</strong><span>COMING SOON</span></div>
-</div>
-</div>
-<div class="ecard-category-body">
-<div class="ecard-category-no">05 / REAL ESTATE &amp; SALES</div>
-<h3>房產．高單價業務類</h3>
-<p>適用：房仲．土地．不動產．租賃．汽車．設備．B2B業務．高單價商品業務等</p>
-<div class="ecard-open"><span>範例製作中</span><span>—</span></div>
-</div>
-</article>
 </div>
 </div>
 </section>
@@ -3845,10 +4030,12 @@ body > .cta-band{
 </div>
 <div class="v4-founder-copy">
 <div class="v4-section-index">04 / FOUNDER</div>
+<div class="v25-founder-name">潘昱如 <span>Luru</span></div>
+<div class="v25-founder-role">MR. business.lab 主理人・商務男士形象 × 個人品牌顧問</div>
 <h2 class="v7-balanced-title"><span>看懂一個人，再把他的專業</span><em>變成品牌。</em></h2>
-<p>潘昱如 Luru 橫跨百貨男裝、連鎖美容與品牌經營。她關心的不只是「穿什麼比較好看」，而是你走進一個場合時，別人能不能從你的外貌、說法與內容，快速理解你的價值。</p>
+<p>從百貨男裝、連鎖美容到品牌經營，潘昱如長期觀察「一個專業的人，為什麼沒有被市場正確理解」。她把外貌形象、商務表達與品牌內容放在同一套系統裡，協助專業工作者把原本只存在自己身上的經驗與能力，整理成客戶看得懂、記得住，也願意主動介紹的品牌。</p>
 <div class="v4-founder-exp">
-<span>百貨男裝總監</span><span>連鎖美容店長・業績第一</span><span>MN13 品牌主理人</span>
+<span>百貨男裝總監</span><span>連鎖美容店長・業績第一</span><span>個人品牌策略與內容整合</span>
 </div>
 </div>
 </section>
@@ -3971,7 +4158,6 @@ body > .cta-band{
 <div class="svc-list">
 <div class="svc-cat">定位清晰化</div>
 <a class="svc-row" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→︎→︎</span></a>
 <div class="svc-cat">內容擴散化</div>
 <a class="svc-row" href="?service=video#services" onclick="openServiceModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→︎→︎</span></a>
 <a class="svc-row" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→︎→︎</span></a>
@@ -4117,7 +4303,6 @@ body > .cta-band{
 <a href="?service=deck#services" onclick="openServiceModal('deck');return false;">品牌簡報</a>
 <a href="?service=gains#services" onclick="openServiceModal('gains');return false;">GAINS 商務工具</a>
 <a href="?service=photo#services" onclick="openServiceModal('photo');return false;">商務形象照</a>
-<a href="?service=script#services" onclick="openServiceModal('script');return false;">商務說詞</a>
 </div>
 </section>
 <section class="mr-footer-v17__follow">
@@ -4258,10 +4443,6 @@ function buildEcardServiceModal(){
         <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png" alt="金融專業服務類">
         <span>金融．保險．專業服務類</span>
       </button>
-      <div class="service-ecard-item service-ecard-building">
-        <div class="service-ecard-coming">製作中</div>
-        <span>房產．高單價業務類</span>
-      </div>
     </div>
     <div class="m-hl">不是只有把聯絡方式放上去，而是讓每一頁都負責一個任務：建立印象、補充信任、導向聯絡、促成分享。</div>
   `;
