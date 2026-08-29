@@ -1650,16 +1650,7 @@ body.ecard-viewer-open .cur-ring{
 .service-ecard-building{
   cursor:default!important;
 }
-.service-ecard-coming{
-  aspect-ratio:2/3;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#ede7da;
-  color:#9f7c24;
-  font-size:15px;
-  font-weight:700;
-}
+
 
 /* All modal/service links should use normal visible cursor */
 .modal-overlay,
@@ -5113,185 +5104,6 @@ body > .cta-band{
 </style>
 
 
-<style id="v39-final-copy-and-founder-line">
-/* ===== WHAT WE DO：桌機與手機共用同一組字體 / 顏色 ===== */
-.v39-mobile-copy{
-  display:none!important;
-}
-
-/* 桌機：固定兩句兩行 */
-.v39-intro-title > .v39-desktop-top,
-.v39-intro-title > .v39-desktop-bottom{
-  display:block!important;
-}
-
-/* 上句淺、下句深；手機與桌機都沿用 */
-.v39-intro-title .v39-desktop-top,
-.v39-intro-title .v39-mobile-top{
-  color:#9b9489!important;
-  font-family:inherit!important;
-  font-style:normal!important;
-  font-weight:inherit!important;
-}
-
-.v39-intro-title .v39-desktop-bottom,
-.v39-intro-title .v39-mobile-bottom{
-  color:#2b2823!important;
-  font-family:inherit!important;
-  font-style:italic!important;
-  font-weight:inherit!important;
-}
-
-/* 不讓舊版 CSS 改色 */
-.v39-intro-title em,
-.v39-intro-title span{
-  text-shadow:none!important;
-}
-
-/* ===== 品牌主理人：只留短線，不要整欄長線 ===== */
-.v38-founder-role{
-  border-bottom:0!important;
-  padding-bottom:0!important;
-  margin-bottom:22px!important;
-}
-
-.v38-founder-role::after{
-  content:''!important;
-  display:block!important;
-  width:42px!important;
-  height:2px!important;
-  margin-top:12px!important;
-  background:#b8953a!important;
-}
-
-/* ===== 手機只改斷句，不改字體與顏色 ===== */
-@media(max-width:720px){
-  .v39-intro-title > .v39-desktop-top,
-  .v39-intro-title > .v39-desktop-bottom{
-    display:none!important;
-  }
-
-  .v39-mobile-copy{
-    display:block!important;
-  }
-
-  .v39-mobile-top,
-  .v39-mobile-bottom{
-    display:block!important;
-  }
-
-  .v39-mobile-top > span,
-  .v39-mobile-bottom > span{
-    display:block!important;
-  }
-
-  /* 只控制手機字級與換行寬度，字型 / 顏色沿用桌機 */
-  .v39-intro-title{
-    width:100%!important;
-    max-width:100%!important;
-    font-size:34px!important;
-    line-height:1.16!important;
-    letter-spacing:-.045em!important;
-    word-break:keep-all!important;
-    overflow-wrap:normal!important;
-  }
-
-  .v39-mobile-bottom{
-    margin-top:8px!important;
-  }
-}
-
-@media(max-width:390px){
-  .v39-intro-title{
-    font-size:31px!important;
-  }
-}
-</style>
-
-
-<style id="v40-what-we-do-final">
-/* V40：WHAT WE DO 僅一份 DOM，避免任何重複 */
-
-/* 清除 V37 / V39 舊雙版本元素，即使殘留也完全不顯示 */
-.v37-desktop-line,
-.v37-mobile-lines,
-.v39-desktop-top,
-.v39-desktop-bottom,
-.v39-mobile-copy,
-.v39-mobile-top,
-.v39-mobile-bottom{
-  display:none!important;
-}
-
-/* 共用字體與色彩 */
-.v40-intro-title{
-  width:100%!important;
-  max-width:100%!important;
-  margin:0!important;
-  word-break:keep-all!important;
-  overflow-wrap:normal!important;
-}
-
-.v40-top{
-  display:block!important;
-  color:#9b9489!important;
-  font-family:inherit!important;
-  font-style:normal!important;
-  font-weight:inherit!important;
-}
-
-.v40-bottom{
-  display:block!important;
-  margin-top:12px!important;
-  color:#2b2823!important;
-  font-family:inherit!important;
-  font-style:italic!important;
-  font-weight:inherit!important;
-}
-
-/* 桌機：每句就是完整一行 */
-@media(min-width:721px){
-  .v40-top-a,
-  .v40-top-b,
-  .v40-bottom-a,
-  .v40-bottom-b{
-    display:inline!important;
-  }
-
-  .v40-intro-title{
-    font-size:clamp(48px,5.6vw,84px)!important;
-    line-height:1.12!important;
-    letter-spacing:-.05em!important;
-  }
-}
-
-/* 手機：只改斷句，不改字體家族與顏色 */
-@media(max-width:720px){
-  .v40-intro-title{
-    font-size:34px!important;
-    line-height:1.16!important;
-    letter-spacing:-.045em!important;
-  }
-
-  .v40-top-a,
-  .v40-top-b,
-  .v40-bottom-a,
-  .v40-bottom-b{
-    display:block!important;
-  }
-
-  .v40-bottom{
-    margin-top:8px!important;
-  }
-}
-
-@media(max-width:390px){
-  .v40-intro-title{
-    font-size:31px!important;
-  }
-}
-</style>
-
 
 <style id="v41-final-corrections">
 /* ===== WHAT WE DO：只剩兩句，桌機每句完整一行 ===== */
@@ -5432,89 +5244,6 @@ body > .cta-band{
   }
 }
 </style>
-
-
-<style id="v42-mobile-ecard-accordion-style">
-@media(max-width:720px){
-  .ecard-explain-list{
-    gap:10px!important;
-  }
-
-  .ecard-explain-item[data-mobile-accordion="true"]{
-    display:block!important;
-    padding:0!important;
-    gap:0!important;
-    overflow:hidden!important;
-    border:1px solid var(--v6-line)!important;
-    border-radius:12px!important;
-    background:var(--v6-white)!important;
-  }
-
-  .ecard-explain-head.ecard-mobile-toggle{
-    appearance:none!important;
-    -webkit-appearance:none!important;
-    width:100%!important;
-    min-height:58px!important;
-    display:grid!important;
-    grid-template-columns:1fr auto!important;
-    gap:4px 12px!important;
-    align-items:center!important;
-    padding:15px 16px!important;
-    border:0!important;
-    background:transparent!important;
-    text-align:left!important;
-    color:inherit!important;
-    cursor:pointer!important;
-  }
-
-  .ecard-explain-head .ecard-explain-page{
-    grid-column:1!important;
-    margin:0!important;
-  }
-
-  .ecard-mobile-chevron{
-    display:block!important;
-    grid-column:2!important;
-    grid-row:1!important;
-    font-size:20px!important;
-    line-height:1!important;
-    font-weight:300!important;
-    transition:transform .2s ease!important;
-  }
-
-  .ecard-page-purpose{
-    grid-column:1 / -1!important;
-    display:none!important;
-    margin:8px 0 0!important;
-  }
-
-  .ecard-explain-buttons,
-  .ecard-no-action{
-    display:none!important;
-    padding:0 16px 16px!important;
-  }
-
-  .ecard-explain-item.is-mobile-open .ecard-page-purpose{
-    display:block!important;
-  }
-
-  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
-    display:flex!important;
-    flex-direction:column!important;
-    gap:14px!important;
-  }
-
-  .ecard-explain-item.is-mobile-open .ecard-no-action{
-    display:block!important;
-  }
-
-  .ecard-explain-item.is-mobile-open .ecard-mobile-chevron{
-    transform:rotate(45deg)!important;
-  }
-}
-</style>
-
-
 <style id="v43-ecard-accordion-all-devices">
 /* 電子名片說明：桌機與手機皆可收合 */
 .ecard-explain-item[data-mobile-accordion="true"]{
@@ -5826,6 +5555,478 @@ body > .cta-band{
   .ecard-explain-item.is-mobile-open .ecard-button-purpose{
     font-size:12px!important;
     line-height:1.75!important;
+  }
+}
+</style>
+
+
+<style id="v45-cleanup-responsive">
+/* =========================================================
+   V45 FINAL CLEANUP
+   - Founder 視覺層級
+   - 390 / 430 / 1024 響應式穩定
+   - 保留 V44 電子名片三欄與收合
+   ========================================================= */
+
+/* V39 曾負責的 Founder 短線，整合到最終樣式 */
+.v38-founder-role{
+  border-bottom:0!important;
+  padding-bottom:0!important;
+  margin:14px 0 22px!important;
+}
+.v38-founder-role::after{
+  content:''!important;
+  display:block!important;
+  width:42px!important;
+  height:2px!important;
+  margin-top:12px!important;
+  background:#b8953a!important;
+}
+
+/* ===== Founder：只調層級、留白，不改文字 ===== */
+.v4-founder-copy{
+  align-self:center;
+}
+.v4-founder-copy .v4-section-index{
+  margin-bottom:18px!important;
+}
+.v36-founder-trust{
+  max-width:560px!important;
+  margin-bottom:22px!important;
+}
+.v35-founder-title{
+  margin-top:0!important;
+  margin-bottom:22px!important;
+}
+.v34-founder-story{
+  max-width:590px!important;
+}
+.v34-founder-story span + span{
+  margin-top:4px!important;
+}
+.v4-founder-exp{
+  margin-top:28px!important;
+}
+
+/* ===== 約 1024px：壓縮空間但不改資訊結構 ===== */
+@media(min-width:901px) and (max-width:1100px){
+  .v4-intro{
+    padding-left:36px!important;
+    padding-right:36px!important;
+  }
+  .v4-services-showcase{
+    padding-left:36px!important;
+    padding-right:36px!important;
+  }
+  .v4-works{
+    padding-left:36px!important;
+    padding-right:36px!important;
+  }
+  .v4-founder{
+    padding-left:36px!important;
+    padding-right:36px!important;
+    gap:48px!important;
+  }
+  .v37-founder-portrait{
+    height:640px!important;
+  }
+  .v35-founder-title{
+    font-size:38px!important;
+    line-height:1.15!important;
+  }
+  .v36-founder-trust,
+  .v34-founder-story{
+    max-width:100%!important;
+  }
+}
+
+/* ===== 430px：避免主要內容碰邊與橫向溢出 ===== */
+@media(max-width:430px){
+  html,body{
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+
+  #page-about,
+  #page-services,
+  #page-cases{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+
+  .v4-intro,
+  .v4-services-showcase,
+  .v4-works,
+  .v4-founder,
+  .v4-line-cta{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .v13-intro-inner,
+  .v13-intro-copy,
+  .v4-founder-copy{
+    min-width:0!important;
+    max-width:100%!important;
+  }
+
+  .v41-intro-title{
+    font-size:32px!important;
+    line-height:1.17!important;
+  }
+
+  .v13-intro-desc{
+    font-size:13px!important;
+    line-height:1.85!important;
+  }
+
+  .v37-founder-portrait{
+    width:100%!important;
+    max-width:100%!important;
+  }
+
+  .v4-founder-copy{
+    width:calc(100% - 16px)!important;
+    margin-left:8px!important;
+    margin-right:8px!important;
+    padding:25px 18px 22px!important;
+  }
+
+  .v38-founder-role{
+    font-size:19px!important;
+    margin-bottom:18px!important;
+  }
+
+  .v35-founder-title{
+    font-size:30px!important;
+    line-height:1.17!important;
+    margin-bottom:18px!important;
+  }
+
+  .v34-founder-story{
+    font-size:13px!important;
+    line-height:1.82!important;
+  }
+
+  .v4-line-cta{
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+}
+
+/* ===== 390px：再縮一級，保持自然斷句 ===== */
+@media(max-width:390px){
+  .v41-intro-title{
+    font-size:29px!important;
+    letter-spacing:-.04em!important;
+  }
+
+  .v4-works-head h2{
+    font-size:32px!important;
+    line-height:1.18!important;
+  }
+
+  .v35-founder-title{
+    font-size:28px!important;
+  }
+
+  .v37-founder-name{
+    font-size:22px!important;
+  }
+
+  .v4-founder-copy{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  .v4-line-cta h2{
+    font-size:34px!important;
+  }
+}
+</style>
+
+
+<style id="v46-zhong-content-case">
+/* ===== 鍾師傅案例｜商業短影音 & 貼文 ===== */
+.v46-content-case{
+  margin:2.5rem 0 3rem;
+  padding:0;
+  border-top:1px solid var(--border);
+}
+
+.v46-content-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:2rem;
+  padding:2rem 0 1.4rem;
+}
+
+.v46-content-label{
+  margin:0 0 .65rem!important;
+}
+
+.v46-content-title{
+  max-width:570px;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:clamp(22px,2.6vw,34px);
+  line-height:1.35;
+  letter-spacing:-.035em;
+  font-weight:500;
+  color:var(--ink);
+}
+
+.v46-content-index{
+  flex:0 0 auto;
+  text-align:right;
+  font-family:'Manrope',sans-serif;
+  font-size:9px;
+  line-height:1.55;
+  letter-spacing:.16em;
+  color:#a68a56;
+}
+
+.v46-content-summary{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);
+  gap:0;
+  margin-bottom:2.5rem;
+  border:1px solid var(--border);
+  background:#faf8f3;
+}
+
+.v46-content-story{
+  padding:1.6rem 1.75rem;
+  border-right:1px solid var(--border);
+}
+
+.v46-content-story .vcs-tag{
+  margin-bottom:.65rem;
+}
+
+.v46-content-story .vcs-title{
+  font-size:18px;
+  margin-bottom:.55rem;
+}
+
+.v46-content-story .vcs-desc{
+  max-width:520px;
+  margin:0;
+  font-size:13px;
+  line-height:1.9;
+}
+
+.v46-content-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-width:0;
+}
+
+.v46-content-stat{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:145px;
+  padding:1.2rem 1rem;
+  text-align:center;
+}
+
+.v46-content-stat + .v46-content-stat{
+  border-left:1px solid var(--border);
+}
+
+.v46-stat-num{
+  font-family:'Bodoni Moda',serif;
+  font-size:38px;
+  line-height:1;
+  color:var(--ink);
+}
+
+.v46-stat-label{
+  margin-top:.5rem;
+  font-size:10px;
+  letter-spacing:.08em;
+  color:var(--ink2);
+}
+
+/* 每一組內容 */
+.v46-media-section{
+  padding:1.7rem 0 2.2rem;
+  border-top:1px solid var(--border);
+}
+
+.v46-media-heading{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:1rem;
+}
+
+.v46-media-heading > span{
+  width:27px;
+  height:27px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 27px;
+  border:1px solid #c7ab6d;
+  border-radius:50%;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  color:#9e824e;
+}
+
+.v46-media-heading strong{
+  display:block;
+  font-family:'Manrope',sans-serif;
+  font-size:10px;
+  line-height:1.3;
+  letter-spacing:.15em;
+  color:var(--ink);
+}
+
+.v46-media-heading small{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  color:var(--ink2);
+}
+
+/* 短影音：保留完整 9:16，不裁圖 */
+.v46-video-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.v46-video-card,
+.v46-post-card{
+  margin:0;
+  min-width:0;
+}
+
+.v46-video-frame{
+  aspect-ratio:9/16;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#161616;
+}
+
+.v46-video-frame img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+.v46-video-card figcaption,
+.v46-post-card figcaption{
+  padding:.65rem .15rem 0;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  letter-spacing:.13em;
+  color:#8d8374;
+}
+
+/* 貼文：完整正方形 */
+.v46-post-section{
+  padding-bottom:.4rem;
+}
+
+.v46-post-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.v46-post-card img{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:1/1;
+  object-fit:contain!important;
+  background:#eee8dc;
+}
+
+/* 平板 */
+@media(max-width:900px){
+  .v46-content-summary{
+    grid-template-columns:1fr;
+  }
+  .v46-content-story{
+    border-right:0;
+    border-bottom:1px solid var(--border);
+  }
+}
+
+/* 手機：媒體改橫向滑動，單張更容易看清楚 */
+@media(max-width:620px){
+  .v46-content-case{
+    margin-top:2rem;
+  }
+
+  .v46-content-head{
+    align-items:flex-start;
+    padding-top:1.6rem;
+  }
+
+  .v46-content-index{
+    display:none;
+  }
+
+  .v46-content-title{
+    font-size:25px;
+    line-height:1.4;
+  }
+
+  .v46-content-story{
+    padding:1.3rem 1.15rem;
+  }
+
+  .v46-content-stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .v46-content-stat{
+    min-height:112px;
+    padding:.9rem .5rem;
+  }
+
+  .v46-stat-num{
+    font-size:31px;
+  }
+
+  .v46-video-grid,
+  .v46-post-grid{
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    padding:0 15vw 8px 0;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .v46-video-grid::-webkit-scrollbar,
+  .v46-post-grid::-webkit-scrollbar{
+    display:none;
+  }
+
+  .v46-video-card{
+    flex:0 0 min(66vw,250px);
+    scroll-snap-align:start;
+  }
+
+  .v46-post-card{
+    flex:0 0 min(72vw,280px);
+    scroll-snap-align:start;
+  }
+
+  .v46-media-section{
+    overflow:visible;
   }
 }
 </style>
@@ -6501,19 +6702,69 @@ function openCaseModal(){
       <div class="case-block"><img src="assets/鍾師富做臉後.png" alt="美容後" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 擺脫疲憊感 眼睛有神</div></div>
     </div>
 
-    <div class="m-cases-label">商業短影音 & 貼文</div>
-    <div class="vid-case-story">
-      <div class="vcs-tag">新創帳號・經營 1 個月</div>
-      <div class="vcs-title">詠順工程行</div>
-      <p class="vcs-desc">從零粉絲開始，透過短影音展示「看不見的專業」，快速觸及潛在新客群。</p>
-      <div class="vcs-stats">
-        <div class="vcs-stat"><span class="vcs-num">2.9萬</span><span class="vcs-lb">瀏覽次數</span></div>
-        <div class="vcs-divider"></div>
-        <div class="vcs-stat"><span class="vcs-num">85%</span><span class="vcs-lb">觸及新客群</span></div>
+    <section class="v46-content-case">
+      <div class="v46-content-head">
+        <div>
+          <div class="m-cases-label v46-content-label">商業短影音 & 貼文</div>
+          <div class="v46-content-title">把師傅的專業，變成客戶看得懂的內容。</div>
+        </div>
+        <div class="v46-content-index">CONTENT<br>CASE 01</div>
       </div>
-    </div>
-    <div class="case-block"><div class="vid-row vid-cutout">${['短影音1','短影音2','短影音3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">`).join('')}</div><div class="img-label">SHORT VIDEO · 短影音</div></div>
-    <div class="case-block"><div class="vid-row post-row">${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map(n=>`<img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">`).join('')}</div><div class="img-label gold">POST · 貼文</div></div>
+
+      <div class="v46-content-summary">
+        <div class="v46-content-story">
+          <div class="vcs-tag">新創帳號・經營 1 個月</div>
+          <div class="vcs-title">詠順工程行</div>
+          <p class="vcs-desc">從零粉絲開始，透過短影音展示「看不見的專業」，快速觸及潛在新客群。</p>
+        </div>
+        <div class="v46-content-stats">
+          <div class="v46-content-stat">
+            <span class="v46-stat-num">2.9萬</span>
+            <span class="v46-stat-label">瀏覽次數</span>
+          </div>
+          <div class="v46-content-stat">
+            <span class="v46-stat-num">85%</span>
+            <span class="v46-stat-label">觸及新客群</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="v46-media-section">
+        <div class="v46-media-heading">
+          <span>01</span>
+          <div>
+            <strong>SHORT VIDEO</strong>
+            <small>短影音內容</small>
+          </div>
+        </div>
+        <div class="v46-video-grid">
+          ${['短影音1','短影音2','短影音3'].map((n,i)=>`
+            <figure class="v46-video-card">
+              <div class="v46-video-frame">
+                <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
+              </div>
+              <figcaption>VIDEO ${String(i+1).padStart(2,'0')}</figcaption>
+            </figure>`).join('')}
+        </div>
+      </div>
+
+      <div class="v46-media-section v46-post-section">
+        <div class="v46-media-heading">
+          <span>02</span>
+          <div>
+            <strong>SOCIAL POST</strong>
+            <small>社群貼文內容</small>
+          </div>
+        </div>
+        <div class="v46-post-grid">
+          ${['短影音_貼文1','短影音_貼文2','短影音_貼文3'].map((n,i)=>`
+            <figure class="v46-post-card">
+              <img src="${VIDEO_IMGS[n]}" alt="${n}" loading="lazy" decoding="async">
+              <figcaption>POST ${String(i+1).padStart(2,'0')}</figcaption>
+            </figure>`).join('')}
+        </div>
+      </div>
+    </section>
 
     <div class="m-cases-label">LINE@ 帳號</div>
     <div class="case-block" style="max-width:280px;"><div class="ph-frame"><img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
