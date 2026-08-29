@@ -6403,6 +6403,609 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v50-brand-operations-display">
+/* ===== 服務頁：品牌營運工具 ===== */
+.v50-ops-wrap{
+  padding:0 5rem 5.5rem;
+  background:var(--paper);
+}
+.v50-ops-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding-top:4.5rem;
+  border-top:1px solid var(--border);
+}
+.v50-ops-kicker{
+  font-family:'Manrope',sans-serif;
+  font-size:9px;
+  letter-spacing:.22em;
+  color:var(--gold);
+  margin-bottom:1.2rem;
+}
+.v50-ops-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+  gap:4rem;
+  align-items:end;
+  margin-bottom:2.7rem;
+}
+.v50-ops-head h3{
+  margin:0;
+  font-family:'Noto Sans TC',serif;
+  font-size:clamp(30px,4vw,48px);
+  line-height:1.28;
+  font-weight:400;
+  color:var(--ink);
+  letter-spacing:-.04em;
+}
+.v50-ops-head h3 em{
+  color:#8f877a;
+  font-style:italic;
+}
+.v50-ops-head p{
+  margin:0;
+  font-size:13px;
+  line-height:2;
+  color:var(--ink2);
+  font-weight:300;
+}
+
+.v50-ops-capabilities{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:3rem;
+}
+.v50-ops-cap{
+  background:var(--paper);
+  padding:1.6rem 1.5rem 1.8rem;
+}
+.v50-ops-cap span{
+  font-family:'Bodoni Moda',serif;
+  font-size:27px;
+  color:#c7bda9;
+}
+.v50-ops-cap h4{
+  margin:.7rem 0 .45rem;
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink);
+}
+.v50-ops-cap p{
+  margin:0;
+  font-size:11px;
+  line-height:1.8;
+  color:var(--ink2);
+}
+
+.v50-ops-case-title{
+  margin-bottom:.8rem;
+  font-family:'Manrope',sans-serif;
+  font-size:9px;
+  letter-spacing:.18em;
+  color:#9b8b72;
+}
+.v50-ops-cases{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.v50-ops-case{
+  padding:2rem;
+  border:1px solid var(--border);
+  background:#faf8f3;
+}
+.v50-ops-case-no{
+  margin-bottom:1.4rem;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  color:var(--gold);
+}
+.v50-ops-case-client{
+  margin-bottom:.35rem;
+  font-size:11px;
+  color:#8e8577;
+}
+.v50-ops-case h4{
+  margin:0 0 .8rem;
+  font-size:20px;
+  font-weight:500;
+  color:var(--ink);
+}
+.v50-ops-case p{
+  margin:0;
+  font-size:12px;
+  line-height:1.9;
+  color:var(--ink2);
+}
+.v50-ops-case-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:1.25rem;
+}
+.v50-ops-case-tags span{
+  padding:5px 8px;
+  border:1px solid #ddd3c2;
+  font-size:9px;
+  color:#7a7062;
+}
+
+.v50-svc-display{
+  cursor:default!important;
+}
+.v50-svc-display:hover{
+  background:transparent!important;
+}
+.v50-svc-note{
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  color:#a99a81;
+}
+
+/* ===== 鍾師富案例：商務流程系統 ===== */
+.v50-case-system{
+  margin:3.2rem 0 .5rem;
+  padding-top:2rem;
+  border-top:1px solid var(--border);
+}
+.v50-case-system-head{
+  display:flex;
+  justify-content:space-between;
+  gap:2rem;
+  align-items:flex-end;
+  margin-bottom:1.4rem;
+}
+.v50-case-system-head .m-cases-label{
+  margin:0 0 .6rem!important;
+}
+.v50-case-system-title{
+  font-size:24px;
+  line-height:1.45;
+  color:var(--ink);
+  font-weight:500;
+  letter-spacing:-.03em;
+}
+.v50-case-system-index{
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  line-height:1.5;
+  letter-spacing:.16em;
+  color:#a99163;
+  text-align:right;
+}
+.v50-case-system-card{
+  display:grid;
+  grid-template-columns:minmax(210px,.8fr) minmax(0,1.2fr);
+  border:1px solid var(--border);
+  background:#faf8f3;
+}
+.v50-case-system-left{
+  padding:1.7rem;
+  border-right:1px solid var(--border);
+}
+.v50-case-system-client{
+  margin-bottom:.45rem;
+  font-size:10px;
+  letter-spacing:.08em;
+  color:var(--gold);
+}
+.v50-case-system-left h4{
+  margin:0 0 .75rem;
+  font-size:18px;
+  line-height:1.45;
+  color:var(--ink);
+}
+.v50-case-system-left p{
+  margin:0;
+  font-size:12px;
+  line-height:1.9;
+  color:var(--ink2);
+}
+.v50-case-system-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.v50-case-system-grid > div{
+  min-width:0;
+  padding:1.35rem 1.2rem;
+}
+.v50-case-system-grid > div:nth-child(odd){
+  border-right:1px solid var(--border);
+}
+.v50-case-system-grid > div:nth-child(-n+2){
+  border-bottom:1px solid var(--border);
+}
+.v50-case-system-grid span{
+  display:block;
+  margin-bottom:.5rem;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  color:#b69b65;
+}
+.v50-case-system-grid strong{
+  display:block;
+  margin-bottom:.3rem;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink);
+}
+.v50-case-system-grid small{
+  display:block;
+  font-size:10px;
+  line-height:1.65;
+  color:var(--ink2);
+}
+.v50-case-system-note{
+  margin-top:.65rem;
+  text-align:right;
+  font-family:'Manrope',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  color:#a59a89;
+}
+
+/* RWD */
+@media(max-width:760px){
+  .v50-ops-wrap{
+    padding:0 20px 4rem;
+  }
+  .v50-ops-inner{
+    padding-top:3rem;
+  }
+  .v50-ops-head{
+    grid-template-columns:1fr;
+    gap:1.3rem;
+    margin-bottom:2rem;
+  }
+  .v50-ops-head h3{
+    font-size:32px;
+  }
+  .v50-ops-capabilities{
+    grid-template-columns:1fr;
+    margin-bottom:2.3rem;
+  }
+  .v50-ops-cases{
+    grid-template-columns:1fr;
+  }
+  .v50-ops-case{
+    padding:1.5rem;
+  }
+
+  .v50-case-system-head{
+    align-items:flex-start;
+  }
+  .v50-case-system-index{
+    display:none;
+  }
+  .v50-case-system-title{
+    font-size:22px;
+  }
+  .v50-case-system-card{
+    grid-template-columns:1fr;
+  }
+  .v50-case-system-left{
+    border-right:0;
+    border-bottom:1px solid var(--border);
+    padding:1.35rem;
+  }
+  .v50-case-system-grid{
+    grid-template-columns:1fr;
+  }
+  .v50-case-system-grid > div{
+    padding:1.1rem 1.2rem;
+    border-right:0!important;
+    border-bottom:1px solid var(--border);
+  }
+  .v50-case-system-grid > div:last-child{
+    border-bottom:0;
+  }
+}
+</style>
+
+
+<style id="v51-brand-ops-visual-demo">
+/* ===== 品牌營運工具：可視化 DEMO ===== */
+.v51-ops-case{
+  display:flex;
+  flex-direction:column;
+}
+.v51-system-preview{
+  margin-top:1.2rem;
+}
+.v51-system-window{
+  border:1px solid #d9d1c3;
+  background:#fffdfa;
+  box-shadow:0 12px 30px rgba(48,41,31,.05);
+  overflow:hidden;
+}
+.v51-win-top{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:0 12px;
+  border-bottom:1px solid #e4ddd1;
+  background:#f5efe5;
+}
+.v51-win-top span{
+  width:8px;height:8px;border-radius:50%;
+  background:#d3c6b2;
+}
+.v51-win-top strong{
+  margin-left:6px;
+  font-family:'Manrope',sans-serif;
+  font-size:9px;
+  letter-spacing:.12em;
+  color:#8d7f6b;
+}
+
+/* 詠順 DEMO */
+.v51-yong-layout{
+  display:grid;
+  grid-template-columns:138px 1fr;
+  min-height:260px;
+}
+.v51-yong-side{
+  padding:12px;
+  background:#f7f2ea;
+  border-right:1px solid #ece3d6;
+}
+.v51-side-item{
+  padding:9px 10px;
+  margin-bottom:7px;
+  font-size:11px;
+  color:#8a7f71;
+  background:#fff;
+  border:1px solid #ece3d6;
+}
+.v51-side-item.is-active{
+  color:#2d2923;
+  border-color:#cdb487;
+}
+.v51-yong-main{
+  padding:14px;
+}
+.v51-stat-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:12px;
+}
+.v51-stat-card{
+  padding:12px 10px;
+  border:1px solid #ece3d6;
+  background:#faf8f3;
+}
+.v51-stat-card small{
+  display:block;
+  font-size:10px;
+  color:#8d8479;
+}
+.v51-stat-card strong{
+  display:block;
+  margin-top:6px;
+  font-family:'Bodoni Moda',serif;
+  font-size:28px;
+  color:#2b2823;
+}
+.v51-panel-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.v51-panel{
+  padding:12px;
+  border:1px solid #ece3d6;
+}
+.v51-panel label{
+  display:block;
+  margin-bottom:9px;
+  font-size:10px;
+  letter-spacing:.08em;
+  color:#a28f72;
+}
+.v51-progress-list,
+.v51-doc-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.v51-progress-list span,
+.v51-doc-tags span{
+  padding:6px 8px;
+  background:#f7f2ea;
+  font-size:10px;
+  color:#5b554c;
+  border:1px solid #ece3d6;
+}
+
+.v51-preview-note{
+  margin-top:.65rem;
+  font-size:11px;
+  line-height:1.8;
+  color:#8c8173;
+}
+
+/* 傑出 DEMO */
+.v51-out-layout{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  min-height:260px;
+}
+.v51-form-col{
+  padding:14px;
+  border-right:1px solid #ece3d6;
+  background:#f8f4ed;
+}
+.v51-input{
+  min-height:36px;
+  display:flex;
+  align-items:center;
+  padding:0 11px;
+  margin-bottom:9px;
+  border:1px solid #dfd6c9;
+  background:#fff;
+  font-size:11px;
+  color:#8b8174;
+}
+.v51-input.big{
+  min-height:46px;
+}
+.v51-sheet-col{
+  padding:14px;
+  background:#fffdfa;
+}
+.v51-sheet-head{
+  margin-bottom:10px;
+  font-size:11px;
+  letter-spacing:.08em;
+  color:#a18d6f;
+}
+.v51-sheet-lines{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  padding:12px;
+  min-height:145px;
+  border:1px solid #ece3d6;
+  background:#fff;
+}
+.v51-sheet-lines span{
+  display:block;
+  font-size:11px;
+  color:#575148;
+}
+.v51-sheet-total{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px solid #d9cfbf;
+  background:#f6efe2;
+  font-family:'Manrope',sans-serif;
+  font-size:12px;
+  letter-spacing:.06em;
+  color:#2d2923;
+}
+
+/* 鍾師富案例最後系統展示 */
+.v51-case-system-card{
+  margin-bottom:1rem;
+}
+.v51-case-preview{
+  margin-top:.7rem;
+}
+.v51-case-preview-body{
+  display:grid;
+  grid-template-columns:152px 1fr;
+  min-height:240px;
+}
+.v51-case-side{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:12px;
+  border-right:1px solid #ece3d6;
+  background:#f8f3eb;
+}
+.v51-case-side span{
+  padding:9px 10px;
+  border:1px solid #e8e0d3;
+  background:#fff;
+  font-size:10px;
+  color:#7e7364;
+}
+.v51-case-side span.is-active{
+  border-color:#cdb487;
+  color:#2d2923;
+}
+.v51-case-main{
+  padding:14px;
+}
+.v51-case-main-top{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:12px;
+}
+.v51-case-main-top div{
+  padding:12px 10px;
+  border:1px solid #ece3d6;
+  background:#faf8f3;
+}
+.v51-case-main-top label{
+  display:block;
+  font-size:10px;
+  color:#8a8174;
+}
+.v51-case-main-top strong{
+  display:block;
+  margin-top:6px;
+  font-family:'Bodoni Moda',serif;
+  font-size:26px;
+  color:#2b2823;
+}
+.v51-case-main-sheet{
+  padding:12px;
+  border:1px solid #ece3d6;
+  background:#fff;
+}
+.v51-case-sheet-head{
+  margin-bottom:10px;
+  font-size:10px;
+  letter-spacing:.08em;
+  color:#a18d6f;
+}
+.v51-case-sheet-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.v51-case-sheet-list span{
+  font-size:11px;
+  color:#5b554c;
+}
+
+/* 平板/手機 */
+@media(max-width:760px){
+  .v51-yong-layout,
+  .v51-out-layout,
+  .v51-case-preview-body{
+    grid-template-columns:1fr;
+  }
+  .v51-yong-side,
+  .v51-form-col,
+  .v51-case-side{
+    border-right:0;
+    border-bottom:1px solid #ece3d6;
+  }
+  .v51-stat-row,
+  .v51-case-main-top{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+  .v51-panel-grid{
+    grid-template-columns:1fr;
+  }
+}
+@media(max-width:620px){
+  .v51-stat-row,
+  .v51-case-main-top{
+    grid-template-columns:1fr;
+  }
+  .v51-ops-case p{
+    font-size:12px;
+    line-height:1.85;
+  }
+  .v51-system-window{
+    overflow:hidden;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -6746,6 +7349,132 @@ body > .cta-band{
 </div>
 </div>
 </div>
+
+<!-- V50 BRAND OPERATIONS｜純案例展示 -->
+<section class="v50-ops-wrap">
+  <div class="v50-ops-inner">
+    <div class="v50-ops-kicker">BRAND OPERATIONS</div>
+
+    <div class="v50-ops-head">
+      <h3>品牌被看見之後，<br><em>讓工作流程也更專業。</em></h3>
+      <p>將原本散落在 Excel、LINE、紙本與人工處理的流程，整理成真正能每天使用的數位工具。</p>
+    </div>
+
+    <div class="v50-ops-capabilities">
+      <div class="v50-ops-cap">
+        <span>01</span>
+        <h4>文件自動化</h4>
+        <p>報價單・估價單・保固書・檢測報告・驗收文件</p>
+      </div>
+      <div class="v50-ops-cap">
+        <span>02</span>
+        <h4>案件管理</h4>
+        <p>客戶資料・案件進度・文件紀錄・保固提醒</p>
+      </div>
+      <div class="v50-ops-cap">
+        <span>03</span>
+        <h4>客製化商務工具</h4>
+        <p>依照實際工作流程，整理成專屬的日常營運系統</p>
+      </div>
+    </div>
+
+    <div class="v50-ops-case-title">REAL CASES</div>
+    <div class="v50-ops-cases v51-ops-cases">
+      <article class="v50-ops-case v51-ops-case">
+        <div class="v50-ops-case-no">CASE 01</div>
+        <div class="v50-ops-case-client">詠順工程行</div>
+        <h4>工程案件管理與文件系統</h4>
+        <p>從報價、檢測、施工、驗收到保固，把原本分散的工程流程整合成一套管理系統。</p>
+
+        <div class="v51-system-preview">
+          <div class="v51-system-window">
+            <div class="v51-win-top"><span></span><span></span><span></span><strong>案件管理系統 DEMO</strong></div>
+            <div class="v51-yong-layout">
+              <aside class="v51-yong-side">
+                <div class="v51-side-item is-active">儀表板</div>
+                <div class="v51-side-item">客戶管理</div>
+                <div class="v51-side-item">案件管理</div>
+                <div class="v51-side-item">文件中心</div>
+                <div class="v51-side-item">保固管理</div>
+              </aside>
+              <div class="v51-yong-main">
+                <div class="v51-stat-row">
+                  <div class="v51-stat-card"><small>本月案件</small><strong>18</strong></div>
+                  <div class="v51-stat-card"><small>待處理文件</small><strong>07</strong></div>
+                  <div class="v51-stat-card"><small>保固提醒</small><strong>04</strong></div>
+                </div>
+                <div class="v51-panel-grid">
+                  <div class="v51-panel">
+                    <label>案件進度</label>
+                    <div class="v51-progress-list">
+                      <span>案件 A / 施工中</span>
+                      <span>案件 B / 驗收中</span>
+                      <span>案件 C / 已完工</span>
+                    </div>
+                  </div>
+                  <div class="v51-panel">
+                    <label>文件模組</label>
+                    <div class="v51-doc-tags">
+                      <span>報價單</span><span>檢測報告</span><span>保固書</span><span>驗收單</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="v51-preview-note">外觀展示：案件、文件、保固整合在同一系統中</div>
+        </div>
+
+        <div class="v50-ops-case-tags">
+          <span>案件管理</span>
+          <span>文件中心</span>
+          <span>保固提醒</span>
+          <span>施工排程</span>
+        </div>
+      </article>
+
+      <article class="v50-ops-case v51-ops-case">
+        <div class="v50-ops-case-no">CASE 02</div>
+        <div class="v50-ops-case-client">傑出油漆工程行</div>
+        <h4>估價單產生器</h4>
+        <p>把常用價目、施工項目與付款條件整理進系統，讓現場估價與文件製作更快速、更一致。</p>
+
+        <div class="v51-system-preview">
+          <div class="v51-system-window">
+            <div class="v51-win-top"><span></span><span></span><span></span><strong>估價單產生器 DEMO</strong></div>
+            <div class="v51-out-layout">
+              <div class="v51-form-col">
+                <div class="v51-input big">客戶名稱</div>
+                <div class="v51-input">施工位置</div>
+                <div class="v51-input">施工內容</div>
+                <div class="v51-input">數量 / 單位 / 單價</div>
+                <div class="v51-input">付款條件</div>
+              </div>
+              <div class="v51-sheet-col">
+                <div class="v51-sheet-head">估價單預覽</div>
+                <div class="v51-sheet-lines">
+                  <span>室內牆面粉刷　12 坪　$ 7,200</span>
+                  <span>天花板修補　　  4 坪　$ 2,800</span>
+                  <span>保護工程　　　  1 式　$ 1,200</span>
+                </div>
+                <div class="v51-sheet-total">TOTAL　NT$ 11,200</div>
+              </div>
+            </div>
+          </div>
+          <div class="v51-preview-note">外觀展示：左側輸入，右側即時預覽文件內容</div>
+        </div>
+
+        <div class="v50-ops-case-tags">
+          <span>價目管理</span>
+          <span>快速估價</span>
+          <span>即時預覽</span>
+          <span>PDF 文件</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <div class="cta-band">
 <h2 class="rv">你的專業，<br/>值得被更多人看見</h2>
@@ -7173,6 +7902,77 @@ function openCaseModal(){
         </button>
       </div>
     </div>
+
+    <section class="v50-case-system">
+      <div class="v50-case-system-head">
+        <div>
+          <div class="m-cases-label">商務流程系統</div>
+          <div class="v50-case-system-title">品牌不只被看見，<br>也真正進入每天的工作流程。</div>
+        </div>
+        <div class="v50-case-system-index">BUSINESS<br>SYSTEM</div>
+      </div>
+
+      <div class="v50-case-system-card v51-case-system-card">
+        <div class="v50-case-system-left">
+          <div class="v50-case-system-client">詠順工程行</div>
+          <h4>工程案件管理與文件系統</h4>
+          <p>把原本分散在 LINE、紙本與人工紀錄裡的工程流程，整理成一套從案件到文件、從施工到保固都能持續使用的管理工具。</p>
+        </div>
+
+        <div class="v50-case-system-grid">
+          <div>
+            <span>01</span>
+            <strong>報價與文件</strong>
+            <small>報價單・檢測報告・保固書・驗收文件</small>
+          </div>
+          <div>
+            <span>02</span>
+            <strong>案件管理</strong>
+            <small>客戶資料・工程進度・案件紀錄</small>
+          </div>
+          <div>
+            <span>03</span>
+            <strong>施工排程</strong>
+            <small>場務安排・工程時程・進度掌握</small>
+          </div>
+          <div>
+            <span>04</span>
+            <strong>保固管理</strong>
+            <small>保固期限・提醒・後續追蹤</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="v51-case-preview">
+        <div class="v51-system-window">
+          <div class="v51-win-top"><span></span><span></span><span></span><strong>詠順工程行 系統外觀展示</strong></div>
+          <div class="v51-case-preview-body">
+            <div class="v51-case-side">
+              <span class="is-active">案件總覽</span>
+              <span>文件中心</span>
+              <span>排程甘特圖</span>
+              <span>保固提醒</span>
+            </div>
+            <div class="v51-case-main">
+              <div class="v51-case-main-top">
+                <div><label>案件數</label><strong>18</strong></div>
+                <div><label>待驗收</label><strong>03</strong></div>
+                <div><label>保固中</label><strong>11</strong></div>
+              </div>
+              <div class="v51-case-main-sheet">
+                <div class="v51-case-sheet-head">文件中心</div>
+                <div class="v51-case-sheet-list">
+                  <span>2026-08-19｜報價單 #A028</span>
+                  <span>2026-08-21｜檢測報告 #R012</span>
+                  <span>2026-08-22｜保固書 #W009</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="v50-case-system-note">SYSTEM CASE · 僅作成果展示，不開放直接操作</div>
+      </div>
+    </section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
