@@ -5606,6 +5606,230 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v44-ecard-explanation-layout">
+/* =========================================================
+   V44 電子名片按鈕說明
+   左：頁面目的 / 中：按鈕 / 右：連結＋用途
+   ========================================================= */
+
+/* 展開狀態：桌機三欄邏輯 */
+@media(min-width:721px){
+  .ecard-explain-item[data-mobile-accordion="true"].is-mobile-open{
+    display:grid!important;
+    grid-template-columns:minmax(250px, 31%) minmax(0, 69%)!important;
+    column-gap:0!important;
+    align-items:start!important;
+    padding:30px 32px!important;
+    overflow:visible!important;
+  }
+
+  /* 左側頁面說明 */
+  .ecard-explain-item.is-mobile-open .ecard-explain-head.ecard-mobile-toggle{
+    grid-column:1!important;
+    display:block!important;
+    width:100%!important;
+    min-height:0!important;
+    padding:4px 34px 4px 0!important;
+    border-right:1px solid var(--v6-line)!important;
+    background:transparent!important;
+    cursor:pointer!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-explain-page{
+    display:block!important;
+    margin:0 0 14px!important;
+    font-size:10px!important;
+    line-height:1.4!important;
+    letter-spacing:.14em!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-page-purpose{
+    display:block!important;
+    margin:0!important;
+    max-width:410px!important;
+    font-size:14px!important;
+    line-height:2!important;
+    color:#5f5a52!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-mobile-chevron{
+    position:absolute!important;
+    right:16px!important;
+    top:16px!important;
+    display:block!important;
+  }
+
+  /* 右側整體 */
+  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+    grid-column:2!important;
+    display:flex!important;
+    flex-direction:column!important;
+    gap:20px!important;
+    width:100%!important;
+    max-width:none!important;
+    padding:0 0 0 32px!important;
+    margin:0!important;
+  }
+
+  /* 每一顆按鈕 = 中間按鈕 + 右側說明 */
+  .ecard-explain-item.is-mobile-open .ecard-explain-button-row{
+    display:grid!important;
+    grid-template-columns:minmax(220px,280px) minmax(0,1fr)!important;
+    gap:28px!important;
+    align-items:center!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  /* 中間按鈕 */
+  .ecard-explain-item.is-mobile-open .ecard-explain-button-visual{
+    width:100%!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-demo-button{
+    width:100%!important;
+    min-height:84px!important;
+    padding:16px 20px!important;
+    font-size:16px!important;
+    line-height:1.35!important;
+    font-weight:600!important;
+    border-radius:5px!important;
+  }
+
+  /* 右側連結與用途 */
+  .ecard-explain-item.is-mobile-open .ecard-button-info{
+    min-width:0!important;
+    padding:2px 0!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target{
+    display:flex!important;
+    align-items:baseline!important;
+    flex-wrap:wrap!important;
+    gap:8px 12px!important;
+    margin-bottom:8px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target span{
+    font-size:11px!important;
+    line-height:1.4!important;
+    color:#a29a8c!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target strong{
+    font-size:16px!important;
+    line-height:1.5!important;
+    font-weight:600!important;
+    color:#332f29!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-button-purpose{
+    margin:0!important;
+    font-size:13px!important;
+    line-height:1.8!important;
+    color:#70695e!important;
+  }
+
+  /* 沒按鈕的頁面 */
+  .ecard-explain-item.is-mobile-open .ecard-no-action{
+    grid-column:2!important;
+    padding:8px 0 8px 32px!important;
+    font-size:13px!important;
+    line-height:1.8!important;
+  }
+
+  /* 收合狀態仍維持簡潔的一列 */
+  .ecard-explain-item[data-mobile-accordion="true"]:not(.is-mobile-open){
+    display:block!important;
+    padding:0!important;
+  }
+
+  .ecard-explain-item:not(.is-mobile-open) .ecard-explain-head.ecard-mobile-toggle{
+    min-height:68px!important;
+    padding:16px 22px!important;
+  }
+}
+
+/* 平板：比例稍收 */
+@media(min-width:721px) and (max-width:1050px){
+  .ecard-explain-item[data-mobile-accordion="true"].is-mobile-open{
+    grid-template-columns:minmax(210px,28%) minmax(0,72%)!important;
+    padding:26px 24px!important;
+  }
+  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+    padding-left:24px!important;
+  }
+  .ecard-explain-item.is-mobile-open .ecard-explain-button-row{
+    grid-template-columns:minmax(190px,230px) minmax(0,1fr)!important;
+    gap:20px!important;
+  }
+  .ecard-explain-item.is-mobile-open .ecard-demo-button{
+    min-height:74px!important;
+    font-size:14px!important;
+  }
+}
+
+/* 手機：頁面說明 → 按鈕 → 連結說明，依序上下 */
+@media(max-width:720px){
+  .ecard-explain-item.is-mobile-open .ecard-explain-head.ecard-mobile-toggle{
+    border-bottom:1px solid var(--v6-line)!important;
+    padding:16px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-page-purpose{
+    display:block!important;
+    font-size:13px!important;
+    line-height:1.85!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:22px!important;
+    padding:18px 16px 20px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-explain-button-row{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:12px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-demo-button{
+    width:100%!important;
+    min-height:54px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-button-info{
+    padding:0 2px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target{
+    display:flex!important;
+    align-items:baseline!important;
+    flex-wrap:wrap!important;
+    gap:6px 8px!important;
+    margin-bottom:5px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target span{
+    font-size:10px!important;
+    color:#a29a8c!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-link-target strong{
+    font-size:14px!important;
+    color:#332f29!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-button-purpose{
+    font-size:12px!important;
+    line-height:1.75!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
