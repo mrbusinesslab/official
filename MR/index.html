@@ -7711,6 +7711,98 @@ img{
 }
 </style>
 
+
+<style id="v61-targeted-fixes">
+/* =========================================================
+   V61 — 只修兩件事：
+   1) WHAT WE DO 手機斷句
+   2) 鍾師富 LINE@ / 電子名片桌機齊高
+========================================================= */
+
+/* ---------- 鍾師富案例：桌機雙欄等高 ---------- */
+@media (min-width: 721px){
+  .v49-zhong-actions-grid{
+    align-items:stretch!important;
+  }
+
+  .v49-zhong-action-col{
+    display:flex!important;
+    flex-direction:column!important;
+    min-width:0!important;
+  }
+
+  .v49-zhong-action-link{
+    display:flex!important;
+    flex:1 1 auto!important;
+    min-height:0!important;
+  }
+
+  .v49-zhong-action-block{
+    display:flex!important;
+    flex-direction:column!important;
+    flex:1 1 auto!important;
+    width:100%!important;
+    min-height:0!important;
+  }
+
+  .v49-zhong-action-frame{
+    flex:1 1 auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:560px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+  }
+
+  .v49-zhong-action-frame img{
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    object-fit:contain!important;
+    display:block!important;
+  }
+
+  .v49-zhong-action-block .img-label{
+    flex:0 0 auto!important;
+  }
+}
+
+/* ---------- WHAT WE DO：手機保留兩段語意，不允許任意拆字 ---------- */
+@media (max-width: 620px){
+  .v41-line{
+    overflow-wrap:normal!important;
+    word-break:keep-all!important;
+    white-space:normal!important;
+  }
+
+  .v41-line-top,
+  .v41-line-bottom{
+    display:block!important;
+    width:100%!important;
+  }
+
+  /* 讓中文優先在標點/詞組間自然換行，不因 anywhere 拆成奇怪斷句 */
+  .v41-line-top{
+    font-size:clamp(27px,7.4vw,35px)!important;
+  }
+
+  .v41-line-bottom{
+    font-size:clamp(27px,7.4vw,35px)!important;
+  }
+}
+
+@media (max-width: 390px){
+  .v41-line-top,
+  .v41-line-bottom{
+    font-size:clamp(24px,7vw,30px)!important;
+    line-height:1.16!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
