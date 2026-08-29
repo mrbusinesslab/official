@@ -7006,6 +7006,44 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v53-real-system-showcase">
+.v53-real-preview{margin-top:1.35rem;}
+.v53-real-frame{
+  position:relative; overflow:hidden;
+  border:1px solid #d8d0c3; background:#f8f4ed;
+  box-shadow:0 12px 28px rgba(44,37,28,.06);
+}
+.v53-real-top{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:38px;padding:0 13px;border-bottom:1px solid #e2dacd;background:#f3ede4;
+}
+.v53-real-top span{
+  font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.15em;color:#a88d60;
+}
+.v53-real-top strong{font-size:10px;font-weight:500;color:#6e6558;}
+.v53-real-frame img{
+  display:block;width:100%!important;height:auto!important;max-height:none!important;
+  object-fit:contain!important;background:#fff;pointer-events:none;
+}
+.v53-real-caption{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
+  padding:.85rem .15rem 0;
+}
+.v53-real-caption strong{font-size:12px;font-weight:500;color:var(--ink);}
+.v53-real-caption span{
+  max-width:68%;text-align:right;font-size:10px;line-height:1.7;color:#8d8375;
+}
+.v53-case-real-preview{margin-top:1rem;}
+.v53-case-real-frame{background:#fff;}
+@media(max-width:760px){
+  .v53-real-caption{flex-direction:column;gap:5px;}
+  .v53-real-caption span{max-width:100%;text-align:left;}
+  .v53-real-top{min-height:34px;}
+  .v53-real-top strong{font-size:9px;}
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -7386,44 +7424,21 @@ body > .cta-band{
         <h4>工程案件管理與文件系統</h4>
         <p>從報價、檢測、施工、驗收到保固，把原本分散的工程流程整合成一套管理系統。</p>
 
-        <div class="v51-system-preview">
-          <div class="v51-system-window">
-            <div class="v51-win-top"><span></span><span></span><span></span><strong>案件管理系統 DEMO</strong></div>
-            <div class="v51-yong-layout">
-              <aside class="v51-yong-side">
-                <div class="v51-side-item is-active">儀表板</div>
-                <div class="v51-side-item">客戶管理</div>
-                <div class="v51-side-item">案件管理</div>
-                <div class="v51-side-item">文件中心</div>
-                <div class="v51-side-item">保固管理</div>
-              </aside>
-              <div class="v51-yong-main">
-                <div class="v51-stat-row">
-                  <div class="v51-stat-card"><small>本月案件</small><strong>18</strong></div>
-                  <div class="v51-stat-card"><small>待處理文件</small><strong>07</strong></div>
-                  <div class="v51-stat-card"><small>保固提醒</small><strong>04</strong></div>
-                </div>
-                <div class="v51-panel-grid">
-                  <div class="v51-panel">
-                    <label>案件進度</label>
-                    <div class="v51-progress-list">
-                      <span>案件 A / 施工中</span>
-                      <span>案件 B / 驗收中</span>
-                      <span>案件 C / 已完工</span>
-                    </div>
-                  </div>
-                  <div class="v51-panel">
-                    <label>文件模組</label>
-                    <div class="v51-doc-tags">
-                      <span>報價單</span><span>檢測報告</span><span>保固書</span><span>驗收單</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="v51-preview-note">外觀展示：案件、文件、保固整合在同一系統中</div>
-        </div>
+        
+<div class="v53-real-preview">
+  <div class="v53-real-frame">
+    <div class="v53-real-top">
+      <span>REAL SYSTEM CASE</span>
+      <strong>詠順工程行</strong>
+    </div>
+    <img src="assets/詠順文件.png" alt="詠順工程行工程案件管理與文件系統實際畫面" loading="lazy" decoding="async">
+  </div>
+  <div class="v53-real-caption">
+    <strong>工程案件管理與文件系統</strong>
+    <span>實際成果畫面展示・案件、文件、保固與施工流程整合</span>
+  </div>
+</div>
+
 
         <div class="v50-ops-case-tags">
           <span>案件管理</span>
@@ -7439,30 +7454,21 @@ body > .cta-band{
         <h4>估價單產生器</h4>
         <p>把常用價目、施工項目與付款條件整理進系統，讓現場估價與文件製作更快速、更一致。</p>
 
-        <div class="v51-system-preview">
-          <div class="v51-system-window">
-            <div class="v51-win-top"><span></span><span></span><span></span><strong>估價單產生器 DEMO</strong></div>
-            <div class="v51-out-layout">
-              <div class="v51-form-col">
-                <div class="v51-input big">客戶名稱</div>
-                <div class="v51-input">施工位置</div>
-                <div class="v51-input">施工內容</div>
-                <div class="v51-input">數量 / 單位 / 單價</div>
-                <div class="v51-input">付款條件</div>
-              </div>
-              <div class="v51-sheet-col">
-                <div class="v51-sheet-head">估價單預覽</div>
-                <div class="v51-sheet-lines">
-                  <span>室內牆面粉刷　12 坪　$ 7,200</span>
-                  <span>天花板修補　　  4 坪　$ 2,800</span>
-                  <span>保護工程　　　  1 式　$ 1,200</span>
-                </div>
-                <div class="v51-sheet-total">TOTAL　NT$ 11,200</div>
-              </div>
-            </div>
-          </div>
-          <div class="v51-preview-note">外觀展示：左側輸入，右側即時預覽文件內容</div>
-        </div>
+        
+<div class="v53-real-preview">
+  <div class="v53-real-frame">
+    <div class="v53-real-top">
+      <span>REAL SYSTEM CASE</span>
+      <strong>傑出油漆工程行</strong>
+    </div>
+    <img src="assets/傑出文件.png" alt="傑出油漆估價單產生器實際畫面" loading="lazy" decoding="async">
+  </div>
+  <div class="v53-real-caption">
+    <strong>估價單產生器</strong>
+    <span>實際成果畫面展示・快速輸入施工內容並整理估價文件</span>
+  </div>
+</div>
+
 
         <div class="v50-ops-case-tags">
           <span>價目管理</span>
@@ -7943,35 +7949,18 @@ function openCaseModal(){
         </div>
       </div>
 
-      <div class="v51-case-preview">
-        <div class="v51-system-window">
-          <div class="v51-win-top"><span></span><span></span><span></span><strong>詠順工程行 系統外觀展示</strong></div>
-          <div class="v51-case-preview-body">
-            <div class="v51-case-side">
-              <span class="is-active">案件總覽</span>
-              <span>文件中心</span>
-              <span>排程甘特圖</span>
-              <span>保固提醒</span>
-            </div>
-            <div class="v51-case-main">
-              <div class="v51-case-main-top">
-                <div><label>案件數</label><strong>18</strong></div>
-                <div><label>待驗收</label><strong>03</strong></div>
-                <div><label>保固中</label><strong>11</strong></div>
-              </div>
-              <div class="v51-case-main-sheet">
-                <div class="v51-case-sheet-head">文件中心</div>
-                <div class="v51-case-sheet-list">
-                  <span>2026-08-19｜報價單 #A028</span>
-                  <span>2026-08-21｜檢測報告 #R012</span>
-                  <span>2026-08-22｜保固書 #W009</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="v50-case-system-note">SYSTEM CASE · 僅作成果展示，不開放直接操作</div>
-      </div>
+      
+<div class="v53-case-real-preview">
+  <div class="v53-real-frame v53-case-real-frame">
+    <div class="v53-real-top">
+      <span>BUSINESS SYSTEM</span>
+      <strong>詠順工程行・實際成果畫面</strong>
+    </div>
+    <img src="assets/詠順文件.png" alt="詠順工程行商務流程系統實際成果畫面" loading="lazy" decoding="async">
+  </div>
+  <div class="v50-case-system-note">SYSTEM CASE · 實際成果展示，不開放直接操作</div>
+</div>
+
     </section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
