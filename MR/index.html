@@ -4481,6 +4481,270 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v35-mobile-selected-works-and-copy">
+@media(max-width:720px){
+
+  /* ===== Selected Works 整體：不裁切任何案例 ===== */
+  .v4-works{
+    overflow:visible!important;
+    padding:76px 18px 88px!important;
+  }
+  .v4-works-head{
+    display:block!important;
+    margin-bottom:38px!important;
+  }
+  .v4-works-head .v4-section-index{
+    margin-bottom:16px!important;
+  }
+  .v4-works-head>a{
+    display:inline-flex!important;
+    min-height:44px!important;
+    align-items:center!important;
+    margin-top:20px!important;
+  }
+
+  .v4-work-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    width:100%!important;
+    max-width:100%!important;
+    gap:50px!important;
+    overflow:visible!important;
+  }
+  .v4-work-card,
+  .v4-work-wide{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    overflow:visible!important;
+  }
+
+  /* ===== 鍾師富：真正可左右滑 ===== */
+  .v4-work-wide .v4-work-img.v20-work-beforeafter{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    overflow:visible!important;
+    padding:0!important;
+    background:transparent!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-grid{
+    position:relative!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    width:calc(100vw - 18px)!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin-right:-18px!important;
+    padding:0 18vw 8px 0!important;
+    gap:10px!important;
+    overflow-x:scroll!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-x:contain!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-padding-left:0!important;
+    scrollbar-width:none!important;
+    touch-action:pan-x!important;
+    cursor:grab!important;
+  }
+  .v20-work-beforeafter .v20-ba-grid::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  .v20-work-beforeafter .v20-ba-shot{
+    position:relative!important;
+    flex:0 0 76vw!important;
+    width:76vw!important;
+    max-width:300px!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:3/4!important;
+    scroll-snap-align:start!important;
+    scroll-snap-stop:always!important;
+    overflow:hidden!important;
+    background:#151515!important;
+  }
+  .v20-work-beforeafter .v20-ba-shot img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:none!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+    transform:none!important;
+    pointer-events:none!important;
+  }
+  .v20-work-beforeafter::after{
+    content:'左右滑動查看 BEFORE / AFTER  →'!important;
+    display:block!important;
+    width:100%!important;
+    margin:10px 0 0!important;
+    font-size:11px!important;
+    line-height:1.5!important;
+    letter-spacing:.04em!important;
+    color:rgba(255,255,255,.52)!important;
+    text-align:right!important;
+  }
+
+  /* ===== 下面兩張電子名片：完整 2:3 呈現，取消所有固定高度 ===== */
+  .v4-work-card:not(.v4-work-wide) .v4-work-img,
+  .v4-work-card:not(.v4-work-wide) .v4-work-img.v19-work-cardimg,
+  .v19-work-cardimg{
+    box-sizing:border-box!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:2/3!important;
+    overflow:hidden!important;
+    padding:0!important;
+    background:#161616!important;
+  }
+  .v4-work-card:not(.v4-work-wide) .v4-work-img img,
+  .v19-work-cardimg img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    transform:none!important;
+  }
+
+  .v4-work-meta{
+    width:100%!important;
+    box-sizing:border-box!important;
+    padding-top:16px!important;
+  }
+  .v4-work-meta h3{
+    font-size:18px!important;
+    line-height:1.55!important;
+    margin:7px 0 5px!important;
+  }
+  .v4-work-meta span,
+  .v4-work-meta small{
+    font-size:10px!important;
+    line-height:1.6!important;
+  }
+
+  /* ===== 手機文案斷句：標題不要被瀏覽器任意拆字 ===== */
+  .v35-works-title,
+  .v35-founder-title,
+  .v35-final-title,
+  .v35-method-title,
+  .v22-intro-title{
+    max-width:100%!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+
+  .v35-works-title span,
+  .v35-works-title em,
+  .v35-founder-title span,
+  .v35-founder-title em,
+  .v35-final-title span,
+  .v35-final-title em,
+  .v35-method-title span,
+  .v35-method-title em,
+  .v22-intro-title span,
+  .v22-intro-title em{
+    display:block!important;
+    width:max-content!important;
+    max-width:100%!important;
+  }
+
+  .v35-works-title{
+    font-size:36px!important;
+    line-height:1.18!important;
+    letter-spacing:-.045em!important;
+  }
+  .v35-works-title em{
+    margin-top:5px!important;
+  }
+
+  .v35-mobile-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:3px!important;
+    max-width:100%!important;
+  }
+  .v35-mobile-copy span{
+    display:block!important;
+  }
+
+  .v35-founder-title{
+    font-size:37px!important;
+    line-height:1.16!important;
+  }
+  .v35-founder-title em{
+    margin-top:4px!important;
+  }
+
+  .v35-final-title{
+    font-size:37px!important;
+    line-height:1.18!important;
+  }
+  .v35-final-title em{
+    margin-top:5px!important;
+  }
+
+  .v35-method-title{
+    font-size:36px!important;
+    line-height:1.18!important;
+  }
+
+  /* LINE CTA 三句本來已有 span，手機明確逐句 */
+  .v23-line-copy{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    max-width:340px!important;
+    margin:26px auto 34px!important;
+    text-align:left!important;
+    gap:3px!important;
+  }
+  .v23-line-copy span{
+    display:block!important;
+  }
+
+  /* Service page 長標題讓語意單位換行，不在句中硬切 */
+  .about-title,
+  .track-wrap .about-title{
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+}
+
+/* 更小的 390px 左右手機再收字，但不改斷句 */
+@media(max-width:410px){
+  .v35-works-title,
+  .v35-method-title{
+    font-size:33px!important;
+  }
+  .v35-founder-title,
+  .v35-final-title{
+    font-size:34px!important;
+  }
+  .v4-work-meta h3{
+    font-size:17px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -4593,11 +4857,12 @@ body > .cta-band{
 <span class="v22-quote-line">「看起來比較好」。</span>
 <em>而是讓專業，更容易被相信。</em>
 </h2>
-<p class="v13-intro-desc">
-          MR. business.lab 把商務形象、個人定位與品牌內容整合成一套完整系統。
-          從第一次見面，到客戶搜尋你、理解你、介紹你，
-          每一個接觸點都在替你的專業加分。
-        </p>
+<p class="v13-intro-desc v35-mobile-copy">
+<span>MR. business.lab 把商務形象、個人定位與品牌內容，</span>
+<span>整合成一套完整系統。</span>
+<span>從第一次見面，到客戶搜尋你、理解你、介紹你，</span>
+<span>每一個接觸點都在替你的專業加分。</span>
+</p>
 </div>
 </div>
 </section>
@@ -4626,7 +4891,7 @@ body > .cta-band{
 <section class="v4-works">
 <div class="v4-works-head">
 <div class="v4-section-index">02 / SELECTED WORKS</div>
-<h2 class="v7-balanced-title"><span>我們不展示服務清單。</span><em>我們展示改變之後的樣子。</em></h2>
+<h2 class="v7-balanced-title v35-works-title"><span>我們不展示服務清單。</span><em>我們展示改變之後的樣子。</em></h2>
 <a href="#cases" onclick="showPage('cases');return false;">VIEW ALL WORKS ↗︎</a>
 </div>
 <div class="v4-work-grid">
@@ -4679,7 +4944,7 @@ body > .cta-band{
 <div class="v25-founder-name">潘昱如 <span>Luru</span></div>
 <div class="v25-founder-role">MR. business.lab 主理人・商務男士形象 × 個人品牌顧問</div>
 <div class="v33-founder-trust">專門協助專業工作者，把能力整理成更容易被相信、被理解與被轉介紹的品牌。</div>
-<h2 class="v7-balanced-title"><span>看懂一個人，再把他的專業</span><em>變成品牌。</em></h2>
+<h2 class="v7-balanced-title v35-founder-title"><span>看懂一個人，</span><span>再把他的專業</span><em>變成品牌。</em></h2>
 <p class="v34-founder-story"><span>從百貨男裝、連鎖美容到品牌經營，潘昱如長期觀察「一個專業的人，為什麼沒有被市場正確理解」。</span><span>她把外貌形象、商務表達與品牌內容放在同一套系統裡，協助專業工作者把原本只存在自己身上的經驗與能力，整理成客戶看得懂、記得住，也願意主動介紹的品牌。</span></p>
 <div class="v4-founder-exp">
 <span>百貨男裝總監</span><span>連鎖美容店長・業績第一</span><span>個人品牌策略與內容整合</span>
@@ -4689,7 +4954,7 @@ body > .cta-band{
 <!-- LINE CTA -->
 <section class="v4-line-cta" id="mrFinalCta">
 <div class="v4-line-label">NOT SURE WHERE TO START?</div>
-<h2 class="v7-balanced-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
+<h2 class="v7-balanced-title v35-final-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
 <p class="v23-line-copy">
       <span>進入 MR. 官方 LINE，</span>
       <span>由 AI 初步診斷找出你目前最需要改善的方向：</span>
@@ -4737,7 +5002,7 @@ body > .cta-band{
 <section class="method-wrap">
 <div class="method-inner">
 <span class="about-sec-label rv">THE MR. METHOD</span>
-<h2 class="about-title rv d1 v7-balanced-title"><span>不是堆服務，</span><em>而是建立一套品牌系統。</em></h2>
+<h2 class="about-title rv d1 v7-balanced-title v35-method-title"><span>不是堆服務，</span><em>而是建立一套品牌系統。</em></h2>
 <div class="about-divider rv d2"></div>
 <p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:680px;"></p>
 <div class="v22-brand-system rv d2">
@@ -5639,6 +5904,40 @@ document.addEventListener('click', function(e){
   item.classList.toggle('is-mobile-open', !isOpen);
   btn.setAttribute('aria-expanded', String(!isOpen));
 });
+</script>
+
+
+<script id="v35-works-swipe-fix">
+(function(){
+  let startX=0, startY=0, moved=false;
+  document.addEventListener('touchstart', function(e){
+    const grid=e.target.closest('.v20-ba-grid');
+    if(!grid || window.innerWidth>720) return;
+    const t=e.touches[0];
+    startX=t.clientX;
+    startY=t.clientY;
+    moved=false;
+  }, {passive:true});
+
+  document.addEventListener('touchmove', function(e){
+    const grid=e.target.closest('.v20-ba-grid');
+    if(!grid || window.innerWidth>720) return;
+    const t=e.touches[0];
+    if(Math.abs(t.clientX-startX)>8 && Math.abs(t.clientX-startX)>Math.abs(t.clientY-startY)){
+      moved=true;
+    }
+  }, {passive:true});
+
+  document.addEventListener('click', function(e){
+    const card=e.target.closest('.v4-work-wide');
+    if(!card || window.innerWidth>720) return;
+    if(moved){
+      e.preventDefault();
+      e.stopPropagation();
+      moved=false;
+    }
+  }, true);
+})();
 </script>
 
 </body>
