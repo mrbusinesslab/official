@@ -3835,6 +3835,52 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v26-fixes">
+.clients-v19-logo img.logo-featured{
+  max-width:158px!important;
+  max-height:130px!important;
+}
+@media(min-width:721px){
+  .clients-v19-logo img.logo-featured{
+    max-width:170px!important;
+    max-height:138px!important;
+  }
+}
+
+.mr-footer-v17__brand{
+  padding-top:2px!important;
+}
+.mr-footer-v17__name{
+  margin-top:0!important;
+  font-size:27px!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+  font-weight:700!important;
+}
+.mr-footer-v17__logo{
+  display:none!important;
+}
+#mrFinalCta .v26-home-ai-btn:hover{
+  background:#d2b269!important;
+  border-color:#d2b269!important;
+  color:#171512!important;
+}
+
+@media(max-width:720px){
+  .clients-v19-logo img.logo-featured{
+    max-width:110px!important;
+    max-height:92px!important;
+  }
+}
+@media(max-width:430px){
+  .clients-v19-logo img.logo-featured{
+    max-width:100px!important;
+    max-height:84px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -4048,7 +4094,7 @@ body > .cta-band{
       <span>由 AI 初步診斷找出你目前最需要改善的方向：</span>
       <span>形象、定位，或品牌內容。</span>
     </p>
-<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">START AI BRAND CHECK ↗︎</a>
+<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">開始 AI 初步診斷 →︎</a>
 </section>
 </div>
 <!-- ═══════════════════════════════════════
@@ -4158,6 +4204,7 @@ body > .cta-band{
 <div class="svc-list">
 <div class="svc-cat">定位清晰化</div>
 <a class="svc-row" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→︎→︎</span></a>
 <div class="svc-cat">內容擴散化</div>
 <a class="svc-row" href="?service=video#services" onclick="openServiceModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→︎→︎</span></a>
 <a class="svc-row" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→︎→︎</span></a>
@@ -4256,19 +4303,19 @@ body > .cta-band{
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img class="logo-square" src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
+          <img class="logo-square logo-featured" src="assets/Mr.素材圖 - 大象木地板logo.png" alt="大象木地板" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img class="logo-square" src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
+          <img class="logo-square logo-featured" src="assets/Mr.素材圖 - 傑出油漆工程行logo.png" alt="傑出油漆工程行" loading="lazy" decoding="async">
         </div>
       </div>
 
       <div class="clients-v19-card">
         <div class="clients-v19-logo">
-          <img class="logo-square" src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
+          <img class="logo-square logo-featured" src="assets/Mr.素材圖 - 禾農豐食logo.png" alt="禾農豐食" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -4282,7 +4329,6 @@ body > .cta-band{
 <footer class="mr-footer-v17">
 <div class="mr-footer-v17__inner">
 <section class="mr-footer-v17__brand">
-<img alt="MR. business.lab" class="mr-footer-v17__logo" src="assets/Mr.素材圖 - MR.logo_淺.png"/>
 <div class="mr-footer-v17__name">MR. business.lab</div>
 <div class="mr-footer-v17__tagline">商務男士形象 × 個人品牌顧問</div>
 <div class="mr-footer-v17__contact">
@@ -4302,6 +4348,7 @@ body > .cta-band{
 <a href="?service=video#services" onclick="openServiceModal('video');return false;">短影音內容</a>
 <a href="?service=deck#services" onclick="openServiceModal('deck');return false;">品牌簡報</a>
 <a href="?service=gains#services" onclick="openServiceModal('gains');return false;">GAINS 商務工具</a>
+<a href="?service=script#services" onclick="openServiceModal('script');return false;">商務說詞</a>
 <a href="?service=photo#services" onclick="openServiceModal('photo');return false;">商務形象照</a>
 </div>
 </section>
@@ -4620,7 +4667,7 @@ const MD={
     desc:'你在飯局、電梯、初次見面時說的那幾句話，決定了對方要不要記住你。我們幫你打造一套自然、精準、有說服力的商務自我介紹與說話架構。',
     items:['價值主張句型設計（你和其他人有什麼不同）','客戶常見疑慮應對話術','完稿校對與最終版本確認'],
     hl:'話說對了，客戶自己會主動問「你有沒有朋友也在做這個？」',
-    cases:`<div class="case-placeholder-box"><div class="cp-icon">💬</div><div class="cp-text">商務說詞案例即將上架</div></div>`
+    cases:``
   },
   video:{
     tag:'商業影響力',title:'商業短影音/貼文',
