@@ -3213,6 +3213,314 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v22-layout-fixes">
+/* WHAT WE DO 斷句 */
+.v22-intro-title{
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.v22-intro-title span,
+.v22-intro-title em{
+  display:block!important;
+}
+.v22-intro-title .v22-quote-line{
+  margin-top:.18em!important;
+}
+.v22-intro-title em{
+  margin-top:.34em!important;
+}
+
+/* 品牌案例左圖右說明 */
+#page-cases .case-entry{
+  grid-template-columns:minmax(460px, 1.04fr) minmax(0, 1fr)!important;
+  gap:4.6rem!important;
+  align-items:center!important;
+}
+#page-cases .case-img-col{
+  padding-right:0!important;
+}
+.v22-case-visual{
+  width:100%!important;
+}
+.v22-case-visual img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center top!important;
+  background:transparent!important;
+}
+.case-desc{
+  line-height:2.05!important;
+}
+.v22-case-highlights{
+  display:grid!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  gap:16px!important;
+  margin:2rem 0 1.4rem!important;
+}
+.v22-highlight-card{
+  background:#f3eee5!important;
+  border:1px solid #d9cebc!important;
+  border-top:4px solid #b69046!important;
+  padding:18px 18px 16px!important;
+  min-height:142px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+}
+.v22-highlight-top{
+  font-size:12px!important;
+  letter-spacing:.08em!important;
+  color:#8a6f36!important;
+  margin-bottom:10px!important;
+}
+.v22-highlight-value{
+  font-family:'Bodoni Moda',serif!important;
+  font-size:42px!important;
+  line-height:1!important;
+  color:var(--ink)!important;
+  margin-bottom:10px!important;
+}
+.v22-highlight-text{
+  font-size:14px!important;
+  line-height:1.7!important;
+  color:var(--ink2)!important;
+}
+
+/* 服務客戶 Logo 放大 */
+.clients-v19-grid{
+  gap:18px!important;
+}
+.clients-v19-card{
+  height:200px!important;
+  padding:26px!important;
+}
+.clients-v19-logo{
+  height:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+.clients-v19-logo img{
+  max-width:210px!important;
+  max-height:110px!important;
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+
+/* Method 改為品牌系統三大核心，不是流程 */
+.v22-brand-system{
+  margin-top:1.1rem!important;
+}
+.v22-brand-system-intro{
+  max-width:760px!important;
+  margin-bottom:2.2rem!important;
+}
+.v22-system-lead{
+  font-size:20px!important;
+  line-height:1.75!important;
+  color:var(--ink)!important;
+  margin-bottom:.7rem!important;
+}
+.v22-brand-system-intro p,
+.v22-system-note{
+  font-size:14px!important;
+  line-height:2!important;
+  color:var(--ink2)!important;
+  font-weight:300!important;
+}
+.v22-brand-pillar-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  gap:18px!important;
+}
+.v22-brand-pillar{
+  background:#f5f0e7!important;
+  border:1px solid #dfd5c6!important;
+  padding:24px 22px 22px!important;
+  min-height:240px!important;
+}
+.v22-pillar-tag{
+  display:inline-flex!important;
+  min-width:42px!important;
+  height:42px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #c8b183!important;
+  color:#8f7237!important;
+  border-radius:999px!important;
+  font-size:12px!important;
+  letter-spacing:.08em!important;
+  margin-bottom:14px!important;
+}
+.v22-brand-pillar h3{
+  font-size:24px!important;
+  line-height:1.45!important;
+  color:var(--ink)!important;
+  margin:0 0 10px!important;
+}
+.v22-brand-pillar p{
+  font-size:14px!important;
+  line-height:1.9!important;
+  color:var(--ink2)!important;
+  margin:0 0 16px!important;
+}
+.v22-pillar-items{
+  font-size:13px!important;
+  line-height:1.9!important;
+  color:#8a6f36!important;
+}
+.v22-system-note{
+  margin-top:1.35rem!important;
+  max-width:760px!important;
+}
+
+/* 手機修復 */
+@media (max-width: 980px){
+  #page-cases .case-entry{
+    grid-template-columns:1fr!important;
+    gap:1.8rem!important;
+    align-items:start!important;
+  }
+  .v22-case-highlights{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  .v22-highlight-card{
+    min-height:0!important;
+  }
+  .v22-brand-pillar-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  /* 我們展示改變之後的樣子：避免只看到 before */
+  .v4-work-wide .v4-work-img{
+    height:auto!important;
+  }
+  .v20-work-beforeafter{
+    padding:14px!important;
+  }
+  .v20-ba-grid{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+    gap:10px!important;
+  }
+  .v20-ba-shot{
+    min-height:0!important;
+    aspect-ratio:4/5!important;
+  }
+  .v20-ba-shot img{
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:center top!important;
+  }
+}
+
+@media (max-width: 720px){
+  .v22-intro-title{
+    font-size:44px!important;
+    line-height:1.16!important;
+  }
+  .v22-system-lead{
+    font-size:18px!important;
+    line-height:1.7!important;
+  }
+  .clients-v19-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:12px!important;
+  }
+  .clients-v19-card{
+    height:150px!important;
+    padding:18px!important;
+  }
+  .clients-v19-logo img{
+    max-width:145px!important;
+    max-height:76px!important;
+  }
+}
+
+@media (max-width: 440px){
+  .clients-v19-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+  .clients-v19-card{
+    height:136px!important;
+    padding:14px 10px!important;
+  }
+  .clients-v19-logo img{
+    max-width:132px!important;
+    max-height:68px!important;
+  }
+  .v22-highlight-value{
+    font-size:36px!important;
+  }
+}
+</style>
+
+
+<style id="v23-copy-divider-fixes">
+/* LINE CTA 自然斷句 */
+.v23-line-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:2px!important;
+  max-width:760px!important;
+  margin:24px auto 30px!important;
+  text-align:center!important;
+  line-height:1.9!important;
+}
+.v23-line-copy span{
+  display:block!important;
+}
+
+/* 服務客戶底線和真實案例一致 */
+.clients-v19 .clients-inner{
+  position:relative!important;
+}
+.clients-v23-divider{
+  width:52px!important;
+  height:1px!important;
+  margin:18px 0 0!important;
+  background:var(--gold)!important;
+  border:0!important;
+  opacity:1!important;
+}
+.clients-v19-title{
+  margin-bottom:0!important;
+}
+
+/* 防止舊樣式把 divider 拉長或置中 */
+.clients-v19 .about-divider{
+  max-width:52px!important;
+  min-width:52px!important;
+  transform:none!important;
+  left:auto!important;
+  right:auto!important;
+}
+
+/* 品牌系統說明節奏 */
+.v22-brand-system-intro{
+  margin-bottom:2.4rem!important;
+}
+.v22-system-lead{
+  margin-bottom:.85rem!important;
+}
+
+@media(max-width:720px){
+  .v23-line-copy{
+    align-items:flex-start!important;
+    text-align:left!important;
+    max-width:100%!important;
+    padding:0 4px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -3333,8 +3641,9 @@ body > .cta-band{
 <div class="v13-intro-inner">
 <div class="v4-section-index">01 / WHAT WE DO</div>
 <div class="v13-intro-copy">
-<h2 class="v13-intro-title">
-<span>我們不是幫你「看起來比較好」。</span>
+<h2 class="v13-intro-title v22-intro-title">
+<span>我們不是幫你</span>
+<span class="v22-quote-line">「看起來比較好」。</span>
 <em>而是讓專業，更容易被相信。</em>
 </h2>
 <p class="v13-intro-desc">
@@ -3431,7 +3740,11 @@ body > .cta-band{
 <section class="v4-line-cta" id="mrFinalCta">
 <div class="v4-line-label">NOT SURE WHERE TO START?</div>
 <h2 class="v7-balanced-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
-<p>進入 MR. 官方 LINE，由 AI 初步診斷帶你找到目前最需要改善的是形象、定位，還是品牌內容。</p>
+<p class="v23-line-copy">
+      <span>進入 MR. 官方 LINE，</span>
+      <span>由 AI 初步診斷找出你目前最需要改善的方向：</span>
+      <span>形象、定位，或品牌內容。</span>
+    </p>
 <a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">START AI BRAND CHECK ↗︎</a>
 </section>
 </div>
@@ -3477,43 +3790,32 @@ body > .cta-band{
 <h2 class="about-title rv d1 v7-balanced-title"><span>不是堆服務，</span><em>而是建立一套品牌系統。</em></h2>
 <div class="about-divider rv d2"></div>
 <p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:680px;">我們先判斷你現在卡在哪一層，再安排最需要的服務。不是每個人都要全部做，而是先把最影響信任與轉介紹的缺口補起來。</p>
-<div class="method-grid rv d2">
-<div class="method-card">
-<div class="method-icon">
-<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Z"></path><circle cx="12" cy="12" r="2.7"></circle></svg>
-</div>
-<div class="method-step">01</div>
-<div class="method-title">被看見</div>
-<div class="method-desc">先讓第一印象，跟你的專業程度一致。</div>
-<div class="method-tags">穿著 · 美容 · 體態 · 形象照</div>
-</div>
-<div class="method-card">
-<div class="method-icon">
-<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 5.5h16v10H9l-5 4v-14Z"></path><path d="M8 9h8M8 12h5"></path></svg>
-</div>
-<div class="method-step">02</div>
-<div class="method-title">被理解</div>
-<div class="method-desc">把「你是誰、為什麼選你」清楚說出來。</div>
-<div class="method-tags">定位 · GAINS · 商務說詞</div>
-</div>
-<div class="method-card">
-<div class="method-icon">
-<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3.5 14.5 9l6 .7-4.4 4 1.2 5.8L12 16.5l-5.3 3 1.2-5.8-4.4-4 6-.7L12 3.5Z"></path></svg>
-</div>
-<div class="method-step">03</div>
-<div class="method-title">被記住</div>
-<div class="method-desc">把專業整理成一致、容易辨識的品牌資產。</div>
-<div class="method-tags">電子名片 · LINE · 簡報 · 視覺</div>
-</div>
-<div class="method-card">
-<div class="method-icon">
-<svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2.2"></circle><circle cx="18" cy="6" r="2.2"></circle><circle cx="18" cy="18" r="2.2"></circle><path d="m8 11 7.7-4M8 13l7.7 4"></path></svg>
-</div>
-<div class="method-step">04</div>
-<div class="method-title">被傳遞</div>
-<div class="method-desc">讓內容與工具持續替你累積信任與轉介紹。</div>
-<div class="method-tags">短影音 · 貼文 · 品牌內容</div>
-</div>
+<div class="v22-brand-system rv d2">
+  <div class="v22-brand-system-intro">
+    <div class="v22-system-lead">不是每一項都要做，而是每一項都要做得有理由。</div>
+    <p>從第一印象、專業表達到品牌內容，我們依照你的現況組合最適合的服務，讓形象與品牌彼此加分。</p>
+  </div>
+  <div class="v22-brand-pillar-grid">
+    <div class="v22-brand-pillar">
+      <div class="v22-pillar-tag">01</div>
+      <h3>第一印象系統</h3>
+      <p>先讓客戶在第一眼，就感受到你的專業可信度。</p>
+      <div class="v22-pillar-items">穿著形象 · 美容整理 · 體態管理 · 形象照</div>
+    </div>
+    <div class="v22-brand-pillar">
+      <div class="v22-pillar-tag">02</div>
+      <h3>專業理解系統</h3>
+      <p>把「你是誰、你解決什麼問題、為什麼選你」說清楚。</p>
+      <div class="v22-pillar-items">個人定位 · GAINS 工具 · 商務說詞</div>
+    </div>
+    <div class="v22-brand-pillar">
+      <div class="v22-pillar-tag">03</div>
+      <h3>品牌傳播系統</h3>
+      <p>把專業整理成可被分享、可被記住、可持續累積信任的內容資產。</p>
+      <div class="v22-pillar-items">短影音 · 電子名片 · LINE 官方帳號 · 品牌簡報</div>
+    </div>
+  </div>
+  
 </div>
 </div>
 </section>
@@ -3587,26 +3889,36 @@ body > .cta-band{
 <div class="about-divider rv d2"></div>
 <!-- Case 1 -->
 <div class="case-entry rv" onclick="openCaseModal()">
-<div class="case-img-col">
-<div class="case-num">01</div>
-<div class="v21-case-single">
-  <img alt="鍾師富改造後" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
-  <div class="v20-case-chip gold">AFTER 01</div>
-</div>
-</div>
-</div>
-<div class="case-text-col">
-<div class="case-identity">詠順工程行老闆・抓漏專家</div>
-<h3 class="case-name">鍾師富</h3>
-<div class="case-divider"></div>
-<p class="case-desc">同樣的技術，穿對衣服、說對話、做對內容，客戶終於「看懂他的價值」。透過形象重塑與短影音策略，鍾師傅成功突破傳統師傅的品牌困境，從低辨識度到讓客戶主動轉介紹。</p>
-<div class="case-stats">
-<div class="c-stat"><span class="cs-big">85%</span><span class="cs-sub">短影音觸及</span><span class="cs-lb">新客來源</span></div>
-<div class="c-stat"><span class="cs-big">3.5倍</span><span class="cs-sub">訂單成長</span><span class="cs-lb">業績</span></div>
-<div class="c-stat"><span class="cs-big">70%</span><span class="cs-sub">溝通成本降低</span><span class="cs-lb">效率</span></div>
-</div>
-<div class="case-view-btn">查看完整改造紀錄 →︎</div>
-</div>
+  <div class="case-img-col">
+    <div class="case-num">01</div>
+    <div class="v22-case-visual">
+      <img alt="鍾師富品牌案例主視覺" decoding="async" loading="lazy" src="assets/Mr.素材圖 - 鍾師富改造後1.png"/>
+    </div>
+  </div>
+  <div class="case-text-col">
+    <div class="case-identity">詠順工程行老闆・抓漏專家</div>
+    <h3 class="case-name">鍾師富</h3>
+    <div class="case-divider"></div>
+    <p class="case-desc">同樣的技術，<br>穿對衣服、說對話、做對內容，<br>客戶終於「看懂他的價值」。<br><br>透過形象重塑與短影音策略，<br>鍾師傅成功突破傳統師傅的品牌困境，<br>從低辨識度到讓客戶主動轉介紹。</p>
+    <div class="v22-case-highlights">
+      <div class="v22-highlight-card">
+        <div class="v22-highlight-top">短影音觸及</div>
+        <div class="v22-highlight-value">85%</div>
+        <div class="v22-highlight-text">新客來源明顯提升</div>
+      </div>
+      <div class="v22-highlight-card">
+        <div class="v22-highlight-top">訂單成長</div>
+        <div class="v22-highlight-value">3.5 倍</div>
+        <div class="v22-highlight-text">讓商務形象真正帶動業績</div>
+      </div>
+      <div class="v22-highlight-card">
+        <div class="v22-highlight-top">溝通效率</div>
+        <div class="v22-highlight-value">70%</div>
+        <div class="v22-highlight-text">降低滿溢成本與反覆解釋</div>
+      </div>
+    </div>
+    <div class="case-view-btn">查看完整改造紀錄 →︎</div>
+  </div>
 </div>
 <!-- Case 2 placeholder -->
 <div class="case-entry rv" style="opacity:.4;pointer-events:none;">
@@ -3625,7 +3937,7 @@ body > .cta-band{
   <div class="clients-inner">
     <span class="about-sec-label rv">PAST COLLABORATIONS</span>
     <h3 class="clients-v19-title">服務客戶</h3>
-    <div class="about-divider"></div>
+    <div class="about-divider clients-v23-divider"></div>
 
     <div class="clients-v19-grid">
       <div class="clients-v19-card">
