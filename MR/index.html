@@ -5112,6 +5112,500 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v39-final-copy-and-founder-line">
+/* ===== WHAT WE DO：桌機與手機共用同一組字體 / 顏色 ===== */
+.v39-mobile-copy{
+  display:none!important;
+}
+
+/* 桌機：固定兩句兩行 */
+.v39-intro-title > .v39-desktop-top,
+.v39-intro-title > .v39-desktop-bottom{
+  display:block!important;
+}
+
+/* 上句淺、下句深；手機與桌機都沿用 */
+.v39-intro-title .v39-desktop-top,
+.v39-intro-title .v39-mobile-top{
+  color:#9b9489!important;
+  font-family:inherit!important;
+  font-style:normal!important;
+  font-weight:inherit!important;
+}
+
+.v39-intro-title .v39-desktop-bottom,
+.v39-intro-title .v39-mobile-bottom{
+  color:#2b2823!important;
+  font-family:inherit!important;
+  font-style:italic!important;
+  font-weight:inherit!important;
+}
+
+/* 不讓舊版 CSS 改色 */
+.v39-intro-title em,
+.v39-intro-title span{
+  text-shadow:none!important;
+}
+
+/* ===== 品牌主理人：只留短線，不要整欄長線 ===== */
+.v38-founder-role{
+  border-bottom:0!important;
+  padding-bottom:0!important;
+  margin-bottom:22px!important;
+}
+
+.v38-founder-role::after{
+  content:''!important;
+  display:block!important;
+  width:42px!important;
+  height:2px!important;
+  margin-top:12px!important;
+  background:#b8953a!important;
+}
+
+/* ===== 手機只改斷句，不改字體與顏色 ===== */
+@media(max-width:720px){
+  .v39-intro-title > .v39-desktop-top,
+  .v39-intro-title > .v39-desktop-bottom{
+    display:none!important;
+  }
+
+  .v39-mobile-copy{
+    display:block!important;
+  }
+
+  .v39-mobile-top,
+  .v39-mobile-bottom{
+    display:block!important;
+  }
+
+  .v39-mobile-top > span,
+  .v39-mobile-bottom > span{
+    display:block!important;
+  }
+
+  /* 只控制手機字級與換行寬度，字型 / 顏色沿用桌機 */
+  .v39-intro-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:34px!important;
+    line-height:1.16!important;
+    letter-spacing:-.045em!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+
+  .v39-mobile-bottom{
+    margin-top:8px!important;
+  }
+}
+
+@media(max-width:390px){
+  .v39-intro-title{
+    font-size:31px!important;
+  }
+}
+</style>
+
+
+<style id="v40-what-we-do-final">
+/* V40：WHAT WE DO 僅一份 DOM，避免任何重複 */
+
+/* 清除 V37 / V39 舊雙版本元素，即使殘留也完全不顯示 */
+.v37-desktop-line,
+.v37-mobile-lines,
+.v39-desktop-top,
+.v39-desktop-bottom,
+.v39-mobile-copy,
+.v39-mobile-top,
+.v39-mobile-bottom{
+  display:none!important;
+}
+
+/* 共用字體與色彩 */
+.v40-intro-title{
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+}
+
+.v40-top{
+  display:block!important;
+  color:#9b9489!important;
+  font-family:inherit!important;
+  font-style:normal!important;
+  font-weight:inherit!important;
+}
+
+.v40-bottom{
+  display:block!important;
+  margin-top:12px!important;
+  color:#2b2823!important;
+  font-family:inherit!important;
+  font-style:italic!important;
+  font-weight:inherit!important;
+}
+
+/* 桌機：每句就是完整一行 */
+@media(min-width:721px){
+  .v40-top-a,
+  .v40-top-b,
+  .v40-bottom-a,
+  .v40-bottom-b{
+    display:inline!important;
+  }
+
+  .v40-intro-title{
+    font-size:clamp(48px,5.6vw,84px)!important;
+    line-height:1.12!important;
+    letter-spacing:-.05em!important;
+  }
+}
+
+/* 手機：只改斷句，不改字體家族與顏色 */
+@media(max-width:720px){
+  .v40-intro-title{
+    font-size:34px!important;
+    line-height:1.16!important;
+    letter-spacing:-.045em!important;
+  }
+
+  .v40-top-a,
+  .v40-top-b,
+  .v40-bottom-a,
+  .v40-bottom-b{
+    display:block!important;
+  }
+
+  .v40-bottom{
+    margin-top:8px!important;
+  }
+}
+
+@media(max-width:390px){
+  .v40-intro-title{
+    font-size:31px!important;
+  }
+}
+</style>
+
+
+<style id="v41-final-corrections">
+/* ===== WHAT WE DO：只剩兩句，桌機每句完整一行 ===== */
+.v41-intro-title{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+.v41-intro-title .v41-line{
+  font-family:inherit!important;
+  font-weight:inherit!important;
+  text-shadow:none!important;
+}
+
+.v41-intro-title .v41-line-top{
+  color:#a49d91!important;
+  font-style:normal!important;
+}
+
+.v41-intro-title .v41-line-bottom{
+  color:#29251f!important;
+  font-style:italic!important;
+}
+
+/* 桌機：嚴格兩行，不允許句中換行 */
+@media(min-width:721px){
+  .v41-intro-title{
+    font-size:clamp(42px,4.45vw,68px)!important;
+    line-height:1.12!important;
+    letter-spacing:-.05em!important;
+  }
+
+  .v41-intro-title .v41-line{
+    display:block!important;
+    width:max-content!important;
+    max-width:none!important;
+    white-space:nowrap!important;
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+  }
+
+  .v41-intro-title .v41-line-bottom{
+    margin-top:12px!important;
+  }
+}
+
+/* 手機：只有斷句可依寬度變化；顏色與字型邏輯不變 */
+@media(max-width:720px){
+  .v41-intro-title{
+    width:100%!important;
+    max-width:100%!important;
+    font-size:34px!important;
+    line-height:1.16!important;
+    letter-spacing:-.045em!important;
+  }
+
+  .v41-intro-title .v41-line{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+
+  .v41-intro-title .v41-line-bottom{
+    margin-top:8px!important;
+  }
+}
+
+@media(max-width:390px){
+  .v41-intro-title{
+    font-size:31px!important;
+  }
+}
+
+/* ===== 電子名片按鈕說明：恢復手機改版前樣式 ===== */
+@media(max-width:720px){
+  .ecard-explain-list{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:16px!important;
+  }
+
+  .ecard-explain-item,
+  .ecard-explain-item[data-mobile-accordion="true"]{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+    align-items:start!important;
+    padding:18px!important;
+    background:var(--v6-white)!important;
+    border:1px solid var(--v6-line)!important;
+    border-radius:12px!important;
+    overflow:visible!important;
+  }
+
+  .ecard-explain-head,
+  .ecard-explain-head.ecard-mobile-toggle{
+    display:block!important;
+    width:auto!important;
+    min-height:0!important;
+    padding:3px 0 0!important;
+    border:0!important;
+    background:transparent!important;
+    text-align:left!important;
+    appearance:none!important;
+  }
+
+  .ecard-mobile-chevron{
+    display:none!important;
+  }
+
+  .ecard-page-purpose{
+    display:block!important;
+    margin:0!important;
+  }
+
+  .ecard-explain-buttons,
+  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:14px!important;
+    max-width:520px!important;
+    padding:0!important;
+  }
+
+  .ecard-no-action,
+  .ecard-explain-item.is-mobile-open .ecard-no-action{
+    display:block!important;
+    padding:15px 0!important;
+  }
+
+  .ecard-explain-button-row{
+    width:100%!important;
+  }
+}
+</style>
+
+
+<style id="v42-mobile-ecard-accordion-style">
+@media(max-width:720px){
+  .ecard-explain-list{
+    gap:10px!important;
+  }
+
+  .ecard-explain-item[data-mobile-accordion="true"]{
+    display:block!important;
+    padding:0!important;
+    gap:0!important;
+    overflow:hidden!important;
+    border:1px solid var(--v6-line)!important;
+    border-radius:12px!important;
+    background:var(--v6-white)!important;
+  }
+
+  .ecard-explain-head.ecard-mobile-toggle{
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    width:100%!important;
+    min-height:58px!important;
+    display:grid!important;
+    grid-template-columns:1fr auto!important;
+    gap:4px 12px!important;
+    align-items:center!important;
+    padding:15px 16px!important;
+    border:0!important;
+    background:transparent!important;
+    text-align:left!important;
+    color:inherit!important;
+    cursor:pointer!important;
+  }
+
+  .ecard-explain-head .ecard-explain-page{
+    grid-column:1!important;
+    margin:0!important;
+  }
+
+  .ecard-mobile-chevron{
+    display:block!important;
+    grid-column:2!important;
+    grid-row:1!important;
+    font-size:20px!important;
+    line-height:1!important;
+    font-weight:300!important;
+    transition:transform .2s ease!important;
+  }
+
+  .ecard-page-purpose{
+    grid-column:1 / -1!important;
+    display:none!important;
+    margin:8px 0 0!important;
+  }
+
+  .ecard-explain-buttons,
+  .ecard-no-action{
+    display:none!important;
+    padding:0 16px 16px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-page-purpose{
+    display:block!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:14px!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-no-action{
+    display:block!important;
+  }
+
+  .ecard-explain-item.is-mobile-open .ecard-mobile-chevron{
+    transform:rotate(45deg)!important;
+  }
+}
+</style>
+
+
+<style id="v43-ecard-accordion-all-devices">
+/* 電子名片說明：桌機與手機皆可收合 */
+.ecard-explain-item[data-mobile-accordion="true"]{
+  display:block!important;
+  padding:0!important;
+  gap:0!important;
+  overflow:hidden!important;
+  border:1px solid var(--v6-line)!important;
+  border-radius:12px!important;
+  background:var(--v6-white)!important;
+}
+
+.ecard-explain-head.ecard-mobile-toggle{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  width:100%!important;
+  min-height:64px!important;
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  gap:4px 14px!important;
+  align-items:center!important;
+  padding:16px 18px!important;
+  border:0!important;
+  background:transparent!important;
+  text-align:left!important;
+  color:inherit!important;
+  cursor:pointer!important;
+}
+
+.ecard-explain-head .ecard-explain-page{
+  grid-column:1!important;
+  margin:0!important;
+}
+
+.ecard-mobile-chevron{
+  display:block!important;
+  grid-column:2!important;
+  grid-row:1!important;
+  font-size:20px!important;
+  line-height:1!important;
+  font-weight:300!important;
+  transition:transform .2s ease!important;
+}
+
+.ecard-page-purpose{
+  grid-column:1 / -1!important;
+  display:none!important;
+  margin:8px 0 0!important;
+}
+
+.ecard-explain-buttons,
+.ecard-no-action{
+  display:none!important;
+  padding:0 18px 18px!important;
+}
+
+.ecard-explain-item.is-mobile-open .ecard-page-purpose{
+  display:block!important;
+}
+
+.ecard-explain-item.is-mobile-open .ecard-explain-buttons{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:14px!important;
+  max-width:none!important;
+}
+
+.ecard-explain-item.is-mobile-open .ecard-no-action{
+  display:block!important;
+}
+
+.ecard-explain-item.is-mobile-open .ecard-mobile-chevron{
+  transform:rotate(45deg)!important;
+}
+
+/* 桌機收合時維持舒服寬度 */
+@media(min-width:721px){
+  .ecard-explain-list{
+    gap:12px!important;
+  }
+  .ecard-explain-head.ecard-mobile-toggle{
+    min-height:72px!important;
+    padding:18px 22px!important;
+  }
+  .ecard-explain-buttons,
+  .ecard-no-action{
+    padding:0 22px 22px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -5219,14 +5713,9 @@ body > .cta-band{
 <div class="v13-intro-inner">
 <div class="v4-section-index">01 / WHAT WE DO</div>
 <div class="v13-intro-copy">
-<h2 class="v13-intro-title v22-intro-title v37-intro-title">
-<span class="v37-desktop-line">我們不是幫你「看起來比較好」。</span>
-<em class="v37-desktop-line">而是讓專業，更容易被相信。</em>
-<span class="v37-mobile-lines" aria-hidden="true">
-  <span>我們不是幫你</span>
-  <span>「看起來比較好」。</span>
-  <em><span>而是讓專業，</span><span>更容易被相信。</span></em>
-</span>
+<h2 class="v13-intro-title v22-intro-title v41-intro-title">
+  <span class="v41-line v41-line-top">我們不是幫你「看起來比較好」。</span>
+  <em class="v41-line v41-line-bottom">而是讓專業，更容易被相信。</em>
 </h2>
 <p class="v13-intro-desc v35-mobile-copy">
 <span>MR. business.lab 把商務形象、個人定位與品牌內容，</span>
@@ -6261,28 +6750,6 @@ document.addEventListener('keydown',e=>{
 window.addEventListener('DOMContentLoaded',openServiceFromUrl);
 </script>
 
-<script id="v34-mobile-accordion-js">
-document.addEventListener('click', function(e){
-  const btn=e.target.closest('.ecard-mobile-toggle');
-  if(!btn || window.innerWidth>720) return;
-  const item=btn.closest('.ecard-explain-item');
-  if(!item) return;
-  const isOpen=item.classList.contains('is-mobile-open');
-
-  document.querySelectorAll('.ecard-explain-item.is-mobile-open').forEach(el=>{
-    if(el!==item){
-      el.classList.remove('is-mobile-open');
-      const b=el.querySelector('.ecard-mobile-toggle');
-      if(b) b.setAttribute('aria-expanded','false');
-    }
-  });
-
-  item.classList.toggle('is-mobile-open', !isOpen);
-  btn.setAttribute('aria-expanded', String(!isOpen));
-});
-</script>
-
-
 <script id="v35-works-swipe-fix">
 (function(){
   let startX=0, startY=0, moved=false;
@@ -6353,6 +6820,30 @@ document.addEventListener('click', function(e){
   }
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
+</script>
+
+
+<script id="v42-mobile-ecard-accordion">
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.ecard-mobile-toggle');
+  if(!btn) return;
+
+  const item = btn.closest('.ecard-explain-item');
+  if(!item) return;
+
+  const isOpen = item.classList.contains('is-mobile-open');
+
+  document.querySelectorAll('.ecard-explain-item.is-mobile-open').forEach(el=>{
+    if(el !== item){
+      el.classList.remove('is-mobile-open');
+      const b = el.querySelector('.ecard-mobile-toggle');
+      if(b) b.setAttribute('aria-expanded','false');
+    }
+  });
+
+  item.classList.toggle('is-mobile-open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+});
 </script>
 
 </body>
