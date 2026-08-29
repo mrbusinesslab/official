@@ -7803,6 +7803,42 @@ img{
 }
 </style>
 
+
+<style id="v62-what-we-do-responsive-breaks">
+/* 桌機：維持原本兩行 */
+.v62-mobile-line{
+  display:none;
+}
+
+/* 手機：改成語意三段 */
+@media (max-width:620px){
+  .v62-desktop-line{
+    display:none!important;
+  }
+
+  .v62-mobile-line{
+    display:block!important;
+  }
+
+  .v62-mobile-line > span{
+    display:block!important;
+    width:100%;
+  }
+
+  .v41-line-top,
+  .v41-line-bottom{
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+    white-space:normal!important;
+  }
+
+  .v41-line-bottom{
+    display:block!important;
+    width:100%!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -7911,7 +7947,13 @@ img{
 <div class="v4-section-index">01 / WHAT WE DO</div>
 <div class="v13-intro-copy">
 <h2 class="v13-intro-title v22-intro-title v41-intro-title">
-  <span class="v41-line v41-line-top">我們不是幫你「看起來比較好」。</span>
+  <span class="v41-line v41-line-top">
+    <span class="v62-desktop-line">我們不是幫你「看起來比較好」。</span>
+    <span class="v62-mobile-line">
+      <span>我們不是幫你</span>
+      <span>「看起來比較好」。</span>
+    </span>
+  </span>
   <em class="v41-line v41-line-bottom">而是讓專業，更容易被相信。</em>
 </h2>
 <p class="v13-intro-desc v35-mobile-copy">
