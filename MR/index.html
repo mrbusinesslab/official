@@ -3877,6 +3877,128 @@ body > .cta-band{
 }
 </style>
 
+
+<style id="v33-improvements">
+/* ===== 2. 服務客戶 Logo：個別視覺校正 ===== */
+.clients-v19-logo img[alt="詠順工程行"]{
+  max-width:228px!important;
+  max-height:82px!important;
+}
+.clients-v19-logo img[alt="平衡之道"]{
+  max-width:212px!important;
+  max-height:82px!important;
+}
+.clients-v19-logo img[alt="傑出油漆工程行"]{
+  max-width:188px!important;
+  max-height:146px!important;
+}
+.clients-v19-logo img[alt="禾農豐食"]{
+  max-width:172px!important;
+  max-height:138px!important;
+}
+.clients-v19-logo img[alt="耕家"]{
+  max-width:174px!important;
+  max-height:132px!important;
+}
+.clients-v19-logo img[alt="雅如詩"]{
+  max-width:184px!important;
+  max-height:124px!important;
+}
+
+/* ===== 3. 主理人定位信任句 ===== */
+.v33-founder-trust{
+  max-width:620px;
+  margin:-16px 0 28px;
+  font-size:14px;
+  line-height:1.9;
+  color:#665f54;
+}
+
+/* ===== 4. 手機：鍾師富三張圖改成橫向滑動，可讀性更高 ===== */
+@media(max-width:720px){
+  .v20-work-beforeafter .v20-ba-grid{
+    display:flex!important;
+    grid-template-columns:none!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    gap:10px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding-bottom:4px!important;
+  }
+  .v20-work-beforeafter .v20-ba-shot{
+    flex:0 0 72vw!important;
+    width:72vw!important;
+    max-width:300px!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:3/4!important;
+    scroll-snap-align:start!important;
+  }
+  .v20-work-beforeafter .v20-ba-shot img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+  }
+}
+
+/* ===== 6. 空案例區塊完全不佔空間 ===== */
+.case-grid:empty,
+.case-list:empty,
+.service-cases:empty,
+.modal-cases:empty,
+.case-placeholder-box:empty{
+  display:none!important;
+  margin:0!important;
+  padding:0!important;
+  min-height:0!important;
+}
+[class*="case"]:empty{
+  min-height:0;
+}
+
+/* ===== 7. Footer 精簡後維持兩欄閱讀 ===== */
+.mr-footer-v17__links{
+  gap:8px 22px!important;
+}
+
+@media(max-width:720px){
+  .clients-v19-logo img[alt="詠順工程行"]{
+    max-width:150px!important;
+  }
+  .clients-v19-logo img[alt="平衡之道"]{
+    max-width:142px!important;
+  }
+  .clients-v19-logo img[alt="傑出油漆工程行"]{
+    max-width:122px!important;
+    max-height:100px!important;
+  }
+  .clients-v19-logo img[alt="禾農豐食"]{
+    max-width:112px!important;
+    max-height:96px!important;
+  }
+  .clients-v19-logo img[alt="耕家"]{
+    max-width:116px!important;
+    max-height:92px!important;
+  }
+  .clients-v19-logo img[alt="雅如詩"]{
+    max-width:122px!important;
+    max-height:88px!important;
+  }
+
+  .v33-founder-trust{
+    margin:-12px 0 22px;
+    font-size:13px;
+    line-height:1.8;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -4074,6 +4196,7 @@ body > .cta-band{
 <div class="v4-section-index">04 / FOUNDER</div>
 <div class="v25-founder-name">潘昱如 <span>Luru</span></div>
 <div class="v25-founder-role">MR. business.lab 主理人・商務男士形象 × 個人品牌顧問</div>
+<div class="v33-founder-trust">專門協助專業工作者，把能力整理成更容易被相信、被理解與被轉介紹的品牌。</div>
 <h2 class="v7-balanced-title"><span>看懂一個人，再把他的專業</span><em>變成品牌。</em></h2>
 <p>從百貨男裝、連鎖美容到品牌經營，潘昱如長期觀察「一個專業的人，為什麼沒有被市場正確理解」。她把外貌形象、商務表達與品牌內容放在同一套系統裡，協助專業工作者把原本只存在自己身上的經驗與能力，整理成客戶看得懂、記得住，也願意主動介紹的品牌。</p>
 <div class="v4-founder-exp">
@@ -4259,7 +4382,7 @@ body > .cta-band{
       <div class="v22-highlight-card">
         <div class="v22-highlight-top">溝通效率</div>
         <div class="v22-highlight-value">70%</div>
-        <div class="v22-highlight-text">降低滿溢成本與反覆解釋</div>
+        <div class="v22-highlight-text">降低溝通成本與反覆解釋</div>
       </div>
     </div>
     <div class="case-view-btn">查看完整改造紀錄 →︎</div>
