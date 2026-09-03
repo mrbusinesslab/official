@@ -32,7 +32,29 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 .resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.resource-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0;display:flex;flex-direction:column;gap:8px}.resource-card small{color:var(--muted);line-height:1.55}.resource-card a{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-weight:700}.resource-card a:hover{background:#f7f6f3}.resource-card.disabled{opacity:.65}.resource-card.disabled a{pointer-events:none}.section-label{margin:26px 0 12px;font-size:14px;color:var(--muted);font-weight:800;letter-spacing:.04em}
 .modal{position:fixed;inset:0;background:#0006;display:grid;place-items:center;padding:20px;z-index:20}.modal-card{background:#fff;border-radius:16px;width:min(1150px,100%);max-height:92vh;overflow:auto;padding:24px}.modal-head{display:flex;justify-content:space-between;gap:16px}.modal-head h2{margin:0}.close{border:0;background:#eee;border-radius:50%;width:34px;height:34px;cursor:pointer}.detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}.summary-note{padding:14px;border-radius:10px;background:#f7f6f3;line-height:1.8}.versions{font-size:14px}
 .pdf-stage{position:fixed;left:-99999px;top:0;width:1100px;background:#fff;padding:34px}.pdf-stage table{width:100%;border-collapse:collapse}.pdf-stage th,.pdf-stage td{border-bottom:1px solid #ddd;padding:9px;text-align:right}.pdf-stage th:first-child,.pdf-stage td:first-child{text-align:left}
-@media(max-width:1100px){.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:1000px){.two{grid-template-columns:minmax(0,1fr)}.position-table{min-width:520px}}@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;gap:8px;padding:10px;overflow-x:auto}.side h4{display:none}.nav{flex:0 0 auto;margin:0}.main{padding:18px}.cards,.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.resource-grid{grid-template-columns:1fr}}@media(max-width:540px){.cards,.detail-grid{grid-template-columns:1fr}.filters>*{width:100%}.export-wrap{margin-left:0;width:100%}.export-wrap button{flex:1}.position-table{min-width:480px}}
+@media(max-width:1100px){.resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}.detail-split{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(250px,.6fr);gap:18px;width:100%;max-width:100%;align-items:start}.detail-split>section{min-width:0;max-width:100%}.detail-buttons{min-width:0}.detail-buttons .table-wrap{width:100%;max-width:100%;overflow-x:auto}.detail-buttons .data-table{width:100%;min-width:680px;table-layout:fixed}.detail-buttons .data-table th:nth-child(1),.detail-buttons .data-table td:nth-child(1){width:14%}.detail-buttons .data-table th:nth-child(2),.detail-buttons .data-table td:nth-child(2){width:16%}.detail-buttons .data-table th:nth-child(3),.detail-buttons .data-table td:nth-child(3){width:56%;text-align:left;white-space:normal;overflow-wrap:anywhere;word-break:break-word}.detail-buttons .data-table th:nth-child(4),.detail-buttons .data-table td:nth-child(4){width:14%}.detail-versions{min-width:0}.detail-versions .alert{padding:11px 12px}.detail-versions small{display:block;overflow-wrap:anywhere;word-break:break-word}@media(max-width:900px){.detail-split{grid-template-columns:1fr}.detail-buttons .data-table{min-width:620px}}.detail-split .data-table{
+  width:100%;
+  min-width:0;
+  table-layout:fixed
+}
+.detail-split .data-table th,
+.detail-split .data-table td{
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word
+}
+.detail-split .data-table th:nth-child(1),
+.detail-split .data-table td:nth-child(1){width:20%;text-align:left}
+.detail-split .data-table th:nth-child(2),
+.detail-split .data-table td:nth-child(2){width:20%;text-align:center}
+.detail-split .data-table th:nth-child(3),
+.detail-split .data-table td:nth-child(3){width:42%;text-align:left}
+.detail-split .data-table th:nth-child(4),
+.detail-split .data-table td:nth-child(4){width:18%;text-align:center}
+.detail-split .data-table tbody tr:nth-child(odd){background:#fff}
+.detail-split .data-table tbody tr:nth-child(even){background:#f7f6f3}
+.detail-split .data-table tbody tr:hover{background:#f1eee8}
+@media(max-width:1000px){.two{grid-template-columns:minmax(0,1fr)}.position-table{min-width:520px}}@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;gap:8px;padding:10px;overflow-x:auto}.side h4{display:none}.nav{flex:0 0 auto;margin:0}.main{padding:18px}.cards,.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.resource-grid{grid-template-columns:1fr}}@media(max-width:540px){.cards,.detail-grid{grid-template-columns:1fr}.filters>*{width:100%}.export-wrap{margin-left:0;width:100%}.export-wrap button{flex:1}.position-table{min-width:480px}}
 </style>
 </head>
 <body>
@@ -74,7 +96,7 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 </main>
 </div>
 </section>
-<div id="personModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><h2 id="personName">人物</h2><p id="personRange"></p></div><div><button class="action" id="personExcel">Excel</button> <button class="action dark" id="personPdf">一頁成效報告</button> <button class="close" id="closeModal">×</button></div></div><div class="detail-grid"><div class="metric"><span>本期點擊</span><strong id="pClicks">0</strong></div><div class="metric"><span>成功分享</span><strong id="pShares">0</strong></div><div class="metric"><span>相較前期</span><strong id="pGrowth">—</strong></div><div class="metric"><span>健康狀態</span><strong id="pHealth">—</strong></div></div><div id="personSummary" class="summary-note"></div><div class="panel"><div class="panel-title"><h3>每日趨勢</h3><span>點擊 / 分享</span></div><div class="chartbox"><canvas id="personChart"></canvas></div></div><div class="two"><section><h3>所有按鈕</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead><tbody id="buttonBody"></tbody></table></div></section><section><h3>名片版本紀錄／改版效果</h3><div id="versions" class="versions">讀取中…</div></section></div></div></div>
+<div id="personModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><h2 id="personName">人物</h2><p id="personRange"></p></div><div><button class="action" id="personExcel">Excel</button> <button class="action dark" id="personPdf">一頁成效報告</button> <button class="close" id="closeModal">×</button></div></div><div class="detail-grid"><div class="metric"><span>本期點擊</span><strong id="pClicks">0</strong></div><div class="metric"><span>成功分享</span><strong id="pShares">0</strong></div><div class="metric"><span>相較前期</span><strong id="pGrowth">—</strong></div><div class="metric"><span>健康狀態</span><strong id="pHealth">—</strong></div></div><div id="personSummary" class="summary-note"></div><div class="panel"><div class="panel-title"><h3>每日趨勢</h3><span>點擊 / 分享</span></div><div class="chartbox"><canvas id="personChart"></canvas></div></div><div class="detail-split"><section class="detail-buttons"><h3>所有按鈕</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead><tbody id="buttonBody"></tbody></table></div></section><section class="detail-versions"><h3>名片版本紀錄／改版效果</h3><div id="versions" class="versions">讀取中…</div></section></div></div></div>
 <div id="pdfStage" class="pdf-stage"></div>
 <script>
 const API='https://packaiwgsswrjvxdsejw.supabase.co/functions/v1/card-analytics-dashboard',$=s=>document.querySelector(s);let allRows=[],catalog={},trendChart=null,personChart=null,currentPeople=[],currentDetail=null,currentRange=null;
