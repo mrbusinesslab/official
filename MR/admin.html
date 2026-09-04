@@ -131,12 +131,12 @@ async function loadVersions(caseId){
     const j=await r.json();
     if(!Array.isArray(j)) throw 0;
 
-    // GitHub 回傳最新在前，顯示時改成最舊到最新
-    const chronological=[...j].reverse();
+    // GitHub 原本就是最新在前，維持「近到遠」不改排序。
+    const total=j.length;
     const cards=[];
 
-    for(let i=0;i<chronological.length;i++){
-      const c=chronological[i];
+    for(let i=0;i<j.length;i++){
+      const c=j[i];
       const changedAt=new Date(c.commit.committer.date);
       const beforeStart=addDays(changedAt,-7);
       const beforeEnd=addDays(changedAt,-1);
@@ -154,11 +154,12 @@ async function loadVersions(caseId){
         effect=`改版前 7 天 ${before} 次／改版後 7 天 ${after} 次／${diff>=0?'▲':'▼'}${Math.abs(diff).toFixed(1)}%`;
       }
 
-      const isLatest=i===chronological.length-1;
-      const versionLabel=isLatest ? '目前版本' : `第 ${i+1} 版`;
+      // 最新一筆是目前版本；越舊版本號越小。
+      const versionNo=total-i;
+      const versionLabel=i===0 ? '目前版本' : `第 ${versionNo} 版`;
 
       cards.push(`
-        <div class="alert">
+        <div class="alert version-item" data-version-no="${versionNo}">
           <b>${versionLabel} <span class="tag">${String(c.sha).slice(0,7)}</span></b>
           <small>${tzTime(changedAt)}｜${c.commit.message}</small>
           ${effect?`<br><small>${effect}</small>`:''}
@@ -172,118 +173,254 @@ async function loadVersions(caseId){
 }
 
 function summaryRows(){const rangePrev=aggregate(rowsBetween(currentRange.prevStart,currentRange.prevEnd)),prevMap=Object.fromEntries(rangePrev.people.map(p=>[p.case_id,p]));return currentPeople.map((p,i)=>{const health=healthOf(p,prevMap[p.case_id]||{clicks:0});return{'排名':i+1,'人物':p.name,'健康狀態':health.label,'總按鈕點擊':p.clicks,'成功分享':p.shares,'每次分享平均點擊':Number(p.shareEff.toFixed(1)),'最後更新時間':p.latest?tzTime(new Date(p.latest)):'—'}})}
-function exportXlsx(personOnly=false){const wb=XLSX.utils.book_new();if(personOnly&&currentDetail){const p=currentDetail.p,health=healthOf(p,currentDetail.prev);XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([{'人物':p.name,'期間':`${fmt(currentRange.start)} ~ ${fmt(currentRange.end)}`,'健康狀態':health.label,'點擊':p.clicks,'成功分享':p.shares,'較前期':compare(p.clicks,currentDetail.prev.clicks)}]),'摘要');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(daily(currentDetail.rows,currentRange.start,currentRange.end).map(x=>({'日期':x.date,'點擊':x.clicks,'分享':x.shares}))),'每日趨勢');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(p.allButtons.map(x=>({'頁面':x.page_no,'按鈕':x.button_position,'名稱':x.button_label,'點擊數':x.count}))),'按鈕明細');XLSX.writeFile(wb,`MR_${p.name}_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`)}else{XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(summaryRows()),'總覽');XLSX.writeFile(wb,`MR_電子名片數據_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`)}}
-async function exportPdf(personOnly=false){
-  const stage=$('#pdfStage');
-  const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  const chartImg=ch=>{try{return ch&&ch.toBase64Image?ch.toBase64Image():''}catch{return''}};
-  const style=`<style>
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;color:#242321}
-  h1{font-size:28px;margin:0 0 6px}h2{font-size:20px;margin:24px 0 10px}
-  .muted{color:#77736d}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
-  .card{border:1px solid #dedad3;border-radius:10px;padding:14px}.card span{display:block;font-size:12px;color:#77736d;margin-bottom:5px}.card strong{font-size:22px}
-  .summary{background:#f7f6f3;border-radius:10px;padding:12px 14px;line-height:1.7}
-  .section{margin-top:20px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .chart{width:100%;max-height:360px;object-fit:contain;border:1px solid #eee;border-radius:10px;padding:6px}
-  table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ddd;text-align:right;vertical-align:top}
-  th:first-child,td:first-child{text-align:left}tbody tr:nth-child(even){background:#f7f6f3}
-  .alert{border:1px solid #dedad3;border-radius:8px;padding:10px 12px;margin:8px 0}
-  </style>`;
+function tableToAoA(table){
+  if(!table) return [];
+  return [...table.rows].map(row=>[...row.cells].map(cell=>cell.innerText.trim()));
+}
+
+function addSheetFromAoA(wb,name,aoa){
+  const safeName=name.replace(/[\\/?*\[\]:]/g,'').slice(0,31)||'Sheet';
+  const ws=XLSX.utils.aoa_to_sheet(aoa.length?aoa:[['']]);
+
+  // 依內容自動抓合理欄寬，盡量接近網頁閱讀感。
+  const maxCols=Math.max(...(aoa.length?aoa:[['']]).map(r=>r.length));
+  ws['!cols']=Array.from({length:maxCols},(_,c)=>{
+    let max=10;
+    for(const row of aoa){
+      const v=String(row[c]??'');
+      max=Math.max(max,Math.min(40,v.length+2));
+    }
+    return{wch:max};
+  });
+
+  XLSX.utils.book_append_sheet(wb,ws,safeName);
+}
+
+function exportXlsx(personOnly=false){
+  const wb=XLSX.utils.book_new();
 
   if(personOnly&&currentDetail){
     const p=currentDetail.p;
-    const health=healthOf(p,currentDetail.prev);
-    const best=[...p.allButtons].sort((a,b)=>b.count-a.count)[0];
-    const zeros=p.allButtons.filter(x=>x.count===0);
+
+    // 1. 個人頁上方四個指標，順序照網頁
+    addSheetFromAoA(wb,'個人總覽',[
+      ['項目','數值'],
+      ['本期點擊',$('#pClicks').innerText.trim()],
+      ['成功分享',$('#pShares').innerText.trim()],
+      ['相較前期',$('#pGrowth').innerText.trim()],
+      ['健康狀態',$('#pHealth').innerText.trim()],
+      [],
+      ['成效摘要'],
+      ...$('#personSummary').innerText.trim().split('\n').filter(Boolean).map(x=>[x])
+    ]);
+
+    // 2. 每日趨勢：對應網頁趨勢圖資料
     const d=daily(currentDetail.rows,currentRange.start,currentRange.end);
-    const img=chartImg(personChart);
-    const versions=$('#versions')?$('#versions').innerHTML:'';
+    addSheetFromAoA(wb,'每日趨勢',[
+      ['日期','點擊','分享'],
+      ...d.map(x=>[x.date,x.clicks,x.shares])
+    ]);
 
-    stage.innerHTML=`${style}
-      <h1>${esc(p.name)}｜電子名片完整成效報告</h1>
-      <p class="muted">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}</p>
-      <div class="grid">
-        <div class="card"><span>本期點擊</span><strong>${n(p.clicks)}</strong></div>
-        <div class="card"><span>成功分享</span><strong>${n(p.shares)}</strong></div>
-        <div class="card"><span>相較前期</span><strong>${compare(p.clicks,currentDetail.prev.clicks)}</strong></div>
-        <div class="card"><span>健康狀態</span><strong>${esc(health.label)}</strong></div>
-      </div>
-      <div class="summary">
-        <b>成效摘要</b><br>
-        最高點擊按鈕：${best&&best.count?`${esc(best.button_label)}（${best.count} 次）`:'目前尚無點擊'}<br>
-        0 點擊按鈕：${zeros.length} 顆${zeros.length?'（'+zeros.map(x=>esc(x.button_label)).join('、')+'）':''}<br>
-        本期點擊與前期相比：${compare(p.clicks,currentDetail.prev.clicks)}
-      </div>
-      <div class="section"><h2>每日趨勢</h2>${img?`<img class="chart" src="${img}">`:''}
-        <table><thead><tr><th>日期</th><th>點擊</th><th>分享</th></tr></thead>
-        <tbody>${d.map(x=>`<tr><td>${x.date}</td><td>${x.clicks}</td><td>${x.shares}</td></tr>`).join('')}</tbody></table>
-      </div>
-      <div class="two">
-        <div class="section"><h2>所有按鈕</h2>
-          <table><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead>
-          <tbody>${p.allButtons.map(x=>`<tr><td>第 ${x.page_no} 頁</td><td>${esc(String(x.button_position||'').replace('button','按鈕 '))}</td><td>${esc(x.button_label)}</td><td>${x.count}</td></tr>`).join('')}</tbody></table>
-        </div>
-        <div class="section"><h2>名片版本紀錄／改版效果</h2>${versions}</div>
-      </div>`;
-  }else{
-    const curRows=rowsBetween(currentRange.start,currentRange.end);
-    const prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd);
-    const cur=aggregate(curRows),prev=aggregate(prevRows);
-    const img=chartImg(trendChart);
-    const prevMap=Object.fromEntries(prev.people.map(x=>[x.case_id,x]));
-    const hot=[...document.querySelectorAll('#hotButtons tr')].map(tr=>[...tr.children].map(td=>td.innerText.trim()));
-    const pos=[...document.querySelectorAll('#positionBody tr')].map(tr=>[...tr.children].map(td=>td.innerText.trim()));
-    const alerts=$('#alerts')?$('#alerts').innerHTML:'';
-    const people=currentPeople.map((p,i)=>{
-      const pp=prevMap[p.case_id]||{clicks:0,shares:0};
-      const h=healthOf(p,pp);
-      return{rank:i+1,name:p.name,health:h.label,clicks:p.clicks,shares:p.shares,eff:p.shareEff.toFixed(1),cmp:compare(p.clicks,pp.clicks||0),latest:p.latest?tzTime(new Date(p.latest)):'—'};
-    });
+    // 3. 所有按鈕：直接用網頁表格
+    addSheetFromAoA(wb,'所有按鈕',tableToAoA($('#buttonBody').closest('table')));
 
-    stage.innerHTML=`${style}
-      <h1>MR 電子名片數據完整報告</h1>
-      <p class="muted">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}</p>
-      <div class="grid">
-        <div class="card"><span>總按鈕點擊</span><strong>${n(cur.clicks)}</strong><div class="muted">${compare(cur.clicks,prev.clicks)}</div></div>
-        <div class="card"><span>成功分享</span><strong>${n(cur.shares)}</strong><div class="muted">${compare(cur.shares,prev.shares)}</div></div>
-        <div class="card"><span>有互動人物</span><strong>${n(cur.active)}</strong><div class="muted">${compare(cur.active,prev.active)}</div></div>
-        <div class="card"><span>每次分享平均點擊</span><strong>${cur.shareEff.toFixed(1)}</strong><div class="muted">${compare(cur.shareEff,prev.shareEff)}</div></div>
-      </div>
-      <div class="section"><h2>數據趨勢</h2>${img?`<img class="chart" src="${img}">`:''}</div>
-      <div class="two">
-        <div class="section"><h2>熱門按鈕排行</h2>
-          <table><thead><tr><th>按鈕</th><th>人物</th><th>位置</th><th>點擊</th></tr></thead>
-          <tbody>${hot.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        </div>
-        <div class="section"><h2>按鈕位置成效</h2>
-          <table><thead><tr><th>位置</th><th>點擊</th><th>占全部點擊</th></tr></thead>
-          <tbody>${pos.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>
-        </div>
-      </div>
-      <div class="section"><h2>需要注意</h2>${alerts||'<div class="summary">目前沒有需要特別注意的項目。</div>'}</div>
-      <div class="section"><h2>健康狀態說明</h2><div class="summary">
-        <b>良好</b>：近期有穩定互動，且沒有明顯下滑。<br>
-        <b>待觀察</b>：有多顆 0 點擊按鈕、近期互動偏少，或開始下降。<br>
-        <b>需優化</b>：長時間沒有互動，或較前期明顯下降。
-      </div></div>
-      <div class="section"><h2>人物排行</h2>
-        <table><thead><tr><th>排名</th><th>人物</th><th>健康狀態</th><th>總點擊</th><th>分享</th><th>每次分享平均點擊</th><th>較前期</th><th>最後更新時間</th></tr></thead>
-        <tbody>${people.map(x=>`<tr><td>${x.rank}</td><td>${esc(x.name)}</td><td>${esc(x.health)}</td><td>${x.clicks}</td><td>${x.shares}</td><td>${x.eff}</td><td>${esc(x.cmp)}</td><td>${esc(x.latest)}</td></tr>`).join('')}</tbody></table>
-      </div>`;
+    // 4. 版本紀錄：順序直接讀網頁，維持近到遠
+    const versionRows=[['版本','紀錄']];
+    const items=[...$('#versions').querySelectorAll('.version-item,.alert')];
+    if(items.length){
+      for(const item of items){
+        const lines=item.innerText.trim().split('\n').filter(Boolean);
+        versionRows.push([lines[0]||'',lines.slice(1).join('｜')]);
+      }
+    }else{
+      versionRows.push(['',$('#versions').innerText.trim()]);
+    }
+    addSheetFromAoA(wb,'版本紀錄',versionRows);
+
+    XLSX.writeFile(
+      wb,
+      `MR_${p.name}_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`
+    );
+    return;
   }
 
-  return html2canvas(stage,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true}).then(canvas=>{
-    const img=canvas.toDataURL('image/jpeg',.95);
-    const {jsPDF}=window.jspdf;
-    const pdf=new jsPDF('p','mm','a4');
-    const w=190,h=canvas.height*w/canvas.width,pageH=277;
-    let remain=h,y=10;
-    pdf.addImage(img,'JPEG',10,y,w,h);
-    remain-=pageH;
-    while(remain>0){pdf.addPage();y=-(h-remain)+10;pdf.addImage(img,'JPEG',10,y,w,h);remain-=pageH}
-    pdf.save(personOnly&&currentDetail?`MR_${currentDetail.p.name}_完整成效報告_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`:`MR_電子名片完整報告_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`);
+  // 主版面：依網頁目前區塊順序
+  addSheetFromAoA(wb,'總覽',[
+    ['項目','數值','與前期比較'],
+    ['總按鈕點擊',$('#mClicks').innerText.trim(),$('#cClicks').innerText.trim()],
+    ['成功分享',$('#mShares').innerText.trim(),$('#cShares').innerText.trim()],
+    ['有互動人物',$('#mActive').innerText.trim(),$('#cActive').innerText.trim()],
+    ['每次分享平均點擊',$('#mShareEff').innerText.trim(),$('#cShareEff').innerText.trim()]
+  ]);
+
+  const trend=daily(rowsBetween(currentRange.start,currentRange.end),currentRange.start,currentRange.end);
+  addSheetFromAoA(wb,'數據趨勢',[
+    ['日期','點擊','分享'],
+    ...trend.map(x=>[x.date,x.clicks,x.shares])
+  ]);
+
+  addSheetFromAoA(wb,'熱門按鈕排行',tableToAoA($('#hotButtons').closest('table')));
+  addSheetFromAoA(wb,'按鈕位置成效',tableToAoA($('#positionBody').closest('table')));
+
+  addSheetFromAoA(wb,'需要注意',[
+    ['內容'],
+    ...[...$('#alerts').children].map(el=>[el.innerText.trim()])
+  ]);
+
+  addSheetFromAoA(wb,'健康狀態說明',[
+    ['狀態','說明'],
+    ['良好','近期有穩定互動，且沒有明顯下滑。'],
+    ['待觀察','有多顆 0 點擊按鈕、近期互動偏少，或開始下降。'],
+    ['需優化','長時間沒有互動，或較前期明顯下降。']
+  ]);
+
+  addSheetFromAoA(wb,'人物排行',tableToAoA($('#peopleBody').closest('table')));
+
+  XLSX.writeFile(
+    wb,
+    `MR_電子名片數據_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`
+  );
+}
+
+async function elementToCanvas(el){
+  return await html2canvas(el,{
+    scale:2,
+    backgroundColor:'#fff',
+    useCORS:true,
+    allowTaint:true,
+    logging:false
   });
 }
+
+async function appendBlockToPdf(pdf,canvas,state){
+  const pageW=190;
+  const pageH=277;
+  const top=10;
+  const bottom=10;
+  const gap=5;
+  const usable=pageH-top-bottom;
+
+  const img=canvas.toDataURL('image/jpeg',.95);
+  const drawH=canvas.height*pageW/canvas.width;
+
+  // 正常情況：整個區塊可放在一頁內，就絕不切割。
+  if(drawH<=usable){
+    if(state.y+drawH>pageH-bottom){
+      pdf.addPage();
+      state.y=top;
+    }
+    pdf.addImage(img,'JPEG',10,state.y,pageW,drawH);
+    state.y+=drawH+gap;
+    return;
+  }
+
+  // 單一區塊自己就高於一整頁，才允許區塊內分頁。
+  if(state.y>top){
+    pdf.addPage();
+    state.y=top;
+  }
+
+  let rendered=0;
+  while(rendered<drawH){
+    const sliceH=Math.min(usable,drawH-rendered);
+    pdf.addImage(img,'JPEG',10,top-rendered,pageW,drawH);
+    rendered+=sliceH;
+    if(rendered<drawH) pdf.addPage();
+  }
+  state.y=top+(drawH%usable)+gap;
+  if(state.y>=pageH-bottom) {
+    pdf.addPage();
+    state.y=top;
+  }
+}
+
+function cloneForExport(el){
+  const clone=el.cloneNode(true);
+  clone.style.width=getComputedStyle(el).width;
+  clone.style.maxWidth='none';
+  clone.style.overflow='visible';
+
+  // 避免 table-wrap 在匯出時只截到可視區
+  clone.querySelectorAll('.table-wrap').forEach(x=>{
+    x.style.overflow='visible';
+    x.style.maxWidth='none';
+  });
+  clone.querySelectorAll('.data-table').forEach(x=>{
+    x.style.width='100%';
+  });
+  return clone;
+}
+
+async function exportPdf(personOnly=false){
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF('p','mm','a4');
+  const state={y:10};
+
+  const stage=$('#pdfStage');
+  stage.innerHTML='';
+  stage.style.width='1200px';
+  stage.style.padding='24px';
+  stage.style.background='#fff';
+
+  const title=document.createElement('div');
+  title.style.padding='8px 4px 18px';
+  title.innerHTML=personOnly&&currentDetail
+    ?`<h1 style="margin:0 0 8px">${currentDetail.p.name}｜電子名片成效</h1><p style="margin:0;color:#777">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}</p>`
+    :`<h1 style="margin:0 0 8px">MR 電子名片數據總覽</h1><p style="margin:0;color:#777">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}</p>`;
+  stage.appendChild(title);
+
+  const blocks=[];
+
+  if(personOnly&&currentDetail){
+    // 完全照個人網頁目前出現的順序與版面：
+    // 上方指標 -> 摘要 -> 趨勢 -> 所有按鈕＋版本紀錄
+    const metricWrap=document.createElement('div');
+    metricWrap.className='detail-grid';
+    ['#pClicks','#pShares','#pGrowth','#pHealth'].forEach(sel=>{
+      metricWrap.appendChild($(sel).closest('.metric').cloneNode(true));
+    });
+    blocks.push(metricWrap);
+
+    blocks.push(cloneForExport($('#personSummary')));
+    blocks.push(cloneForExport($('#personChart').closest('.panel')));
+
+    // 這個區塊就是網頁上的左右兩欄，不另外重排。
+    const detailBlock=$('#buttonBody').closest('.detail-split') || $('#buttonBody').closest('.two');
+    if(detailBlock) blocks.push(cloneForExport(detailBlock));
+  }else{
+    // 完全照主版面目前的區塊順序
+    blocks.push(cloneForExport($('.cards')));
+    blocks.push(cloneForExport($('#trendChart').closest('.panel')));
+
+    const hotPanel=$('#hotButtons').closest('.panel');
+    const row1=hotPanel?.parentElement;
+    if(row1) blocks.push(cloneForExport(row1));
+
+    const alertPanel=$('#alerts').closest('.panel');
+    const row2=alertPanel?.parentElement;
+    if(row2) blocks.push(cloneForExport(row2));
+
+    blocks.push(cloneForExport($('#peopleBody').closest('.panel')));
+  }
+
+  // title 先輸出
+  const titleCanvas=await elementToCanvas(title);
+  await appendBlockToPdf(pdf,titleCanvas,state);
+
+  for(const block of blocks){
+    stage.appendChild(block);
+    const canvas=await elementToCanvas(block);
+    await appendBlockToPdf(pdf,canvas,state);
+    block.remove();
+  }
+
+  const filename=personOnly&&currentDetail
+    ?`MR_${currentDetail.p.name}_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`
+    :`MR_電子名片數據_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`;
+
+  pdf.save(filename);
+}
+
 document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const page=btn.dataset.page;$('#analyticsPage').classList.toggle('hidden',page!=='analytics');$('#resourcesPage').classList.toggle('hidden',page!=='resources')}));
 $('#loginBtn').onclick=login;$('#password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('#logoutBtn').onclick=()=>{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');location.reload()};$('#preset').onchange=()=>{const c=$('#preset').value==='custom';$('#startDate').classList.toggle('hidden',!c);$('#endDate').classList.toggle('hidden',!c);$('#toText').classList.toggle('hidden',!c);render()};$('#sortBy').onchange=render;$('#startDate').onchange=render;$('#endDate').onchange=render;$('#closeModal').onclick=()=>$('#personModal').classList.add('hidden');$('#personModal').onclick=e=>{if(e.target.id==='personModal')$('#personModal').classList.add('hidden')};$('#exportExcel').onclick=()=>exportXlsx(false);$('#exportPdf').onclick=()=>exportPdf(false);$('#personExcel').onclick=()=>exportXlsx(true);$('#personPdf').onclick=()=>exportPdf(true);const exp=Number(localStorage.getItem('mr_admin_exp')||0);if(token()&&exp>Date.now())showApp();else{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');showLogin()}
 </script>
