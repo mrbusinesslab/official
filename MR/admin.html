@@ -7,6 +7,7 @@
 <title>MR 管理者後台｜電子名片數據</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
@@ -54,7 +55,68 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 .detail-split .data-table tbody tr:nth-child(odd){background:#fff}
 .detail-split .data-table tbody tr:nth-child(even){background:#f7f6f3}
 .detail-split .data-table tbody tr:hover{background:#f1eee8}
+
+.showcase-hero{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;margin-bottom:18px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:22px;align-items:center;overflow:hidden}
+.showcase-hero h2{font-size:34px;margin:0 0 12px;line-height:1.2}
+.showcase-hero p{color:var(--muted);line-height:1.8;margin:0}
+.showcase-proof{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.proof-card{border:1px solid var(--line);background:#f8f6f1;border-radius:14px;padding:16px;min-width:0}
+.proof-card span{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}.proof-card strong{font-size:28px}
+.showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.story-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}.story-card b{display:block;font-size:18px;margin-bottom:8px}.story-card p{color:var(--muted);line-height:1.7;margin:0}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.case-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}.case-card h4{margin:0 0 10px;font-size:18px}.case-card .big{font-size:30px;font-weight:800}.case-card small{color:var(--muted);line-height:1.7}
+.showcase-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.showcase-actions .action{background:#fff}.showcase-actions .action.dark{background:var(--dark);color:#fff}
+@media(max-width:1000px){.showcase-hero{grid-template-columns:1fr}.showcase-grid,.case-grid{grid-template-columns:1fr}}
 @media(max-width:1000px){.two{grid-template-columns:minmax(0,1fr)}.position-table{min-width:520px}}@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;gap:8px;padding:10px;overflow-x:auto}.side h4{display:none}.nav{flex:0 0 auto;margin:0}.main{padding:18px}.cards,.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.resource-grid{grid-template-columns:1fr}}@media(max-width:540px){.cards,.detail-grid{grid-template-columns:1fr}.filters>*{width:100%}.export-wrap{margin-left:0;width:100%}.export-wrap button{flex:1}.position-table{min-width:480px}}
+
+
+
+.button-diagnosis{margin:18px 0}
+.diagnosis-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.diagnosis-kpi{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 14px}
+.diagnosis-kpi span{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.diagnosis-kpi strong{font-size:24px;line-height:1}
+.diagnosis-focus{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.diagnosis-focus-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.diagnosis-focus-head h4{margin:0;font-size:15px}
+.diagnosis-focus-head small{color:var(--muted)}
+.diagnosis-focus-row{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid #ece9e3}
+.diagnosis-focus-row:last-child{border-bottom:0}
+.diagnosis-focus-row:nth-child(even){background:#faf9f7}
+.diagnosis-clicks{text-align:center}
+.diagnosis-clicks strong{display:block;font-size:32px;line-height:1;font-weight:900}
+.diagnosis-clicks span{display:block;margin-top:4px;font-size:10px;color:var(--muted)}
+.diagnosis-main-title{font-weight:800;font-size:15px;line-height:1.45}
+.diagnosis-main-meta{margin-top:3px;color:var(--muted);font-size:11px}
+.diagnosis-main-advice{margin-top:7px;font-size:13px;line-height:1.5}
+.button-status{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap;border:1px solid var(--line)}
+.button-status.good{color:var(--good);background:#f2f8f4}
+.button-status.use{color:#4d6476;background:#f3f6f8}
+.button-status.low{color:var(--warn);background:#fbf7ef}
+.button-status.none{color:#8a665f;background:#faf4f2}
+.button-status.context{color:#6d5f8b;background:#f7f4fb}
+.button-status.insufficient{color:var(--muted);background:#f5f5f5}
+.diagnosis-all{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.diagnosis-all summary{list-style:none;cursor:pointer;padding:13px 15px;font-weight:800;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.diagnosis-all summary::-webkit-details-marker{display:none}
+.diagnosis-all summary::after{content:'＋';font-size:18px;color:var(--muted)}
+.diagnosis-all[open] summary::after{content:'－'}
+.diagnosis-mini-list{border-top:1px solid var(--line)}
+.diagnosis-mini-row{display:grid;grid-template-columns:minmax(0,1fr) 70px 110px;gap:10px;align-items:center;padding:9px 14px;font-size:12px;border-bottom:1px solid #eee}
+.diagnosis-mini-row:last-child{border-bottom:0}
+.diagnosis-mini-row:nth-child(even){background:#faf9f7}
+.diagnosis-mini-click{font-weight:900;text-align:center;font-size:18px}
+@media(max-width:760px){
+  .diagnosis-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .diagnosis-focus-row{grid-template-columns:60px minmax(0,1fr)}
+  .diagnosis-focus-row .button-status{grid-column:2;justify-self:start}
+  .diagnosis-mini-row{grid-template-columns:minmax(0,1fr) 55px}
+  .diagnosis-mini-row .button-status{grid-column:1 / -1;justify-self:start}
+}
+
+}
+
+
 </style>
 </head>
 <body>
@@ -62,7 +124,7 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 <section id="app" class="hidden">
 <header class="topbar"><div><b>MR. 管理者後台</b> <small>／工作管理</small></div><button class="logout" id="logoutBtn">登出</button></header>
 <div class="layout">
-<aside class="side"><h4>MANAGEMENT</h4><button class="nav active" data-page="analytics">電子名片數據</button><button class="nav" data-page="resources">常用資料</button></aside>
+<aside class="side"><h4>MANAGEMENT</h4><button class="nav active" data-page="analytics">頁面1｜數據後台</button><button class="nav" data-page="showcase">頁面2｜商業展示</button><button class="nav" data-page="resources">常用資料</button></aside>
 <main class="main">
 <section id="analyticsPage" class="page-section">
 <div class="headrow"><h1>電子名片數據總覽</h1><p id="rangeText">載入中…</p></div>
@@ -75,10 +137,56 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 </div>
 <div class="two">
 <section class="panel"><div class="panel-title"><h3>需要注意</h3><span>依目前區間自動判斷</span></div><div id="alerts"></div></section>
-<section class="panel"><div class="panel-title"><h3>健康狀態說明</h3><span>快速判斷哪些名片需要優化</span></div><div class="summary-note"><b class="health-good">良好</b>：近期有穩定互動，且沒有明顯下滑。<br><b class="health-watch">待觀察</b>：有多顆 0 點擊按鈕、近期互動偏少，或開始下降。<br><b class="health-bad">需優化</b>：長時間沒有互動，或較前期明顯下降。</div></section>
+<section class="panel"><div class="panel-title"><h3>健康狀態說明</h3><span>快速判斷哪些名片需要優化</span></div><div class="summary-note"><b class="health-good">良好</b>：近期有穩定互動，且沒有明顯下滑。<br><b class="health-watch">待觀察</b>：有多顆按鈕尚未被使用、近期互動偏少，或開始下降。<br><b class="health-bad">需優化</b>：長時間沒有互動，或較前期明顯下降。</div></section>
 </div>
 <section class="panel"><div class="panel-title"><h3>人物排行</h3><span>點人物查看成效摘要、所有按鈕與版本紀錄</span></div><div class="table-wrap"><table class="data-table"><thead><tr><th>人物</th><th>健康狀態</th><th>總點擊</th><th>分享</th><th>每次分享平均點擊</th><th>較前期</th><th>最後更新時間</th></tr></thead><tbody id="peopleBody"></tbody></table></div><div id="empty" class="empty hidden">目前選擇的期間還沒有正式數據。</div></section>
 </section>
+
+<section id="showcasePage" class="page-section hidden">
+  <div class="headrow">
+    <h1>商業展示</h1>
+    <p>把內部數據轉成適合對外展示的成果頁，用來和合作對象、客戶或 BNI 夥伴說明 MR 的價值。</p>
+  </div>
+  <div class="showcase-actions">
+    <button class="action dark" id="exportShowcasePpt">匯出簡報 PPT</button>
+    <button class="action" onclick="document.querySelector('[data-page=analytics]').click()">回數據後台</button>
+  </div>
+  <section class="showcase-hero">
+    <div>
+      <h2>每一張名片不只是被看見，MR 能知道客戶看完後做了什麼。</h2>
+      <p id="showcaseIntro">載入中…</p>
+    </div>
+    <div class="showcase-proof">
+      <div class="proof-card"><span>累積按鈕互動</span><strong id="sClicks">0</strong></div>
+      <div class="proof-card"><span>成功分享</span><strong id="sShares">0</strong></div>
+      <div class="proof-card"><span>有互動名片</span><strong id="sActive">0</strong></div>
+      <div class="proof-card"><span>分享平均帶來點擊</span><strong id="sEff">0</strong></div>
+    </div>
+  </section>
+
+  <div class="showcase-grid">
+    <article class="story-card"><b>從漂亮名片到可追蹤成效</b><p>每個按鈕點擊與分享都能被記錄，讓電子名片不只是形象展示，而是可驗證的商務工具。</p></article>
+    <article class="story-card"><b>看得出哪個 CTA 有效</b><p>能比較 LINE、官網、案例、導航等行動按鈕，幫助後續優化名片內容與按鈕位置。</p></article>
+    <article class="story-card"><b>累積 MR 的產業經驗</b><p>不同人物與產業的使用數據會慢慢變成設計依據，讓後續名片規劃更有方向。</p></article>
+  </div>
+
+  <section class="panel">
+    <div class="panel-title"><h3>代表案例</h3><span>依目前日期區間，取互動表現較高的名片</span></div>
+    <div class="case-grid" id="showcaseCases"></div>
+  </section>
+
+  <div class="two">
+    <section class="panel">
+      <div class="panel-title"><h3>最有效行動按鈕</h3><span>對外展示 TOP 5</span></div>
+      <div class="table-wrap"><table class="data-table"><thead><tr><th>按鈕</th><th>人物</th><th>點擊</th></tr></thead><tbody id="showcaseButtons"></tbody></table></div>
+    </section>
+    <section class="panel position-panel">
+      <div class="panel-title"><h3>最容易被點的位置</h3><span>幫助後續版型設計</span></div>
+      <div class="table-wrap"><table class="data-table position-table"><thead><tr><th>位置</th><th>點擊</th><th>占比</th></tr></thead><tbody id="showcasePositions"></tbody></table></div>
+    </section>
+  </div>
+</section>
+
 <section id="resourcesPage" class="page-section hidden">
 <div class="headrow"><h1>常用資料</h1><p>把平常會反覆找的資料集中在這裡，原本檔案位置不變。</p></div>
 <div class="section-label">BNI 資料</div>
@@ -96,7 +204,14 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 </main>
 </div>
 </section>
-<div id="personModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><h2 id="personName">人物</h2><p id="personRange"></p></div><div><button class="action" id="personExcel">Excel</button> <button class="action dark" id="personPdf">一頁成效報告</button> <button class="close" id="closeModal">×</button></div></div><div class="detail-grid"><div class="metric"><span>本期點擊</span><strong id="pClicks">0</strong></div><div class="metric"><span>成功分享</span><strong id="pShares">0</strong></div><div class="metric"><span>相較前期</span><strong id="pGrowth">—</strong></div><div class="metric"><span>健康狀態</span><strong id="pHealth">—</strong></div></div><div id="personSummary" class="summary-note"></div><div class="panel"><div class="panel-title"><h3>每日趨勢</h3><span>點擊 / 分享</span></div><div class="chartbox"><canvas id="personChart"></canvas></div></div><div class="detail-split"><section class="detail-buttons"><h3>所有按鈕</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead><tbody id="buttonBody"></tbody></table></div></section><section class="detail-versions"><h3>名片版本紀錄／改版效果</h3><div id="versions" class="versions">讀取中…</div></section></div></div></div>
+<div id="personModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><h2 id="personName">人物</h2><p id="personRange"></p></div><div><button class="action" id="personExcel">Excel</button> <button class="action dark" id="personPdf">一頁成效報告</button> <button class="close" id="closeModal">×</button></div></div><div class="detail-grid"><div class="metric"><span>本期點擊</span><strong id="pClicks">0</strong></div><div class="metric"><span>成功分享</span><strong id="pShares">0</strong></div><div class="metric"><span>相較前期</span><strong id="pGrowth">—</strong></div><div class="metric"><span>健康狀態</span><strong id="pHealth">—</strong></div></div><div id="personSummary" class="summary-note"></div><div class="panel"><div class="panel-title"><h3>每日趨勢</h3><span>點擊 / 分享</span></div><div class="chartbox"><canvas id="personChart"></canvas></div></div><section class="panel button-diagnosis">
+  <div class="panel-title">
+    <h3>按鈕優化判讀</h3>
+    <span>以同一張名片內的實際點擊相對比較，不直接用低點擊判定無效</span>
+  </div>
+  <div id="buttonDiagnosis" class="button-diagnosis-grid"></div>
+</section>
+<div class="detail-split"><section class="detail-buttons"><h3>所有按鈕</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead><tbody id="buttonBody"></tbody></table></div></section><section class="detail-versions"><h3>名片版本紀錄／改版效果</h3><div id="versions" class="versions">讀取中…</div></section></div></div></div>
 <div id="pdfStage" class="pdf-stage"></div>
 <script>
 const API='https://packaiwgsswrjvxdsejw.supabase.co/functions/v1/card-analytics-dashboard',$=s=>document.querySelector(s);let allRows=[],catalog={},trendChart=null,personChart=null,currentPeople=[],currentDetail=null,currentRange=null;
@@ -117,8 +232,229 @@ function renderPositionPerformance(rows){const map={},clicks=rows.filter(r=>r.ev
 function allButtonsFor(p){const existing={};for(const [k,count] of Object.entries(p.buttons||{})){const [page,pos,label]=k.split('|');existing[`${page}|${pos}|${label}`]=Number(count)}return (catalog[p.case_id]||[]).filter(x=>!x.is_share).map(x=>({...x,count:existing[`${x.page_no}|${x.button_position}|${x.button_label}`]||0}))}
 function healthOf(p,prevP){const buttons=allButtonsFor(p),zeroCount=buttons.filter(x=>x.count===0).length,zeroRatio=buttons.length?zeroCount/buttons.length:0,lastTs=p.latest?new Date(p.latest).getTime():0,daysSince=lastTs?Math.floor((Date.now()-lastTs)/86400000):9999,prevClicks=(prevP&&prevP.clicks)||0;if(daysSince>=30||(prevClicks>=5&&p.clicks<prevClicks*.5))return{label:'需優化',className:'health-bad'};if(daysSince>=14||zeroRatio>=.5||(prevClicks>=5&&p.clicks<prevClicks*.8))return{label:'待觀察',className:'health-watch'};return{label:'良好',className:'health-good'}}
 function renderAlerts(cur,prev){const pm=Object.fromEntries(prev.people.map(p=>[p.case_id,p])),alerts=[];for(const p of cur.people){const pp=pm[p.case_id]||{clicks:0};if(pp.clicks>=5&&p.clicks<pp.clicks*.5)alerts.push({t:`${p.name} 點擊明顯下降`,d:`本期 ${p.clicks} 次，前期 ${pp.clicks} 次`,c:'bad'});const zero=allButtonsFor(p).filter(x=>x.count===0);if(zero.length>=2)alerts.push({t:`${p.name} 有 ${zero.length} 顆按鈕尚未被點擊`,d:zero.slice(0,3).map(x=>x.button_label).join('、'),c:'warn'})}const recentCut=Date.now()-30*86400000;for(const id of Object.keys(catalog)){const last=allRows.filter(r=>r.case_id===id&&r.is_test!==true).sort((a,b)=>new Date(b.occurred_at)-new Date(a.occurred_at))[0];if(last&&new Date(last.occurred_at).getTime()<recentCut)alerts.push({t:`${last.person_name||id} 超過 30 天沒有互動`,d:`最後互動：${tzTime(new Date(last.occurred_at))}`,c:'warn'})}$('#alerts').innerHTML=alerts.slice(0,10).map(a=>`<div class="alert ${a.c}"><b>${a.t}</b><small>${a.d}</small></div>`).join('')||'<div class="empty">目前沒有需要特別注意的項目。</div>'}
-function render(){currentRange=getRange();const curRows=rowsBetween(currentRange.start,currentRange.end),prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd),cur=aggregate(curRows),prev=aggregate(prevRows);$('#rangeText').textContent=`${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}`;$('#mClicks').textContent=n(cur.clicks);$('#mShares').textContent=n(cur.shares);$('#mActive').textContent=n(cur.active);$('#mShareEff').textContent=cur.shareEff.toFixed(1);compEl($('#cClicks'),cur.clicks,prev.clicks);compEl($('#cShares'),cur.shares,prev.shares);compEl($('#cActive'),cur.active,prev.active);compEl($('#cShareEff'),cur.shareEff,prev.shareEff);const prevMap=Object.fromEntries(prev.people.map(p=>[p.case_id,p])),sortKey=$('#sortBy').value;currentPeople=[...cur.people].sort((a,b)=>sortKey==='latest'?new Date(b.latest||0)-new Date(a.latest||0):Number(b[sortKey]||0)-Number(a[sortKey]||0));$('#empty').classList.toggle('hidden',currentPeople.length>0);$('#peopleBody').innerHTML=currentPeople.map((p,i)=>{const pp=prevMap[p.case_id]||{clicks:0,shares:0},health=healthOf(p,pp),compareValue=sortKey==='shares'?compare(p.shares,pp.shares||0):compare(p.clicks,pp.clicks||0);return`<tr><td><span class="rank">${i+1}</span><span class="person-link" data-id="${p.case_id}">${p.name}</span></td><td><span class="${health.className}">${health.label}</span></td><td>${n(p.clicks)}</td><td>${n(p.shares)}</td><td>${p.shareEff.toFixed(1)}</td><td>${compareValue}</td><td>${p.latest?tzTime(new Date(p.latest)):'—'}</td></tr>`}).join('');document.querySelectorAll('.person-link').forEach(x=>x.onclick=()=>openPerson(x.dataset.id));drawTrend(curRows,currentRange);renderHotButtons(curRows);renderPositionPerformance(curRows);renderAlerts(cur,prev)}
-async function openPerson(id){const rows=rowsBetween(currentRange.start,currentRange.end,id),prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd,id),agg=aggregate(rows),prev=aggregate(prevRows),fallback=allRows.find(r=>r.case_id===id)||{},p=agg.people[0]||{case_id:id,name:fallback.person_name||id,clicks:0,shares:0,shareEff:0,buttons:{},latest:null};p.allButtons=allButtonsFor(p);currentDetail={p,rows,prev:prev.people[0]||{clicks:0,shares:0}};const health=healthOf(p,currentDetail.prev);$('#personName').textContent=p.name;$('#personRange').textContent=`${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}`;$('#pClicks').textContent=n(p.clicks);$('#pShares').textContent=n(p.shares);$('#pGrowth').textContent=compare(p.clicks,currentDetail.prev.clicks);$('#pHealth').textContent=health.label;$('#pHealth').className=health.className;const best=[...p.allButtons].sort((a,b)=>b.count-a.count)[0],zeros=p.allButtons.filter(x=>x.count===0);$('#personSummary').innerHTML=`<b>成效摘要</b><br>最高點擊按鈕：${best&&best.count?`${best.button_label}（${best.count} 次）`:'目前尚無點擊'}<br>0 點擊按鈕：${zeros.length} 顆${zeros.length?'（'+zeros.slice(0,4).map(x=>x.button_label).join('、')+(zeros.length>4?'…':'')+'）':''}<br>本期點擊與前期相比：${compare(p.clicks,currentDetail.prev.clicks)}`;$('#buttonBody').innerHTML=p.allButtons.map(x=>`<tr><td>第 ${x.page_no} 頁</td><td>${String(x.button_position||'').replace('button','按鈕 ')}</td><td>${x.button_label}</td><td>${n(x.count)}</td></tr>`).join('')||'<tr><td colspan="4">找不到此名片的按鈕設定</td></tr>';$('#personModal').classList.remove('hidden');drawTrend(rows,currentRange,true);loadVersions(p.case_id)}
+function render(){currentRange=getRange();const curRows=rowsBetween(currentRange.start,currentRange.end),prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd),cur=aggregate(curRows),prev=aggregate(prevRows);$('#rangeText').textContent=`${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}`;$('#mClicks').textContent=n(cur.clicks);$('#mShares').textContent=n(cur.shares);$('#mActive').textContent=n(cur.active);$('#mShareEff').textContent=cur.shareEff.toFixed(1);compEl($('#cClicks'),cur.clicks,prev.clicks);compEl($('#cShares'),cur.shares,prev.shares);compEl($('#cActive'),cur.active,prev.active);compEl($('#cShareEff'),cur.shareEff,prev.shareEff);const prevMap=Object.fromEntries(prev.people.map(p=>[p.case_id,p])),sortKey=$('#sortBy').value;currentPeople=[...cur.people].sort((a,b)=>sortKey==='latest'?new Date(b.latest||0)-new Date(a.latest||0):Number(b[sortKey]||0)-Number(a[sortKey]||0));$('#empty').classList.toggle('hidden',currentPeople.length>0);$('#peopleBody').innerHTML=currentPeople.map((p,i)=>{const pp=prevMap[p.case_id]||{clicks:0,shares:0},health=healthOf(p,pp),compareValue=sortKey==='shares'?compare(p.shares,pp.shares||0):compare(p.clicks,pp.clicks||0);return`<tr><td><span class="rank">${i+1}</span><span class="person-link" data-id="${p.case_id}">${p.name}</span></td><td><span class="${health.className}">${health.label}</span></td><td>${n(p.clicks)}</td><td>${n(p.shares)}</td><td>${p.shareEff.toFixed(1)}</td><td>${compareValue}</td><td>${p.latest?tzTime(new Date(p.latest)):'—'}</td></tr>`}).join('');document.querySelectorAll('.person-link').forEach(x=>x.onclick=()=>openPerson(x.dataset.id));drawTrend(curRows,currentRange);renderHotButtons(curRows);renderPositionPerformance(curRows);renderAlerts(cur,prev);renderShowcase()}
+
+function isContextButton(label=''){
+  return /(導航|地圖|位置|地址|門市|showroom|公司位置|google map|google導航|怎麼走)/i.test(label);
+}
+
+function buttonDiagnosisFor(p){
+  const buttons=(p.allButtons||[]).map(x=>({...x,count:Number(x.count||0)}));
+  const total=buttons.reduce((s,x)=>s+x.count,0);
+  const max=Math.max(0,...buttons.map(x=>x.count));
+  const activeCounts=buttons.map(x=>x.count).filter(v=>v>0).sort((a,b)=>a-b);
+  const median=activeCounts.length
+    ? activeCounts[Math.floor((activeCounts.length-1)/2)]
+    : 0;
+
+  return buttons.map(x=>{
+    const samePage=buttons.filter(y=>Number(y.page_no)===Number(x.page_no) && y!==x);
+    const samePageMax=Math.max(0,...samePage.map(y=>y.count));
+    const share=total?x.count/total:0;
+    const context=isContextButton(x.button_label);
+
+    let status='資料不足', statusClass='insufficient';
+    let visibility='資料不足';
+    let nameJudgment='無法判斷';
+    let positionJudgment='先維持';
+    let recommendation='先累積更多實際使用數據，不急著修改。';
+
+    if(total>=5){
+      if(context){
+        status='情境型';
+        statusClass='context';
+      }else if(x.count===0){
+        status='尚未被使用';
+        statusClass='none';
+      }else if(max>0 && (x.count>=max*0.65 || share>=0.22)){
+        status='表現良好';
+        statusClass='good';
+      }else if((median>0 && x.count<median*0.5) || (max>=4 && x.count<=max*0.3)){
+        status='使用偏低';
+        statusClass='low';
+      }else{
+        status='有使用';
+        statusClass='use';
+      }
+
+      if(x.count===0 && total>=8){
+        visibility='可能較少被看見';
+      }else if(max>0 && x.count>=max*0.45){
+        visibility='有被看見';
+      }else if(x.count>0){
+        visibility='有被看見，但相對偏弱';
+      }else{
+        visibility='目前尚未被使用';
+      }
+
+      // 名稱判斷：只有「同頁另一顆明顯更強」時才懷疑名稱，
+      // 因為同頁曝光條件較接近；不把低點擊直接等同名稱不好。
+      if(samePageMax>=4 && x.count<=samePageMax*0.35 && !context){
+        nameJudgment='建議測試名稱';
+      }else if(x.count>0 || context){
+        nameJudgment='暫時不用改';
+      }else{
+        nameJudgment='目前無法判斷';
+      }
+
+      // 位置判斷：後頁且相對弱，優先考慮前移；
+      // 前兩頁仍弱，則位置通常不是第一優先。
+      if(Number(x.page_no)>=4 && !context && ((max>=4 && x.count<=max*0.35) || x.count===0)){
+        positionJudgment='可考慮往前移';
+      }else if(Number(x.page_no)<=2 && x.count===0 && total>=8){
+        positionJudgment='位置不是主要問題';
+      }else{
+        positionJudgment='先維持';
+      }
+
+      if(context){
+        recommendation='保留連結。這類按鈕屬於特定情境需求，點擊少不代表沒有價值。';
+      }else if(nameJudgment==='建議測試名稱' && positionJudgment==='可考慮往前移'){
+        recommendation='保留連結，先測試更明確的按鈕名稱；若仍偏低，再考慮往前頁移。';
+      }else if(nameJudgment==='建議測試名稱'){
+        recommendation='保留連結，優先測試按鈕名稱，不需要急著換掉連結。';
+      }else if(positionJudgment==='可考慮往前移'){
+        recommendation='保留連結，可考慮移到更前面的頁面再觀察。';
+      }else if(status==='表現良好'){
+        recommendation='維持目前名稱與位置，暫時不需要調整。';
+      }else if(status==='有使用'){
+        recommendation='目前有被使用，先維持並持續觀察。';
+      }else if(status==='尚未被使用'){
+        recommendation='先保留連結並觀察；目前資料不足以判定這顆按鈕沒有價值。';
+      }else if(status==='使用偏低'){
+        recommendation='先保留連結，觀察名稱與位置是否需要小幅調整。';
+      }
+    }
+
+    return {...x,status,statusClass,visibility,nameJudgment,positionJudgment,recommendation};
+  });
+}
+
+function renderButtonDiagnosis(p){
+  const results=buttonDiagnosisFor(p);
+  const target=$('#buttonDiagnosis');
+  if(!target) return;
+
+  const totalButtons=results.length;
+  const clickedButtons=results.filter(x=>x.count>0).length;
+  const totalClicks=results.reduce((s,x)=>s+x.count,0);
+
+  const score=x=>{
+    let s=0;
+    if(x.nameJudgment==='建議測試名稱') s+=4;
+    if(x.positionJudgment==='可考慮往前移') s+=4;
+    if(x.status==='尚未被使用') s+=3;
+    if(x.status==='使用偏低') s+=2;
+    if(x.status==='情境型') s-=3;
+    if(x.status==='表現良好') s-=4;
+    return s;
+  };
+
+  const priority=results
+    .filter(x=>score(x)>0)
+    .sort((a,b)=>score(b)-score(a) || a.count-b.count);
+
+  const focusRows=(priority.length?priority:results.slice().sort((a,b)=>b.count-a.count)).slice(0,3);
+
+  const positionText=x=>`第 ${x.page_no} 頁｜${String(x.button_position||'').replace('button','按鈕 ')}`;
+
+  target.innerHTML=`
+    <div class="diagnosis-kpis">
+      <div class="diagnosis-kpi"><span>總按鈕數</span><strong>${totalButtons}</strong></div>
+      <div class="diagnosis-kpi"><span>有被點擊</span><strong>${clickedButtons}</strong></div>
+      <div class="diagnosis-kpi"><span>總點擊</span><strong>${totalClicks}</strong></div>
+      <div class="diagnosis-kpi"><span>優先需要看</span><strong>${priority.length}</strong></div>
+    </div>
+
+    <div class="diagnosis-focus">
+      <div class="diagnosis-focus-head">
+        <h4>${priority.length?'優先參考':'目前表現重點'}</h4>
+        <small>${priority.length?'最多顯示 3 顆':'暫時沒有明顯需要調整的按鈕'}</small>
+      </div>
+
+      ${focusRows.map(x=>`
+        <div class="diagnosis-focus-row">
+          <div class="diagnosis-clicks">
+            <strong>${x.count}</strong>
+            <span>點擊</span>
+          </div>
+          <div>
+            <div class="diagnosis-main-title">${x.button_label}</div>
+            <div class="diagnosis-main-meta">${positionText(x)}</div>
+            <div class="diagnosis-main-advice"><b>建議：</b>${x.recommendation}</div>
+          </div>
+          <span class="button-status ${x.statusClass}">${x.status}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <details class="diagnosis-all">
+      <summary>
+        <span>查看全部按鈕</span>
+        <span style="color:var(--muted);font-weight:500">${totalButtons} 顆</span>
+      </summary>
+      <div class="diagnosis-mini-list">
+        ${results.slice().sort((a,b)=>b.count-a.count).map(x=>`
+          <div class="diagnosis-mini-row">
+            <div>
+              <b>${x.button_label}</b>
+              <div style="color:var(--muted);margin-top:2px">${positionText(x)}</div>
+            </div>
+            <div class="diagnosis-mini-click">${x.count}</div>
+            <span class="button-status ${x.statusClass}">${x.status}</span>
+          </div>
+        `).join('')}
+      </div>
+    </details>
+  `;
+}
+
+async function openPerson(id){
+  const rows=rowsBetween(currentRange.start,currentRange.end,id),
+        prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd,id),
+        agg=aggregate(rows),
+        prev=aggregate(prevRows),
+        fallback=allRows.find(r=>r.case_id===id)||{},
+        p=agg.people[0]||{case_id:id,name:fallback.person_name||id,clicks:0,shares:0,shareEff:0,buttons:{},latest:null};
+
+  p.allButtons=allButtonsFor(p);
+  currentDetail={p,rows,prev:prev.people[0]||{clicks:0,shares:0}};
+
+  const health=healthOf(p,currentDetail.prev);
+  $('#personName').textContent=p.name;
+  $('#personRange').textContent=`${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}`;
+  $('#pClicks').textContent=n(p.clicks);
+  $('#pShares').textContent=n(p.shares);
+  $('#pGrowth').textContent=compare(p.clicks,currentDetail.prev.clicks);
+  $('#pHealth').textContent=health.label;
+  $('#pHealth').className=health.className;
+
+  const best=[...p.allButtons].sort((a,b)=>b.count-a.count)[0];
+  const unused=p.allButtons.filter(x=>x.count===0);
+  const diagnoses=buttonDiagnosisFor(p);
+  const priority=diagnoses.find(x=>x.nameJudgment==='建議測試名稱' || x.positionJudgment==='可考慮往前移');
+
+  $('#personSummary').innerHTML=`
+    <b>成效摘要</b><br>
+    最高點擊按鈕：${best&&best.count?`${best.button_label}（${best.count} 次）`:'目前尚無點擊'}<br>
+    尚未被使用按鈕：${unused.length} 顆${unused.length?'（'+unused.slice(0,4).map(x=>x.button_label).join('、')+(unused.length>4?'…':'')+'）':''}<br>
+    本期點擊與前期相比：${compare(p.clicks,currentDetail.prev.clicks)}
+    ${priority?`<br><b>優先參考：</b>${priority.button_label}｜${priority.recommendation}`:''}
+  `;
+
+  $('#buttonBody').innerHTML=p.allButtons.map(x=>`
+    <tr>
+      <td>第 ${x.page_no} 頁</td>
+      <td>${String(x.button_position||'').replace('button','按鈕 ')}</td>
+      <td>${x.button_label}</td>
+      <td>${n(x.count)}</td>
+    </tr>`).join('')||'<tr><td colspan="4">找不到此名片的按鈕設定</td></tr>';
+
+  renderButtonDiagnosis(p);
+  $('#personModal').classList.remove('hidden');
+  drawTrend(rows,currentRange,true);
+  loadVersions(p.case_id);
+}
 async function loadVersions(caseId){
   const suffix=caseId.split('_',2)[1];
   const path=`ai-MRbot/templates/${caseId}/card_${suffix}.json`;
@@ -173,6 +509,70 @@ async function loadVersions(caseId){
 }
 
 function summaryRows(){const rangePrev=aggregate(rowsBetween(currentRange.prevStart,currentRange.prevEnd)),prevMap=Object.fromEntries(rangePrev.people.map(p=>[p.case_id,p]));return currentPeople.map((p,i)=>{const health=healthOf(p,prevMap[p.case_id]||{clicks:0});return{'排名':i+1,'人物':p.name,'健康狀態':health.label,'總按鈕點擊':p.clicks,'成功分享':p.shares,'每次分享平均點擊':Number(p.shareEff.toFixed(1)),'最後更新時間':p.latest?tzTime(new Date(p.latest)):'—'}})}
+
+function getHotButtonList(rows,limit=10){
+  const m={};
+  for(const r of rows.filter(x=>x.event_type==='button_click')){
+    const k=`${r.case_id}|${r.page_no}|${r.button_position}|${r.button_label}`;
+    if(!m[k])m[k]={name:r.person_name||r.case_id,page:r.page_no,pos:r.button_position,label:r.button_label||'未命名按鈕',count:0};
+    m[k].count++;
+  }
+  return Object.values(m).sort((a,b)=>b.count-a.count).slice(0,limit);
+}
+function getPositionList(rows,limit=10){
+  const map={},clicks=rows.filter(r=>r.event_type==='button_click');
+  for(const r of clicks){
+    const page=Number(r.page_no||0),pos=String(r.button_position||'').replace('button','按鈕 '),key=`第 ${page} 頁｜${pos||'未標記位置'}`;
+    map[key]=(map[key]||0)+1;
+  }
+  const total=clicks.length||0;
+  return Object.entries(map).map(([label,count])=>({label,count,rate:total?count/total*100:0})).sort((a,b)=>b.count-a.count).slice(0,limit);
+}
+function renderShowcase(){
+  if(!currentRange)return;
+  const curRows=rowsBetween(currentRange.start,currentRange.end);
+  const cur=aggregate(curRows);
+  $('#sClicks').textContent=n(cur.clicks);
+  $('#sShares').textContent=n(cur.shares);
+  $('#sActive').textContent=n(cur.active);
+  $('#sEff').textContent=cur.shareEff.toFixed(1);
+  $('#showcaseIntro').textContent=`目前展示區間為 ${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}。這裡把後台數據轉成適合對外說明的成果，重點呈現互動、分享、代表案例與最有效行動按鈕。`;
+  const topPeople=[...cur.people].sort((a,b)=>(b.clicks+b.shares*2)-(a.clicks+a.shares*2)).slice(0,3);
+  $('#showcaseCases').innerHTML=topPeople.map(p=>{
+    const best=getHotButtonList(curRows.filter(r=>r.case_id===p.case_id),1)[0];
+    return `<article class="case-card"><h4>${p.name}</h4><div class="big">${n(p.clicks)}</div><small>本期按鈕互動<br>成功分享 ${n(p.shares)} 次<br>熱門行動：${best?best.label:'尚無資料'}</small></article>`;
+  }).join('')||'<div class="empty">目前還沒有可展示的案例數據。</div>';
+  const hot=getHotButtonList(curRows,5);
+  $('#showcaseButtons').innerHTML=hot.map((x,i)=>`<tr><td><span class="rank">${i+1}</span>${x.label}</td><td>${x.name}</td><td>${n(x.count)}</td></tr>`).join('')||'<tr><td colspan="3">目前沒有按鈕點擊資料</td></tr>';
+  const pos=getPositionList(curRows,5);
+  $('#showcasePositions').innerHTML=pos.map((x,i)=>`<tr><td><span class="rank">${i+1}</span>${x.label}</td><td>${n(x.count)}</td><td>${x.rate.toFixed(1)}%</td></tr>`).join('')||'<tr><td colspan="3">目前沒有位置成效資料</td></tr>';
+}
+function exportShowcasePpt(){
+  const range=currentRange||getRange();
+  const rows=rowsBetween(range.start,range.end);
+  const cur=aggregate(rows);
+  const hot=getHotButtonList(rows,5);
+  const pos=getPositionList(rows,5);
+  const top=[...cur.people].sort((a,b)=>(b.clicks+b.shares*2)-(a.clicks+a.shares*2)).slice(0,3);
+  const pptx=new pptxgen();
+  pptx.layout='LAYOUT_WIDE';
+  pptx.author='MR Business Lab';
+  pptx.subject='電子名片商業展示';
+  pptx.title='MR 電子名片商業展示';
+  pptx.company='MR Business Lab';
+  pptx.theme={headFontFace:'Microsoft JhengHei',bodyFontFace:'Microsoft JhengHei',lang:'zh-TW'};
+  const C={bg:'F5F3EF',dark:'242321',muted:'77736D',gold:'C7B78F',white:'FFFFFF',line:'DEDAD3'};
+  const addTitle=(slide,title,sub)=>{slide.background={color:C.bg};slide.addText(title,{x:.55,y:.45,w:12.2,h:.45,fontSize:24,bold:true,color:C.dark,margin:0});if(sub)slide.addText(sub,{x:.58,y:.93,w:12,h:.28,fontSize:10,color:C.muted,margin:0});slide.addShape(pptx.ShapeType.line,{x:.55,y:1.25,w:12.25,h:0,line:{color:C.line,pt:1}})};
+  const addMetric=(s,x,y,label,value)=>{s.addShape(pptx.ShapeType.roundRect,{x,y,w:2.8,h:1.05,rectRadius:.08,fill:{color:C.white},line:{color:C.line,pt:1}});s.addText(label,{x:x+.18,y:y+.18,w:2.4,h:.2,fontSize:9,color:C.muted,margin:0});s.addText(String(value),{x:x+.18,y:y+.48,w:2.4,h:.38,fontSize:22,bold:true,color:C.dark,margin:0})};
+  let s=pptx.addSlide();s.background={color:C.bg};s.addText('MR 電子名片商業展示',{x:.65,y:1.25,w:7.8,h:.6,fontSize:30,bold:true,color:C.dark,margin:0});s.addText('每一張名片不只是被看見，MR 能知道客戶看完後做了什麼。',{x:.68,y:2.05,w:7.5,h:.55,fontSize:16,color:C.dark,margin:0,breakLine:false});s.addText(`${fmt(range.start)} ～ ${fmt(range.end)}`,{x:.7,y:2.82,w:4,h:.26,fontSize:11,color:C.muted,margin:0});s.addShape(pptx.ShapeType.rect,{x:9.2,y:0,w:4.13,h:7.5,fill:{color:C.dark},line:{color:C.dark}});s.addText('DATA\nPROOF',{x:9.75,y:2.35,w:2.8,h:1.5,fontSize:30,bold:true,color:C.gold,align:'center',margin:0,fit:'shrink'});
+  s=pptx.addSlide();addTitle(s,'整體成果總覽',`${fmt(range.start)} ～ ${fmt(range.end)}`);addMetric(s,.75,1.65,'累積按鈕互動',n(cur.clicks));addMetric(s,3.85,1.65,'成功分享',n(cur.shares));addMetric(s,6.95,1.65,'有互動名片',n(cur.active));addMetric(s,10.05,1.65,'分享平均點擊',cur.shareEff.toFixed(1));s.addText('這些數字代表名片不只是形象展示，而是能被追蹤、比較、優化的商務工具。',{x:.85,y:3.35,w:11.5,h:.6,fontSize:18,color:C.dark,margin:0,fit:'shrink'});
+  s=pptx.addSlide();addTitle(s,'代表案例','依目前區間互動表現排序');top.forEach((p,i)=>{const best=getHotButtonList(rows.filter(r=>r.case_id===p.case_id),1)[0];const x=.7+i*4.15;s.addShape(pptx.ShapeType.roundRect,{x,y:1.65,w:3.75,h:3.5,rectRadius:.08,fill:{color:C.white},line:{color:C.line,pt:1}});s.addText(p.name,{x:x+.25,y:1.95,w:3.2,h:.32,fontSize:18,bold:true,color:C.dark,margin:0});s.addText(n(p.clicks),{x:x+.25,y:2.55,w:3,h:.6,fontSize:32,bold:true,color:C.dark,margin:0});s.addText(`按鈕互動\n成功分享 ${n(p.shares)} 次\n熱門行動：${best?best.label:'尚無資料'}`,{x:x+.28,y:3.35,w:3.1,h:1.05,fontSize:12,color:C.muted,margin:0,fit:'shrink'})});
+  s=pptx.addSlide();addTitle(s,'最有效行動按鈕','合作對象最容易看懂的 CTA 成效');hot.forEach((x,i)=>{s.addText(`${i+1}. ${x.label}`,{x:.85,y:1.55+i*.55,w:6.3,h:.25,fontSize:14,bold:i<3,color:C.dark,margin:0});s.addText(`${x.name}｜${n(x.count)} 次`,{x:7.7,y:1.55+i*.55,w:4,h:.25,fontSize:12,color:C.muted,margin:0})});
+  s=pptx.addSlide();addTitle(s,'版型與位置洞察','哪些頁面與按鈕位置更容易產生行動');pos.forEach((x,i)=>{s.addText(`${i+1}. ${x.label}`,{x:.85,y:1.55+i*.55,w:6.4,h:.25,fontSize:14,bold:i<3,color:C.dark,margin:0});s.addText(`${n(x.count)} 次｜${x.rate.toFixed(1)}%`,{x:7.7,y:1.55+i*.55,w:4,h:.25,fontSize:12,color:C.muted,margin:0})});s.addText('這些資料可以反過來幫助 MR 判斷：重要 CTA 應該放在哪一頁、哪個位置、用什麼文案更容易被點擊。',{x:.85,y:5.35,w:11.2,h:.45,fontSize:14,color:C.dark,margin:0,fit:'shrink'});
+  s=pptx.addSlide();addTitle(s,'MR 的差異化','不只製作電子名片，也持續優化行動成果');s.addText('1. 可追蹤：按鈕點擊與分享都能被記錄\n2. 可比較：能看出人物、按鈕、位置的成效差異\n3. 可優化：依照數據調整 CTA、版型與文案\n4. 可展示：把成效整理成合作簡報，提升成交說服力',{x:1.1,y:1.75,w:10.7,h:2.2,fontSize:18,color:C.dark,margin:0,breakLine:false,fit:'shrink'});s.addText('MR 讓電子名片從「好看」變成「有數據、有策略、有後續優化」。',{x:1.1,y:4.55,w:10.7,h:.5,fontSize:20,bold:true,color:C.dark,margin:0,fit:'shrink'});
+  pptx.writeFile({fileName:`MR_電子名片商業展示_${fmt(range.start)}_${fmt(range.end)}.pptx`});
+}
+
 function tableToAoA(table){
   if(!table) return [];
   return [...table.rows].map(row=>[...row.cells].map(cell=>cell.innerText.trim()));
@@ -224,6 +624,15 @@ function exportXlsx(personOnly=false){
     // 3. 所有按鈕：直接用網頁表格
     addSheetFromAoA(wb,'所有按鈕',tableToAoA($('#buttonBody').closest('table')));
 
+    const diagRows=[['按鈕','狀態','有沒有被看見','名稱判斷','位置判斷','建議']];
+    for(const x of buttonDiagnosisFor(currentDetail.p)){
+      diagRows.push([
+        `第 ${x.page_no} 頁｜${String(x.button_position||'').replace('button','按鈕 ')}｜${x.button_label}`,
+        x.status,x.visibility,x.nameJudgment,x.positionJudgment,x.recommendation
+      ]);
+    }
+    addSheetFromAoA(wb,'按鈕優化判讀',diagRows);
+
     // 4. 版本紀錄：順序直接讀網頁，維持近到遠
     const versionRows=[['版本','紀錄']];
     const items=[...$('#versions').querySelectorAll('.version-item,.alert')];
@@ -270,7 +679,7 @@ function exportXlsx(personOnly=false){
   addSheetFromAoA(wb,'健康狀態說明',[
     ['狀態','說明'],
     ['良好','近期有穩定互動，且沒有明顯下滑。'],
-    ['待觀察','有多顆 0 點擊按鈕、近期互動偏少，或開始下降。'],
+    ['待觀察','有多顆按鈕尚未被使用、近期互動偏少，或開始下降。'],
     ['需優化','長時間沒有互動，或較前期明顯下降。']
   ]);
 
@@ -383,6 +792,7 @@ async function exportPdf(personOnly=false){
 
     blocks.push(cloneForExport($('#personSummary')));
     blocks.push(cloneForExport($('#personChart').closest('.panel')));
+    if($('#buttonDiagnosis')) blocks.push(cloneForExport($('#buttonDiagnosis').closest('.panel')));
 
     // 這個區塊就是網頁上的左右兩欄，不另外重排。
     const detailBlock=$('#buttonBody').closest('.detail-split') || $('#buttonBody').closest('.two');
@@ -421,8 +831,8 @@ async function exportPdf(personOnly=false){
   pdf.save(filename);
 }
 
-document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const page=btn.dataset.page;$('#analyticsPage').classList.toggle('hidden',page!=='analytics');$('#resourcesPage').classList.toggle('hidden',page!=='resources')}));
-$('#loginBtn').onclick=login;$('#password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('#logoutBtn').onclick=()=>{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');location.reload()};$('#preset').onchange=()=>{const c=$('#preset').value==='custom';$('#startDate').classList.toggle('hidden',!c);$('#endDate').classList.toggle('hidden',!c);$('#toText').classList.toggle('hidden',!c);render()};$('#sortBy').onchange=render;$('#startDate').onchange=render;$('#endDate').onchange=render;$('#closeModal').onclick=()=>$('#personModal').classList.add('hidden');$('#personModal').onclick=e=>{if(e.target.id==='personModal')$('#personModal').classList.add('hidden')};$('#exportExcel').onclick=()=>exportXlsx(false);$('#exportPdf').onclick=()=>exportPdf(false);$('#personExcel').onclick=()=>exportXlsx(true);$('#personPdf').onclick=()=>exportPdf(true);const exp=Number(localStorage.getItem('mr_admin_exp')||0);if(token()&&exp>Date.now())showApp();else{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');showLogin()}
+document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const page=btn.dataset.page;document.querySelectorAll('.page-section').forEach(sec=>sec.classList.add('hidden'));const target=$('#'+page+'Page');if(target)target.classList.remove('hidden');if(page==='showcase')renderShowcase()}));
+$('#loginBtn').onclick=login;$('#password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('#logoutBtn').onclick=()=>{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');location.reload()};$('#preset').onchange=()=>{const c=$('#preset').value==='custom';$('#startDate').classList.toggle('hidden',!c);$('#endDate').classList.toggle('hidden',!c);$('#toText').classList.toggle('hidden',!c);render()};$('#sortBy').onchange=render;$('#startDate').onchange=render;$('#endDate').onchange=render;$('#closeModal').onclick=()=>$('#personModal').classList.add('hidden');$('#personModal').onclick=e=>{if(e.target.id==='personModal')$('#personModal').classList.add('hidden')};$('#exportExcel').onclick=()=>exportXlsx(false);$('#exportPdf').onclick=()=>exportPdf(false);$('#personExcel').onclick=()=>exportXlsx(true);$('#personPdf').onclick=()=>exportPdf(true);if($('#exportShowcasePpt'))$('#exportShowcasePpt').onclick=exportShowcasePpt;const exp=Number(localStorage.getItem('mr_admin_exp')||0);if(token()&&exp>Date.now())showApp();else{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');showLogin()}
 </script>
 </body>
 </html>
