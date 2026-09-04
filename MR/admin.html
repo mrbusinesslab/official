@@ -754,9 +754,39 @@ function cloneForExport(el){
     x.style.overflow='visible';
     x.style.maxWidth='none';
   });
+
   clone.querySelectorAll('.data-table').forEach(x=>{
     x.style.width='100%';
   });
+
+  // canvas 被 cloneNode 複製後不會帶著已繪製內容，
+  // 因此把原畫面上的 Chart.js canvas 轉成圖片後替換進匯出版本。
+  const originalCanvases=[...el.querySelectorAll('canvas')];
+  const clonedCanvases=[...clone.querySelectorAll('canvas')];
+
+  clonedCanvases.forEach((clonedCanvas,i)=>{
+    const originalCanvas=originalCanvases[i];
+    if(!originalCanvas) return;
+
+    try{
+      const img=document.createElement('img');
+      img.src=originalCanvas.toDataURL('image/png');
+      img.style.display='block';
+      img.style.width='100%';
+      img.style.height='auto';
+      img.style.maxHeight='290px';
+      img.style.objectFit='contain';
+
+      // 保留原本圖表區塊的尺寸感
+      const rect=originalCanvas.getBoundingClientRect();
+      if(rect.height) img.style.minHeight=`${Math.min(rect.height,290)}px`;
+
+      clonedCanvas.replaceWith(img);
+    }catch(err){
+      console.warn('Chart export fallback failed',err);
+    }
+  });
+
   return clone;
 }
 
@@ -819,6 +849,18 @@ async function exportPdf(personOnly=false){
 
   for(const block of blocks){
     stage.appendChild(block);
+
+    // 等待剛替換進去的圖表圖片完成解碼，再進行截圖
+    const exportImages=[...block.querySelectorAll('img')];
+    await Promise.all(exportImages.map(img=>{
+      if(img.complete) return Promise.resolve();
+      return new Promise(resolve=>{
+        img.onload=resolve;
+        img.onerror=resolve;
+      });
+    }));
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+
     const canvas=await elementToCanvas(block);
     await appendBlockToPdf(pdf,canvas,state);
     block.remove();
