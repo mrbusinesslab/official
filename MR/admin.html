@@ -122,7 +122,115 @@ async function openPerson(id){const rows=rowsBetween(currentRange.start,currentR
 async function loadVersions(caseId){const suffix=caseId.split('_',2)[1],path=`ai-MRbot/templates/${caseId}/card_${suffix}.json`,url=`https://api.github.com/repos/mrbusinesslab/MR_card/commits?path=${encodeURIComponent(path)}&per_page=10`;$('#versions').textContent='讀取中…';try{const r=await fetch(url),j=await r.json();if(!Array.isArray(j))throw 0;const cards=[];for(let i=0;i<j.length;i++){const c=j[i],changedAt=new Date(c.commit.committer.date),beforeStart=addDays(changedAt,-7),beforeEnd=addDays(changedAt,-1),afterStart=changedAt,afterEnd=addDays(changedAt,6),before=aggregate(rowsBetween(beforeStart,beforeEnd,caseId)).clicks,after=aggregate(rowsBetween(afterStart,afterEnd,caseId)).clicks;let effect='資料不足';if(before===0&&after>0)effect=`改版後 7 天 ${after} 次點擊`;else if(before>0){const diff=(after-before)/before*100;effect=`改版前 7 天 ${before} 次／改版後 7 天 ${after} 次／${diff>=0?'▲':'▼'}${Math.abs(diff).toFixed(1)}%`}cards.push(`<div class="alert"><b>${i===0?'目前版本':'歷史版本'} <span class="tag">${String(c.sha).slice(0,7)}</span></b><small>${tzTime(changedAt)}｜${c.commit.message}</small><br><small>${effect}</small></div>`)}$('#versions').innerHTML=cards.join('')||'<div class="empty">目前沒有版本紀錄。</div>'}catch{$('#versions').innerHTML='<div class="empty">版本紀錄暫時讀取失敗。</div>'}}
 function summaryRows(){const rangePrev=aggregate(rowsBetween(currentRange.prevStart,currentRange.prevEnd)),prevMap=Object.fromEntries(rangePrev.people.map(p=>[p.case_id,p]));return currentPeople.map((p,i)=>{const health=healthOf(p,prevMap[p.case_id]||{clicks:0});return{'排名':i+1,'人物':p.name,'健康狀態':health.label,'總按鈕點擊':p.clicks,'成功分享':p.shares,'每次分享平均點擊':Number(p.shareEff.toFixed(1)),'最後更新時間':p.latest?tzTime(new Date(p.latest)):'—'}})}
 function exportXlsx(personOnly=false){const wb=XLSX.utils.book_new();if(personOnly&&currentDetail){const p=currentDetail.p,health=healthOf(p,currentDetail.prev);XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet([{'人物':p.name,'期間':`${fmt(currentRange.start)} ~ ${fmt(currentRange.end)}`,'健康狀態':health.label,'點擊':p.clicks,'成功分享':p.shares,'較前期':compare(p.clicks,currentDetail.prev.clicks)}]),'摘要');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(daily(currentDetail.rows,currentRange.start,currentRange.end).map(x=>({'日期':x.date,'點擊':x.clicks,'分享':x.shares}))),'每日趨勢');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(p.allButtons.map(x=>({'頁面':x.page_no,'按鈕':x.button_position,'名稱':x.button_label,'點擊數':x.count}))),'按鈕明細');XLSX.writeFile(wb,`MR_${p.name}_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`)}else{XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(summaryRows()),'總覽');XLSX.writeFile(wb,`MR_電子名片數據_${fmt(currentRange.start)}_${fmt(currentRange.end)}.xlsx`)}}
-async function exportPdf(personOnly=false){const stage=$('#pdfStage');if(personOnly&&currentDetail){const p=currentDetail.p,health=healthOf(p,currentDetail.prev),best=[...p.allButtons].sort((a,b)=>b.count-a.count)[0],zeros=p.allButtons.filter(x=>x.count===0);stage.innerHTML=`<h1>${p.name}｜電子名片成效報告</h1><p>${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}</p><p>健康狀態：${health.label}　點擊：${p.clicks}　成功分享：${p.shares}　較前期：${compare(p.clicks,currentDetail.prev.clicks)}</p><p>最高點擊按鈕：${best&&best.count?`${best.button_label}（${best.count} 次）`:'尚無點擊'}　0 點擊按鈕：${zeros.length} 顆</p><table><thead><tr><th>按鈕</th><th>位置</th><th>點擊</th></tr></thead><tbody>${p.allButtons.map(x=>`<tr><td>${x.button_label}</td><td>第${x.page_no}頁 ${x.button_position}</td><td>${x.count}</td></tr>`).join('')}</tbody></table>`}else stage.innerHTML=`<h1>MR 電子名片數據總覽</h1><p>${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}</p><table><thead><tr><th>人物</th><th>點擊</th><th>分享</th><th>最後更新</th></tr></thead><tbody>${currentPeople.map(p=>`<tr><td>${p.name}</td><td>${p.clicks}</td><td>${p.shares}</td><td>${p.latest?tzTime(new Date(p.latest)):'—'}</td></tr>`).join('')}</tbody></table>`;const canvas=await html2canvas(stage,{scale:2,backgroundColor:'#fff'}),img=canvas.toDataURL('image/jpeg',.95),{jsPDF}=window.jspdf,pdf=new jsPDF('p','mm','a4'),w=190,h=canvas.height*190/canvas.width;let y=10,remain=h;pdf.addImage(img,'JPEG',10,y,w,h);remain-=277;while(remain>0){pdf.addPage();y=-(h-remain)+10;pdf.addImage(img,'JPEG',10,y,w,h);remain-=277}pdf.save(personOnly&&currentDetail?`MR_${currentDetail.p.name}_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`:`MR_電子名片數據_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`)}
+async function exportPdf(personOnly=false){
+  const stage=$('#pdfStage');
+  const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const chartImg=ch=>{try{return ch&&ch.toBase64Image?ch.toBase64Image():''}catch{return''}};
+  const style=`<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;color:#242321}
+  h1{font-size:28px;margin:0 0 6px}h2{font-size:20px;margin:24px 0 10px}
+  .muted{color:#77736d}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+  .card{border:1px solid #dedad3;border-radius:10px;padding:14px}.card span{display:block;font-size:12px;color:#77736d;margin-bottom:5px}.card strong{font-size:22px}
+  .summary{background:#f7f6f3;border-radius:10px;padding:12px 14px;line-height:1.7}
+  .section{margin-top:20px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .chart{width:100%;max-height:360px;object-fit:contain;border:1px solid #eee;border-radius:10px;padding:6px}
+  table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ddd;text-align:right;vertical-align:top}
+  th:first-child,td:first-child{text-align:left}tbody tr:nth-child(even){background:#f7f6f3}
+  .alert{border:1px solid #dedad3;border-radius:8px;padding:10px 12px;margin:8px 0}
+  </style>`;
+
+  if(personOnly&&currentDetail){
+    const p=currentDetail.p;
+    const health=healthOf(p,currentDetail.prev);
+    const best=[...p.allButtons].sort((a,b)=>b.count-a.count)[0];
+    const zeros=p.allButtons.filter(x=>x.count===0);
+    const d=daily(currentDetail.rows,currentRange.start,currentRange.end);
+    const img=chartImg(personChart);
+    const versions=$('#versions')?$('#versions').innerHTML:'';
+
+    stage.innerHTML=`${style}
+      <h1>${esc(p.name)}｜電子名片完整成效報告</h1>
+      <p class="muted">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}</p>
+      <div class="grid">
+        <div class="card"><span>本期點擊</span><strong>${n(p.clicks)}</strong></div>
+        <div class="card"><span>成功分享</span><strong>${n(p.shares)}</strong></div>
+        <div class="card"><span>相較前期</span><strong>${compare(p.clicks,currentDetail.prev.clicks)}</strong></div>
+        <div class="card"><span>健康狀態</span><strong>${esc(health.label)}</strong></div>
+      </div>
+      <div class="summary">
+        <b>成效摘要</b><br>
+        最高點擊按鈕：${best&&best.count?`${esc(best.button_label)}（${best.count} 次）`:'目前尚無點擊'}<br>
+        0 點擊按鈕：${zeros.length} 顆${zeros.length?'（'+zeros.map(x=>esc(x.button_label)).join('、')+'）':''}<br>
+        本期點擊與前期相比：${compare(p.clicks,currentDetail.prev.clicks)}
+      </div>
+      <div class="section"><h2>每日趨勢</h2>${img?`<img class="chart" src="${img}">`:''}
+        <table><thead><tr><th>日期</th><th>點擊</th><th>分享</th></tr></thead>
+        <tbody>${d.map(x=>`<tr><td>${x.date}</td><td>${x.clicks}</td><td>${x.shares}</td></tr>`).join('')}</tbody></table>
+      </div>
+      <div class="section"><h2>所有按鈕</h2>
+        <table><thead><tr><th>頁面</th><th>按鈕</th><th>名稱</th><th>點擊數</th></tr></thead>
+        <tbody>${p.allButtons.map(x=>`<tr><td>第 ${x.page_no} 頁</td><td>${esc(String(x.button_position||'').replace('button','按鈕 '))}</td><td>${esc(x.button_label)}</td><td>${x.count}</td></tr>`).join('')}</tbody></table>
+      </div>
+      <div class="section"><h2>名片版本紀錄／改版效果</h2>${versions}</div>`;
+  }else{
+    const curRows=rowsBetween(currentRange.start,currentRange.end);
+    const prevRows=rowsBetween(currentRange.prevStart,currentRange.prevEnd);
+    const cur=aggregate(curRows),prev=aggregate(prevRows);
+    const img=chartImg(trendChart);
+    const prevMap=Object.fromEntries(prev.people.map(x=>[x.case_id,x]));
+    const hot=[...document.querySelectorAll('#hotButtons tr')].map(tr=>[...tr.children].map(td=>td.innerText.trim()));
+    const pos=[...document.querySelectorAll('#positionBody tr')].map(tr=>[...tr.children].map(td=>td.innerText.trim()));
+    const alerts=$('#alerts')?$('#alerts').innerHTML:'';
+    const people=currentPeople.map((p,i)=>{
+      const pp=prevMap[p.case_id]||{clicks:0,shares:0};
+      const h=healthOf(p,pp);
+      return{rank:i+1,name:p.name,health:h.label,clicks:p.clicks,shares:p.shares,eff:p.shareEff.toFixed(1),cmp:compare(p.clicks,pp.clicks||0),latest:p.latest?tzTime(new Date(p.latest)):'—'};
+    });
+
+    stage.innerHTML=`${style}
+      <h1>MR 電子名片數據完整報告</h1>
+      <p class="muted">${fmt(currentRange.start)} ～ ${fmt(currentRange.end)}｜對比 ${fmt(currentRange.prevStart)} ～ ${fmt(currentRange.prevEnd)}</p>
+      <div class="grid">
+        <div class="card"><span>總按鈕點擊</span><strong>${n(cur.clicks)}</strong><div class="muted">${compare(cur.clicks,prev.clicks)}</div></div>
+        <div class="card"><span>成功分享</span><strong>${n(cur.shares)}</strong><div class="muted">${compare(cur.shares,prev.shares)}</div></div>
+        <div class="card"><span>有互動人物</span><strong>${n(cur.active)}</strong><div class="muted">${compare(cur.active,prev.active)}</div></div>
+        <div class="card"><span>每次分享平均點擊</span><strong>${cur.shareEff.toFixed(1)}</strong><div class="muted">${compare(cur.shareEff,prev.shareEff)}</div></div>
+      </div>
+      <div class="section"><h2>數據趨勢</h2>${img?`<img class="chart" src="${img}">`:''}</div>
+      <div class="two">
+        <div class="section"><h2>熱門按鈕排行</h2>
+          <table><thead><tr><th>按鈕</th><th>人物</th><th>位置</th><th>點擊</th></tr></thead>
+          <tbody>${hot.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        </div>
+        <div class="section"><h2>按鈕位置成效</h2>
+          <table><thead><tr><th>位置</th><th>點擊</th><th>占全部點擊</th></tr></thead>
+          <tbody>${pos.map(r=>`<tr>${r.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        </div>
+      </div>
+      <div class="section"><h2>需要注意</h2>${alerts||'<div class="summary">目前沒有需要特別注意的項目。</div>'}</div>
+      <div class="section"><h2>健康狀態說明</h2><div class="summary">
+        <b>良好</b>：近期有穩定互動，且沒有明顯下滑。<br>
+        <b>待觀察</b>：有多顆 0 點擊按鈕、近期互動偏少，或開始下降。<br>
+        <b>需優化</b>：長時間沒有互動，或較前期明顯下降。
+      </div></div>
+      <div class="section"><h2>人物排行</h2>
+        <table><thead><tr><th>排名</th><th>人物</th><th>健康狀態</th><th>總點擊</th><th>分享</th><th>每次分享平均點擊</th><th>較前期</th><th>最後更新時間</th></tr></thead>
+        <tbody>${people.map(x=>`<tr><td>${x.rank}</td><td>${esc(x.name)}</td><td>${esc(x.health)}</td><td>${x.clicks}</td><td>${x.shares}</td><td>${x.eff}</td><td>${esc(x.cmp)}</td><td>${esc(x.latest)}</td></tr>`).join('')}</tbody></table>
+      </div>`;
+  }
+
+  return html2canvas(stage,{scale:2,backgroundColor:'#fff',useCORS:true,allowTaint:true}).then(canvas=>{
+    const img=canvas.toDataURL('image/jpeg',.95);
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF('p','mm','a4');
+    const w=190,h=canvas.height*w/canvas.width,pageH=277;
+    let remain=h,y=10;
+    pdf.addImage(img,'JPEG',10,y,w,h);
+    remain-=pageH;
+    while(remain>0){pdf.addPage();y=-(h-remain)+10;pdf.addImage(img,'JPEG',10,y,w,h);remain-=pageH}
+    pdf.save(personOnly&&currentDetail?`MR_${currentDetail.p.name}_完整成效報告_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`:`MR_電子名片完整報告_${fmt(currentRange.start)}_${fmt(currentRange.end)}.pdf`);
+  });
+}
 document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const page=btn.dataset.page;$('#analyticsPage').classList.toggle('hidden',page!=='analytics');$('#resourcesPage').classList.toggle('hidden',page!=='resources')}));
 $('#loginBtn').onclick=login;$('#password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('#logoutBtn').onclick=()=>{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');location.reload()};$('#preset').onchange=()=>{const c=$('#preset').value==='custom';$('#startDate').classList.toggle('hidden',!c);$('#endDate').classList.toggle('hidden',!c);$('#toText').classList.toggle('hidden',!c);render()};$('#sortBy').onchange=render;$('#startDate').onchange=render;$('#endDate').onchange=render;$('#closeModal').onclick=()=>$('#personModal').classList.add('hidden');$('#personModal').onclick=e=>{if(e.target.id==='personModal')$('#personModal').classList.add('hidden')};$('#exportExcel').onclick=()=>exportXlsx(false);$('#exportPdf').onclick=()=>exportPdf(false);$('#personExcel').onclick=()=>exportXlsx(true);$('#personPdf').onclick=()=>exportPdf(true);const exp=Number(localStorage.getItem('mr_admin_exp')||0);if(token()&&exp>Date.now())showApp();else{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');showLogin()}
 </script>
