@@ -8067,6 +8067,28 @@ img{
 }
 
 </style>
+<style id="v77-industry-service-preview">
+/* ===== 產業入口：服務頁預覽 ===== */
+.v77-industry-preview{padding:5rem 5rem 5.5rem;background:var(--paper);border-top:1px solid var(--border)}
+.v77-industry-preview-inner{max-width:1100px;margin:0 auto}
+.v77-industry-preview-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,1.1fr);gap:4rem;align-items:end;margin-bottom:2rem}
+.v77-industry-preview-kicker{font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.2em;color:var(--gold);margin-bottom:.9rem}
+.v77-industry-preview h3{margin:0;font-size:clamp(30px,4vw,48px);line-height:1.25;font-weight:400;letter-spacing:-.035em;color:var(--ink)}
+.v77-industry-preview-head p{margin:0;color:var(--ink2);font-size:13px;line-height:1.9}
+.v77-industry-browser{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;cursor:pointer}
+.v77-browser-shell{background:#101010;border-radius:18px 18px 10px 10px;padding:12px 12px 16px;box-shadow:0 24px 54px rgba(55,42,26,.16);transition:transform .25s ease,box-shadow .25s ease}
+.v77-industry-browser:hover .v77-browser-shell{transform:translateY(-3px);box-shadow:0 30px 64px rgba(55,42,26,.2)}
+.v77-browser-bar{height:34px;display:flex;align-items:center;gap:6px;color:#8f8f8f;font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.1em;padding:0 5px}
+.v77-browser-bar i{width:7px;height:7px;border-radius:50%;background:#5b5b5b}
+.v77-browser-bar span{margin-left:auto}
+.v77-browser-screen{height:520px;background:#fff;border-radius:7px;overflow:hidden}
+.v77-browser-screen iframe{width:100%;height:100%;border:0;display:block;pointer-events:none;background:#fff}
+.v77-industry-preview-bottom{display:flex;justify-content:space-between;align-items:center;gap:2rem;margin-top:1.4rem}
+.v77-industry-preview-bottom strong{font-size:18px;font-weight:500;color:var(--ink)}
+.v77-industry-preview-bottom span{font-family:'Manrope',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--gold)}
+
+
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8519,6 +8541,33 @@ img{
 </div>
 </div>
 </div>
+
+<!-- V77 INDUSTRY HUB SERVICE PREVIEW -->
+<section class="v77-industry-preview" id="industry-service">
+  <div class="v77-industry-preview-inner">
+    <div class="v77-industry-preview-head">
+      <div>
+        <div class="v77-industry-preview-kicker">INDUSTRY HUB / 產業入口</div>
+        <h3>BNI 建築組｜磐石砌好厝</h3>
+      </div>
+      <p>把分散的建築專業，整理成客戶可以直接使用的工程資源入口。</p>
+    </div>
+
+    <button class="v77-industry-browser" type="button" onclick="openServiceModal('industry')" aria-label="查看產業入口服務介紹">
+      <div class="v77-browser-shell">
+        <div class="v77-browser-bar"><i></i><i></i><i></i><span>實際產業入口</span></div>
+        <div class="v77-browser-screen">
+          <iframe src="https://mrbusinesslab.github.io/BNI-Building/" title="BNI 建築組｜磐石砌好厝" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+      </div>
+    </button>
+
+    <div class="v77-industry-preview-bottom">
+      <strong>從需求、專業分類到成員介紹，完整串接。</strong>
+      <span>查看產業入口服務介紹 →</span>
+    </div>
+  </div>
+</section>
 
 <!-- V50 BRAND OPERATIONS｜純案例展示 -->
 <section class="v50-ops-wrap">
