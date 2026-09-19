@@ -7928,68 +7928,94 @@ img{
 
 
 
-<style id="v66-industry-hub-style">
-.v66-industry-hub{background:#11110f;color:#f5f0e8;padding:108px clamp(20px,5vw,72px) 112px;border-bottom:1px solid rgba(255,255,255,.08)}
-.v66-hub-inner{max-width:1440px;margin:0 auto}
-.v66-kicker{color:#c9ad6a;font:700 10px/1.2 'Manrope',sans-serif;letter-spacing:.2em;margin-bottom:26px}
-.v66-hero{max-width:1180px}
-.v66-hero h2{margin:0;font-size:clamp(48px,5.2vw,74px);line-height:1.03;letter-spacing:-.055em;font-weight:500}
-.v66-hero h2 span{display:block;white-space:nowrap}
-.v66-hero p{margin:24px 0 0;max-width:760px;color:#a39c91;font-size:14px;line-height:1.9}
-.v66-map-card,.v66-phone-flow-card{margin-top:54px;border:1px solid rgba(255,255,255,.11);background:linear-gradient(180deg,#171612 0%,#13120f 100%);box-shadow:0 28px 80px rgba(0,0,0,.22)}
-.v66-map-head,.v66-phone-flow-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.72fr);gap:30px;align-items:end;padding:28px 30px 0}
-.v66-map-head span,.v66-phone-flow-head span{display:block;color:#c9ad6a;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.18em;margin-bottom:8px}
-.v66-map-head strong,.v66-phone-flow-head strong{font-size:26px;font-weight:500;letter-spacing:-.025em}
-.v66-map-head p,.v66-phone-flow-head p{margin:0;color:#8e877d;font-size:12px;line-height:1.8}
-.v66-network{position:relative;height:620px;margin:28px 30px 34px;border:1px solid rgba(255,255,255,.06);background:radial-gradient(circle at center,rgba(201,173,106,.08) 0%,rgba(201,173,106,0) 46%),linear-gradient(180deg,#11110f,#151410);overflow:hidden}
-.v66-network-lines{position:absolute;inset:0;width:100%;height:100%}
-.v66-network-lines line{stroke:rgba(255,255,255,.11);stroke-width:1.4}
-.v66-network-lines .is-highlight{fill:none;stroke:#c9ad6a;stroke-width:2.2;stroke-dasharray:7 8}
-.v66-node,.v66-person-card{position:absolute;z-index:2;background:#1b1a16;border:1px solid rgba(255,255,255,.08);padding:14px 16px;min-width:146px;box-shadow:0 14px 34px rgba(0,0,0,.25)}
-.v66-node small,.v66-person-card small{display:block;color:#837b70;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.14em;margin-bottom:7px}
-.v66-node strong,.v66-person-card strong{display:block;font-size:20px;font-weight:500;margin-bottom:5px}
-.v66-node span{display:block;color:#8f877d;font-size:11px;line-height:1.5}
-.v66-node.is-active{border-color:rgba(201,173,106,.36);background:#1a1812}
-.v66-node.is-active strong,.v66-node.is-active small{color:#d7bc79}
-.v66-node-center{left:50%;top:50%;transform:translate(-50%,-50%);min-width:180px;background:#eee8dc;color:#161512}
-.v66-node-center small{color:#8b7b5b}.v66-node-center strong{font-size:30px}.v66-node-center span{color:#6f675c}
-.v66-node-n1{left:18%;top:12%}.v66-node-n2{left:67%;top:10%}.v66-node-n3{left:19%;top:63%}.v66-node-n4{left:66%;top:61%}.v66-node-n5{left:3%;top:43%}.v66-node-n6{left:80%;top:43%}
-.v66-person-card{right:6%;bottom:8%;min-width:245px;background:#efe9dd;color:#161512;border-color:rgba(201,173,106,.22)}
-.v66-person-badge{display:inline-block;background:#11110f;color:#c9ad6a;font:700 8px/1 'Manrope',sans-serif;letter-spacing:.14em;padding:8px 10px;margin-bottom:12px}
-.v66-person-card p{margin:4px 0 0;color:#6d6457;font-size:12px;line-height:1.6}
-.v66-phone-stage{display:grid;grid-template-columns:minmax(0,.42fr) minmax(240px,.9fr) 90px minmax(240px,.9fr) minmax(0,.42fr);gap:18px;align-items:center;padding:30px}
-.v66-flow-copy small{display:block;color:#c9ad6a;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.16em;margin-bottom:9px}
-.v66-flow-copy strong{display:block;font-size:20px;font-weight:500;margin-bottom:8px}
-.v66-flow-copy p{margin:0;color:#8f887d;font-size:12px;line-height:1.8}
-.v66-phone{position:relative}
-.v66-phone-frame{position:relative;margin:0 auto;width:min(100%,290px);padding:16px 12px 18px;border-radius:36px;background:#0b0b0a;box-shadow:0 30px 60px rgba(0,0,0,.35)}
-.v66-phone-frame:before{content:"";position:absolute;left:50%;top:10px;transform:translateX(-50%);width:34%;height:18px;border-radius:0 0 12px 12px;background:#000}
-.v66-phone-topbar{height:14px}
-.v66-phone-screen{overflow:hidden;border-radius:24px;background:#edf1f4;height:590px}
-.v66-phone-screen iframe{width:100%;height:100%;border:0;display:block;background:#fff}
-.v66-phone-screen.is-card{background:#f2eee6;display:flex;align-items:flex-start;justify-content:center;padding:10px}
-.v66-phone-screen.is-card img{width:100%;height:auto;display:block;object-fit:contain}
-.v66-float-card{position:absolute;z-index:2;background:#efe9de;color:#161512;padding:12px 14px;box-shadow:0 20px 34px rgba(0,0,0,.26);max-width:180px}
-.v66-float-card small{display:block;color:#887e6f;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.14em;margin-bottom:6px}
-.v66-float-card strong{display:block;font-size:15px;font-weight:600;line-height:1.45}
-.v66-float-query{left:-24px;top:68px}.v66-float-match{right:-22px;bottom:90px}.v66-float-trust{left:-22px;bottom:110px}
-.v66-phone-bridge{text-align:center}
-.v66-phone-bridge span{display:block;color:#c9ad6a;font:700 8px/1 'Manrope',sans-serif;letter-spacing:.16em;margin-bottom:10px}
-.v66-bridge-line{width:100%;height:2px;background:linear-gradient(90deg,rgba(201,173,106,.15),#c9ad6a,rgba(201,173,106,.15));margin-bottom:10px}
-.v66-phone-bridge b{display:block;color:#c9ad6a;font-size:30px;font-weight:300}
-.v66-bottom-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px}
-.v66-bottom-item{padding:20px 0 0;border-top:1px solid rgba(255,255,255,.12)}
-.v66-bottom-item span{display:block;color:#c9ad6a;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.16em;margin-bottom:8px}
-.v66-bottom-item strong{display:block;font-size:21px;font-weight:500;margin-bottom:6px}
-.v66-bottom-item p{margin:0;color:#8f887d;font-size:12px;line-height:1.7}
-.v66-cta-row{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;margin-top:38px}
-.v66-cta-row p{margin:0;color:#a29a8f;font-size:13px;line-height:1.8}.v66-cta-row p strong{color:#f3ede3;font-weight:500}
-.v66-cta-row a{color:#f4efe6;text-decoration:none;font:700 10px/1.2 'Manrope',sans-serif;letter-spacing:.12em;padding-bottom:8px;border-bottom:1px solid #c9ad6a;white-space:nowrap}
-@media(max-width:1100px){.v66-phone-stage{grid-template-columns:1fr;justify-items:center}.v66-flow-copy{max-width:480px;text-align:center}.v66-phone-bridge{display:flex;align-items:center;gap:12px}.v66-phone-bridge span{margin:0}.v66-bridge-line{width:90px;margin:0}.v66-phone-bridge b{transform:rotate(90deg)}}
-@media(max-width:900px){.v66-map-head,.v66-phone-flow-head{grid-template-columns:1fr}.v66-network{height:auto;padding:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.v66-network-lines{display:none}.v66-node,.v66-person-card{position:static;min-width:0}.v66-node-center{transform:none;grid-column:1/-1}.v66-person-card{grid-column:1/-1}.v66-bottom-strip{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.v66-industry-hub{padding:76px 20px 82px}.v66-hero h2{font-size:clamp(23px,6.3vw,31px);line-height:1.22;letter-spacing:-.035em}.v66-hero h2 span{white-space:nowrap}.v66-hero p{font-size:13px;line-height:1.8}.v66-map-card,.v66-phone-flow-card{margin-top:38px}.v66-map-head,.v66-phone-flow-head{padding:22px 20px 0}.v66-map-head strong,.v66-phone-flow-head strong{font-size:22px}.v66-map-head p,.v66-phone-flow-head p{font-size:12px}.v66-network{margin:22px 20px 24px;grid-template-columns:1fr}.v66-phone-stage{padding:22px 20px}.v66-phone-frame{width:min(100%,270px)}.v66-phone-screen{height:540px}.v66-float-query{left:-6px;top:56px}.v66-float-match{right:-6px;bottom:74px}.v66-float-trust{left:-6px;bottom:88px}.v66-bottom-strip{grid-template-columns:1fr;gap:16px}.v66-cta-row{flex-direction:column;align-items:flex-start}}
-@media(max-width:390px){.v66-industry-hub{padding-left:16px;padding-right:16px}.v66-hero h2{font-size:clamp(21px,5.8vw,24px)}.v66-phone-stage,.v66-map-head,.v66-phone-flow-head{padding-left:16px;padding-right:16px}.v66-network{margin-left:16px;margin-right:16px}.v66-float-card{max-width:150px;padding:10px 12px}.v66-float-card strong{font-size:13px}.v66-phone-screen{height:500px}}
-@media(max-width:340px){.v66-hero h2{font-size:19px}.v66-phone-frame{width:100%}.v66-phone-screen{height:470px}}
+
+<style id="v71-industry-hub-boutique">
+.v71-industry-hub{background:#11110f;color:#f6f0e6;padding:108px clamp(20px,5vw,72px) 112px;border-bottom:1px solid rgba(255,255,255,.08)}
+.v71-inner{max-width:1440px;margin:0 auto}
+.v71-kicker{color:#c9ad6a;font:700 10px/1.2 'Manrope',sans-serif;letter-spacing:.2em;margin-bottom:26px}
+.v71-hero{max-width:1180px}
+.v71-hero h2{margin:0;font-size:clamp(48px,5.15vw,74px);line-height:1.03;letter-spacing:-.055em;font-weight:500}
+.v71-hero h2 span{display:block;white-space:nowrap}
+.v71-hero p{margin:24px 0 0;color:#9f988d;font-size:14px;line-height:1.85;max-width:670px}
+
+.v71-map-stage{margin-top:58px;border-top:1px solid rgba(255,255,255,.11);padding-top:26px}
+.v71-map-copy{display:flex;justify-content:space-between;align-items:end;gap:20px}
+.v71-map-copy span,.v71-phone-copy span{color:#c9ad6a;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.18em}
+.v71-map-copy strong,.v71-phone-copy strong{font-size:26px;font-weight:500;letter-spacing:-.025em}
+.v71-map-visual{position:relative;height:560px;margin-top:24px;background:radial-gradient(circle at 50% 50%,rgba(201,173,106,.065),transparent 42%);overflow:hidden}
+.v71-lines{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.v71-lines path{fill:none;stroke:rgba(255,255,255,.12);stroke-width:1.25}
+.v71-lines .v71-line-focus{stroke:#c9ad6a;stroke-width:2;stroke-dasharray:7 9}
+.v71-center-node,.v71-map-node,.v71-recommend-card{position:absolute;z-index:2}
+.v71-center-node{left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;background:#eee7dc;color:#171510;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.v71-center-node small{font:700 8px/1 'Manrope',sans-serif;letter-spacing:.15em;color:#8a7a5d;margin:9px 0 7px}
+.v71-center-node strong{font-size:24px;font-weight:650}
+.v71-icon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.13);background:#191814}
+.v71-icon-large{border-color:rgba(0,0,0,.09);background:#ded5c6}
+.v71-icon svg,.v71-mini-icon svg,.v71-icon-circle svg,.v71-match-circle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.v71-center-node .v71-icon{color:#625947}
+.v71-map-node{display:flex;flex-direction:column;align-items:center;gap:9px;color:#8b847a}
+.v71-map-node span{font-size:13px}
+.v71-map-node.is-focus{color:#d5b970}
+.v71-map-node.is-focus .v71-icon{border-color:rgba(201,173,106,.35);background:#181610}
+.v71-map-node-a{left:19%;top:13%}.v71-map-node-b{right:18%;top:12%}.v71-map-node-c{left:17%;bottom:14%}.v71-map-node-d{right:16%;bottom:13%}
+.v71-recommend-card{right:5%;bottom:6%;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;background:#eee8dc;color:#171510;padding:14px 16px 14px 14px;min-width:255px;box-shadow:0 22px 54px rgba(0,0,0,.28)}
+.v71-recommend-avatar{width:48px;height:64px;overflow:hidden;background:#d8d1c6}
+.v71-recommend-avatar img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.v71-recommend-tag{position:absolute;right:12px;top:-12px;background:#11110f;color:#c9ad6a;padding:7px 9px;font:700 8px/1 'Manrope',sans-serif;letter-spacing:.14em}
+.v71-recommend-card small{display:block;color:#847968;font-size:9px;margin-bottom:3px}
+.v71-recommend-card strong{display:block;font-size:17px;font-weight:700}
+.v71-recommend-card span{display:block;color:#6e6559;font-size:11px;margin-top:3px}
+
+.v71-phone-stage{margin-top:72px;border-top:1px solid rgba(255,255,255,.11);padding-top:26px}
+.v71-phone-copy{display:flex;justify-content:space-between;align-items:end;gap:20px}
+.v71-phones{margin-top:34px;display:grid;grid-template-columns:minmax(260px,1fr) 140px minmax(260px,1fr);gap:28px;align-items:center;justify-items:center}
+.v71-phone-block{width:100%;max-width:360px}
+.v71-phone-label{display:flex;align-items:center;gap:11px;margin-bottom:15px}
+.v71-mini-icon,.v71-icon-circle{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(201,173,106,.28);color:#c9ad6a}
+.v71-phone-label small{display:block;color:#837c72;font:700 8px/1.2 'Manrope',sans-serif;letter-spacing:.14em;margin-bottom:4px}
+.v71-phone-label strong{font-size:16px;font-weight:500}
+.v71-phone{position:relative;margin:0 auto;width:min(100%,320px);background:#0b0b0a;border-radius:38px;padding:16px 12px 18px;box-shadow:0 30px 70px rgba(0,0,0,.34)}
+.v71-phone-notch{position:absolute;z-index:2;left:50%;top:9px;transform:translateX(-50%);width:35%;height:20px;border-radius:0 0 13px 13px;background:#000}
+.v71-phone-screen{height:600px;border-radius:26px;overflow:hidden;background:#edf2f3}
+.v71-phone-screen iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+.v71-phone-screen.is-card{background:#f2eee7;padding:10px;display:flex;align-items:flex-start}
+.v71-phone-screen.is-card img{width:100%;height:auto;display:block;object-fit:contain}
+.v71-match-arrow{width:100%;text-align:center;color:#c9ad6a}
+.v71-match-arrow>span{display:block;font:700 8px/1 'Manrope',sans-serif;letter-spacing:.15em;margin-bottom:13px}
+.v71-match-line{height:1px;background:linear-gradient(90deg,transparent,#c9ad6a,transparent);margin-bottom:13px}
+.v71-match-circle{width:54px;height:54px;margin:0 auto;border-radius:50%;border:1px solid rgba(201,173,106,.35);display:grid;place-items:center}
+
+.v71-icons-row{margin-top:70px;padding-top:30px;border-top:1px solid rgba(255,255,255,.11);display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.v71-icon-point{text-align:center}
+.v71-icon-circle{margin:0 auto 16px;width:52px;height:52px}
+.v71-icon-point strong{display:block;font-size:19px;font-weight:500;margin-bottom:7px}
+.v71-icon-point span{display:block;color:#8f887d;font-size:12px;line-height:1.7;max-width:260px;margin:0 auto}
+.v71-cta{margin-top:52px;display:flex;justify-content:space-between;gap:28px;align-items:flex-end}
+.v71-cta p{margin:0;color:#9b9489;font-size:13px;line-height:1.8}.v71-cta p strong{color:#f3ede3;font-weight:500}
+.v71-cta a{color:#f3eee5;text-decoration:none;font:700 10px/1.2 'Manrope',sans-serif;letter-spacing:.12em;padding-bottom:8px;border-bottom:1px solid #c9ad6a;white-space:nowrap}
+
+@media(max-width:900px){
+  .v71-map-visual{height:auto;padding:24px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:26px;justify-items:center}
+  .v71-lines{display:none}.v71-center-node,.v71-map-node,.v71-recommend-card{position:static;transform:none}.v71-center-node{grid-column:1/-1}.v71-recommend-card{grid-column:1/-1}
+  .v71-phones{grid-template-columns:1fr;gap:22px}.v71-match-arrow{display:flex;flex-direction:column;align-items:center}.v71-match-line{width:1px;height:70px;margin:0 0 10px;background:linear-gradient(transparent,#c9ad6a,transparent)}.v71-match-circle{transform:rotate(90deg)}
+}
+@media(max-width:760px){
+  .v71-industry-hub{padding:76px 20px 82px}
+  .v71-hero h2{font-size:clamp(23px,6.3vw,31px);line-height:1.22;letter-spacing:-.035em}.v71-hero h2 span{white-space:nowrap}
+  .v71-hero p{font-size:13px}
+  .v71-map-copy,.v71-phone-copy{display:block}.v71-map-copy strong,.v71-phone-copy strong{display:block;font-size:22px;margin-top:7px}
+  .v71-map-visual{grid-template-columns:1fr}.v71-center-node,.v71-recommend-card{grid-column:auto}.v71-center-node{width:150px;height:150px}
+  .v71-phone{width:min(100%,290px)}.v71-phone-screen{height:540px}
+  .v71-icons-row{grid-template-columns:1fr;gap:28px}
+  .v71-cta{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:390px){
+  .v71-industry-hub{padding-left:16px;padding-right:16px}
+  .v71-hero h2{font-size:clamp(21px,5.8vw,24px)}
+  .v71-phone-screen{height:500px}
+}
+@media(max-width:340px){.v71-hero h2{font-size:19px}}
 </style>
 
 </head>
@@ -8266,116 +8292,162 @@ img{
 <div class="v13-intro-copy">
 <h2 class="v13-intro-title v22-intro-title v41-intro-title">
   <span class="v41-line v41-line-top">
-    <span class="v64-mobile-only">
-      <span>我們不是幫你</span>
-      <span>「看起來比較好」。</span>
-    </span>
-  </span>
-  <em class="v41-line v41-line-bottom">而是讓專業，更容易被了解。</em>
-</h2>
-<p class="v13-intro-desc v35-mobile-copy">
-<span>MR. business.lab 把商務形象、個人定位與品牌內容，</span>
-<span>整合成一套完整系統。</span>
-<span>從第一次見面，到客戶搜尋你、理解你、介紹你，</span>
-<span>每一個接觸點都在替你的專業加分。</span>
-</p>
-</div>
-</div>
-</section>
-<!-- LARGE SERVICE VISUALS -->
-<section class="v4-services-showcase">
-<a class="v4-service-feature v4-service-main" href="#services" onclick="showPage('services');return false;">
-<img alt="外貌說服力" decoding="async" loading="lazy" src="assets/外貌.png"/>
-<div class="v4-feature-overlay"></div>
-<div class="v4-feature-copy">
-<div class="v4-feature-no">01</div>
-<div><span>BUSINESS IMAGE</span><h3>外貌說服力</h3><p>穿著・形象照・男士美容・體態・頭皮</p></div>
-<div class="v4-feature-arrow">↗︎</div>
-</div>
-</a>
-<a class="v4-service-feature" href="#services" onclick="showPage('services');return false;">
-<img alt="商務影響力" decoding="async" loading="lazy" src="assets/商務.png"/>
-<div class="v4-feature-overlay"></div>
-<div class="v4-feature-copy">
-<div class="v4-feature-no">02</div>
-<div><span>PERSONAL BRAND</span><h3>商務影響力</h3><p>定位・說詞・短影音・LINE・電子名片</p></div>
-<div class="v4-feature-arrow">↗︎</div>
-</div>
-</a>
-</section>
-<!-- WORKS -->
-<section class="v4-works">
-<div class="v4-works-head">
-<div class="v4-section-index">02 / SELECTED WORKS</div>
-<h2 class="v7-balanced-title v35-works-title"><span>我們不展示服務清單。</span><em>我們展示改變之後的樣子。</em></h2>
-<a href="#cases" onclick="showPage('cases');return false;">VIEW ALL WORKS ↗︎</a>
-</div>
-<div class="v4-work-grid">
-<a class="v4-work-card v4-work-wide" href="#cases" onclick="showPage('cases');return false;">
-<div class="v4-work-img v20-work-beforeafter">
-  <div class="v20-ba-grid" data-auto-beforeafter="true">
-    <div class="v20-ba-shot v20-ba-before">
-      <img alt="鍾師富改造前" decoding="async" loading="lazy" src="assets/鍾師富改造前.png"/>
-      <div class="v20-ba-label">BEFORE</div>
+<!-- INDUSTRY HUB / 產業入口 -->
+<section class="v71-industry-hub" id="industry-hub">
+  <div class="v71-inner">
+    <div class="v71-kicker">INDUSTRY HUB / 產業入口</div>
+
+    <div class="v71-hero">
+      <h2><span>讓客戶不是只看到你，</span><span>而是在需要你的時候，找到你。</span></h2>
+      <p>產業入口負責把需求帶到對的人；電子名片負責讓對方快速看懂你。</p>
     </div>
-    <div class="v20-ba-shot v20-ba-after">
-      <img alt="鍾師富改造後一" decoding="async" loading="lazy" src="assets/鍾師富改造後1.png"/>
-      <div class="v20-ba-label gold">AFTER 01</div>
+
+    <div class="v71-map-stage">
+      <div class="v71-map-copy">
+        <span>INDUSTRY MAP</span>
+        <strong>從一個問題，找到整條專業鏈。</strong>
+      </div>
+
+      <div class="v71-map-visual">
+        <svg class="v71-lines" viewBox="0 0 1200 560" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M600 285 C470 235 400 180 295 135" />
+          <path d="M600 285 C760 210 820 175 930 135" />
+          <path d="M600 285 C455 335 370 395 270 450" />
+          <path d="M600 285 C760 350 835 405 945 455" />
+          <path class="v71-line-focus" d="M600 285 C470 235 400 180 295 135 C520 105 760 170 950 430" />
+        </svg>
+
+        <div class="v71-center-node">
+          <div class="v71-icon v71-icon-large">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-11A7 7 0 1 0 5 10c0 5.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>
+          </div>
+          <small>CLIENT NEED</small>
+          <strong>牆壁滲水</strong>
+        </div>
+
+        <div class="v71-map-node v71-map-node-a is-focus">
+          <div class="v71-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/><path d="M8.5 11h5M11 8.5v5"/></svg>
+          </div>
+          <span>查漏</span>
+        </div>
+
+        <div class="v71-map-node v71-map-node-b is-focus">
+          <div class="v71-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s5 6 5 10a5 5 0 1 1-10 0c0-4 5-10 5-10Z"/><path d="M9.5 14.5c.6 1 1.4 1.5 2.5 1.5"/></svg>
+          </div>
+          <span>防水</span>
+        </div>
+
+        <div class="v71-map-node v71-map-node-c">
+          <div class="v71-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M6 18V9l6-4 6 4v9"/><path d="M9 18v-5h6v5"/></svg>
+          </div>
+          <span>泥作</span>
+        </div>
+
+        <div class="v71-map-node v71-map-node-d">
+          <div class="v71-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10v5H4z"/><path d="M14 8.5h3a2 2 0 0 1 2 2v1.5"/><path d="M19 12v3h-4v6h-3v-9"/></svg>
+          </div>
+          <span>油漆</span>
+        </div>
+
+        <div class="v71-recommend-card">
+          <div class="v71-recommend-tag">MATCHED</div>
+          <div class="v71-recommend-avatar">
+            <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="" loading="lazy">
+          </div>
+          <div>
+            <small>推薦成員</small>
+            <strong>鍾師富</strong>
+            <span>科技抓漏，杜絕漏水</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="v20-ba-shot v20-ba-after">
-      <img alt="鍾師富改造後二" decoding="async" loading="lazy" src="assets/鍾師富改造後2.png"/>
-      <div class="v20-ba-label">AFTER 02</div>
+
+    <div class="v71-phone-stage">
+      <div class="v71-phone-copy">
+        <span>REAL USER FLOW</span>
+        <strong>從「有需求」到「看懂你」，只需要兩個畫面。</strong>
+      </div>
+
+      <div class="v71-phones">
+        <div class="v71-phone-block">
+          <div class="v71-phone-label">
+            <div class="v71-mini-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            </div>
+            <div><small>STEP 01</small><strong>輸入需求</strong></div>
+          </div>
+          <div class="v71-phone">
+            <div class="v71-phone-notch"></div>
+            <div class="v71-phone-screen">
+              <iframe src="https://mrbusinesslab.github.io/BNI-Building/" title="BNI 建築組入口" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="v71-match-arrow" aria-hidden="true">
+          <span>SMART MATCH</span>
+          <div class="v71-match-line"></div>
+          <div class="v71-match-circle">
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+          </div>
+        </div>
+
+        <div class="v71-phone-block">
+          <div class="v71-phone-label">
+            <div class="v71-mini-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>
+            </div>
+            <div><small>STEP 02</small><strong>認識成員</strong></div>
+          </div>
+          <div class="v71-phone">
+            <div class="v71-phone-notch"></div>
+            <div class="v71-phone-screen is-card">
+              <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="v71-icons-row">
+      <div class="v71-icon-point">
+        <div class="v71-icon-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+        </div>
+        <strong>找到需求</strong>
+        <span>從問題開始，不用先知道該找誰。</span>
+      </div>
+
+      <div class="v71-icon-point">
+        <div class="v71-icon-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 12h5M12 12c3 0 3-6 5-6M12 12c3 0 3 6 5 6"/></svg>
+        </div>
+        <strong>智慧媒合</strong>
+        <span>把需求帶到對的專業節點。</span>
+      </div>
+
+      <div class="v71-icon-point">
+        <div class="v71-icon-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="2"/><circle cx="10" cy="10" r="2"/><path d="M8 15h8M13 9h3"/></svg>
+        </div>
+        <strong>建立信任</strong>
+        <span>電子名片承接案例、定位與聯絡方式。</span>
+      </div>
+    </div>
+
+    <div class="v71-cta">
+      <p><strong>找到你，只是第一步。</strong><br>接下來，要讓客戶快速看懂你。</p>
+      <a href="https://mrbusinesslab.github.io/BNI-Building/" target="_blank" rel="noopener">查看完整產業入口 ↗︎</a>
     </div>
   </div>
-  <div class="v36-ba-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
-</div>
-<div class="v4-work-meta"><span>01 / PERSONAL BRAND</span><h3>鍾師富｜從工程師傅，到被記住的抓漏專家</h3><small>IMAGE / CONTENT / SHORT VIDEO / E-CARD</small></div>
-</a>
-<a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
-<div class="v4-work-img v19-work-cardimg"><img alt="美股投資教練電子名片案例" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case17_%E9%87%8D%E5%87%B1/1.png"/></div>
-<div class="v4-work-meta"><span>02 / DIGITAL IDENTITY</span><h3>美股投資教練｜讓陌生客 30 秒內理解專業</h3><small>POSITION / COPY / E-CARD</small></div>
-</a>
-<a class="v4-work-card" href="#services" onclick="showPage('services');setTimeout(()=&gt;openModal('ecard'),120);return false;">
-<div class="v4-work-img v19-work-cardimg"><img alt="傑出油漆工程行品牌案例" decoding="async" loading="lazy" src="assets/電子名片_傑出油漆.png"/></div>
-<div class="v4-work-meta"><span>03 / BRAND TOOL</span><h3>傑出油漆｜把施工專長整理成一張好分享的合作名片</h3><small>POSITION / E-CARD / PARTNER TRUST</small></div>
-</a>
-</div>
 </section>
-<!-- BRAND STATEMENT -->
-<section class="v4-statement">
-<div class="v4-statement-bg">MR.</div>
-<div class="v4-statement-copy">
-<div class="v4-section-index">03 / THE MR. METHOD</div>
-<p>BE SEEN.</p><p>BE UNDERSTOOD.</p><p>BE REMEMBERED.</p><p><i>BE REFERRED.</i></p>
-<div class="v4-statement-cn">被看見・被理解・被記住・被轉介紹</div>
-<a href="#services" onclick="showPage('services');return false;">EXPLORE THE METHOD ↗︎</a>
-</div>
-</section>
-<!-- FOUNDER -->
-<section class="v4-founder">
-<div class="v4-founder-image v36-founder-image v37-founder-portrait">
-  <div class="v37-founder-frame" aria-hidden="true"></div>
-  <img alt="MR. business.lab 創辦人 潘昱如 Luru" decoding="async" loading="lazy" src="assets/LURU.png"/>
-  <div class="v37-founder-nameplate">
-    <div class="v37-founder-name">潘昱如 <span>Luru</span></div>
-    <div class="v37-founder-kicker">FOUNDER, MR. BUSINESS.LAB</div>
-  </div>
-</div>
-<div class="v4-founder-copy">
-<div class="v4-section-index">04 / FOUNDER</div>
-<div class="v25-founder-role v38-founder-role">品牌主理人</div>
-<div class="v33-founder-trust v36-founder-trust"><span>協助專業工作者，</span><span>把能力整理成更容易被相信、被理解、被轉介紹的品牌。</span></div>
-<h2 class="v7-balanced-title v35-founder-title"><span>看懂一個人，</span><span>再把他的專業</span><em>變成品牌。</em></h2>
-<p class="v34-founder-story"><span>從百貨男裝、連鎖美容到品牌經營，潘昱如長期觀察「一個專業的人，為什麼沒有被市場正確理解」。</span><span>她把外貌形象、商務表達與品牌內容放在同一套系統裡，協助專業工作者把原本只存在自己身上的經驗與能力，整理成客戶看得懂、記得住，也願意主動介紹的品牌。</span></p>
-<div class="v4-founder-exp">
-<span>百貨男裝總監</span><span>連鎖美容店長・業績第一</span><span>個人品牌策略與內容整合</span>
-</div>
-</div>
-</section>
-<!-- LINE CTA -->
-<section class="v4-line-cta" id="mrFinalCta">
-<div class="v4-line-label">NOT SURE WHERE TO START?</div>
-<h2 class="v7-balanced-title v35-final-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
+
+出你的品牌缺口。</em></h2>
 <p class="v23-line-copy">
       <span>進入 MR. 官方 LINE，</span>
       <span>由 AI 初步診斷找出你目前最需要改善的方向：</span>
