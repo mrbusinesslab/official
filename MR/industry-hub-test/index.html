@@ -8051,27 +8051,66 @@ img{
 .v75-function-value{font-size:17px;line-height:1.6;font-weight:500;color:#2e2b27}
 
 /* VALUE */
-.v75-value{background:#171612;color:#f6f0e6;padding:82px 0 88px;overflow:hidden}
-.v75-value .v75-kicker{color:#c5a66d}
-.v75-value-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(320px,1.18fr);gap:70px;align-items:end;margin-bottom:44px}
-.v75-value h3{margin:16px 0 0;font-size:clamp(34px,3.6vw,48px);line-height:1.18;font-weight:500;letter-spacing:-.035em}
-.v75-value h3 em{display:block;color:#c5a66d;font-style:normal}
-.v75-value-note{margin:0;color:#8f8a81;font-size:12px;line-height:1.85;max-width:430px}
-.v75-value-columns{display:grid;grid-template-columns:74px minmax(180px,.72fr) minmax(150px,.7fr) minmax(280px,1.2fr);gap:24px;align-items:center;padding:0 0 10px;color:#746f67;font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.16em}
-.v75-value-columns span:nth-child(2){grid-column:2}
-.v75-value-columns span:nth-child(3){grid-column:4}
-.v75-value-journey{position:relative;border-top:1px solid rgba(255,255,255,.15)}
-.v75-value-step{position:relative;display:grid;grid-template-columns:74px minmax(180px,.72fr) minmax(150px,.7fr) minmax(280px,1.2fr);gap:24px;align-items:center;min-height:118px;border-bottom:1px solid rgba(255,255,255,.13)}
-.v75-value-no{font-family:'Bodoni Moda',serif;font-size:34px;color:#514d46;font-weight:400}
-.v75-value-from{font-size:18px;color:#98928a}
-.v75-value-route{position:relative;height:100%;min-height:118px}
-.v75-value-route:before{content:"";position:absolute;left:0;right:26px;top:50%;height:1px;background:linear-gradient(90deg,rgba(197,166,109,.12),rgba(197,166,109,.78))}
-.v75-value-route:after{content:"";position:absolute;right:18px;top:calc(50% - 4px);width:8px;height:8px;border-radius:50%;background:#c5a66d;box-shadow:0 0 0 5px rgba(197,166,109,.09)}
-.v75-value-route b{position:absolute;right:0;top:50%;transform:translateY(-53%);color:#c5a66d;font-size:23px;font-weight:300}
-.v75-value-to{position:relative;font-size:clamp(25px,2.5vw,36px);line-height:1.25;font-weight:500;letter-spacing:-.025em}
-.v75-value-to:after{content:"";display:block;width:44px;height:1px;background:#c5a66d;margin-top:10px;opacity:.85}
-.v75-value-step:nth-child(2) .v75-value-to:after{width:72px}
-.v75-value-step:nth-child(3) .v75-value-to:after{width:56px}
+.v76-value{background:#171612;color:#f6f0e6;padding:86px 0 94px;overflow:hidden}
+.v76-value .v75-kicker{color:#c5a66d}
+.v76-value-head{display:flex;justify-content:space-between;align-items:flex-end;gap:42px;margin-bottom:44px}
+.v76-value-head h3{margin:16px 0 0;font-size:clamp(34px,3.7vw,50px);line-height:1.16;font-weight:500;letter-spacing:-.038em}
+.v76-value-head h3 em{display:block;color:#c5a66d;font-style:normal}
+.v76-value-head p{margin:0;max-width:420px;color:#8f8980;font-size:12px;line-height:1.85}
+
+.v76-story{display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);gap:30px;align-items:center;min-height:520px}
+.v76-scene{position:relative;height:430px}
+.v76-scene-title{position:absolute;top:0;left:0;font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.16em;color:#7d776e}
+.v76-scene-title strong{display:block;margin-top:7px;font-family:'Noto Sans TC',sans-serif;font-size:22px;letter-spacing:0;color:#f2ede4;font-weight:500}
+
+.v76-person{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:138px;height:138px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#24221e;border:1px solid rgba(255,255,255,.12);z-index:3}
+.v76-person svg{width:34px;height:34px;fill:none;stroke:#c5a66d;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:9px}
+.v76-person b{font-size:15px;font-weight:500}
+.v76-person small{font-size:9px;color:#928c83;margin-top:4px}
+
+.v76-search-node,.v76-match-node{position:absolute;display:grid;place-items:center;text-align:center;border-radius:50%;width:92px;height:92px;font-size:11px;font-weight:500}
+.v76-search-node{background:#1d1c19;border:1px solid rgba(255,255,255,.11);color:#a5a098}
+.v76-search-node:before{content:"";position:absolute;inset:-8px;border:1px dashed rgba(255,255,255,.06);border-radius:50%}
+.v76-search-node.s1{left:3%;top:16%}.v76-search-node.s2{right:8%;top:9%}.v76-search-node.s3{left:0;bottom:15%}.v76-search-node.s4{right:0;bottom:19%}.v76-search-node.s5{left:35%;bottom:0}.v76-search-node.s6{left:38%;top:3%}
+
+.v76-chaos-lines,.v76-clean-lines{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.v76-chaos-lines path{fill:none;stroke:rgba(255,255,255,.11);stroke-width:1.2;stroke-dasharray:4 7}
+.v76-clean-lines path{fill:none;stroke:rgba(197,166,109,.48);stroke-width:1.5}
+
+.v76-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.v76-mid span{font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.15em;color:#8d8579}
+.v76-mid-core{width:94px;height:94px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#c59a55,#9e7336);color:#fff;box-shadow:0 18px 42px rgba(0,0,0,.28)}
+.v76-mid-core b{font-family:Georgia,serif;font-size:30px;line-height:1}
+.v76-mid-core small{font-size:8px;margin-top:5px}
+.v76-mid-arrow{font-size:34px;color:#c5a66d;font-weight:300;line-height:1}
+
+.v76-result-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#f0e8da;color:#1d1b18;z-index:3;box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.v76-result-core small{font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.12em;color:#9a7339;margin-bottom:6px}
+.v76-result-core strong{font-size:18px;line-height:1.4;font-weight:600}
+
+.v76-match-node{background:#f7f2e8;color:#201e1b;border:1px solid rgba(197,166,109,.32);box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.v76-match-node:after{content:"✓";position:absolute;right:4px;top:3px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#a97d3e;color:#fff;font-size:11px}
+.v76-match-node.m1{left:2%;top:16%}.v76-match-node.m2{right:6%;top:10%}.v76-match-node.m3{left:0;bottom:16%}.v76-match-node.m4{right:0;bottom:19%}.v76-match-node.m5{left:36%;bottom:0}.v76-match-node.m6{left:39%;top:3%}
+.v76-scene-foot{position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.14em;color:#6f6961;white-space:nowrap}
+.v76-right .v76-scene-foot{color:#a98957}
+
+@media(max-width:980px){
+  .v76-story{grid-template-columns:1fr;gap:10px}
+  .v76-mid{padding:8px 0 18px}.v76-mid-arrow{transform:rotate(90deg)}
+  .v76-scene{height:410px}
+}
+@media(max-width:760px){
+  .v76-value{padding:62px 0 72px}
+  .v76-value-head{display:block;margin-bottom:30px}.v76-value-head h3{font-size:30px}.v76-value-head p{margin-top:14px}
+  .v76-scene{height:390px}.v76-scene-title strong{font-size:19px}
+  .v76-person{width:116px;height:116px}.v76-result-core{width:126px;height:126px}
+  .v76-search-node,.v76-match-node{width:74px;height:74px;font-size:9px}
+}
+@media(max-width:390px){
+  .v76-scene{height:350px}
+  .v76-search-node,.v76-match-node{width:66px;height:66px;font-size:8px}
+  .v76-person{width:104px;height:104px}.v76-result-core{width:112px;height:112px}
+}
 
 /* REAL CASE */
 .v75-case{padding:90px 0 104px}
@@ -8655,39 +8694,68 @@ img{
 
   </div>
 
-  <div class="v75-value">
+  <div class="v76-value">
     <div class="v75-indsvc-inner">
-      <div class="v75-value-head">
+      <div class="v76-value-head">
         <div>
           <div class="v75-kicker">THE VALUE / 它帶來什麼改變</div>
-          <h3>不是增加資訊，<em>而是讓客戶更容易做決定。</em></h3>
+          <h3>以前是自己到處找，<em>現在是一個入口幫你找到整組專業。</em></h3>
         </div>
-        <p class="v75-value-note">把原本分散、需要自己判斷的資訊，整理成更直覺的需求路徑。</p>
+        <p>以「我要裝潢／開店」為例，原本要自己分別找不同工種；透過產業入口，需求可以一次被整理到適合的專業夥伴。</p>
       </div>
 
-      <div class="v75-value-columns">
-        <span>BEFORE</span>
-        <span>AFTER</span>
-      </div>
+      <div class="v76-story">
+        <div class="v76-scene v76-left">
+          <div class="v76-scene-title">BEFORE / 原本<strong>一個人，到處找不同專業</strong></div>
+          <svg class="v76-chaos-lines" viewBox="0 0 520 430" aria-hidden="true">
+            <path d="M260 215 C150 160 118 105 74 80"/>
+            <path d="M260 215 C330 150 388 85 447 67"/>
+            <path d="M260 215 C150 260 102 325 63 354"/>
+            <path d="M260 215 C360 265 420 315 472 342"/>
+            <path d="M260 215 C250 300 236 350 228 402"/>
+            <path d="M260 215 C252 130 255 75 258 42"/>
+          </svg>
+          <div class="v76-person">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21c.8-5 3.1-7 7-7s6.2 2 7 7"/></svg>
+            <b>我要裝潢／開店</b>
+            <small>但該先找誰？</small>
+          </div>
+          <div class="v76-search-node s1">設計師</div>
+          <div class="v76-search-node s2">水電</div>
+          <div class="v76-search-node s3">招牌</div>
+          <div class="v76-search-node s4">油漆</div>
+          <div class="v76-search-node s5">木工</div>
+          <div class="v76-search-node s6">冷氣</div>
+          <div class="v76-scene-foot">SEARCH · ASK · COMPARE · CONTACT</div>
+        </div>
 
-      <div class="v75-value-journey">
-        <div class="v75-value-step">
-          <div class="v75-value-no">01</div>
-          <div class="v75-value-from">一份名單</div>
-          <div class="v75-value-route"><b>→</b></div>
-          <div class="v75-value-to">一個解決問題的入口</div>
+        <div class="v76-mid">
+          <span>ONE ENTRY</span>
+          <div class="v76-mid-core"><b>MR</b><small>產業入口</small></div>
+          <div class="v76-mid-arrow">→</div>
         </div>
-        <div class="v75-value-step">
-          <div class="v75-value-no">02</div>
-          <div class="v75-value-from">各自曝光</div>
-          <div class="v75-value-route"><b>→</b></div>
-          <div class="v75-value-to">整條產業一起被看見</div>
-        </div>
-        <div class="v75-value-step">
-          <div class="v75-value-no">03</div>
-          <div class="v75-value-from">客戶自己找</div>
-          <div class="v75-value-route"><b>→</b></div>
-          <div class="v75-value-to">需求找到對的人</div>
+
+        <div class="v76-scene v76-right">
+          <div class="v76-scene-title">AFTER / 現在<strong>需求一次找到適合的專業夥伴</strong></div>
+          <svg class="v76-clean-lines" viewBox="0 0 520 430" aria-hidden="true">
+            <path d="M260 215 C150 160 118 105 74 80"/>
+            <path d="M260 215 C330 150 388 85 447 67"/>
+            <path d="M260 215 C150 260 102 325 63 354"/>
+            <path d="M260 215 C360 265 420 315 472 342"/>
+            <path d="M260 215 C250 300 236 350 228 402"/>
+            <path d="M260 215 C252 130 255 75 258 42"/>
+          </svg>
+          <div class="v76-result-core">
+            <small>MATCHED</small>
+            <strong>裝潢需求<br>專業組合</strong>
+          </div>
+          <div class="v76-match-node m1">空間設計</div>
+          <div class="v76-match-node m2">水電工程</div>
+          <div class="v76-match-node m3">招牌廣告</div>
+          <div class="v76-match-node m4">油漆工程</div>
+          <div class="v76-match-node m5">木作工程</div>
+          <div class="v76-match-node m6">空調工程</div>
+          <div class="v76-scene-foot">MATCH · CONNECT · COLLABORATE</div>
         </div>
       </div>
     </div>
