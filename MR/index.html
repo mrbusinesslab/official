@@ -7991,6 +7991,82 @@ img{
   .v65-iframe-wrap{height:380px}
 }
 </style>
+<style id="v77-industry-service-modal">
+/* ===== 產業入口：服務詳細 modal ===== */
+.modal-box.is-industry{max-width:1160px;background:#f5efe4}
+.modal-box.is-industry .modal-head{background:#f5efe4}
+.modal-box.is-industry .modal-body{padding:0}
+.industry-detail{color:#191814}
+.industry-detail *{box-sizing:border-box}
+.industry-detail-wrap{width:min(100% - 76px,1040px);margin:0 auto}
+.industry-detail-hero{padding:64px 0 66px;display:grid;grid-template-columns:minmax(0,.83fr) minmax(470px,1.17fr);gap:50px;align-items:center}
+.industry-detail-kicker{font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.19em;color:#b18442;margin-bottom:18px}
+.industry-detail-hero h4{margin:0;font-size:clamp(38px,4.2vw,58px);line-height:1.08;letter-spacing:-.045em;font-weight:500}
+.industry-detail-hero h4 em{display:block;color:#ae7f38;font-style:normal}
+.industry-detail-hero p{margin:22px 0 0;color:#6f675d;font-size:13px;line-height:1.9;max-width:470px}
+
+.industry-detail-map{position:relative;height:450px}
+.industry-detail-map svg{position:absolute;inset:0;width:100%;height:100%}
+.industry-detail-map path{fill:none;stroke:rgba(177,132,65,.48);stroke-width:1.5}
+.industry-detail-need{position:absolute;left:0;top:48%;transform:translateY(-50%);width:132px;height:132px;border-radius:50%;display:grid;place-items:center;text-align:center;background:#fff;border:1px solid rgba(25,24,20,.1);box-shadow:0 14px 30px rgba(50,39,25,.08);z-index:2}
+.industry-detail-need small,.industry-detail-core small{display:block;font-family:'Manrope',sans-serif;font-size:7px;letter-spacing:.13em;color:#a87b39;margin-bottom:5px}
+.industry-detail-need strong{font-size:15px;line-height:1.45}
+.industry-detail-core{position:absolute;left:47%;top:48%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#c79c55,#a47737);color:#fff;z-index:3;box-shadow:0 22px 44px rgba(130,91,36,.2)}
+.industry-detail-core b{font-family:Georgia,serif;font-size:42px;font-weight:500;line-height:1}
+.industry-detail-core small{color:#fff;margin:7px 0 0}
+.industry-detail-pro{position:absolute;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;text-align:center;background:#fbf8f1;border:1px solid rgba(25,24,20,.1);box-shadow:0 10px 24px rgba(50,39,25,.07);font-size:10px;font-weight:600;z-index:2}
+.industry-detail-pro.p1{right:7%;top:4%}.industry-detail-pro.p2{right:0;top:38%}.industry-detail-pro.p3{right:8%;bottom:5%}.industry-detail-pro.p4{right:29%;bottom:0}
+
+.industry-detail-functions{padding:58px 0 70px;border-top:1px solid rgba(25,24,20,.12)}
+.industry-detail-functions-head{display:flex;justify-content:space-between;gap:3rem;align-items:flex-end;margin-bottom:26px}
+.industry-detail-functions h5{margin:0;font-size:32px;font-weight:500;letter-spacing:-.03em}
+.industry-detail-functions-head p{margin:0;max-width:400px;color:#756d63;font-size:11px;line-height:1.8}
+.industry-detail-function-list{border-top:1px solid rgba(25,24,20,.13)}
+.industry-detail-function{display:grid;grid-template-columns:62px 1fr minmax(240px,.9fr);gap:24px;align-items:center;padding:23px 0;border-bottom:1px solid rgba(25,24,20,.13)}
+.industry-detail-no{font-family:'Bodoni Moda',serif;font-size:28px;color:#b9a88a}
+.industry-detail-main{display:flex;align-items:center;gap:16px}
+.industry-detail-icon{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#ebe1d1;color:#aa7c39;flex:0 0 auto}
+.industry-detail-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.industry-detail-main strong{display:block;font-size:18px;font-weight:500;margin-bottom:3px}
+.industry-detail-main span{display:block;color:#766e64;font-size:10px}
+.industry-detail-value{font-size:15px;line-height:1.65;font-weight:500;color:#302c27}
+.industry-detail-cta{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:28px 0 34px}
+.industry-detail-cta strong{font-size:16px;font-weight:500}
+.industry-detail-cta a{color:#1a1916;text-decoration:none;border:1px solid rgba(25,24,20,.22);border-radius:999px;padding:11px 16px;font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.1em;white-space:nowrap}
+
+@media(max-width:900px){
+  .v77-industry-preview-head{grid-template-columns:1fr;gap:1.2rem}
+  .industry-detail-hero{grid-template-columns:1fr;gap:28px}
+  .industry-detail-map{height:420px}
+  .industry-detail-function{grid-template-columns:52px 1fr}
+  .industry-detail-value{grid-column:2}
+}
+@media(max-width:760px){
+  .v77-industry-preview{padding:4rem 20px}
+  .v77-browser-screen{height:390px}
+  .v77-industry-preview-bottom{align-items:flex-start;flex-direction:column;gap:.7rem}
+  .modal-overlay{padding:0}
+  .modal-box.is-industry{max-height:100vh;height:100vh}
+  .industry-detail-wrap{width:calc(100% - 36px)}
+  .industry-detail-hero{padding:44px 0 50px}
+  .industry-detail-hero h4{font-size:34px}
+  .industry-detail-map{height:370px}
+  .industry-detail-need{width:105px;height:105px}
+  .industry-detail-core{width:120px;height:120px}
+  .industry-detail-core b{font-size:34px}
+  .industry-detail-pro{width:70px;height:70px;font-size:8px}
+  .industry-detail-functions{padding:46px 0 56px}
+  .industry-detail-functions-head{display:block}
+  .industry-detail-functions-head p{margin-top:12px}
+  .industry-detail-function{grid-template-columns:42px 1fr;gap:14px}
+  .industry-detail-main{gap:12px}
+  .industry-detail-icon{width:46px;height:46px}
+  .industry-detail-main strong{font-size:16px}
+  .industry-detail-value{font-size:13px}
+  .industry-detail-cta{align-items:flex-start;flex-direction:column}
+}
+
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8435,6 +8511,7 @@ img{
 <a class="svc-row" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="svc-nm">品牌簡報設計</span><span class="svc-arr">→︎→︎</span></a>
 <a class="svc-row" href="?service=line#services" onclick="openServiceModal('line');return false;"><span class="svc-nm">LINE 官方帳號</span><span class="svc-arr">→︎→︎</span></a>
 <a class="svc-row" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;"><span class="svc-nm">電子名片</span><span class="svc-arr">→︎→︎</span></a>
+<a class="svc-row" href="?service=industry#services" onclick="openServiceModal('industry');return false;"><span class="svc-nm">產業入口</span><span class="svc-arr">→︎→︎</span></a>
 </div>
 </div>
 </div>
@@ -8808,6 +8885,96 @@ function buildEcardServiceModal(){
     <div class="m-hl">不是只有把聯絡方式放上去，而是讓每一頁都負責一個任務：建立印象、補充信任、導向聯絡、促成分享。</div>
   `;
 }
+function buildIndustryServiceModal(){
+  return `
+    <div class="industry-detail">
+      <div class="industry-detail-wrap">
+        <section class="industry-detail-hero">
+          <div>
+            <div class="industry-detail-kicker">INDUSTRY HUB SERVICE / 產業入口建置</div>
+            <h4>把分散的專業夥伴，<em>變成一個可以被使用的入口。</em></h4>
+            <p>客戶從需求出發，入口整合產業鏈，再把他帶到適合的專業者。</p>
+          </div>
+
+          <div class="industry-detail-map" aria-label="客戶需求透過產業入口連結到不同專業者">
+            <svg viewBox="0 0 700 450" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M120 225 C205 225 245 225 330 225"/>
+              <path d="M405 225 C490 170 530 95 620 60"/>
+              <path d="M405 225 C510 215 565 205 655 205"/>
+              <path d="M405 225 C500 285 545 350 620 390"/>
+              <path d="M405 225 C445 330 475 380 520 425"/>
+            </svg>
+            <div class="industry-detail-need"><div><small>CLIENT NEED</small><strong>我有需求<br>該找誰？</strong></div></div>
+            <div class="industry-detail-core"><b>MR</b><small>產業入口</small></div>
+            <div class="industry-detail-pro p1">設計規劃</div>
+            <div class="industry-detail-pro p2">工程施工</div>
+            <div class="industry-detail-pro p3">品牌行銷</div>
+            <div class="industry-detail-pro p4">顧問服務</div>
+          </div>
+        </section>
+
+        <section class="industry-detail-functions">
+          <div class="industry-detail-functions-head">
+            <h5>它能做什麼？</h5>
+            <p>四個核心功能，讓一群專業的人不再只是名單，而是一個真正能被客戶使用的入口。</p>
+          </div>
+
+          <div class="industry-detail-function-list">
+            <div class="industry-detail-function">
+              <div class="industry-detail-no">01</div>
+              <div class="industry-detail-main">
+                <div class="industry-detail-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 12h5M12 12c3 0 3-6 5-6M12 12c3 0 3 6 5 6"/></svg>
+                </div>
+                <div><strong>整合產業鏈</strong><span>上下游專業集中在同一入口</span></div>
+              </div>
+              <div class="industry-detail-value">讓原本各自曝光的人，成為一套完整解決方案。</div>
+            </div>
+
+            <div class="industry-detail-function">
+              <div class="industry-detail-no">02</div>
+              <div class="industry-detail-main">
+                <div class="industry-detail-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/><path d="M8.5 11h5"/></svg>
+                </div>
+                <div><strong>需求媒合</strong><span>從客戶問題找到適合的人</span></div>
+              </div>
+              <div class="industry-detail-value">不用自己翻名單，需求直接被帶到對的專業。</div>
+            </div>
+
+            <div class="industry-detail-function">
+              <div class="industry-detail-no">03</div>
+              <div class="industry-detail-main">
+                <div class="industry-detail-icon">
+                  <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="9" r="2"/><path d="M9 14h6M9 17h4"/></svg>
+                </div>
+                <div><strong>成員展示</strong><span>個人頁＋電子名片承接</span></div>
+              </div>
+              <div class="industry-detail-value">找到人之後，還能快速看懂他的專業與服務。</div>
+            </div>
+
+            <div class="industry-detail-function">
+              <div class="industry-detail-no">04</div>
+              <div class="industry-detail-main">
+                <div class="industry-detail-icon">
+                  <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg>
+                </div>
+                <div><strong>後台管理</strong><span>成員、內容、數據持續更新</span></div>
+              </div>
+              <div class="industry-detail-value">不是做完就放著，而是可以持續成長的產業資產。</div>
+            </div>
+          </div>
+
+          <div class="industry-detail-cta">
+            <strong>實際案例｜BNI 建築組・磐石砌好厝</strong>
+            <a href="https://mrbusinesslab.github.io/BNI-Building/" target="_blank" rel="noopener">查看實際產業入口 ↗︎</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
 function setServiceRoute(id,replace=false){
   const url=new URL(location.href);
   url.searchParams.set('service',id);
@@ -8821,9 +8988,11 @@ function clearServiceRoute(){
 }
 function openModal(id,updateRoute=false){
   const d=MD[id];if(!d)return;
+  const modalBox=document.querySelector('#modalOverlay .modal-box');
+  if(modalBox) modalBox.classList.toggle('is-industry',id==='industry');
   document.getElementById('mTag').textContent=d.tag;
   document.getElementById('mTitle').textContent=d.title;
-  document.getElementById('mBody').innerHTML=id==='ecard'?buildEcardServiceModal():buildMBody(d);
+  document.getElementById('mBody').innerHTML=id==='ecard'?buildEcardServiceModal():(id==='industry'?buildIndustryServiceModal():buildMBody(d));
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   if(updateRoute)setServiceRoute(id);
@@ -9166,6 +9335,10 @@ const MD={
         <div class="case-block"><div class="ph-frame img-cutout"><img src="assets/LINE_案例1.png" alt="詠順工程行 LINE@" loading="lazy" decoding="async"></div><div class="img-label">LINE@ · 詠順工程行</div></div>
         <div class="case-block"><div class="ph-frame img-cutout"><img src="assets/LINE_案例2.png" alt="MN13 LINE@" loading="lazy" decoding="async"></div><div class="img-label gold">LINE@ · MN13</div></div>
       </div>`
+  },
+  industry:{
+    tag:'商務影響力',title:'產業入口',
+    desc:'',items:[],hl:'',cases:''
   },
   ecard:{
     tag:'商務影響力',title:'電子名片',
