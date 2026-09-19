@@ -8012,8 +8012,7 @@ img{
 .industry-detail-need small,.industry-detail-core small{display:block;font-family:'Manrope',sans-serif;font-size:7px;letter-spacing:.13em;color:#a87b39;margin-bottom:5px}
 .industry-detail-need strong{font-size:15px;line-height:1.45}
 .industry-detail-core{position:absolute;left:47%;top:48%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#c79c55,#a47737);color:#fff;z-index:3;box-shadow:0 22px 44px rgba(130,91,36,.2)}
-.industry-detail-core b{font-family:Georgia,serif;font-size:42px;font-weight:500;line-height:1}
-.industry-detail-core small{color:#fff;margin:7px 0 0}
+.industry-detail-core strong{font-size:25px;line-height:1.2;font-weight:600;letter-spacing:.04em;white-space:nowrap}
 .industry-detail-pro{position:absolute;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;text-align:center;background:#fbf8f1;border:1px solid rgba(25,24,20,.1);box-shadow:0 10px 24px rgba(50,39,25,.07);font-size:10px;font-weight:600;z-index:2;transform:translate(-50%,-50%)}
 .industry-detail-pro.p1{left:87%;top:15%}.industry-detail-pro.p2{left:93%;top:46%}.industry-detail-pro.p3{left:86%;top:80%}.industry-detail-pro.p4{left:71%;top:87%}
 
@@ -8030,9 +8029,22 @@ img{
 .industry-detail-main strong{display:block;font-size:18px;font-weight:500;margin-bottom:3px}
 .industry-detail-main span{display:block;color:#766e64;font-size:10px}
 .industry-detail-value{font-size:15px;line-height:1.65;font-weight:500;color:#302c27}
-.industry-detail-cta{display:flex;justify-content:space-between;align-items:center;gap:2rem;padding:28px 0 34px}
-.industry-detail-cta strong{font-size:16px;font-weight:500}
-.industry-detail-cta a{color:#1a1916;text-decoration:none;border:1px solid rgba(25,24,20,.22);border-radius:999px;padding:11px 16px;font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.1em;white-space:nowrap}
+.industry-detail-case{padding:58px 0 38px;border-top:1px solid rgba(25,24,20,.12)}
+.industry-detail-case-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,1.1fr);gap:3rem;align-items:end;margin-bottom:26px}
+.industry-detail-case-head h5{margin:0;font-size:30px;font-weight:500;letter-spacing:-.025em}
+.industry-detail-case-head p{margin:0 0 3px auto;max-width:440px;text-align:right;color:#756d63;font-size:11px;line-height:1.8}
+.industry-detail-laptop-link{display:block;color:inherit;text-decoration:none}
+.industry-detail-laptop{width:92%;margin:0 auto;filter:drop-shadow(0 24px 34px rgba(54,42,27,.18));transition:transform .24s ease,filter .24s ease}
+.industry-detail-laptop-link:hover .industry-detail-laptop{transform:translateY(-3px);filter:drop-shadow(0 30px 42px rgba(54,42,27,.22))}
+.industry-detail-laptop-top{height:34px;border-radius:15px 15px 0 0;background:#111;display:flex;align-items:center;gap:6px;padding:0 12px;color:#969089;font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.1em}
+.industry-detail-laptop-top i{width:7px;height:7px;border-radius:50%;background:#5d5d5d}
+.industry-detail-laptop-top span{margin-left:auto}
+.industry-detail-laptop-screen{height:430px;padding:8px;background:#111;overflow:hidden}
+.industry-detail-laptop-screen iframe{display:block;width:100%;height:100%;border:0;background:#fff;border-radius:5px;pointer-events:none}
+.industry-detail-laptop-base{width:108%;height:14px;margin-left:-4%;background:linear-gradient(#c5c5c5,#8f8f8f);border-radius:0 0 50% 50%}
+.industry-detail-case-caption{width:92%;margin:18px auto 0;display:flex;justify-content:space-between;align-items:center;gap:2rem}
+.industry-detail-case-caption strong{font-size:15px;font-weight:500}
+.industry-detail-case-caption span{font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.12em;color:#a67b3d}
 
 @media(max-width:900px){
   .v77-industry-preview-head{grid-template-columns:1fr;gap:1.2rem}
@@ -8055,7 +8067,7 @@ img{
   .industry-detail-map{height:370px}
   .industry-detail-need{width:105px;height:105px}
   .industry-detail-core{width:120px;height:120px}
-  .industry-detail-core b{font-size:34px}
+  .industry-detail-core strong{font-size:20px}
   .industry-detail-pro{width:70px;height:70px;font-size:8px}
   .industry-detail-functions{padding:46px 0 56px}
   .industry-detail-functions-head{display:block}
@@ -8065,7 +8077,11 @@ img{
   .industry-detail-icon{width:46px;height:46px}
   .industry-detail-main strong{font-size:16px}
   .industry-detail-value{font-size:13px}
-  .industry-detail-cta{align-items:flex-start;flex-direction:column}
+  .industry-detail-case-head{grid-template-columns:1fr;gap:12px}
+  .industry-detail-case-head p{margin:0;text-align:left;max-width:none}
+  .industry-detail-laptop{width:100%}
+  .industry-detail-laptop-screen{height:310px}
+  .industry-detail-case-caption{width:100%;align-items:flex-start;flex-direction:column;gap:6px}
 }
 
 </style>
@@ -8957,11 +8973,11 @@ function buildIndustryServiceModal(){
               <path d="M329 216 C392 304 446 352 497 392"/>
             </svg>
             <div class="industry-detail-need"><div><small>CLIENT NEED</small><strong>我有需求<br>該找誰？</strong></div></div>
-            <div class="industry-detail-core"><b>MR</b><small>產業鏈入口</small></div>
-            <div class="industry-detail-pro p1">設計規劃</div>
-            <div class="industry-detail-pro p2">工程施工</div>
-            <div class="industry-detail-pro p3">品牌行銷</div>
-            <div class="industry-detail-pro p4">顧問服務</div>
+            <div class="industry-detail-core"><strong>產業鏈入口</strong></div>
+            <div class="industry-detail-pro p1">空間設計</div>
+            <div class="industry-detail-pro p2">水電工程</div>
+            <div class="industry-detail-pro p3">弱電／監視器</div>
+            <div class="industry-detail-pro p4">裝修統包</div>
           </div>
         </section>
 
@@ -9017,10 +9033,32 @@ function buildIndustryServiceModal(){
             </div>
           </div>
 
-          <div class="industry-detail-cta">
-            <strong>實際案例｜BNI 建築組・磐石砌好厝</strong>
-            <a href="https://mrbusinesslab.github.io/BNI-Building/" target="_blank" rel="noopener">查看實際產業入口 ↗︎</a>
-          </div>
+          <section class="industry-detail-case">
+            <div class="industry-detail-case-head">
+              <div>
+                <div class="industry-detail-kicker">REAL CASE / 實際案例</div>
+                <h5>BNI 建築組｜磐石砌好厝</h5>
+              </div>
+              <p>把分散的建築專業，整理成客戶可以直接使用的工程資源入口。</p>
+            </div>
+
+            <a class="industry-detail-laptop-link" href="https://mrbusinesslab.github.io/BNI-Building/" target="_blank" rel="noopener" aria-label="開啟 BNI 建築組產業入口">
+              <div class="industry-detail-laptop">
+                <div class="industry-detail-laptop-top">
+                  <i></i><i></i><i></i>
+                  <span>實際產業入口</span>
+                </div>
+                <div class="industry-detail-laptop-screen">
+                  <iframe src="https://mrbusinesslab.github.io/BNI-Building/" title="BNI 建築組｜磐石砌好厝" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+                </div>
+                <div class="industry-detail-laptop-base"></div>
+              </div>
+              <div class="industry-detail-case-caption">
+                <strong>點擊查看建築組入口</strong>
+                <span>OPEN LIVE SITE ↗︎</span>
+              </div>
+            </a>
+          </section>
         </section>
       </div>
     </div>
