@@ -8014,8 +8014,8 @@ img{
 .industry-detail-core{position:absolute;left:47%;top:48%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#c79c55,#a47737);color:#fff;z-index:3;box-shadow:0 22px 44px rgba(130,91,36,.2)}
 .industry-detail-core b{font-family:Georgia,serif;font-size:42px;font-weight:500;line-height:1}
 .industry-detail-core small{color:#fff;margin:7px 0 0}
-.industry-detail-pro{position:absolute;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;text-align:center;background:#fbf8f1;border:1px solid rgba(25,24,20,.1);box-shadow:0 10px 24px rgba(50,39,25,.07);font-size:10px;font-weight:600;z-index:2}
-.industry-detail-pro.p1{right:7%;top:4%}.industry-detail-pro.p2{right:0;top:38%}.industry-detail-pro.p3{right:8%;bottom:5%}.industry-detail-pro.p4{right:29%;bottom:0}
+.industry-detail-pro{position:absolute;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;text-align:center;background:#fbf8f1;border:1px solid rgba(25,24,20,.1);box-shadow:0 10px 24px rgba(50,39,25,.07);font-size:10px;font-weight:600;z-index:2;transform:translate(-50%,-50%)}
+.industry-detail-pro.p1{left:87%;top:15%}.industry-detail-pro.p2{left:93%;top:46%}.industry-detail-pro.p3{left:86%;top:80%}.industry-detail-pro.p4{left:71%;top:87%}
 
 .industry-detail-functions{padding:58px 0 70px;border-top:1px solid rgba(25,24,20,.12)}
 .industry-detail-functions-head{display:flex;justify-content:space-between;gap:3rem;align-items:flex-end;margin-bottom:26px}
@@ -8036,6 +8036,8 @@ img{
 
 @media(max-width:900px){
   .v77-industry-preview-head{grid-template-columns:1fr;gap:1.2rem}
+  .v77-industry-preview h3{white-space:normal}
+  .v77-industry-preview-head p{margin:0;text-align:left;max-width:none}
   .industry-detail-hero{grid-template-columns:1fr;gap:28px}
   .industry-detail-map{height:420px}
   .industry-detail-function{grid-template-columns:52px 1fr}
@@ -8071,10 +8073,10 @@ img{
 /* ===== 產業入口：服務頁預覽 ===== */
 .v77-industry-preview{padding:5rem 5rem 5.5rem;background:var(--paper);border-top:1px solid var(--border)}
 .v77-industry-preview-inner{max-width:1100px;margin:0 auto}
-.v77-industry-preview-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,1.1fr);gap:4rem;align-items:end;margin-bottom:2rem}
+.v77-industry-preview-head{display:grid;grid-template-columns:minmax(540px,1.15fr) minmax(360px,.85fr);gap:4rem;align-items:end;margin-bottom:2rem}
 .v77-industry-preview-kicker{font-family:'Manrope',sans-serif;font-size:9px;letter-spacing:.2em;color:var(--gold);margin-bottom:.9rem}
-.v77-industry-preview h3{margin:0;font-size:clamp(30px,4vw,48px);line-height:1.25;font-weight:400;letter-spacing:-.035em;color:var(--ink)}
-.v77-industry-preview-head p{margin:0;color:var(--ink2);font-size:13px;line-height:1.9}
+.v77-industry-preview h3{margin:0;font-size:clamp(30px,3.45vw,46px);line-height:1.2;font-weight:400;letter-spacing:-.035em;color:var(--ink);white-space:nowrap}
+.v77-industry-preview-head p{margin:0 0 4px auto;color:var(--ink2);font-size:13px;line-height:1.9;text-align:right;max-width:500px}
 .v77-industry-browser{display:block;width:100%;padding:0;border:0;background:transparent;text-align:left;cursor:pointer}
 .v77-browser-shell{background:#101010;border-radius:18px 18px 10px 10px;padding:12px 12px 16px;box-shadow:0 24px 54px rgba(55,42,26,.16);transition:transform .25s ease,box-shadow .25s ease}
 .v77-industry-browser:hover .v77-browser-shell{transform:translateY(-3px);box-shadow:0 30px 64px rgba(55,42,26,.2)}
@@ -8948,14 +8950,14 @@ function buildIndustryServiceModal(){
 
           <div class="industry-detail-map" aria-label="客戶需求透過產業入口連結到不同專業者">
             <svg viewBox="0 0 700 450" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M120 225 C205 225 245 225 330 225"/>
-              <path d="M405 225 C490 170 530 95 620 60"/>
-              <path d="M405 225 C510 215 565 205 655 205"/>
-              <path d="M405 225 C500 285 545 350 620 390"/>
-              <path d="M405 225 C445 330 475 380 520 425"/>
+              <path d="M66 216 C155 216 236 216 329 216"/>
+              <path d="M329 216 C430 170 520 105 609 68"/>
+              <path d="M329 216 C455 216 545 210 651 207"/>
+              <path d="M329 216 C445 275 525 330 602 360"/>
+              <path d="M329 216 C392 304 446 352 497 392"/>
             </svg>
             <div class="industry-detail-need"><div><small>CLIENT NEED</small><strong>我有需求<br>該找誰？</strong></div></div>
-            <div class="industry-detail-core"><b>MR</b><small>產業入口</small></div>
+            <div class="industry-detail-core"><b>MR</b><small>產業鏈入口</small></div>
             <div class="industry-detail-pro p1">設計規劃</div>
             <div class="industry-detail-pro p2">工程施工</div>
             <div class="industry-detail-pro p3">品牌行銷</div>
