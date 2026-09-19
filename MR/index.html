@@ -7987,6 +7987,89 @@ img{
 }
 </style>
 
+
+<style id="v68-industry-hub-final-fixes">
+/* 1. 產業入口與電子名片使用相同內容寬度與左右邊界 */
+.v65-industry-hub{
+  padding-left:clamp(20px,5vw,72px)!important;
+  padding-right:clamp(20px,5vw,72px)!important;
+}
+.v65-hub-inner{
+  width:100%!important;
+  max-width:1440px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* 2. 建築組入口可直接滑動與操作 */
+.v65-iframe-wrap{
+  overflow:hidden!important;
+}
+.v65-iframe-wrap iframe{
+  pointer-events:auto!important;
+  touch-action:auto!important;
+  overscroll-behavior:contain;
+}
+
+/* 3. 主標固定兩行 */
+.v65-hub-head h2 > span{
+  display:block;
+  width:100%;
+  white-space:nowrap;
+}
+
+/* 手機：同樣固定兩行，但依螢幕寬度縮字 */
+@media(max-width:760px){
+  .v65-industry-hub{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .v65-hub-inner{
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  .v65-hub-head h2{
+    font-size:clamp(24px,6.5vw,31px)!important;
+    line-height:1.22!important;
+    letter-spacing:-.035em!important;
+  }
+
+  .v65-hub-head h2 > span{
+    display:block!important;
+    width:100%!important;
+    white-space:nowrap!important;
+  }
+}
+
+@media(max-width:390px){
+  .v65-industry-hub{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  .v65-hub-head h2{
+    font-size:clamp(22px,6vw,24px)!important;
+    letter-spacing:-.04em!important;
+  }
+}
+
+@media(max-width:360px){
+  .v65-hub-head h2{
+    font-size:21px!important;
+    letter-spacing:-.045em!important;
+  }
+}
+
+@media(max-width:330px){
+  .v65-hub-head h2{
+    font-size:19px!important;
+    letter-spacing:-.05em!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8039,7 +8122,7 @@ img{
 
     <div class="v65-hub-head">
       <div>
-        <h2>讓客戶不是只看到你，<br>而是在需要你的時候，找到你。</h2>
+        <h2><span>讓客戶不是只看到你，</span><span>而是在需要你的時候，找到你。</span></h2>
       </div>
       <p>
         MR 將同一產業鏈的專業夥伴整合成一個入口。<br>
@@ -8079,9 +8162,7 @@ img{
           <iframe
             src="https://mrbusinesslab.github.io/BNI-Building/"
             title="BNI 建築組產業入口｜磐石砌好厝"
-            loading="lazy"
-            tabindex="-1"
-            aria-hidden="true"></iframe>
+            loading="lazy"></iframe>
         </div>
         <div class="v65-portal-caption">
           <strong>先讓客戶找到對的人</strong>
