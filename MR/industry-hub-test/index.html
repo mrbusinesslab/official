@@ -8051,14 +8051,27 @@ img{
 .v75-function-value{font-size:17px;line-height:1.6;font-weight:500;color:#2e2b27}
 
 /* VALUE */
-.v75-value{background:#171612;color:#f6f0e6;padding:72px 0}
+.v75-value{background:#171612;color:#f6f0e6;padding:82px 0 88px;overflow:hidden}
 .v75-value .v75-kicker{color:#c5a66d}
-.v75-value h3{margin:16px 0 38px;font-size:36px;font-weight:500}
-.v75-value-lines{display:grid;gap:0;border-top:1px solid rgba(255,255,255,.16)}
-.v75-value-line{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.16)}
-.v75-value-line span{font-size:18px;color:#9d978d}
-.v75-value-line b{text-align:center;color:#c5a66d;font-size:26px;font-weight:300}
-.v75-value-line strong{font-size:25px;font-weight:500}
+.v75-value-head{display:grid;grid-template-columns:minmax(0,.82fr) minmax(320px,1.18fr);gap:70px;align-items:end;margin-bottom:44px}
+.v75-value h3{margin:16px 0 0;font-size:clamp(34px,3.6vw,48px);line-height:1.18;font-weight:500;letter-spacing:-.035em}
+.v75-value h3 em{display:block;color:#c5a66d;font-style:normal}
+.v75-value-note{margin:0;color:#8f8a81;font-size:12px;line-height:1.85;max-width:430px}
+.v75-value-columns{display:grid;grid-template-columns:74px minmax(180px,.72fr) minmax(150px,.7fr) minmax(280px,1.2fr);gap:24px;align-items:center;padding:0 0 10px;color:#746f67;font-family:'Manrope',sans-serif;font-size:8px;letter-spacing:.16em}
+.v75-value-columns span:nth-child(2){grid-column:2}
+.v75-value-columns span:nth-child(3){grid-column:4}
+.v75-value-journey{position:relative;border-top:1px solid rgba(255,255,255,.15)}
+.v75-value-step{position:relative;display:grid;grid-template-columns:74px minmax(180px,.72fr) minmax(150px,.7fr) minmax(280px,1.2fr);gap:24px;align-items:center;min-height:118px;border-bottom:1px solid rgba(255,255,255,.13)}
+.v75-value-no{font-family:'Bodoni Moda',serif;font-size:34px;color:#514d46;font-weight:400}
+.v75-value-from{font-size:18px;color:#98928a}
+.v75-value-route{position:relative;height:100%;min-height:118px}
+.v75-value-route:before{content:"";position:absolute;left:0;right:26px;top:50%;height:1px;background:linear-gradient(90deg,rgba(197,166,109,.12),rgba(197,166,109,.78))}
+.v75-value-route:after{content:"";position:absolute;right:18px;top:calc(50% - 4px);width:8px;height:8px;border-radius:50%;background:#c5a66d;box-shadow:0 0 0 5px rgba(197,166,109,.09)}
+.v75-value-route b{position:absolute;right:0;top:50%;transform:translateY(-53%);color:#c5a66d;font-size:23px;font-weight:300}
+.v75-value-to{position:relative;font-size:clamp(25px,2.5vw,36px);line-height:1.25;font-weight:500;letter-spacing:-.025em}
+.v75-value-to:after{content:"";display:block;width:44px;height:1px;background:#c5a66d;margin-top:10px;opacity:.85}
+.v75-value-step:nth-child(2) .v75-value-to:after{width:72px}
+.v75-value-step:nth-child(3) .v75-value-to:after{width:56px}
 
 /* REAL CASE */
 .v75-case{padding:90px 0 104px}
@@ -8086,7 +8099,7 @@ img{
  .v75-visual{height:430px}.v75-demand{width:112px;height:112px}.v75-hub{width:132px;height:132px}.v75-hub b{font-size:36px}.v75-pro{width:78px;height:78px;font-size:9px}
  .v75-functions{padding:58px 0}.v75-functions-head{display:block}.v75-functions-head p{margin-top:13px}
  .v75-function{grid-template-columns:45px 1fr;gap:18px}.v75-function-main{gap:14px}.v75-function-icon{width:50px;height:50px}.v75-function-main strong{font-size:17px}.v75-function-value{font-size:15px}
- .v75-value{padding:58px 0}.v75-value h3{font-size:30px}.v75-value-line{grid-template-columns:1fr 42px 1fr}.v75-value-line span{font-size:14px}.v75-value-line strong{font-size:19px}
+ .v75-value{padding:62px 0 68px}.v75-value-head{grid-template-columns:1fr;gap:16px;margin-bottom:34px}.v75-value h3{font-size:30px}.v75-value-columns{display:none}.v75-value-step{grid-template-columns:42px 1fr;gap:8px 16px;align-items:start;padding:22px 0;min-height:0}.v75-value-no{font-size:27px;grid-row:1/4}.v75-value-from{font-size:14px}.v75-value-route{height:32px;min-height:32px}.v75-value-route:before{right:28px}.v75-value-route:after{right:20px}.v75-value-to{font-size:21px}.v75-value-to:after{margin-top:8px}
  .v75-case{padding:70px 0 80px}.v75-case-head h3{font-size:31px}.v75-case-screen{height:430px}.v75-case-bottom{align-items:flex-start;flex-direction:column}
 }
 @media(max-width:390px){
@@ -8644,12 +8657,38 @@ img{
 
   <div class="v75-value">
     <div class="v75-indsvc-inner">
-      <div class="v75-kicker">THE VALUE / 它帶來什麼改變</div>
-      <h3>不是增加資訊，而是讓客戶更容易做決定。</h3>
-      <div class="v75-value-lines">
-        <div class="v75-value-line"><span>一份名單</span><b>→</b><strong>一個解決問題的入口</strong></div>
-        <div class="v75-value-line"><span>各自曝光</span><b>→</b><strong>整條產業一起被看見</strong></div>
-        <div class="v75-value-line"><span>客戶自己找</span><b>→</b><strong>需求找到對的人</strong></div>
+      <div class="v75-value-head">
+        <div>
+          <div class="v75-kicker">THE VALUE / 它帶來什麼改變</div>
+          <h3>不是增加資訊，<em>而是讓客戶更容易做決定。</em></h3>
+        </div>
+        <p class="v75-value-note">把原本分散、需要自己判斷的資訊，整理成更直覺的需求路徑。</p>
+      </div>
+
+      <div class="v75-value-columns">
+        <span>BEFORE</span>
+        <span>AFTER</span>
+      </div>
+
+      <div class="v75-value-journey">
+        <div class="v75-value-step">
+          <div class="v75-value-no">01</div>
+          <div class="v75-value-from">一份名單</div>
+          <div class="v75-value-route"><b>→</b></div>
+          <div class="v75-value-to">一個解決問題的入口</div>
+        </div>
+        <div class="v75-value-step">
+          <div class="v75-value-no">02</div>
+          <div class="v75-value-from">各自曝光</div>
+          <div class="v75-value-route"><b>→</b></div>
+          <div class="v75-value-to">整條產業一起被看見</div>
+        </div>
+        <div class="v75-value-step">
+          <div class="v75-value-no">03</div>
+          <div class="v75-value-from">客戶自己找</div>
+          <div class="v75-value-route"><b>→</b></div>
+          <div class="v75-value-to">需求找到對的人</div>
+        </div>
       </div>
     </div>
   </div>
