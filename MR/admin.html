@@ -876,5 +876,25 @@ async function exportPdf(personOnly=false){
 document.querySelectorAll('.nav').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const page=btn.dataset.page;document.querySelectorAll('.page-section').forEach(sec=>sec.classList.add('hidden'));const target=$('#'+page+'Page');if(target)target.classList.remove('hidden');if(page==='showcase')renderShowcase()}));
 $('#loginBtn').onclick=login;$('#password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});$('#logoutBtn').onclick=()=>{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');location.reload()};$('#preset').onchange=()=>{const c=$('#preset').value==='custom';$('#startDate').classList.toggle('hidden',!c);$('#endDate').classList.toggle('hidden',!c);$('#toText').classList.toggle('hidden',!c);render()};$('#sortBy').onchange=render;$('#startDate').onchange=render;$('#endDate').onchange=render;$('#closeModal').onclick=()=>$('#personModal').classList.add('hidden');$('#personModal').onclick=e=>{if(e.target.id==='personModal')$('#personModal').classList.add('hidden')};$('#exportExcel').onclick=()=>exportXlsx(false);$('#exportPdf').onclick=()=>exportPdf(false);$('#personExcel').onclick=()=>exportXlsx(true);$('#personPdf').onclick=()=>exportPdf(true);if($('#exportShowcasePpt'))$('#exportShowcasePpt').onclick=exportShowcasePpt;const exp=Number(localStorage.getItem('mr_admin_exp')||0);if(token()&&exp>Date.now())showApp();else{localStorage.removeItem('mr_admin_token');localStorage.removeItem('mr_admin_exp');showLogin()}
 </script>
-</body>
+<script>
+(()=>{'use strict';
+const hubOrigin='https://mr-website-hub.mr-business-labb.chatgpt.site';
+if(location.hash!=='#mr-hub-login'||!window.opener)return;
+const opener=window.opener;let used=false;
+const ready=()=>opener.postMessage({type:'mr-hub-ready'},hubOrigin);
+const timer=setInterval(ready,500);const expire=setTimeout(()=>{clearInterval(timer);window.removeEventListener('message',receive)},60000);
+function receive(event){
+ if(used||event.origin!==hubOrigin||event.source!==opener||event.data?.type!=='mr-hub-credentials'||typeof event.data.password!=='string')return;
+ const password=document.getElementById('password'),button=document.getElementById('loginBtn')||document.getElementById('login-button');
+ if(!password||!button||button.disabled||password.disabled)return;
+ used=true;clearInterval(timer);clearTimeout(expire);window.removeEventListener('message',receive);
+ const email=document.getElementById('email');if(email&&typeof event.data.email==='string')email.value=event.data.email;
+ password.value=event.data.password;
+ const remember=document.getElementById('remember-login');if(remember)remember.checked=true;
+ history.replaceState(null,'',location.pathname+location.search);
+ button.click();
+}
+window.addEventListener('message',receive);ready();
+})();
+</script></body>
 </html>
