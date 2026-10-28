@@ -8204,6 +8204,70 @@ img{
 .service-gallery-identity p span+span{border:0;padding:0;}
 }
 </style>
+<style id="needs-service-selection">
+.needs-services .track-inner{max-width:1240px;}
+.needs-services .about-title{margin-bottom:24px;}
+.needs-intro{font-size:16px;line-height:1.9;color:var(--ink2);margin:0 0 32px;max-width:780px;}
+.needs-question{font-size:20px;line-height:1.5;color:var(--ink);margin:0 0 18px;font-weight:500;}
+.needs-tabs{display:grid;grid-template-columns:1fr 1.2fr 1.2fr;gap:12px;margin-bottom:24px;}
+.needs-tab{background:transparent;border:1px solid #b8a986;border-radius:40px;padding:18px 20px;display:flex;align-items:center;gap:12px;text-align:left;color:var(--ink);font-family:inherit;font-size:16px;line-height:1.6;cursor:pointer!important;transition:background .2s,color .2s;min-height:76px;}
+.needs-tab-index{font-size:12px;color:#8e7442;flex-shrink:0;}
+.needs-tab-check{margin-left:auto;visibility:hidden;flex-shrink:0;}
+.needs-tab[aria-selected="true"]{background:#25251f;color:#fffaf0;border-color:#25251f;}
+.needs-tab[aria-selected="true"] .needs-tab-index{color:#d7bb7a;}
+.needs-tab[aria-selected="true"] .needs-tab-check{visibility:visible;color:#d7bb7a;}
+.needs-tab:focus-visible,.need-service-card:focus-visible{outline:3px solid var(--gold);outline-offset:4px;}
+.needs-panel{border:1px solid var(--border);border-radius:10px;padding:30px;}
+.needs-panel[hidden]{display:none!important;}
+.needs-panel-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px;}
+.needs-system{display:block;color:#8e7442;font-size:12px;letter-spacing:1px;margin-bottom:10px;}
+.needs-panel-head h3{font-size:clamp(23px,2.5vw,32px);line-height:1.5;font-weight:500;letter-spacing:-.03em;margin:0 0 10px;}
+.needs-panel-head p{font-size:15px;color:var(--ink2);line-height:1.9;margin:0;max-width:760px;}
+.needs-result-label{font-size:12px;color:#80652e;white-space:nowrap;border-bottom:1px solid var(--gold);padding-bottom:6px;}
+.needs-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px;}
+.need-service-card{display:block;text-decoration:none;color:var(--ink);min-width:0;cursor:pointer!important;}
+.need-service-image{height:220px;background:#eae5da;overflow:hidden;border-radius:5px;display:flex;align-items:center;justify-content:center;}
+.need-service-image img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .3s;}
+.need-service-card:hover .need-service-image img{transform:scale(1.025);}
+.need-service-copy{padding:16px 0 0;}
+.need-service-copy h4{font-size:21px;font-weight:500;line-height:1.5;margin:0 0 10px;}
+.need-service-copy p{font-size:15px;line-height:1.85;color:var(--ink2);margin:0 0 14px;}
+.need-service-more{font-size:12px;letter-spacing:1px;color:#80652e;display:inline-flex;gap:12px;border-bottom:1px solid var(--gold);padding-bottom:4px;}
+.need-industry-art{background:#e7e6dc;flex-direction:column;align-items:flex-start;padding:24px;color:#26362e;}
+.need-art-label{font-size:11px;letter-spacing:2px;color:#716843;margin-bottom:16px;}
+.need-industry-art strong{font-size:26px;line-height:1.5;font-weight:500;}
+.need-industry-art strong span{font-size:22px;}
+.need-art-flow{display:flex;gap:7px;font-size:11px;align-items:center;margin-top:16px;flex-wrap:wrap;}
+.need-art-flow i{font-style:normal;color:#9b8350;}
+.needs-help{text-align:center;padding:30px 0 8px;}
+.needs-help a{font-size:14px;color:#80652e;text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:5px;}
+.needs-help>span{display:block;font-size:13px;color:var(--ink2);margin-top:16px;line-height:1.8;}
+.needs-extension{border-top:1px solid var(--border);margin-top:22px;padding-top:18px;color:var(--ink2);font-size:13px;}
+.needs-extension summary{cursor:pointer!important;width:fit-content;}
+.needs-extension a{display:block;width:fit-content;color:var(--ink);font-size:15px;margin-top:16px;text-decoration:none;line-height:1.8;}
+@media(max-width:900px){
+.needs-tabs{grid-template-columns:1fr;gap:10px;}
+.needs-tab{min-height:60px;padding:14px 20px;}
+.needs-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+.needs-panel-head{align-items:flex-start;}
+}
+@media(max-width:600px){
+.needs-services.track-wrap{padding:54px 20px;}
+.needs-intro{font-size:15px;margin-bottom:26px;}
+.needs-intro br{display:none;}
+.needs-question{font-size:19px;}
+.needs-panel{padding:22px 18px;border-radius:6px;}
+.needs-panel-head{display:block;}
+.needs-panel-head h3{font-size:25px;}
+.needs-result-label{display:none;}
+.needs-service-grid{grid-template-columns:1fr;gap:30px;}
+.need-service-image{height:250px;}
+.need-service-copy h4{font-size:23px;}
+.need-service-copy p{font-size:16px;}
+.needs-tab{font-size:15px;}
+}
+@media(prefers-reduced-motion:reduce){.needs-tab,.need-service-image img{transition:none!important;}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8604,58 +8668,56 @@ img{
 </div>
 </div>
 </section>
-<!-- Dual track -->
-<div class="track-wrap">
+<!-- Needs-led service selection -->
+<section class="track-wrap needs-services" aria-labelledby="needs-title">
 <div class="track-inner">
-<span class="about-sec-label rv">SERVICE MODULES</span>
-<h2 class="about-title rv d1">依你的缺口，<br/>選擇需要的服務</h2>
-<div class="about-divider rv d2"></div>
-<p class="rv d2" style="font-size:13px;line-height:2;color:var(--ink2);font-weight:300;max-width:580px;margin-bottom:2.5rem;">服務分成「外貌說服力」與「商務影響力」兩大模組。初步診斷後，再依你目前最重要的品牌缺口安排，不需要一次全部做。</p>
-<div class="track-grid rv d2">
-<!-- Track 1 -->
-<div>
-<div class="track-box">
-<div class="track-head">
-<span class="track-tag tag-blue">01 外貌說服力</span>
-<div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「第一眼就信任」</div>
+<span class="about-sec-label">SERVICE MODULES</span>
+<h2 class="about-title" id="needs-title">依你的缺口，<br>選擇需要的服務</h2>
+<p class="needs-intro">延續第一印象、專業理解與品牌傳播三個方向，<br>先選你最想改善的問題，再看看適合從哪項服務開始。</p>
+<p class="needs-question">你現在最想改善什麼？</p>
+<div class="needs-tabs" role="tablist" aria-label="依需求選擇服務">
+<button type="button" class="needs-tab" id="need-tab-impression" role="tab" aria-selected="false" aria-controls="need-panel-impression" tabindex="-1" data-need="impression"><span class="needs-tab-index">01</span><span>見面時，專業感不夠</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-understanding" role="tab" aria-selected="false" aria-controls="need-panel-understanding" tabindex="-1" data-need="understanding"><span class="needs-tab-index">02</span><span>介紹時，說不清楚自己的價值</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-presence" role="tab" aria-selected="true" aria-controls="need-panel-presence" tabindex="0" data-need="presence"><span class="needs-tab-index">03</span><span>網路上，別人看不懂我的專業</span><span class="needs-tab-check" aria-hidden="true">✓</span></button>
 </div>
-<div class="svc-list">
-<a class="svc-row" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;"><span class="svc-nm">商務形象穿著</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=photo#services" onclick="openServiceModal('photo');return false;"><span class="svc-nm">形象照拍攝</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;"><span class="svc-nm">男士快速美容</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=body#services" onclick="openServiceModal('body');return false;"><span class="svc-nm">體態管理</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;"><span class="svc-nm">頭皮護理</span><span class="svc-arr">→︎→︎</span></a>
-<div class="svc-cat">延伸合作服務</div>
-<a class="svc-row" href="?service=fortune#services" onclick="openServiceModal('fortune');return false;"><span class="svc-nm">品牌 / 企業運勢</span><span class="svc-arr">→︎→︎</span></a>
+<section class="needs-panel" id="need-panel-impression" role="tabpanel" aria-labelledby="need-tab-impression" hidden>
+<div class="needs-panel-head"><div><span class="needs-system">第一印象系統</span><h3>讓第一眼的印象，貼近你真正的專業。</h3><p>從穿著、面容到形象照，整理客戶見到你時最直接的感受。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;">
+<div class="need-service-image"><img src="assets/鍾師富改造後1.png" alt="商務形象穿著實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商務形象穿著</h4><p>讓穿著符合你的專業、客群與商務場合。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=photo#services" onclick="openServiceModal('photo');return false;">
+<div class="need-service-image"><img src="assets/個人形象照.png" alt="形象照拍攝實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>形象照拍攝</h4><p>讓官網、社群與名片上的照片，替你傳遞專業。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;">
+<div class="need-service-image"><img src="assets/鍾師富做臉後.png" alt="男士快速美容實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>男士快速美容</h4><p>在重要見面前，整理面容與精神感。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=body#services" onclick="openServiceModal('body');return false;">
+<div class="need-service-image"><img src="assets/體態管理_案例2.png" alt="體態管理實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>體態管理</h4><p>從體態與日常習慣，建立更有自信的商務形象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;">
+<div class="need-service-image"><img src="assets/頭皮護理_案例1.png" alt="頭皮護理實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>頭皮護理</h4><p>了解頭皮與髮況，讓整體形象更完整。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section><section class="needs-panel" id="need-panel-understanding" role="tabpanel" aria-labelledby="need-tab-understanding" hidden>
+<div class="needs-panel-head"><div><span class="needs-system">專業理解系統</span><h3>讓別人聽得懂，你的專業能幫上什麼。</h3><p>釐清定位、整理說詞，把經驗與能力變成客戶容易理解的介紹。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=gains#services" onclick="openServiceModal('gains');return false;">
+<div class="need-service-image"><img src="assets/GAINS_after.png" alt="個人定位・GAINS 表撰寫實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>個人定位・GAINS 表撰寫</h4><p>釐清你的優勢、目標客群與希望獲得的引薦。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=script#services" onclick="openServiceModal('script');return false;">
+<div class="need-service-image"><img src="assets/商務.png" alt="商務說詞架構實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商務說詞架構</h4><p>把「我是誰、能幫誰、如何合作」說得清楚。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=deck#services" onclick="openServiceModal('deck');return false;">
+<div class="need-service-image"><img src="assets/品牌簡報_自我介紹.png" alt="品牌簡報設計實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>品牌簡報設計</h4><p>把零散內容，整理成有重點、有說服力的故事。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence">
+<div class="needs-panel-head"><div><span class="needs-system">品牌傳播系統</span><h3>讓客戶在聯繫前，先理解你的專業。</h3><p>把介紹、作品與聯繫方式整理好，讓網路上的每次接觸都更有方向。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;">
+<div class="need-service-image"><img src="assets/電子名片_傑出油漆.png" alt="電子名片實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>電子名片</h4><p>讓初次認識你的人，快速看懂專業、服務與合作方式。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=line#services" onclick="openServiceModal('line');return false;">
+<div class="need-service-image"><img src="assets/LINE_案例1.png" alt="LINE 官方帳號實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>LINE 官方帳號</h4><p>把品牌介紹、服務資訊與聯繫入口，集中在熟悉的 LINE。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=video#services" onclick="openServiceModal('video');return false;">
+<div class="need-service-image"><img src="assets/短影音1.png" alt="商業短影音／貼文實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商業短影音／貼文</h4><p>把專業過程與觀點，變成客戶看得懂的內容。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=industry#services" onclick="openServiceModal('industry');return false;">
+<div class="need-service-image need-industry-art"><span class="need-art-label">產業入口</span><strong>找需求<br><span>認識對的人</span></strong><div class="need-art-flow"><span>需求</span><i>→</i><span>專業媒合</span><i>→</i><span>成員介紹</span></div></div>
+<div class="need-service-copy"><h4>產業入口</h4><p>讓客戶從自己的需求出發，找到適合的專業夥伴。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;">
+<div class="need-service-image"><img src="assets/貼圖_案例1.png" alt="專屬貼圖設計實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>專屬貼圖設計</h4><p>讓日常對話，也能留下你的品牌印象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section>
+<div class="needs-help"><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">不確定怎麼選？先做 AI 初步診斷 ↗</a><span>不需要一次全部做，先從最重要的問題開始。</span></div>
+<details class="needs-extension"><summary>延伸合作服務</summary><a href="?service=fortune#services" onclick="openServiceModal('fortune');return false;">品牌／企業運勢 <span aria-hidden="true">↗</span></a></details>
 </div>
-</div>
-</div>
-<!-- Track 2 -->
-<div>
-<div class="track-box dark">
-<div class="track-head">
-<span class="track-tag tag-gold">02 商務影響力</span>
-<div class="track-sub" style="margin-top:.4rem;">目標：讓客戶「主動介紹你」</div>
-</div>
-<div class="svc-list">
-<div class="svc-cat">定位清晰化</div>
-<a class="svc-row" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="svc-nm">GAINS 表撰寫</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="svc-nm">商務說詞架構</span><span class="svc-arr">→︎→︎</span></a>
-<div class="svc-cat">內容擴散化</div>
-<a class="svc-row" href="?service=video#services" onclick="openServiceModal('video');return false;"><span class="svc-nm">商業短影音/貼文</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;"><span class="svc-nm">專屬貼圖設計</span><span class="svc-arr">→︎→︎</span></a>
-<div class="svc-cat">形象可視化</div>
-<a class="svc-row" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="svc-nm">品牌簡報設計</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=line#services" onclick="openServiceModal('line');return false;"><span class="svc-nm">LINE 官方帳號</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;"><span class="svc-nm">電子名片</span><span class="svc-arr">→︎→︎</span></a>
-<a class="svc-row" href="?service=industry#services" onclick="openServiceModal('industry');return false;"><span class="svc-nm">產業入口</span><span class="svc-arr">→︎→︎</span></a>
-<!-- industry-service-release-v1 -->
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+</section>
 
 <!-- V77 INDUSTRY HUB SERVICE PREVIEW -->
 <section class="v77-industry-preview" id="industry-service">
@@ -10075,6 +10137,28 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Escape'){e.stopImmediatePropagation();closeServiceEcardGallery();}
  if(e.key==='Tab'){e.preventDefault();gallery.querySelector('button').focus();}
 },true);
+</script>
+<script id="needs-service-tabs">
+(function(){
+ const root=document.querySelector('.needs-services');
+ if(!root)return;
+ const tabs=Array.from(root.querySelectorAll('[role="tab"]'));
+ function select(tab,focus){
+  tabs.forEach(t=>{const active=t===tab;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!active;});
+  if(focus)tab.focus();
+ }
+ tabs.forEach((tab,index)=>{
+  tab.addEventListener('click',()=>select(tab,false));
+  tab.addEventListener('keydown',e=>{
+   let next;
+   if(e.key==='ArrowRight'||e.key==='ArrowDown')next=(index+1)%tabs.length;
+   if(e.key==='ArrowLeft'||e.key==='ArrowUp')next=(index+tabs.length-1)%tabs.length;
+   if(e.key==='Home')next=0;
+   if(e.key==='End')next=tabs.length-1;
+   if(next!==undefined){e.preventDefault();select(tabs[next],true);}
+  });
+ });
+})();
 </script>
 </body>
 </html>
