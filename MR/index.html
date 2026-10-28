@@ -8107,6 +8107,13 @@ img{
 
 
 </style>
+<style>
+/* Zhong case: decision and service story */
+.zhong-case-story{margin:0 0 2rem;}
+.zhong-case-step + .zhong-case-step{margin-top:1.5rem;}
+.zhong-case-step h4{font-size:17px;line-height:1.6;font-weight:600;color:var(--ink);margin:0 0 .5rem;}
+.zhong-case-step p{font-size:15px;line-height:1.9;color:var(--ink2);font-weight:400;margin:0;overflow-wrap:anywhere;}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8710,7 +8717,7 @@ img{
     <div class="case-identity">詠順工程行老闆・抓漏專家</div>
     <h3 class="case-name">鍾師富</h3>
     <div class="case-divider"></div>
-    <p class="case-desc">同樣的技術，<br>穿對衣服、說對話、做對內容，<br>客戶終於「看懂他的價值」。<br><br>透過形象重塑與短影音策略，<br>鍾師傅成功突破傳統師傅的品牌困境，<br>從低辨識度到讓客戶主動轉介紹。</p>
+    <p class="case-desc">從檢測報價難被接受、經常遇到殺價，<br>到讓客戶更清楚理解專業與服務價值。<br><br>MR 透過形象、說詞與品牌內容的整體優化，<br>讓第一次見面與網路上的接觸，<br>都能傳遞專業與信任感。</p>
     <div class="v22-case-highlights">
       <div class="v22-highlight-card">
         <div class="v22-highlight-top">短影音觸及</div>
@@ -9095,9 +9102,26 @@ function openServiceModal(id){
 }
 function openCaseModal(){
   document.getElementById('mTag').textContent='成功案例 01・詠順工程行';
-  document.getElementById('mTitle').textContent='查漏專家 鍾師富';
+  document.getElementById('mTitle').textContent='抓漏專家 鍾師富';
   document.getElementById('mBody').innerHTML=`
-    <p class="m-desc">防水工程市場競爭激烈，技術好的師傅很多，但能讓客戶記住、主動轉介紹的幾乎沒有。鍾師傅的問題不是技術，是沒有人「看懂他的好」。</p>
+    <section class="zhong-case-story" aria-label="鍾師富的需求與 MR 規劃">
+      <div class="zhong-case-step">
+        <h4>原本需求｜價格難被接受，訂單受影響</h4>
+        <p>鍾師富因為報價與訂單量的問題，找到小如如。原本檢測報價為 NT$18,000，卻經常遇到客戶殺價，或因無法接受價格而沒有成交。</p>
+      </div>
+      <div class="zhong-case-step">
+        <h4>MR 的判斷｜有專業，卻沒有被看懂</h4>
+        <p>了解後，我們判斷鍾師富是一位很有專業的師傅，但這份專業沒有充分呈現在客戶面前。當對方還看不出他的能力與服務價值，也尚未建立信任時，就很難理解這個價格。</p>
+      </div>
+      <div class="zhong-case-step">
+        <h4>整體規劃｜讓專業與信任出現在每個接觸點</h4>
+        <p>因此，MR 從商務形象、說詞、短影音、LINE 官方帳號與電子名片一起優化。讓客戶無論第一次見面，或先在網路上認識他，都能更清楚理解他的專業與服務價值，建立信任感。</p>
+      </div>
+      <div class="zhong-case-step">
+        <h4>現在的改變｜讓客戶理解專業背後的價值</h4>
+        <p>透過整體優化，鍾師富的專業已能更完整地被看見。客戶在初次接觸時，就有更清楚的資訊理解他的能力、服務與價格背後的價值。</p>
+      </div>
+    </section>
     <div class="m-sec">執行項目</div>
     <ul class="m-items">
       <li>商務形象穿著重塑——從工作服到讓人信任的專業師傅形象</li>
@@ -9107,7 +9131,7 @@ function openCaseModal(){
       <li>LINE@ 帳號品牌化——詠順工程行完整品牌視覺建立</li>
       <li>電子名片設計——LINE 聊天室即可傳送，讓客戶一鍵了解</li>
     </ul>
-    <div class="m-hl">同樣的技術，穿對衣服、說對話、做對內容，客戶終於「看懂他的價值」。</div>
+    <div class="m-hl">讓客戶看懂專業，理解服務價值，從第一次接觸開始建立信任。</div>
 
     <div class="m-cases-label">商務形象穿著改造</div>
     <div class="v48-zhong-clothing-grid">
