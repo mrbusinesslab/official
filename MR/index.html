@@ -5048,7 +5048,7 @@ body > .cta-band{
   margin-top:14px!important;
 }
 
-/* ===== 3. 全站「開始 AI 初步診斷」按鈕與服務項目頁尾一致 ===== */
+/* ===== 3. 全站「免費 AI 初步品牌診斷」按鈕與服務項目頁尾一致 ===== */
 /* 首頁 CTA 原本被 .v4-line-cta>a 改成方形、不同字體；這裡完全同步服務頁 .cta-band 的 cta-btn */
 #mrFinalCta .cta-btn{
   display:inline-flex!important;
@@ -8226,8 +8226,8 @@ img{
 .needs-result-label{font-size:12px;color:#80652e;white-space:nowrap;border-bottom:1px solid var(--gold);padding-bottom:6px;}
 .needs-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px;}
 .need-service-card{display:block;text-decoration:none;color:var(--ink);min-width:0;cursor:pointer!important;}
-.need-service-image{height:220px;background:#eae5da;overflow:hidden;border-radius:5px;display:flex;align-items:center;justify-content:center;}
-.need-service-image img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .3s;}
+.need-service-image{height:240px;background:transparent;overflow:hidden;border-radius:5px;display:flex;align-items:center;justify-content:center;}
+.need-service-image img{width:auto;max-width:100%;height:100%;object-fit:contain;display:block;transition:transform .3s;}
 .need-service-card:hover .need-service-image img{transform:scale(1.025);}
 .need-service-copy{padding:16px 0 0;}
 .need-service-copy h4{font-size:21px;font-weight:500;line-height:1.5;margin:0 0 10px;}
@@ -8268,6 +8268,13 @@ img{
 }
 @media(prefers-reduced-motion:reduce){.needs-tab,.need-service-image img{transition:none!important;}}
 </style>
+<style id="service-thumbnail-harmony">
+.needs-services .need-service-image{border-radius:0;}
+.needs-services .need-card-collage{gap:10px;align-items:center;}
+.needs-services .need-card-collage img{width:calc((100% - 20px)/3);height:auto;max-height:220px;object-fit:contain;border-radius:3px;}
+.needs-services .need-industry-art{background:transparent;border:1px solid var(--border);border-radius:5px;}
+@media(max-width:600px){.needs-services .need-card-collage img{max-height:240px;}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8283,7 +8290,7 @@ img{
 <li><a href="#about" id="nav-about" onclick="showPage('about');return false;">關於 MR.</a></li>
 <li><a href="#services" id="nav-services" onclick="showPage('services');return false;">服務項目</a></li>
 <li><a href="#cases" id="nav-cases" onclick="showPage('cases');return false;">品牌案例</a></li>
-<li><a class="nav-cta" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">AI 初步診斷</a></li>
+<li><a class="nav-cta" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">免費 AI 初步品牌診斷</a></li>
 </ul>
 </nav>
 <!-- ═══════════════════════════════════════
@@ -8303,7 +8310,7 @@ img{
 <p>把你的專業，變成別人<br/>一眼看得懂的品牌。</p>
 <div class="v4-hero-actions">
 <a href="#services" onclick="showPage('services');return false;">VIEW SERVICES ↗︎</a>
-<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">AI BRAND CHECK ↗︎</a>
+<a href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">免費 AI 初步品牌診斷 ↗︎</a>
 </div>
 </div>
 </div>
@@ -8591,10 +8598,10 @@ img{
 <h2 class="v7-balanced-title v35-final-title"><span>先不用決定要買什麼。</span><em>先找出你的品牌缺口。</em></h2>
 <p class="v23-line-copy">
       <span>進入 MR. 官方 LINE，</span>
-      <span>由 AI 初步診斷找出你目前最需要改善的方向：</span>
+      <span>透過免費 AI 初步品牌診斷找出你目前最需要改善的方向：</span>
       <span>形象、定位，或品牌內容。</span>
     </p>
-<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">開始 AI 初步診斷 →︎</a>
+<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">免費 AI 初步品牌診斷 →︎</a>
 </section>
 </div>
 <!-- ═══════════════════════════════════════
@@ -8611,8 +8618,8 @@ img{
 <div class="proc-steps rv d2">
 <div class="proc-step">
 <div class="ps-num">01</div>
-<div class="ps-title">LINE AI 初步診斷</div>
-<p class="ps-desc">加入 <strong>MR. 官方 LINE</strong>，由 AI 初步診斷引導你釐清目前最需要改善的品牌問題。</p>
+<div class="ps-title">免費 AI 初步品牌診斷</div>
+<p class="ps-desc">加入 <strong>MR. 官方 LINE</strong>，透過免費 AI 初步品牌診斷引導你釐清目前最需要改善的品牌問題。</p>
 </div>
 <div class="proc-step">
 <div class="ps-num">02</div>
@@ -8703,7 +8710,7 @@ img{
 </section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence">
 <div class="needs-panel-head"><div><span class="needs-system">品牌傳播系統</span><h3>讓客戶在聯繫前，先理解你的專業。</h3><p>把介紹、作品與聯繫方式整理好，讓網路上的每次接觸都更有方向。</p></div><span class="needs-result-label">適合你的服務</span></div>
 <div class="needs-service-grid"><a class="need-service-card" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;">
-<div class="need-service-image"><img src="assets/電子名片_傑出油漆.png" alt="電子名片實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-image need-card-collage"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.jpg?v=841c3b214508" alt="鍾師富電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case3_emma/1.jpg?v=51a4c20fcd60" alt="Emma電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.jpg?v=86360f26629e" alt="齊齊 游宛齊電子名片作品" loading="lazy" decoding="async"></div>
 <div class="need-service-copy"><h4>電子名片</h4><p>讓初次認識你的人，快速看懂專業、服務與合作方式。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=line#services" onclick="openServiceModal('line');return false;">
 <div class="need-service-image"><img src="assets/LINE_案例1.png" alt="LINE 官方帳號實際作品" loading="lazy" decoding="async"></div>
 <div class="need-service-copy"><h4>LINE 官方帳號</h4><p>把品牌介紹、服務資訊與聯繫入口，集中在熟悉的 LINE。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=video#services" onclick="openServiceModal('video');return false;">
@@ -8714,7 +8721,7 @@ img{
 <div class="need-service-image"><img src="assets/貼圖_案例1.png" alt="專屬貼圖設計實際作品" loading="lazy" decoding="async"></div>
 <div class="need-service-copy"><h4>專屬貼圖設計</h4><p>讓日常對話，也能留下你的品牌印象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
 </section>
-<div class="needs-help"><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">不確定怎麼選？先做 AI 初步診斷 ↗</a><span>不需要一次全部做，先從最重要的問題開始。</span></div>
+<div class="needs-help"><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">不確定怎麼選？先做免費 AI 初步品牌診斷 ↗</a><span>不需要一次全部做，先從最重要的問題開始。</span></div>
 <details class="needs-extension"><summary>延伸合作服務</summary><a href="?service=fortune#services" onclick="openServiceModal('fortune');return false;">品牌／企業運勢 <span aria-hidden="true">↗</span></a></details>
 </div>
 </section>
@@ -8842,8 +8849,8 @@ img{
 <!-- CTA -->
 <div class="cta-band">
 <h2 class="rv">你的專業，<br/>值得被更多人看見</h2>
-<p class="rv d1">先從官方 LINE 的 AI 初步診斷開始，找到你目前最需要改善的品牌缺口。</p>
-<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">開始 AI 初步診斷 →︎</a>
+<p class="rv d1">先從官方 LINE 的 免費 AI 初步品牌診斷開始，找到你目前最需要改善的品牌缺口。</p>
+<a class="cta-btn rv d2" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">免費 AI 初步品牌診斷 →︎</a>
 </div>
 </div>
 </div>
@@ -8981,7 +8988,7 @@ img{
       </a>
 <div class="mr-footer-v17__rule"></div>
 <a class="mr-footer-v17__diagnosis" href="https://line.me/ti/p/@038xuzzx" rel="noopener" target="_blank">
-        AI 初步診斷 ↗︎
+        免費 AI 初步品牌診斷 ↗︎
       </a>
 </section>
 </div>
