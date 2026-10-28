@@ -8114,6 +8114,62 @@ img{
 .zhong-case-step h4{font-size:17px;line-height:1.6;font-weight:600;color:var(--ink);margin:0 0 .5rem;}
 .zhong-case-step p{font-size:15px;line-height:1.9;color:var(--ink2);font-weight:400;margin:0;overflow-wrap:anywhere;}
 </style>
+<style id="zhong-editorial-layout">
+.modal-box.is-zhong{max-width:1100px;max-height:92vh;max-height:92svh;}
+.is-zhong .modal-head{padding:22px 40px 18px;}
+.is-zhong .modal-body{padding:0 40px 48px;}
+.is-zhong .m-close{width:44px;height:44px;top:16px;right:22px;background:var(--paper);border:1px solid var(--border);border-radius:50%;font-size:22px;display:grid;place-items:center;}
+.is-zhong .m-title{padding-right:40px;}
+.zc-hero{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;padding:36px 0 44px;}
+.zc-portrait{position:relative;background:#e8e4db;overflow:hidden;}
+.zc-portrait img{width:100%;height:410px;object-fit:contain;object-position:center bottom;}
+.zc-portrait span{position:absolute;bottom:0;left:0;right:0;background:rgba(246,243,235,.94);padding:12px 18px;font-size:13px;letter-spacing:1px;}
+.zc-eyebrow{display:block;color:var(--gold);font-size:12px;font-weight:600;letter-spacing:1.5px;margin-bottom:16px;}
+.zc-hero h4{font-size:clamp(30px,3.3vw,46px);font-weight:600;line-height:1.35;letter-spacing:-1px;margin:0 0 24px;}
+.zc-hero p,.zc-insight p,.zc-plan p,.zc-ending p,.zc-section-copy p,.zc-purpose{font-size:16px;line-height:1.9;color:var(--ink2);margin:0;font-weight:400;}
+.zc-problem{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:38px 0;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.zc-price small{display:block;font-size:14px;color:var(--ink2);}
+.zc-price strong{display:block;font-family:var(--sans);font-size:clamp(42px,5vw,68px);font-weight:500;line-height:1.4;letter-spacing:-2px;}
+.zc-price strong span{font-size:18px;letter-spacing:0;margin-right:10px;color:var(--gold);}
+.zc-friction h4,.zc-section-copy h4{font-size:22px;line-height:1.5;margin:0 0 12px;font-weight:600;}
+.zc-friction ul{padding:0;list-style:none;margin:0;display:grid;gap:8px;}
+.zc-friction li{font-size:15px;color:var(--ink2);padding-left:16px;position:relative;}
+.zc-friction li:before{content:'—';position:absolute;left:0;color:var(--gold);}
+.zc-insight{background:#252720;padding:40px;margin:36px 0;color:#f6f3eb;}
+.zc-insight h4{font-size:clamp(26px,3vw,38px);line-height:1.5;margin:0 0 20px;font-weight:500;}
+.zc-insight p{color:#e0dfd5;max-width:740px;}
+.zc-plan{padding:12px 0 40px;}
+.zc-plan h4,.zc-ending h4{font-size:clamp(26px,3vw,36px);line-height:1.5;margin:0 0 16px;font-weight:500;}
+.zc-touchpoints{display:flex;flex-wrap:wrap;gap:12px 28px;border-top:1px solid var(--border);margin-top:24px;padding-top:18px;}
+.zc-touchpoints span{font-size:14px;color:var(--ink);}
+.is-zhong .m-cases-label{font-size:12px;letter-spacing:1.5px;margin-top:32px;}
+.zc-section-copy{margin-bottom:22px;}
+.zc-section-copy p{font-size:15px;}
+.zc-purpose{max-width:560px;margin-top:12px;font-size:15px;}
+.is-zhong .v49-zhong-action-col{display:flex;flex-direction:column;min-width:0;}
+.is-zhong .v49-zhong-action-link{margin-top:auto;}
+.zc-ending{margin-top:40px;border-top:2px solid var(--gold);padding:36px 0 0;}
+.zc-ending p{max-width:760px;}
+@media(max-width:640px){
+.modal-overlay:has(.is-zhong){padding:0;}
+.modal-box.is-zhong{max-width:100%;height:100svh;max-height:100svh;border-radius:0;}
+.is-zhong .modal-head{padding:18px 20px 16px;}
+.is-zhong .m-title{font-size:23px;}
+.is-zhong .m-close{right:12px;top:14px;}
+.is-zhong .modal-body{padding:0 22px 36px;}
+.zc-hero{grid-template-columns:1fr;gap:24px;padding:24px 0 30px;}
+.zc-portrait img{height:280px;}
+.zc-hero h4{font-size:32px;margin-bottom:16px;}
+.zc-problem{grid-template-columns:1fr;gap:22px;padding:28px 0;}
+.zc-price strong{font-size:56px;}
+.zc-insight{padding:26px 22px;margin:28px 0;}
+.zc-insight h4{font-size:25px;}
+.zc-hero p,.zc-insight p,.zc-plan p,.zc-ending p{font-size:16px;}
+.zc-section-copy h4{font-size:21px;}
+.zc-touchpoints{display:grid;gap:10px;}
+.is-zhong .v49-zhong-actions-grid{grid-template-columns:1fr;gap:24px;}
+}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9086,7 +9142,7 @@ function clearServiceRoute(){
 function openModal(id,updateRoute=false){
   const d=MD[id];if(!d)return;
   const modalBox=document.querySelector('#modalOverlay .modal-box');
-  if(modalBox) modalBox.classList.toggle('is-industry',id==='industry');
+  if(modalBox){modalBox.classList.remove('is-zhong');modalBox.classList.toggle('is-industry',id==='industry');modalBox.scrollTop=0;}
   document.getElementById('mTag').textContent=d.tag;
   document.getElementById('mTitle').textContent=d.title;
   document.getElementById('mBody').innerHTML=id==='ecard'?buildEcardServiceModal():(id==='industry'?buildIndustryServiceModal():buildMBody(d));
@@ -9101,46 +9157,34 @@ function openServiceModal(id){
   openModal(id,true);
 }
 function openCaseModal(){
+  const modalBox=document.querySelector('#modalOverlay .modal-box');
+  modalBox.classList.remove('is-industry');
+  modalBox.classList.add('is-zhong');
+  modalBox.scrollTop=0;
   document.getElementById('mTag').textContent='成功案例 01・詠順工程行';
   document.getElementById('mTitle').textContent='抓漏專家 鍾師富';
   document.getElementById('mBody').innerHTML=`
-    <section class="zhong-case-story" aria-label="鍾師富的需求與 MR 規劃">
-      <div class="zhong-case-step">
-        <h4>原本需求｜價格難被接受，訂單受影響</h4>
-        <p>鍾師富因為報價與訂單量的問題，找到小如如。原本檢測報價為 NT$18,000，卻經常遇到客戶殺價，或因無法接受價格而沒有成交。</p>
-      </div>
-      <div class="zhong-case-step">
-        <h4>MR 的判斷｜有專業，卻沒有被看懂</h4>
-        <p>了解後，我們判斷鍾師富是一位很有專業的師傅，但這份專業沒有充分呈現在客戶面前。當對方還看不出他的能力與服務價值，也尚未建立信任時，就很難理解這個價格。</p>
-      </div>
-      <div class="zhong-case-step">
-        <h4>整體規劃｜讓專業與信任出現在每個接觸點</h4>
-        <p>因此，MR 從商務形象、說詞、短影音、LINE 官方帳號與電子名片一起優化。讓客戶無論第一次見面，或先在網路上認識他，都能更清楚理解他的專業與服務價值，建立信任感。</p>
-      </div>
-      <div class="zhong-case-step">
-        <h4>現在的改變｜讓客戶理解專業背後的價值</h4>
-        <p>透過整體優化，鍾師富的專業已能更完整地被看見。客戶在初次接觸時，就有更清楚的資訊理解他的能力、服務與價格背後的價值。</p>
-      </div>
+    <section class="zc-hero">
+      <div class="zc-portrait"><img src="assets/鍾師富改造後1.png" alt="鍾師富的專業形象" decoding="async"><span>詠順工程行・抓漏專家</span></div>
+      <div class="zc-hero-copy"><span class="zc-eyebrow">從價格困境，到專業被理解</span><h4>有專業，<br>為什麼客戶還是<br>只看價格？</h4><p>鍾師富因為報價與訂單量的問題，找到小如如。這次合作，從讓客戶看懂他的價值開始。</p></div>
     </section>
-    <div class="m-sec">執行項目</div>
-    <ul class="m-items">
-      <li>商務形象穿著重塑——從工作服到讓人信任的專業師傅形象</li>
-      <li>男士快速美容——輪廓感提升、眼睛有神，第一眼就信任</li>
-      <li>商務說詞架構——讓客戶 30 秒內理解他能解決什麼問題</li>
-      <li>短影音策略規劃與拍攝——用影像展示「看不見的專業」</li>
-      <li>LINE@ 帳號品牌化——詠順工程行完整品牌視覺建立</li>
-      <li>電子名片設計——LINE 聊天室即可傳送，讓客戶一鍵了解</li>
-    </ul>
-    <div class="m-hl">讓客戶看懂專業，理解服務價值，從第一次接觸開始建立信任。</div>
+    <section class="zc-problem" aria-label="原本需求">
+      <div><span class="zc-eyebrow">01 / 原本的困境</span><div class="zc-price"><small>檢測報價</small><strong><span>NT$</span>18,000</strong></div></div>
+      <div class="zc-friction"><h4>價格提出來了，<br>價值卻還沒被理解。</h4><ul><li>經常遇到殺價</li><li>客戶難以接受價格</li><li>未能成交，影響訂單量</li></ul></div>
+    </section>
+    <section class="zc-insight">
+      <span class="zc-eyebrow">02 / MR 的判斷</span><h4>客戶還沒看懂專業，<br>就先看到了價格。</h4><p>鍾師富是一位很有專業的師傅，但這份能力沒有充分呈現在客戶面前。當客戶看不出專業、尚未建立信任，就很難理解服務背後的價值。</p>
+    </section>
+    <section class="zc-plan"><span class="zc-eyebrow">03 / 整體優化</span><h4>讓每個接觸點，<br>都替專業建立信任。</h4><p>從第一次見面，到網路上認識他，MR 把商務形象、說詞與品牌內容一起整理，讓客戶更容易理解他的能力與服務。</p><div class="zc-touchpoints"><span>見面時｜專業形象</span><span>介紹時｜清楚說詞</span><span>搜尋與轉傳時｜品牌內容</span></div></section>
 
-    <div class="m-cases-label">商務形象穿著改造</div>
+    <div class="m-cases-label">商務形象穿著改造</div><div class="zc-section-copy"><h4>讓外在形象，貼近實際的專業能力。</h4><p>調整穿著與整體形象，讓第一次見面的客戶，更容易感受到專業與信任。</p></div>
     <div class="v48-zhong-clothing-grid">
       <div class="case-block"><img src="assets/鍾師富改造前.png" alt="改造前" loading="lazy" decoding="async"><div class="img-label">BEFORE</div></div>
       <div class="case-block"><img src="assets/鍾師富改造後1.png" alt="改造後1" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 01</div></div>
       <div class="case-block"><img src="assets/鍾師富改造後2.png" alt="改造後2" loading="lazy" decoding="async"><div class="img-label">AFTER · 02</div></div>
     </div>
 
-    <div class="m-cases-label">男士快速美容</div>
+    <div class="m-cases-label">男士快速美容</div><div class="zc-section-copy"><h4>以更有精神的狀態，面對每一次交流。</h4><p>整理面容與精神感，讓商務場合中的第一印象更完整。</p></div>
     <div class="case-duo v48-zhong-beauty-grid">
       <div class="case-block"><img src="assets/鍾師富做臉前.png" alt="美容前" loading="lazy" decoding="async"><div class="img-label">BEFORE · 眼神疲憊 輪廓較沉</div></div>
       <div class="case-block"><img src="assets/鍾師富做臉後.png" alt="美容後" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 擺脫疲憊感 眼睛有神</div></div>
@@ -9150,7 +9194,7 @@ function openCaseModal(){
       <div class="v46-content-head">
         <div>
           <div class="m-cases-label v46-content-label">商業短影音 & 貼文</div>
-          <div class="v46-content-title">把師傅的專業，變成客戶看得懂的內容。</div>
+          <div class="v46-content-title">把師傅的專業，變成客戶看得懂的內容。</div><p class="zc-purpose">透過檢測過程與專業判斷的呈現，讓客戶在網路上，也能理解服務的價值。</p>
         </div>
         <div class="v46-content-index">CONTENT<br>CASE 01</div>
       </div>
@@ -9220,7 +9264,7 @@ function openCaseModal(){
 
     <div class="v49-zhong-actions-grid">
       <div class="v49-zhong-action-col">
-        <div class="m-cases-label">LINE@ 帳號</div>
+        <div class="m-cases-label">LINE@ 帳號</div><div class="zc-section-copy"><h4>延續信任，讓聯繫有一致的品牌印象。</h4><p>把官方帳號的品牌視覺整理一致，讓客戶加入 LINE 後，能接續認識與聯繫。</p></div>
         <a class="v47-line-link v49-zhong-action-link" href="https://line.me/R/ti/p/@799ydgjw?oat_content=url&ts=09231946" target="_blank" rel="noopener" aria-label="開啟詠順工程行 LINE 官方帳號">
           <div class="case-block v49-zhong-action-block">
             <div class="ph-frame v49-zhong-action-frame">
@@ -9233,7 +9277,7 @@ function openCaseModal(){
       </div>
 
       <div class="v49-zhong-action-col">
-        <div class="m-cases-label">電子名片</div>
+        <div class="m-cases-label">電子名片</div><div class="zc-section-copy"><h4>讓商會夥伴，在短時間內理解鍾師富。</h4><p>比起只列聯絡方式的紙本名片，電子名片把專業、服務與案例集中呈現，讓交流更快速有效，也方便夥伴介紹與轉傳。</p></div>
         <button class="v48-ecard-open v49-zhong-action-link" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
           <div class="case-block v48-ecard-preview v49-zhong-action-block">
             <div class="v48-ecard-image-wrap v49-zhong-action-frame">
@@ -9299,6 +9343,7 @@ function openCaseModal(){
 </div>
 
     </section>
+    <section class="zc-ending"><span class="zc-eyebrow">04 / 現在的改變</span><h4>讓專業被理解，<br>信任從第一次接觸開始。</h4><p>透過整體優化，客戶無論在第一次見面或網路上，都有更清楚的資訊理解鍾師富的專業、服務與價格背後的價值。</p></section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
