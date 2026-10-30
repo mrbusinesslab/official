@@ -8287,6 +8287,17 @@ img{
 .zc-role-change strong{font-weight:600;}
 @media(max-width:640px){.zc-results-timeline{grid-template-columns:1fr;gap:20px;}.zc-role-change{display:grid;gap:8px;}}
 </style>
+<style id="zhong-trust-and-business-impact">
+.zc-insight .zc-insight-followup{margin-top:18px;}
+.zc-trust-outcome{margin:32px 0;padding:28px 30px;background:#eae6da;border-left:2px solid var(--gold);}
+.zc-trust-outcome h5{font-size:clamp(25px,2.7vw,34px);line-height:1.5;font-weight:500;margin:0 0 16px;}
+.zc-trust-outcome p{font-size:16px;line-height:1.9;}
+.zc-business-impact{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:32px;}
+.zc-business-impact>div{border-top:1px solid var(--border);padding-top:22px;}
+.zc-business-impact h5{font-size:21px;line-height:1.6;font-weight:500;margin:0 0 12px;}
+.zc-business-impact p{font-size:15px;line-height:1.9;}
+@media(max-width:640px){.zc-trust-outcome{padding:24px 20px;}.zc-business-impact{grid-template-columns:1fr;gap:24px;}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9288,18 +9299,20 @@ function openCaseModal(updateRoute=true){
   document.getElementById('mBody').innerHTML=`
     <section class="zc-hero">
       <div class="zc-portrait"><img src="assets/鍾師富改造後1.png" alt="鍾師富的專業形象" decoding="async"><span>詠順工程行・抓漏專家</span></div>
-      <div class="zc-hero-copy"><span class="zc-eyebrow">從價格困境，到專業被理解</span><h4>有專業，<br>為什麼客戶還是<br>只看價格？</h4><p>鍾師富因為報價與訂單量的問題，找到小如如。這次合作，從讓客戶看懂他的價值開始。</p></div>
+      <div class="zc-hero-copy"><span class="zc-eyebrow">從價格困境，到專業被理解</span><h4>有專業，<br>為什麼客戶還是<br>只看價格？</h4><p>報價常被質疑，每次見新客戶都要重新證明自己。鍾師富因此找到小如如，希望讓別人在第一眼，就能理解並信任他的專業。</p></div>
     </section>
     <section class="zc-problem" aria-label="原本需求">
       <div><span class="zc-eyebrow">01 / 原本的困境</span><div class="zc-price"><small>檢測報價</small><strong><span>NT$</span>18,000</strong></div></div>
-      <div class="zc-friction"><h4>價格提出來了，<br>價值卻還沒被理解。</h4><ul><li>經常遇到殺價</li><li>客戶難以接受價格</li><li>未能成交，影響訂單量</li></ul></div>
+      <div class="zc-friction"><h4>價格提出來了，<br>價值卻還沒被理解。</h4><ul><li>報價常被質疑：「為什麼這麼貴？」</li><li>每次見新客戶，都要從頭解釋自己</li><li>只能比價格，專業價值難被看見</li></ul></div>
     </section>
     <section class="zc-insight">
-      <span class="zc-eyebrow">02 / MR 的判斷</span><h4>客戶還沒看懂專業，<br>就先看到了價格。</h4><p>鍾師富是一位很有專業的師傅，但這份能力沒有充分呈現在客戶面前。當客戶看不出專業、尚未建立信任，就很難理解服務背後的價值。</p>
+      <span class="zc-eyebrow">02 / MR 的判斷</span><h4>客戶還沒看懂專業，<br>就先看到了價格。</h4>
+<p>鍾師富具備豐富的現場經驗，但過去的形象與介紹方式，容易讓人只看見他在現場執行工作的角色，忽略他身為經營者的專業判斷與品牌價值。</p>
+<p class="zc-insight-followup">問題不只在報價，而是每次見新客戶，都必須從頭解釋自己、重新證明專業。當客戶還看不出價值、尚未建立信任，就很難理解檢測價格。</p>
     </section>
-    <section class="zc-plan"><span class="zc-eyebrow">03 / 整體優化</span><h4>讓每個接觸點，<br>都替專業建立信任。</h4><p>從第一次見面，到網路上認識他，MR 把商務形象、說詞與品牌內容一起整理，讓客戶更容易理解他的能力與服務。</p><div class="zc-touchpoints"><span>見面時｜專業形象</span><span>介紹時｜清楚說詞</span><span>搜尋與轉傳時｜品牌內容</span></div></section>
+    <section class="zc-plan"><span class="zc-eyebrow">03 / 整體優化</span><h4>讓每個接觸點，<br>都替專業建立信任。</h4><p>從第一次見面、網路上的認識，到商會交流，MR 把商務形象、說詞與品牌內容一起整理，讓他的外在呈現更貼近實際能力，也讓客戶與合作夥伴更容易理解他的定位與價值。</p><div class="zc-touchpoints"><span>見面時｜專業形象</span><span>介紹時｜清楚說詞</span><span>搜尋與轉傳時｜品牌內容</span></div></section>
 
-    <div class="m-cases-label">商務形象穿著改造</div><div class="zc-section-copy"><h4>讓外在形象，貼近實際的專業能力。</h4><p>調整穿著與整體形象，讓第一次見面的客戶，更容易感受到專業與信任。</p></div>
+    <div class="m-cases-label">商務形象穿著改造</div><div class="zc-section-copy"><h4>讓外在形象，貼近實際的專業能力。</h4><p>讓外在呈現更貼近經營者的角色與實際能力，在客戶拜訪與商會交流中，傳遞更清楚的專業、品牌價值與信任感。</p></div>
     <div class="v48-zhong-clothing-grid">
       <div class="case-block"><img src="assets/鍾師富改造前.png" alt="改造前" loading="lazy" decoding="async"><div class="img-label">BEFORE</div></div>
       <div class="case-block"><img src="assets/鍾師富改造後1.png" alt="改造後1" loading="lazy" decoding="async"><div class="img-label gold">AFTER · 01</div></div>
@@ -9473,7 +9486,13 @@ function openCaseModal(updateRoute=true){
 <div><span>2025.07–09</span><h5>檢測業務持續成長</h5><p>專業檢測成為明確的服務主軸。</p></div>
 </div>
 <div class="zc-role-change"><span>原本｜檢測＋親自施工</span><span aria-hidden="true">→</span><strong>現在｜專注檢測的專家</strong></div>
-<p>工作重心從檢測與施工都自己做，轉為專注於檢測，不再需要親自下場施工。客戶找他的理由，也從「找師傅處理」逐步轉為「找專家判斷問題」。</p></section>
+<p>工作重心從檢測與施工都自己做，轉為專注於檢測，不再需要親自下場施工。客戶找他的理由，也從「找師傅處理」逐步轉為「找專家判斷問題」。</p>
+<div class="zc-trust-outcome"><span class="zc-eyebrow">信任的改變</span><h5>技術沒有改變，<br>客戶理解他的方式改變了。</h5><p>從反覆解釋、面對比價，到開始有客戶願意先付費，再進一步諮詢。專業價值更清楚，也讓信任更早建立。</p></div>
+<div class="zc-business-impact">
+<div><span class="zc-eyebrow">面對客戶</span><h5>專業更清楚，價值更容易被理解。</h5><p>讓客戶在見面與網路接觸時，就能認識他的專業判斷、檢測服務與品牌價值。</p></div>
+<div><span class="zc-eyebrow">商會交流</span><h5>定位更鮮明，交流更有說服力。</h5><p>讓商會夥伴更容易理解他的定位與價值，在交流、合作與轉介紹時，更有說服力與影響力。</p></div>
+</div>
+</section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
