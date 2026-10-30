@@ -8298,6 +8298,57 @@ img{
 .zc-business-impact p{font-size:15px;line-height:1.9;}
 @media(max-width:640px){.zc-trust-outcome{padding:24px 20px;}.zc-business-impact{grid-template-columns:1fr;gap:24px;}}
 </style>
+<style id="zhong-scan-first-impact">
+.zc-insight .zc-insight-key{display:block;font-size:clamp(23px,2.8vw,34px);line-height:1.6;font-weight:600;margin:24px 0;color:#fffaf0;letter-spacing:-.02em;}
+.zc-insight-key span{color:#e7c784;box-shadow:inset 0 -2px 0 #b89b5e;}
+.zc-insight-followup strong{color:#fffaf0;font-weight:600;}
+.zc-inline-key{color:var(--ink);font-weight:600;box-shadow:inset 0 -6px 0 #e5d9bd;}
+.zc-impact-summary{margin-top:44px;padding-top:30px;}
+.zc-impact-heading{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:end;margin:0 0 30px;}
+.zc-impact-summary .zc-impact-heading h4{font-size:clamp(30px,3.6vw,46px);line-height:1.4;letter-spacing:-.035em;font-weight:500;margin:0;}
+.zc-impact-heading h4 strong{font-weight:700;color:#80632c;}
+.zc-impact-summary .zc-impact-heading>p{font-size:18px;line-height:1.7;margin:0 0 4px;color:var(--ink2);}
+.zc-impact-heading>p strong{font-weight:500;color:var(--ink);}
+.zc-results-visual{display:grid;grid-template-columns:1.45fr 1fr;gap:26px;align-items:stretch;}
+.zc-result-comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0;}
+.zc-result-comparison figure{margin:0;min-width:0;}
+.zc-result-photo{height:280px;background:#e7e3da;overflow:hidden;}
+.zc-result-photo img{height:100%;width:100%;object-fit:contain;object-position:center bottom;display:block;}
+.zc-result-comparison figcaption{padding:12px 0 0;font-size:14px;line-height:1.5;color:var(--ink);}
+.zc-result-comparison figcaption span{font-size:10px;letter-spacing:1px;color:#8e7442;margin-right:8px;}
+.zc-result-proof{background:#282a23;padding:26px 28px;color:#fff9ec;display:flex;flex-direction:column;justify-content:center;}
+.zc-result-proof>span{font-size:13px;letter-spacing:.5px;color:#e3d6b6;}
+.zc-result-number{font-family:var(--sans);font-size:clamp(76px,9vw,112px);line-height:1.2;font-weight:500;letter-spacing:-5px;color:#f0d18d;}
+.zc-result-number small{font-family:inherit;font-size:24px;letter-spacing:0;margin-left:12px;font-weight:400;}
+.zc-impact-summary .zc-result-proof>p{font-size:14px;line-height:1.7;color:#e6e1d5;margin:0;}
+.zc-result-role{display:grid;gap:3px;border-top:1px solid #666354;margin-top:20px;padding-top:15px;}
+.zc-result-role span{font-size:12px;color:#c9c4b6;line-height:1.5;}
+.zc-result-role strong{font-size:21px;font-weight:500;line-height:1.5;}
+.zc-impact-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:28px;padding-top:23px;border-top:1px solid var(--border);}
+.zc-impact-points>div>span{font-size:11px;letter-spacing:1px;color:#8e7442;}
+.zc-impact-points h5{font-size:23px;font-weight:600;line-height:1.5;margin:6px 0;}
+.zc-impact-summary .zc-impact-points p{font-size:14px;line-height:1.7;margin:0;}
+.zc-impact-summary .zc-impact-dates{font-size:11px;line-height:1.8;color:var(--ink2);margin:25px 0 0;max-width:none;}
+@media(max-width:640px){
+.zc-insight .zc-insight-key{font-size:24px;}
+.zc-impact-heading{grid-template-columns:1fr;gap:14px;margin-bottom:24px;}
+.zc-impact-summary .zc-impact-heading h4{font-size:33px;}
+.zc-impact-summary .zc-impact-heading>p{font-size:16px;}
+.zc-results-visual{grid-template-columns:1fr;gap:20px;}
+.zc-result-photo{height:210px;}
+.zc-result-proof{padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;align-items:center;}
+.zc-result-proof>span{grid-column:1/-1;}
+.zc-result-number{font-size:88px;}
+.zc-impact-summary .zc-result-proof>p{grid-column:1;grid-row:3;font-size:12px;}
+.zc-result-role{grid-column:2;grid-row:2/4;margin:0;padding:0 0 0 16px;border-top:0;border-left:1px solid #666354;}
+.zc-result-role strong{font-size:18px;}
+.zc-impact-points{grid-template-columns:1fr;gap:18px;}
+.zc-impact-points>div{display:grid;grid-template-columns:1fr 1.3fr;gap:2px 14px;align-items:center;}
+.zc-impact-points>div>span{grid-column:1;}
+.zc-impact-points h5{grid-column:1;font-size:22px;margin:0;}
+.zc-impact-summary .zc-impact-points p{grid-column:2;grid-row:1/3;font-size:14px;}
+}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9307,10 +9358,11 @@ function openCaseModal(updateRoute=true){
     </section>
     <section class="zc-insight">
       <span class="zc-eyebrow">02 / MR 的判斷</span><h4>客戶還沒看懂專業，<br>就先看到了價格。</h4>
-<p>鍾師富具備豐富的現場經驗，但過去的形象與介紹方式，容易讓人只看見他在現場執行工作的角色，忽略他身為經營者的專業判斷與品牌價值。</p>
-<p class="zc-insight-followup">問題不只在報價，而是每次見新客戶，都必須從頭解釋自己、重新證明專業。當客戶還看不出價值、尚未建立信任，就很難理解檢測價格。</p>
+<p>鍾師富具備豐富的現場經驗，但過去的形象與介紹方式，容易讓人只看見他在現場執行工作的角色。</p>
+<strong class="zc-insight-key">忽略他身為經營者的<br><span>專業判斷與品牌價值。</span></strong>
+<p class="zc-insight-followup">每次見新客戶，都必須<strong>從頭解釋、重新證明專業</strong>。當價值還沒被看懂，價格就很難被接受。</p>
     </section>
-    <section class="zc-plan"><span class="zc-eyebrow">03 / 整體優化</span><h4>讓每個接觸點，<br>都替專業建立信任。</h4><p>從第一次見面、網路上的認識，到商會交流，MR 把商務形象、說詞與品牌內容一起整理，讓他的外在呈現更貼近實際能力，也讓客戶與合作夥伴更容易理解他的定位與價值。</p><div class="zc-touchpoints"><span>見面時｜專業形象</span><span>介紹時｜清楚說詞</span><span>搜尋與轉傳時｜品牌內容</span></div></section>
+    <section class="zc-plan"><span class="zc-eyebrow">03 / 整體優化</span><h4>讓每個接觸點，<br>都替專業建立信任。</h4><p>從第一次見面、網路上的認識，到商會交流，MR 把<strong class="zc-inline-key">商務形象、說詞與品牌內容一起整理</strong>，讓外在呈現貼近實際能力，也讓客戶與合作夥伴更容易理解他的定位與價值。</p><div class="zc-touchpoints"><span>見面時｜專業形象</span><span>介紹時｜清楚說詞</span><span>搜尋與轉傳時｜品牌內容</span></div></section>
 
     <div class="m-cases-label">商務形象穿著改造</div><div class="zc-section-copy"><h4>讓外在形象，貼近實際的專業能力。</h4><p>讓外在呈現更貼近經營者的角色與實際能力，在客戶拜訪與商會交流中，傳遞更清楚的專業、品牌價值與信任感。</p></div>
     <div class="v48-zhong-clothing-grid">
@@ -9478,20 +9530,22 @@ function openCaseModal(updateRoute=true){
 </div>
 
     </section>
-    <section class="zc-ending"><span class="zc-eyebrow">04 / 實際改變</span><h4>從檢測兼施工的師傅，<br>走向專門檢測的專家。</h4>
-<p>專案自 2025 年 5 月開始。透過整體品牌優化，讓客戶在第一次見面與網路接觸時，更清楚理解鍾師富的專業與檢測價值。</p>
-<div class="zc-results-timeline">
-<div><span>2025.05</span><h5>啟動整體優化</h5><p>整理形象、說詞與品牌內容，建立一致的專業印象。</p></div>
-<div><span>2025.07</span><h5>18 位檢測客戶</h5><p>檢測案量達到過往未曾有過的規模。</p></div>
-<div><span>2025.07–09</span><h5>檢測業務持續成長</h5><p>專業檢測成為明確的服務主軸。</p></div>
+    <section class="zc-ending zc-impact-summary">
+<span class="zc-eyebrow">04 / 實際改變</span>
+<div class="zc-impact-heading"><h4>開始有客戶<br><strong>先付費，再諮詢。</strong></h4><p>技術沒有改變，<br><strong>被信任的方式改變了。</strong></p></div>
+<div class="zc-results-visual">
+<div class="zc-result-comparison" aria-label="鍾師富形象前後對比">
+<figure><div class="zc-result-photo"><img src="assets/鍾師富改造前.png" alt="鍾師富原本的形象" loading="lazy" decoding="async"></div><figcaption><span>BEFORE</span> 原本形象</figcaption></figure>
+<figure><div class="zc-result-photo"><img src="assets/鍾師富改造後1.png" alt="鍾師富優化後的專業品牌形象" loading="lazy" decoding="async"></div><figcaption><span>AFTER</span> 專業被看見</figcaption></figure>
 </div>
-<div class="zc-role-change"><span>原本｜檢測＋親自施工</span><span aria-hidden="true">→</span><strong>現在｜專注檢測的專家</strong></div>
-<p>工作重心從檢測與施工都自己做，轉為專注於檢測，不再需要親自下場施工。客戶找他的理由，也從「找師傅處理」逐步轉為「找專家判斷問題」。</p>
-<div class="zc-trust-outcome"><span class="zc-eyebrow">信任的改變</span><h5>技術沒有改變，<br>客戶理解他的方式改變了。</h5><p>從反覆解釋、面對比價，到開始有客戶願意先付費，再進一步諮詢。專業價值更清楚，也讓信任更早建立。</p></div>
-<div class="zc-business-impact">
-<div><span class="zc-eyebrow">面對客戶</span><h5>專業更清楚，價值更容易被理解。</h5><p>讓客戶在見面與網路接觸時，就能認識他的專業判斷、檢測服務與品牌價值。</p></div>
-<div><span class="zc-eyebrow">商會交流</span><h5>定位更鮮明，交流更有說服力。</h5><p>讓商會夥伴更容易理解他的定位與價值，在交流、合作與轉介紹時，更有說服力與影響力。</p></div>
+<div class="zc-result-proof"><span>2025 年 7 月・檢測客戶</span><div class="zc-result-number">18<small>位</small></div><p>過往未曾有過的檢測案量</p><div class="zc-result-role"><span>檢測＋親自施工</span><span aria-hidden="true">↓</span><strong>專門檢測的專家</strong></div></div>
 </div>
+<div class="zc-impact-points">
+<div><span>面對客戶</span><h5>價值被理解</h5><p>從反覆比價，到開始願意先付費。</p></div>
+<div><span>商會交流</span><h5>更有說服力</h5><p>定位鮮明，更容易被理解與轉介紹。</p></div>
+<div><span>工作方式</span><h5>專注檢測</h5><p>不再需要親自下場施工。</p></div>
+</div>
+<p class="zc-impact-dates">2025 年 5 月專案啟動 → 7 月檢測 18 位客戶 → 7–9 月檢測業務持續成長</p>
 </section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
