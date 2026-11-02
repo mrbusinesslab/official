@@ -8764,6 +8764,25 @@ button.service-tool-screen{cursor:pointer}
 .brand-delivery-example-image:focus-visible,.brand-delivery-hub button:focus-visible,.brand-delivery-contact a:focus-visible{outline:2px solid #a78645;outline-offset:4px}
 @media(max-width:700px){.brand-delivery-section{padding:42px 0}.brand-delivery-heading h2{font-size:28px}.brand-delivery-heading>p br{display:none}.brand-delivery-pillar{grid-template-columns:1fr;gap:20px;padding:27px 0}.brand-delivery-topic h3{font-size:25px}.brand-delivery-examples{grid-template-columns:1fr;gap:27px}.brand-delivery-hub,.brand-delivery-contact{align-items:flex-start;flex-direction:column;gap:12px}.brand-delivery-example-image{aspect-ratio:1.6}}
 </style>
+<style id="delivery-three-style">
+.delivery-three{padding:44px 0;background:#f5f0e6}
+.delivery-three-heading{margin-bottom:25px}.delivery-three-heading h2{font-size:30px;line-height:1.5;font-weight:500;letter-spacing:-.7px;margin:0}
+.delivery-three-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.delivery-three-card{display:flex;flex-direction:column;min-width:0;border:1px solid #d9cdb5;background:#fffaf1}
+.delivery-three-media{position:relative;display:block;width:100%;height:200px;background:#eae3d7;overflow:hidden;padding:0;border:0;border-bottom:1px solid #d9cdb5;text-decoration:none;cursor:pointer}
+.delivery-three-media>img{display:block;width:100%;height:100%;object-fit:cover}
+.delivery-three-hub iframe{width:1280px;height:900px;display:block;position:absolute;top:0;left:0;transform:scale(.29);transform-origin:top left;border:0;pointer-events:none}
+.delivery-three-copy{padding:20px 21px;flex:1;display:flex;flex-direction:column}
+.delivery-three-copy>span{font-size:11px;line-height:1.7;letter-spacing:.5px;color:#927341}
+.delivery-three-copy h3{font-size:21px;line-height:1.55;font-weight:500;letter-spacing:-.4px;margin:10px 0 12px;min-height:65px}
+.delivery-three-copy p{font-size:14px;line-height:1.85;color:#706859;margin:0 0 20px;flex:1}
+.delivery-three-copy>a,.delivery-three-copy>button{display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;padding:13px 0 0;margin-top:auto;border:0;border-top:1px solid #e0d5bf;background:none;color:#80632f;font:inherit;font-size:12px;line-height:1.6;text-decoration:none;text-align:left;cursor:pointer}
+.delivery-three-copy>a span,.delivery-three-copy>button span{font-size:18px}
+.delivery-three-copy>a:hover,.delivery-three-copy>button:hover{color:#272521;text-decoration:underline}
+.delivery-three-media:focus-visible,.delivery-three-copy>a:focus-visible,.delivery-three-copy>button:focus-visible{outline:2px solid #a78645;outline-offset:3px}
+@media(max-width:1000px) and (min-width:701px){.delivery-three-grid{gap:15px}.delivery-three-copy{padding:18px 16px}.delivery-three-copy h3{font-size:19px;min-height:59px}.delivery-three-media{height:180px}.delivery-three-hub iframe{transform:scale(.25)}}
+@media(max-width:700px){.delivery-three{padding:36px 0}.delivery-three-heading h2{font-size:26px}.delivery-three-grid{grid-template-columns:1fr;gap:20px}.delivery-three-media{height:215px}.delivery-three-hub iframe{transform:scale(.37)}.delivery-three-copy h3{font-size:22px;min-height:0}.delivery-three-copy h3 br{display:none}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8843,14 +8862,13 @@ button.service-tool-screen{cursor:pointer}
 <li><span class="cooperation-num">03</span><h3>執行交付</h3><p>依確認內容分階段製作，完成適合實際使用的成果。</p></li>
 </ol><a class="cooperation-start" href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">先做免費 AI 初步品牌診斷 <span aria-hidden="true">↗</span></a>
 </div></section>
-<section class="service-tools brand-delivery-section" id="industry-service" aria-labelledby="service-tools-title"><div class="service-lower-inner">
-<div class="brand-delivery-heading"><span class="service-lower-kicker">BEYOND THE FIRST IMPRESSION</span><h2 id="service-tools-title">讓品牌的專業，<br>延續到合作與每一次交付。</h2><p>從夥伴之間的引薦，到客戶收到的文件，<br>讓品牌價值落實在生意與服務的每一個接點。</p></div>
-<article class="brand-delivery-pillar"><div class="brand-delivery-topic"><span>產業鏈合作</span><h3>讓同一條產業鏈，<br>帶來更多合作機會。</h3></div><div class="brand-delivery-content"><p>為商會、產業團隊與經營者，整合彼此的專業與合作關係，建立共同的產業入口。</p><p><strong>讓夥伴互相引薦客戶、承接上下游需求，</strong>一起拓展生意。</p><div class="brand-delivery-hub"><span>實際案例 / 建築組產業入口</span><button type="button" onclick="openServiceModal('industry')">看看如何串起合作 <span aria-hidden="true">↗</span></button></div></div></article>
-<article class="brand-delivery-pillar brand-delivery-documents"><div class="brand-delivery-topic"><span>品牌文件自動化</span><h3>專業的價值，<br>也要在交付時被看見。</h3></div><div class="brand-delivery-content"><p>客戶付費後收到的報告、估價單與其他文件，都會影響他對服務價值的感受。</p><p>MR 協助整理文件內容與品牌視覺，再將重複製作的部分自動化，<strong>讓交付有專業感，製作也更省力。</strong></p></div>
-<div class="brand-delivery-examples"><figure><a class="brand-delivery-example-image" href="assets/傑出文件.png" target="_blank" rel="noopener" aria-label="查看傑出油漆品牌估價文件與自動化畫面"><img src="assets/傑出文件.png" alt="傑出油漆估價單產生器與品牌估價文件實際畫面" loading="lazy" decoding="async"></a><figcaption><span>傑出油漆工程行</span><h4>估價文件，呈現一致的品牌形象。</h4><p>整理估價項目與版面格式，減少每次從頭製作。</p></figcaption></figure>
-<figure><a class="brand-delivery-example-image" href="assets/詠順文件.png" target="_blank" rel="noopener" aria-label="查看鍾師富多份品牌文件自動化畫面"><img src="assets/詠順文件.png" alt="詠順工程行檢測報告、工程報價、保固書及其他客戶文件的自動化實際畫面" loading="lazy" decoding="async"></a><figcaption><span>詠順工程行・鍾師富</span><h4>多份客戶文件，延續同一份專業。</h4><p>整合檢測報告、報價與保固等文件，讓交付延續品牌的專業與信任。</p></figcaption></figure></div>
-<div class="brand-delivery-contact"><p>你的專業，值得一份相稱的交付。</p><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊品牌文件需求 <span aria-hidden="true">↗</span></a></div></article>
-</div></section>
+<section class="service-tools brand-delivery-section delivery-three" id="industry-service" aria-labelledby="service-tools-title"><div class="service-lower-inner">
+<div class="delivery-three-heading"><span class="service-lower-kicker">合作與交付</span><h2 id="service-tools-title">從合作機會，到專業交付。</h2></div>
+<div class="delivery-three-grid">
+<article class="delivery-three-card"><button class="delivery-three-media delivery-three-hub" type="button" onclick="openServiceModal('industry')" aria-label="查看產業鏈合作入口案例"><iframe src="https://mrbusinesslab.github.io/BNI-Building/" title="建築組產業入口實際畫面" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></button><div class="delivery-three-copy"><span>建築組產業入口</span><h3>讓夥伴的專業，<br>成為彼此的生意機會。</h3><p>讓產業鏈夥伴互相引薦客戶，串接上下游合作。</p><button type="button" onclick="openServiceModal('industry')">查看合作案例 <span aria-hidden="true">↗</span></button></div></article>
+<article class="delivery-three-card"><a class="delivery-three-media" href="assets/傑出文件.png" target="_blank" rel="noopener" aria-label="放大查看傑出油漆品牌估價文件"><img src="assets/傑出文件.png" alt="傑出油漆品牌估價文件與自動化實際畫面" loading="lazy" decoding="async"></a><div class="delivery-three-copy"><span>傑出油漆工程行</span><h3>估價文件自動化</h3><p>品牌格式一致，減少每次從頭製作估價文件。</p><a href="assets/傑出文件.png" target="_blank" rel="noopener">查看文件畫面 <span aria-hidden="true">↗</span></a></div></article>
+<article class="delivery-three-card"><a class="delivery-three-media" href="assets/詠順文件.png" target="_blank" rel="noopener" aria-label="放大查看鍾師富品牌文件自動化"><img src="assets/詠順文件.png" alt="鍾師富檢測報告、報價、保固等品牌文件自動化實際畫面" loading="lazy" decoding="async"></a><div class="delivery-three-copy"><span>詠順工程行・鍾師富</span><h3>多份品牌文件自動化</h3><p>從檢測報告到保固文件，讓交付延續專業與信任。</p><a href="assets/詠順文件.png" target="_blank" rel="noopener">查看文件畫面 <span aria-hidden="true">↗</span></a></div></article>
+</div></div></section>
 <section class="service-faq" aria-labelledby="service-faq-title"><div class="service-lower-inner">
 <div class="service-lower-head"><div><span class="service-lower-kicker">BEFORE WE START</span><h2 id="service-faq-title">常見問題</h2></div><p>開始之前，<br>你可能想先了解的事。</p></div>
 <div class="service-faq-list"><details class="service-faq-item"><summary><span class="service-faq-no" aria-hidden="true">01</span><span>可以只做一項服務嗎？</span><span class="service-faq-toggle" aria-hidden="true"></span></summary><div class="service-faq-answer"><p>可以，依你目前最需要改善的地方開始，不一定要整套製作。合作前會一起確認適合的項目與範圍。</p></div></details>
