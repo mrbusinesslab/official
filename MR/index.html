@@ -8540,6 +8540,13 @@ img{
 .zc-growth-sustained .zc-growth-substage{color:#e0e8e1}
 @media(max-width:560px){.zc-growth-timeline .zc-phase-badge{font-size:20px;padding:10px 18px}.zc-growth-before .zc-growth-date{margin-bottom:16px}}
 </style>
+<style id="zc-case-next-step">
+.zc-case-next{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:28px;padding:20px 24px;background:#eee7d7;border:1px solid #d5c7a8}
+.zc-impact-summary .zc-case-next p{font-size:18px;font-weight:500;line-height:1.7;margin:0;color:#35372c}
+.zc-case-next a{display:inline-flex;align-items:center;justify-content:center;gap:20px;flex-shrink:0;padding:13px 18px;background:#3c493e;color:#fffaf0;text-decoration:none;font-size:14px;line-height:1.5;transition:background .2s}
+.zc-case-next a:hover{background:#26362b}.zc-case-next a:focus-visible{outline:2px solid #a78645;outline-offset:4px}
+@media(max-width:560px){.zc-case-next{flex-direction:column;align-items:stretch;padding:20px;gap:14px}.zc-impact-summary .zc-case-next p{font-size:17px}.zc-case-next a{align-self:flex-start}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8581,6 +8588,58 @@ img{
 </div>
 <div class="page" id="page-services">
 <div class="svc-page">
+<!-- Needs-led service selection -->
+<section class="track-wrap needs-services" aria-labelledby="needs-title">
+<div class="track-inner">
+<span class="about-sec-label">SERVICE MODULES</span>
+<h2 class="about-title" id="needs-title">依你的缺口，<br>選擇需要的服務</h2>
+<p class="needs-intro">從第一印象、專業理解與品牌傳播三個方向，<br>先選你最想改善的問題，再看看適合從哪項服務開始。</p>
+<p class="needs-question">你現在最想改善什麼？</p>
+<div class="needs-tabs" role="tablist" aria-label="依需求選擇服務">
+<button type="button" class="needs-tab" id="need-tab-impression" role="tab" aria-selected="false" aria-controls="need-panel-impression" tabindex="-1" data-need="impression"><span class="needs-tab-index">01</span><span>見面時，專業感不夠</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-understanding" role="tab" aria-selected="false" aria-controls="need-panel-understanding" tabindex="-1" data-need="understanding"><span class="needs-tab-index">02</span><span>介紹時，說不清楚自己的價值</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-presence" role="tab" aria-selected="true" aria-controls="need-panel-presence" tabindex="0" data-need="presence"><span class="needs-tab-index">03</span><span>網路上，別人看不懂我的專業</span><span class="needs-tab-check" aria-hidden="true">✓</span></button>
+</div>
+<section class="needs-panel" id="need-panel-impression" role="tabpanel" aria-labelledby="need-tab-impression" hidden>
+<div class="needs-panel-head"><div><span class="needs-system">第一印象系統</span><h3>讓第一眼的印象，貼近你真正的專業。</h3><p>從穿著、面容到形象照，整理客戶見到你時最直接的感受。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;">
+<div class="need-service-image"><img src="assets/鍾師富改造後1.png" alt="商務形象穿著實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商務形象穿著</h4><p>讓穿著符合你的專業、客群與商務場合。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=photo#services" onclick="openServiceModal('photo');return false;">
+<div class="need-service-image"><img src="assets/個人形象照.png" alt="形象照拍攝實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>形象照拍攝</h4><p>讓官網、社群與名片上的照片，替你傳遞專業。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;">
+<div class="need-service-image"><img src="assets/鍾師富做臉後.png" alt="男士快速美容實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>男士快速美容</h4><p>在重要見面前，整理面容與精神感。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=body#services" onclick="openServiceModal('body');return false;">
+<div class="need-service-image"><img src="assets/體態管理_案例2.png" alt="體態管理實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>體態管理</h4><p>從體態與日常習慣，建立更有自信的商務形象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;">
+<div class="need-service-image"><img src="assets/頭皮護理_案例1.png" alt="頭皮護理實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>頭皮護理</h4><p>了解頭皮與髮況，讓整體形象更完整。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section><section class="needs-panel" id="need-panel-understanding" role="tabpanel" aria-labelledby="need-tab-understanding" hidden>
+<div class="needs-panel-head"><div><span class="needs-system">專業理解系統</span><h3>讓別人聽得懂，你的專業能幫上什麼。</h3><p>釐清定位、整理說詞，把經驗與能力變成客戶容易理解的介紹。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=gains#services" onclick="openServiceModal('gains');return false;">
+<div class="need-service-image"><img src="assets/GAINS_after.png" alt="個人定位・GAINS 表撰寫實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>個人定位・GAINS 表撰寫</h4><p>釐清你的優勢、目標客群與希望獲得的引薦。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=script#services" onclick="openServiceModal('script');return false;">
+<div class="need-service-image"><img src="assets/商務.png" alt="商務說詞架構實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商務說詞架構</h4><p>把「我是誰、能幫誰、如何合作」說得清楚。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=deck#services" onclick="openServiceModal('deck');return false;">
+<div class="need-service-image"><img src="assets/品牌簡報_自我介紹.png" alt="品牌簡報設計實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>品牌簡報設計</h4><p>把零散內容，整理成有重點、有說服力的故事。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence">
+<div class="needs-panel-head"><div><span class="needs-system">品牌傳播系統</span><h3>讓客戶在聯繫前，先理解你的專業。</h3><p>把介紹、作品與聯繫方式整理好，讓網路上的每次接觸都更有方向。</p></div><span class="needs-result-label">適合你的服務</span></div>
+<div class="needs-service-grid"><a class="need-service-card" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;">
+<div class="need-service-image need-card-collage"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.jpg?v=841c3b214508" alt="鍾師富電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case3_emma/1.jpg?v=51a4c20fcd60" alt="Emma電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.jpg?v=86360f26629e" alt="齊齊 游宛齊電子名片作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>電子名片</h4><p>讓初次認識你的人，快速看懂專業、服務與合作方式。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=line#services" onclick="openServiceModal('line');return false;">
+<div class="need-service-image"><img src="assets/LINE_案例1.png" alt="LINE 官方帳號實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>LINE 官方帳號</h4><p>把品牌介紹、服務資訊與聯繫入口，集中在熟悉的 LINE。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=video#services" onclick="openServiceModal('video');return false;">
+<div class="need-service-image"><img src="assets/短影音1.png" alt="商業短影音／貼文實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>商業短影音／貼文</h4><p>把專業過程與觀點，變成客戶看得懂的內容。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=industry#services" onclick="openServiceModal('industry');return false;">
+<div class="need-service-image need-industry-art"><span class="need-art-label">產業入口</span><strong>找需求<br><span>認識對的人</span></strong><div class="need-art-flow"><span>需求</span><i>→</i><span>專業媒合</span><i>→</i><span>成員介紹</span></div></div>
+<div class="need-service-copy"><h4>產業入口</h4><p>讓客戶從自己的需求出發，找到適合的專業夥伴。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;">
+<div class="need-service-image"><img src="assets/貼圖_案例1.png" alt="專屬貼圖設計實際作品" loading="lazy" decoding="async"></div>
+<div class="need-service-copy"><h4>專屬貼圖設計</h4><p>讓日常對話，也能留下你的品牌印象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
+</section>
+<div class="needs-help"><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">不確定怎麼選？先做免費 AI 初步品牌診斷 ↗</a><span>不需要一次全部做，先從最重要的問題開始。</span></div>
+<details class="needs-extension"><summary>延伸合作服務</summary><a href="?service=fortune#services" onclick="openServiceModal('fortune');return false;">品牌／企業運勢 <span aria-hidden="true">↗</span></a></details>
+</div>
+</section>
+
+
 <!-- Process -->
 <div class="proc-wrap">
 <div class="proc-inner">
@@ -8647,57 +8706,6 @@ img{
 </div>
 </div>
 </section>
-<!-- Needs-led service selection -->
-<section class="track-wrap needs-services" aria-labelledby="needs-title">
-<div class="track-inner">
-<span class="about-sec-label">SERVICE MODULES</span>
-<h2 class="about-title" id="needs-title">依你的缺口，<br>選擇需要的服務</h2>
-<p class="needs-intro">延續第一印象、專業理解與品牌傳播三個方向，<br>先選你最想改善的問題，再看看適合從哪項服務開始。</p>
-<p class="needs-question">你現在最想改善什麼？</p>
-<div class="needs-tabs" role="tablist" aria-label="依需求選擇服務">
-<button type="button" class="needs-tab" id="need-tab-impression" role="tab" aria-selected="false" aria-controls="need-panel-impression" tabindex="-1" data-need="impression"><span class="needs-tab-index">01</span><span>見面時，專業感不夠</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-understanding" role="tab" aria-selected="false" aria-controls="need-panel-understanding" tabindex="-1" data-need="understanding"><span class="needs-tab-index">02</span><span>介紹時，說不清楚自己的價值</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-presence" role="tab" aria-selected="true" aria-controls="need-panel-presence" tabindex="0" data-need="presence"><span class="needs-tab-index">03</span><span>網路上，別人看不懂我的專業</span><span class="needs-tab-check" aria-hidden="true">✓</span></button>
-</div>
-<section class="needs-panel" id="need-panel-impression" role="tabpanel" aria-labelledby="need-tab-impression" hidden>
-<div class="needs-panel-head"><div><span class="needs-system">第一印象系統</span><h3>讓第一眼的印象，貼近你真正的專業。</h3><p>從穿著、面容到形象照，整理客戶見到你時最直接的感受。</p></div><span class="needs-result-label">適合你的服務</span></div>
-<div class="needs-service-grid"><a class="need-service-card" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;">
-<div class="need-service-image"><img src="assets/鍾師富改造後1.png" alt="商務形象穿著實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>商務形象穿著</h4><p>讓穿著符合你的專業、客群與商務場合。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=photo#services" onclick="openServiceModal('photo');return false;">
-<div class="need-service-image"><img src="assets/個人形象照.png" alt="形象照拍攝實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>形象照拍攝</h4><p>讓官網、社群與名片上的照片，替你傳遞專業。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=beauty#services" onclick="openServiceModal('beauty');return false;">
-<div class="need-service-image"><img src="assets/鍾師富做臉後.png" alt="男士快速美容實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>男士快速美容</h4><p>在重要見面前，整理面容與精神感。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=body#services" onclick="openServiceModal('body');return false;">
-<div class="need-service-image"><img src="assets/體態管理_案例2.png" alt="體態管理實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>體態管理</h4><p>從體態與日常習慣，建立更有自信的商務形象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=scalp#services" onclick="openServiceModal('scalp');return false;">
-<div class="need-service-image"><img src="assets/頭皮護理_案例1.png" alt="頭皮護理實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>頭皮護理</h4><p>了解頭皮與髮況，讓整體形象更完整。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
-</section><section class="needs-panel" id="need-panel-understanding" role="tabpanel" aria-labelledby="need-tab-understanding" hidden>
-<div class="needs-panel-head"><div><span class="needs-system">專業理解系統</span><h3>讓別人聽得懂，你的專業能幫上什麼。</h3><p>釐清定位、整理說詞，把經驗與能力變成客戶容易理解的介紹。</p></div><span class="needs-result-label">適合你的服務</span></div>
-<div class="needs-service-grid"><a class="need-service-card" href="?service=gains#services" onclick="openServiceModal('gains');return false;">
-<div class="need-service-image"><img src="assets/GAINS_after.png" alt="個人定位・GAINS 表撰寫實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>個人定位・GAINS 表撰寫</h4><p>釐清你的優勢、目標客群與希望獲得的引薦。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=script#services" onclick="openServiceModal('script');return false;">
-<div class="need-service-image"><img src="assets/商務.png" alt="商務說詞架構實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>商務說詞架構</h4><p>把「我是誰、能幫誰、如何合作」說得清楚。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=deck#services" onclick="openServiceModal('deck');return false;">
-<div class="need-service-image"><img src="assets/品牌簡報_自我介紹.png" alt="品牌簡報設計實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>品牌簡報設計</h4><p>把零散內容，整理成有重點、有說服力的故事。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
-</section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence">
-<div class="needs-panel-head"><div><span class="needs-system">品牌傳播系統</span><h3>讓客戶在聯繫前，先理解你的專業。</h3><p>把介紹、作品與聯繫方式整理好，讓網路上的每次接觸都更有方向。</p></div><span class="needs-result-label">適合你的服務</span></div>
-<div class="needs-service-grid"><a class="need-service-card" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;">
-<div class="need-service-image need-card-collage"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.jpg?v=841c3b214508" alt="鍾師富電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case3_emma/1.jpg?v=51a4c20fcd60" alt="Emma電子名片作品" loading="lazy" decoding="async"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case16_%E9%BD%8A%E9%BD%8A/1.jpg?v=86360f26629e" alt="齊齊 游宛齊電子名片作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>電子名片</h4><p>讓初次認識你的人，快速看懂專業、服務與合作方式。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=line#services" onclick="openServiceModal('line');return false;">
-<div class="need-service-image"><img src="assets/LINE_案例1.png" alt="LINE 官方帳號實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>LINE 官方帳號</h4><p>把品牌介紹、服務資訊與聯繫入口，集中在熟悉的 LINE。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=video#services" onclick="openServiceModal('video');return false;">
-<div class="need-service-image"><img src="assets/短影音1.png" alt="商業短影音／貼文實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>商業短影音／貼文</h4><p>把專業過程與觀點，變成客戶看得懂的內容。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=industry#services" onclick="openServiceModal('industry');return false;">
-<div class="need-service-image need-industry-art"><span class="need-art-label">產業入口</span><strong>找需求<br><span>認識對的人</span></strong><div class="need-art-flow"><span>需求</span><i>→</i><span>專業媒合</span><i>→</i><span>成員介紹</span></div></div>
-<div class="need-service-copy"><h4>產業入口</h4><p>讓客戶從自己的需求出發，找到適合的專業夥伴。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a><a class="need-service-card" href="?service=sticker#services" onclick="openServiceModal('sticker');return false;">
-<div class="need-service-image"><img src="assets/貼圖_案例1.png" alt="專屬貼圖設計實際作品" loading="lazy" decoding="async"></div>
-<div class="need-service-copy"><h4>專屬貼圖設計</h4><p>讓日常對話，也能留下你的品牌印象。</p><span class="need-service-more">查看服務 <span aria-hidden="true">↗</span></span></div></a></div>
-</section>
-<div class="needs-help"><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">不確定怎麼選？先做免費 AI 初步品牌診斷 ↗</a><span>不需要一次全部做，先從最重要的問題開始。</span></div>
-<details class="needs-extension"><summary>延伸合作服務</summary><a href="?service=fortune#services" onclick="openServiceModal('fortune');return false;">品牌／企業運勢 <span aria-hidden="true">↗</span></a></details>
-</div>
-</section>
-
 <!-- V77 INDUSTRY HUB SERVICE PREVIEW -->
 <section class="v77-industry-preview" id="industry-service">
   <div class="v77-industry-preview-inner">
@@ -9449,7 +9457,7 @@ function openCaseModal(updateRoute=true){
 <div><span>商會交流</span><h5>更有說服力</h5><p>定位鮮明，更容易被理解與轉介紹。</p></div>
 <div><span>工作方式</span><h5>專注檢測</h5><p>不再需要親自下場施工。</p></div>
 </div>
-
+<div class="zc-case-next"><p>你也希望客戶看懂你的專業嗎？</p><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊我的品牌需求 <span aria-hidden="true">↗</span></a></div>
 </section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
