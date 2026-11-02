@@ -8530,6 +8530,16 @@ img{
 .zc-growth-start .zc-growth-date{margin-bottom:20px;color:#6b5428}
 @media(max-width:560px){.zc-growth-start .zc-project-start-badge{font-size:20px;padding:10px 18px}.zc-growth-start .zc-growth-date{margin-bottom:16px}}
 </style>
+<style id="zc-all-phase-badges">
+.zc-growth-timeline .zc-phase-badge{align-self:flex-start;font-size:19px;font-weight:600;line-height:1.4;letter-spacing:2px;padding:10px 14px;margin:0 0 15px;border-radius:2px}
+.zc-growth-before .zc-phase-badge{background:#77766f;color:#fff}
+.zc-growth-breakthrough .zc-phase-badge{background:#87652e;color:#fffaf0}
+.zc-growth-sustained .zc-phase-badge{background:#f0d18d;color:#2d4139}
+.zc-growth-before .zc-growth-date{margin-bottom:20px}
+.zc-growth-substage{font-size:12px;line-height:1.6;margin:10px 0 14px;font-weight:500}
+.zc-growth-sustained .zc-growth-substage{color:#e0e8e1}
+@media(max-width:560px){.zc-growth-timeline .zc-phase-badge{font-size:20px;padding:10px 18px}.zc-growth-before .zc-growth-date{margin-bottom:16px}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9422,10 +9432,10 @@ function openCaseModal(updateRoute=true){
 <span class="zc-eyebrow">04 / 實際改變</span>
 <div class="zc-impact-heading"><h4>開始有客戶<br><strong>先付費，再諮詢。</strong></h4><p>技術沒有改變，<br><strong>被信任的方式改變了。</strong></p></div>
 <ol class="zc-growth-timeline" aria-label="鍾師富合作前後成果時間軸">
-<li class="zc-growth-before"><span class="zc-growth-date">2025 年 5 月以前</span><span class="zc-growth-stage">合作前的困境</span><h5>有專業，<br>卻難成交。</h5><p>檢測報價常被質疑、殺價，專業價值難被理解。</p></li>
+<li class="zc-growth-before"><span class="zc-growth-stage zc-phase-badge">合作前困境</span><span class="zc-growth-date">2025 年 5 月以前</span><h5>有專業，<br>卻難成交。</h5><p>檢測報價常被質疑、殺價，專業價值難被理解。</p></li>
 <li class="zc-growth-start"><span class="zc-growth-stage zc-project-start-badge">專案啟動</span><span class="zc-growth-date">2025 年 5 月</span><h5>讓專業<br>被看見。</h5><p>整合商務形象、專業介紹與品牌內容，建立信任。</p><span class="zc-growth-interval">僅 2 個月 →</span></li>
-<li class="zc-growth-breakthrough"><span class="zc-growth-date">2025 年 7 月</span><span class="zc-growth-stage">啟動後僅 2 個月</span><div class="zc-growth-number">18<small>位</small></div><h5>單月檢測客戶</h5><p>達到他過去從未有過的檢測接案量。</p></li>
-<li class="zc-growth-sustained"><span class="zc-growth-date">2025 年 7–9 月</span><span class="zc-growth-stage">持續成長・三個月整體表現</span><div class="zc-growth-number">3.5<small>倍</small></div><h5>檢測訂單量<br>達過去的 3.5 倍</h5><p>從難以說服客戶，到專業被理解與選擇。</p><small class="zc-growth-note">7–9 月統計期間包含 7 月</small></li>
+<li class="zc-growth-breakthrough"><span class="zc-growth-stage zc-phase-badge">首次突破</span><span class="zc-growth-date">2025 年 7 月</span><span class="zc-growth-substage">啟動後僅 2 個月</span><div class="zc-growth-number">18<small>位</small></div><h5>單月檢測客戶</h5><p>達到他過去從未有過的檢測接案量。</p></li>
+<li class="zc-growth-sustained"><span class="zc-growth-stage zc-phase-badge">持續成長</span><span class="zc-growth-date">2025 年 7–9 月</span><span class="zc-growth-substage">三個月整體表現</span><div class="zc-growth-number">3.5<small>倍</small></div><h5>檢測訂單量<br>達過去的 3.5 倍</h5><p>從難以說服客戶，到專業被理解與選擇。</p><small class="zc-growth-note">7–9 月統計期間包含 7 月</small></li>
 </ol>
 <div class="zc-results-visual">
 <div class="zc-result-comparison" aria-label="鍾師富形象前後對比">
