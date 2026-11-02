@@ -8709,6 +8709,7 @@ button.service-tool-screen{cursor:pointer}
 @media(max-width:420px){.video-work-reels,.video-work-posts{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}.video-work-reels figure{flex:0 0 75%;scroll-snap-align:start}.video-work-posts figure{flex:0 0 85%;scroll-snap-align:start}}
 </style>
 <style id="video-work-links-style">.video-work-story figure>a{display:block;color:inherit;text-decoration:none;cursor:pointer}.video-work-story figure>a:hover figcaption{text-decoration:underline;color:#49391c}.video-work-story figure>a:focus-visible{outline:2px solid #9b7c40;outline-offset:5px;border-radius:12px}</style>
+<style id="needs-entry-guide-style">.needs-start-guide{padding:24px;text-align:center;border:1px dashed #c7b68e;color:#8a703d;background:#f1ebdf;margin-bottom:24px}.needs-start-guide[hidden]{display:none}.needs-start-guide>span{font-size:25px;line-height:1;display:block}.needs-start-guide p{font-size:14px;line-height:1.8;margin:10px 0 0}.needs-question>span{display:inline-block;margin-left:8px;color:#957033}.needs-tab:hover{background:#ece1ca;border-color:#957033}.needs-tab[aria-selected="true"]:hover{background:#25251f}.needs-services .about-title{margin-bottom:18px}</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -8754,12 +8755,13 @@ button.service-tool-screen{cursor:pointer}
 <section class="track-wrap needs-services" aria-labelledby="needs-title">
 <div class="track-inner">
 <span class="about-sec-label">SERVICE MODULES</span>
-<h2 class="about-title" id="needs-title">找到適合你的做法</h2>
-<p class="needs-intro">從第一印象、專業理解與品牌傳播三個方向，<br>先選你最想改善的問題，再看看適合從哪項服務開始。</p>
-<p class="needs-question">你現在最想改善什麼？</p>
+<h2 class="about-title" id="needs-title">你目前最想改善什麼？</h2>
+<p class="needs-intro">先選一個最接近你的狀況，<br>我們再帶你看看適合的服務。</p>
+<p class="needs-question">點選下方需求，查看建議做法 <span aria-hidden="true">↓</span></p>
 <div class="needs-tabs" role="tablist" aria-label="依需求選擇服務">
-<button type="button" class="needs-tab" id="need-tab-impression" role="tab" aria-selected="false" aria-controls="need-panel-impression" tabindex="-1" data-need="impression"><span class="needs-tab-index">01</span><span>見面時，專業感不夠</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-understanding" role="tab" aria-selected="false" aria-controls="need-panel-understanding" tabindex="-1" data-need="understanding"><span class="needs-tab-index">02</span><span>介紹時，說不清楚自己的價值</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-presence" role="tab" aria-selected="true" aria-controls="need-panel-presence" tabindex="0" data-need="presence"><span class="needs-tab-index">03</span><span>網路上，別人看不懂我的專業</span><span class="needs-tab-check" aria-hidden="true">✓</span></button>
+<button type="button" class="needs-tab" id="need-tab-impression" role="tab" aria-selected="false" aria-controls="need-panel-impression" tabindex="0" data-need="impression"><span class="needs-tab-index">01</span><span>見面時，專業感不夠</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-understanding" role="tab" aria-selected="false" aria-controls="need-panel-understanding" tabindex="-1" data-need="understanding"><span class="needs-tab-index">02</span><span>介紹時，說不清楚自己的價值</span><span class="needs-tab-check" aria-hidden="true">✓</span></button><button type="button" class="needs-tab" id="need-tab-presence" role="tab" aria-selected="false" aria-controls="need-panel-presence" tabindex="-1" data-need="presence"><span class="needs-tab-index">03</span><span>網路上，別人看不懂我的專業</span><span class="needs-tab-check" aria-hidden="true">✓</span></button>
 </div>
+<div class="needs-start-guide" id="needs-start-guide"><span aria-hidden="true">↑</span><p>選擇上方需求，這裡會顯示適合你的服務。</p></div>
 <section class="needs-panel" id="need-panel-impression" role="tabpanel" aria-labelledby="need-tab-impression" hidden>
 <div class="needs-panel-head"><div><span class="needs-system">第一次見面</span><h3>讓外在呈現，貼近你真正的專業。</h3><p>先找到你遇到的狀況，再看看可以從哪裡調整。</p></div></div>
 <div class="needs-poster-grid needs-poster-impression"><a class="needs-poster-card" href="?service=wardrobe#services" onclick="openServiceModal('wardrobe');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-impression-blackgold-v2.jpg');background-position:0% 0%" role="img" aria-label="商務形象穿著情境插圖"></span><span class="needs-poster-copy"><h4>讓穿著，<br><span class="needs-benefit-key">符合你的專業與場合。</span></h4><span class="needs-poster-label">商務形象穿著<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a>
@@ -8770,7 +8772,7 @@ button.service-tool-screen{cursor:pointer}
 <div class="needs-panel-head"><div><span class="needs-system">介紹與交流</span><h3>把你擅長的事，說成別人聽得懂的話。</h3><p>不必先了解工具名稱，從你最常卡住的地方開始。</p></div></div>
 <div class="needs-poster-grid needs-poster-understanding"><a class="needs-poster-card" href="?service=gains#services" onclick="openServiceModal('gains');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-understanding-blackgold-v2.jpg');background-position:0% 0%" role="img" aria-label="個人定位・GAINS 表撰寫情境插圖"></span><span class="needs-poster-copy"><h4>整理你的優勢，<br><span class="needs-benefit-key">讓夥伴知道怎麼引薦。</span></h4><span class="needs-poster-label">個人定位・GAINS 表撰寫<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a>
 <a class="needs-poster-card" href="?service=script#services" onclick="openServiceModal('script');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-understanding-blackgold-v2.jpg');background-position:50% 0%" role="img" aria-label="商務說詞架構情境插圖"></span><span class="needs-poster-copy"><h4>把你能幫上的忙，<br><span class="needs-benefit-key">說得清楚。</span></h4><span class="needs-poster-label">商務說詞架構<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a>
-<a class="needs-poster-card" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-understanding-blackgold-v2.jpg');background-position:100% 0%" role="img" aria-label="品牌簡報設計情境插圖"></span><span class="needs-poster-copy"><h4>讓提案與介紹，<br><span class="needs-benefit-key">一眼看懂重點。</span></h4><span class="needs-poster-label">品牌簡報設計<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a></div></section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence">
+<a class="needs-poster-card" href="?service=deck#services" onclick="openServiceModal('deck');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-understanding-blackgold-v2.jpg');background-position:100% 0%" role="img" aria-label="品牌簡報設計情境插圖"></span><span class="needs-poster-copy"><h4>讓提案與介紹，<br><span class="needs-benefit-key">一眼看懂重點。</span></h4><span class="needs-poster-label">品牌簡報設計<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a></div></section><section class="needs-panel" id="need-panel-presence" role="tabpanel" aria-labelledby="need-tab-presence" hidden>
 <div class="needs-panel-head"><div><span class="needs-system">網路上的認識與聯繫</span><h3>讓客戶先看懂，也讓你不用每次從頭說。</h3><p>從介紹自己、回答問題到被更多人認識，找到你需要的做法。</p></div></div>
 <div class="needs-poster-grid needs-poster-presence"><a class="needs-poster-card" href="?service=ecard#services" onclick="openServiceModal('ecard');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-ecard-illustration-blackgold-v2.jpg');background-size:cover;background-position:center" role="img" aria-label="紙本名片與電子名片對比"></span><span class="needs-poster-copy"><h4>介紹與作品，<br><span class="needs-benefit-key">一次傳齊。</span></h4><span class="needs-poster-label">電子名片<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a>
 <a class="needs-poster-card" href="?service=line#services" onclick="openServiceModal('line');return false;"><span class="needs-poster-art" style="--poster-image:url('assets/luru-services-presence-blackgold-v2.jpg');background-position:50% 0%" role="img" aria-label="LINE 官方帳號情境插圖"></span><span class="needs-poster-copy"><h4>常見問題，<br><span class="needs-benefit-key">不必重複說。</span></h4><span class="needs-poster-label">LINE 官方帳號<span class="needs-poster-arrow" aria-hidden="true">↗</span></span></span></a>
@@ -9019,6 +9021,7 @@ function toggleMobileMenu(){
 }
 function showPage(name,updateHash=true){
   if(!pages[name]) name='about';
+  if(name==='services'&&typeof resetServiceNeeds==='function')resetServiceNeeds();
   Object.values(pages).forEach(id=>document.getElementById(id).classList.remove('active'));
   document.getElementById(pages[name]).classList.add('active');
   Object.values(navIds).forEach(id=>document.getElementById(id).classList.remove('active'));
@@ -10214,11 +10217,19 @@ document.addEventListener('keydown',e=>{
 },true);
 </script>
 <script id="needs-service-tabs">
+function resetServiceNeeds(){
+ const root=document.querySelector(".needs-services");if(!root)return;
+ root.querySelectorAll('[role="tab"]').forEach((tab,i)=>{tab.setAttribute("aria-selected","false");tab.tabIndex=i===0?0:-1;});
+ root.querySelectorAll('[role="tabpanel"]').forEach(panel=>panel.hidden=true);
+ const guide=document.getElementById("needs-start-guide");if(guide)guide.hidden=false;
+}
 (function(){
  const root=document.querySelector('.needs-services');
  if(!root)return;
  const tabs=Array.from(root.querySelectorAll('[role="tab"]'));
+ resetServiceNeeds();
  function select(tab,focus){
+  const guide=document.getElementById("needs-start-guide");if(guide)guide.hidden=true;
   tabs.forEach(t=>{const active=t===tab;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!active;});
   if(focus)tab.focus();
  }
