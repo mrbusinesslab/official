@@ -8502,6 +8502,29 @@ img{
 .zc-impact-summary .zc-result-role{margin-top:20px;padding:15px 0 0;border-left:0;border-top:1px solid #666354}
 @media(max-width:700px){.zc-result-metrics{gap:20px}.zc-result-metrics .zc-result-number{font-size:64px}.zc-result-metrics .zc-result-number small{font-size:19px}.zc-impact-summary .zc-result-role{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}.zc-impact-summary .zc-result-proof>p{font-size:15px}}
 </style>
+<style id="zc-growth-timeline-style">
+.zc-growth-timeline{display:grid;grid-template-columns:.86fr .94fr 1.12fr 1.18fr;gap:12px;list-style:none;padding:0;margin:28px 0 32px}
+.zc-growth-timeline>li{position:relative;min-width:0;padding:22px 20px 24px;border-top:4px solid;display:flex;flex-direction:column}
+.zc-growth-date{font-size:12px;font-weight:500;letter-spacing:.4px;line-height:1.6}
+.zc-growth-stage{font-size:11px;line-height:1.6;margin:14px 0 12px}
+.zc-impact-summary .zc-growth-timeline h5{font-size:23px;line-height:1.5;font-weight:500;margin:0 0 14px}
+.zc-impact-summary .zc-growth-timeline p{font-size:14px;line-height:1.8;margin:0}
+.zc-growth-before{background:#e8e7e3;border-color:#a6a49f!important;color:#65645f}.zc-growth-before .zc-growth-stage{color:#73716a}
+.zc-growth-start{background:#f0e8d6;border-color:#b1965e!important;color:#6b5428}
+.zc-growth-breakthrough{background:#e9d5a0;border-color:#aa8240!important;color:#49371b}
+.zc-growth-sustained{background:#2d4139;border-color:#6e907b!important;color:#fffaf0}
+.zc-growth-number{font-family:var(--sans);font-size:64px;line-height:1.1;letter-spacing:-3px;font-weight:500;margin:0 0 10px;white-space:nowrap}.zc-growth-number small{font-size:21px;letter-spacing:0;margin-left:5px}
+.zc-growth-sustained .zc-growth-number{color:#f0d18d}.zc-impact-summary .zc-growth-sustained p{color:#e0e8e1}
+.zc-growth-interval{font-size:15px;font-weight:500;border-top:1px solid #cbbb95;margin-top:auto;padding-top:14px}
+.zc-growth-note{font-size:10px;line-height:1.6;opacity:.76;margin-top:16px}
+.zc-impact-summary .zc-results-visual{grid-template-columns:1.35fr 1fr;gap:32px;align-items:center}
+.zc-impact-summary .zc-result-photo{height:210px}
+.zc-growth-position>span{font-size:12px;color:#8c7345}
+.zc-impact-summary .zc-growth-position h5{font-size:26px;line-height:1.6;font-weight:500;margin:12px 0}
+.zc-impact-summary .zc-growth-position p{font-size:14px;line-height:1.9;margin:0;color:#68655d}
+@media(max-width:900px){.zc-growth-timeline{grid-template-columns:1fr 1fr;gap:14px}.zc-growth-interval{margin-top:18px}.zc-impact-summary .zc-results-visual{gap:22px}}
+@media(max-width:560px){.zc-growth-timeline{grid-template-columns:1fr;gap:0;padding-left:18px;border-left:2px solid #c1b695;margin-left:3px}.zc-growth-timeline>li{margin-bottom:18px;padding:20px 22px}.zc-growth-timeline>li:before{content:'';position:absolute;left:-25px;top:21px;width:10px;height:10px;border-radius:50%;background:#b1965e;border:2px solid #f4f0e7}.zc-growth-timeline>.zc-growth-before:before{background:#a6a49f}.zc-growth-timeline>.zc-growth-sustained:before{background:#2d4139}.zc-growth-number{font-size:72px}.zc-impact-summary .zc-growth-timeline h5{font-size:24px}.zc-growth-stage{margin-top:10px}.zc-growth-interval{margin-top:16px}.zc-impact-summary .zc-results-visual{grid-template-columns:1fr}.zc-impact-summary .zc-result-photo{height:190px}.zc-impact-summary .zc-growth-position h5{font-size:24px}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9393,19 +9416,25 @@ function openCaseModal(updateRoute=true){
     <section class="zc-ending zc-impact-summary">
 <span class="zc-eyebrow">04 / 實際改變</span>
 <div class="zc-impact-heading"><h4>開始有客戶<br><strong>先付費，再諮詢。</strong></h4><p>技術沒有改變，<br><strong>被信任的方式改變了。</strong></p></div>
+<ol class="zc-growth-timeline" aria-label="鍾師富合作前後成果時間軸">
+<li class="zc-growth-before"><span class="zc-growth-date">2025 年 5 月以前</span><span class="zc-growth-stage">合作前的困境</span><h5>有專業，<br>卻難成交。</h5><p>檢測報價常被質疑、殺價，專業價值難被理解。</p></li>
+<li class="zc-growth-start"><span class="zc-growth-date">2025 年 5 月</span><span class="zc-growth-stage">專案啟動</span><h5>讓專業<br>被看見。</h5><p>整合商務形象、專業介紹與品牌內容，建立信任。</p><span class="zc-growth-interval">僅 2 個月 →</span></li>
+<li class="zc-growth-breakthrough"><span class="zc-growth-date">2025 年 7 月</span><span class="zc-growth-stage">啟動後僅 2 個月</span><div class="zc-growth-number">18<small>位</small></div><h5>單月檢測客戶</h5><p>達到他過去從未有過的檢測接案量。</p></li>
+<li class="zc-growth-sustained"><span class="zc-growth-date">2025 年 7–9 月</span><span class="zc-growth-stage">持續成長・三個月整體表現</span><div class="zc-growth-number">3.5<small>倍</small></div><h5>檢測訂單量<br>達過去的 3.5 倍</h5><p>從難以說服客戶，到專業被理解與選擇。</p><small class="zc-growth-note">7–9 月統計期間包含 7 月</small></li>
+</ol>
 <div class="zc-results-visual">
 <div class="zc-result-comparison" aria-label="鍾師富形象前後對比">
 <figure><div class="zc-result-photo"><img src="assets/鍾師富改造前.png" alt="鍾師富原本的形象" loading="lazy" decoding="async"></div><figcaption><span>BEFORE</span> 原本形象</figcaption></figure>
 <figure><div class="zc-result-photo"><img src="assets/鍾師富改造後1.png" alt="鍾師富優化後的專業品牌形象" loading="lazy" decoding="async"></div><figcaption><span>AFTER</span> 專業被看見</figcaption></figure>
 </div>
-<div class="zc-result-proof"><span>從檢測難成交，到專業被選擇</span><div class="zc-result-metrics"><div><span>專案啟動後僅</span><div class="zc-result-number">2<small>個月</small></div></div><div><span>單月檢測客戶</span><div class="zc-result-number">18<small>位</small></div></div></div><p><strong>達到他過去從未有過的<br>檢測接案量。</strong></p><div class="zc-result-role"><span>檢測＋親自施工</span><span aria-hidden="true">↓</span><strong>專門檢測的專家</strong></div></div>
+<div class="zc-growth-position"><span>不只是訂單的改變</span><h5>從檢測兼施工，<br>走向專門檢測的專家。</h5><p>客戶更理解服務價值，<br>商會夥伴也更容易介紹與轉傳。</p></div>
 </div>
 <div class="zc-impact-points">
 <div><span>面對客戶</span><h5>價值被理解</h5><p>從反覆比價，到開始願意先付費。</p></div>
 <div><span>商會交流</span><h5>更有說服力</h5><p>定位鮮明，更容易被理解與轉介紹。</p></div>
 <div><span>工作方式</span><h5>專注檢測</h5><p>不再需要親自下場施工。</p></div>
 </div>
-<p class="zc-impact-dates">2025 年 5 月啟動合作 → 僅 2 個月，7 月單月 18 位檢測客戶 → 7–9 月檢測業務持續成長</p>
+
 </section>
   `;
   document.getElementById('modalOverlay').classList.add('open');
