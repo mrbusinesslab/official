@@ -8824,6 +8824,25 @@ button.service-tool-screen{cursor:pointer}
 .zhong-record-zoom:focus-visible{outline:2px solid #a78645;outline-offset:4px}
 @media(max-width:700px){.line-service-story .zhong-proof-section-heading h5{font-size:24px}.zhong-brand-pages header,.zhong-record-columns header{min-height:0}.zhong-record-zoom{min-height:130px;margin-top:20px}.zhong-proof-section{padding-bottom:28px}.zhong-proof-section+.zhong-proof-section{padding-top:28px}}
 </style>
+<style id="zhong-clear-understanding-style">
+.zhong-one-photo{display:flex;align-items:center;justify-content:center;gap:35px;margin:0 0 28px;padding:24px 0}
+.zhong-one-photo-image{width:190px;flex-shrink:0;overflow:hidden;border:1px solid #d7cbb4;background:white}.zhong-one-photo-image svg{display:block;width:100%;height:auto;aspect-ratio:265/260}
+.zhong-one-photo figcaption>span{display:block;font-size:11px;letter-spacing:.8px;color:#927341;margin-bottom:12px}.zhong-one-photo figcaption>strong{display:block;font-size:25px;font-weight:500;line-height:1.65}
+.zhong-clear-comparison{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.zhong-clear-comparison article{display:flex;flex-direction:column;min-width:0;border:1px solid #d4d0c7;background:#e9e6df}
+.zhong-clear-comparison article+article{border-color:#c7ad78;background:#efe2c9}
+.zhong-clear-comparison header{padding:15px 22px;border-bottom:1px solid #d1ccc2;font-size:12px;letter-spacing:.8px;color:#746c5f}
+.zhong-clear-after header{border-bottom-color:#cbb78d;color:#80632f}
+.zhong-clear-message{padding:25px 25px 28px;display:flex;flex-direction:column;justify-content:center;gap:23px;flex:1}
+.zhong-clear-message span{font-size:12px;color:#847961;display:block;margin-bottom:7px}
+.zhong-clear-message p{font-size:22px;line-height:1.75;font-weight:500;color:#3f3b33;margin:0}
+.zhong-clear-after .zhong-clear-message p{font-size:19px;line-height:1.85}.zhong-clear-after .zhong-clear-message strong{color:#8a6428;font-weight:600;border-bottom:1px solid #a78645}
+.zhong-clear-comparison footer{margin:0 22px;padding:17px 0;border-top:1px solid #c9c4b9;font-size:17px;font-weight:500;color:#736a5b}
+.zhong-clear-after footer{border-color:#c7b083;color:#80632f}
+.zhong-clear-takeaway{font-size:18px;line-height:1.9;text-align:center;color:#706859;margin:26px 0}.zhong-clear-takeaway strong{font-weight:500;color:#80632f}
+.zhong-original-excerpts{border-top:1px solid #d5c9ae;padding-top:16px}.zhong-original-excerpts summary{font-size:12px;color:#927341;line-height:1.8;cursor:pointer}.zhong-original-excerpts>div{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding-top:20px}.zhong-original-excerpts figure{margin:0;min-width:0}.zhong-original-excerpts figcaption{font-size:11px;line-height:1.8;color:#8b7a5c;margin-bottom:12px}.zhong-original-excerpts img{display:block;width:100%;height:auto}.zhong-original-excerpts summary:focus-visible{outline:2px solid #a78645;outline-offset:4px}
+@media(max-width:700px){.zhong-one-photo{gap:22px;justify-content:flex-start;padding:15px 0}.zhong-one-photo-image{width:135px}.zhong-one-photo figcaption>strong{font-size:21px}.zhong-clear-comparison,.zhong-original-excerpts>div{grid-template-columns:1fr}.zhong-clear-message{padding:22px}.zhong-clear-message p{font-size:22px}.zhong-clear-after .zhong-clear-message p{font-size:19px}.zhong-clear-takeaway{font-size:17px;text-align:left}.zhong-clear-takeaway strong{display:block}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9617,10 +9636,14 @@ function buildZhongDocumentProof(){
  <div class="zhong-source-before"><header><span>原本報告</span><strong>一般表格，照片集中排列。</strong><p>以基本表格與檢測照片呈現資訊。</p></header><a class="zhong-source-page" href="assets/zhong-report-before-page.jpg" target="_blank" rel="noopener" aria-label="放大查看原本報告的整體版面"><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告完整頁面，展示原有表格、照片與文字版面" loading="lazy" decoding="async"></a></div>
  <div class="zhong-source-after"><header><span>改善後報告</span><strong>品牌視覺一致，圖文層次清楚。</strong><p>延續品牌色與識別，統一照片、標示與文字的配置。</p></header><a class="zhong-source-page" href="assets/zhong-report-after-page.jpg" target="_blank" rel="noopener" aria-label="放大查看改善後報告的品牌版面"><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告完整頁面，展示品牌配色、水滴視覺與一致的圖文配置" loading="lazy" decoding="async"></a></div>
  </div></section>
- <section class="zhong-proof-section zhong-proof-understanding" aria-labelledby="zhong-proof-understanding-title"><div class="zhong-proof-section-heading"><span>02 / 專業內容的對比</span><h5 id="zhong-proof-understanding-title">從看到檢測結果，<br>到理解師傅怎麼判斷。</h5><p>放大同一組熱像檢測照片的說明，看看內容如何幫助客戶理解。</p></div><div class="zhong-doc-change zhong-source-columns zhong-record-columns">
- <div class="zhong-source-before"><header><span>原本的檢測說明</span><strong>告訴客戶「檢測結果」。</strong></header><a class="zhong-record-zoom" href="assets/zhong-report-before-record.jpg" target="_blank" rel="noopener" aria-label="放大原報告檢測說明節錄"><img src="assets/zhong-report-before-record.jpg" alt="原報告節錄：經熱顯像儀檢測，無異常水源，外觀乾燥" loading="lazy" decoding="async"></a><section class="zhong-source-excerpt"><blockquote>經熱顯像儀檢測　無異常水源　外觀乾燥</blockquote><p>已有結果說明，但較少展開觀察與初步判斷的依據。</p><small>原報告第 1 頁・浴室管道間</small></section></div>
- <div class="zhong-source-after"><header><span>改善後的檢測紀錄與判讀</span><strong>讓客戶理解「看見什麼、如何初步排查」。</strong></header><a class="zhong-record-zoom" href="assets/zhong-report-after-record.jpg" target="_blank" rel="noopener" aria-label="放大改善後的檢測紀錄與影像判讀節錄"><img src="assets/zhong-report-after-record.jpg" alt="改善後報告節錄：分列檢測紀錄與影像判讀，說明無明顯溫度異常與初步排查結果" loading="lazy" decoding="async"></a><section class="zhong-source-excerpt"><dl><dt>檢測紀錄</dt><dd>熱顯像儀：無異常水源，外觀乾燥</dd><dt>影像判讀</dt><dd>管道間周邊無明顯溫度異常，初步排除該處有管線持續滲漏之現象。</dd></dl><p>把師傅提供的觀察與判斷分層整理，讓客戶理解專業內容。</p><small>改善後報告第 2 頁・圖 2.1</small></section></div>
- </div></section><p class="zhong-doc-proof-hint">取自兩份檢測報告的實際頁面與文字。圖片與節錄都可點擊放大，委託人與地址等資訊已隱去。</p></div>`;
+ <section class="zhong-proof-section zhong-proof-understanding zhong-clear-understanding" aria-labelledby="zhong-proof-understanding-title">
+ <div class="zhong-proof-section-heading"><span>02 / 專業內容的對比</span><h5 id="zhong-proof-understanding-title">同一個現場，<br>讓客戶理解的程度不同。</h5></div>
+ <figure class="zhong-one-photo"><div class="zhong-one-photo-image"><svg viewBox="94 175 265 260" role="img" aria-label="兩份報告共用的浴室管道間熱像檢測照片"><image href="assets/zhong-report-after-page.jpg" width="849" height="1200"/></svg></div><figcaption><span>同一張檢測照片</span><strong>看見什麼，<br>又代表什麼？</strong></figcaption></figure>
+ <div class="zhong-clear-comparison"><article class="zhong-clear-before"><header>原本報告</header><div class="zhong-clear-message"><span>檢測說明</span><p>無異常水源，<br>外觀乾燥。</p></div><footer>知道結果。</footer></article>
+ <article class="zhong-clear-after"><header>改善後報告</header><div class="zhong-clear-message"><div><span>觀察到什麼</span><p>周邊無明顯溫度異常。</p></div><div><span>代表什麼</span><p><strong>初步排除</strong>該處有管線持續滲漏之現象。</p></div></div><footer>理解判斷的依據。</footer></article></div>
+ <p class="zhong-clear-takeaway">讓客戶不只收到結果，<strong>也看得懂你的專業判斷。</strong></p>
+ <details class="zhong-original-excerpts"><summary>查看報告節錄</summary><div><figure><figcaption>原報告第 1 頁・檢測說明</figcaption><a href="assets/zhong-report-before-record.jpg" target="_blank" rel="noopener"><img src="assets/zhong-report-before-record.jpg" alt="原報告原文：經熱顯像儀檢測，無異常水源，外觀乾燥" loading="lazy"></a></figure><figure><figcaption>改善後報告第 2 頁・圖 2.1</figcaption><a href="assets/zhong-report-after-record.jpg" target="_blank" rel="noopener"><img src="assets/zhong-report-after-record.jpg" alt="改善後報告原文，含檢測紀錄與完整影像判讀" loading="lazy"></a></figure></div></details>
+ </section><p class="zhong-doc-proof-hint">取自兩份檢測報告的實際頁面與文字。圖片與節錄都可點擊放大，委託人與地址等資訊已隱去。</p></div>`;
 }
 function buildZhongDocumentService(){
  return `<div class="line-service-story zhong-document-service"><section class="zhong-doc-intro"><span class="line-service-kicker">詠順工程行・鍾師富 / 品牌文件自動化</span><h4>交付給客戶的文件，<br><strong>也是品牌的一部分。</strong></h4><p>把師傅提供的檢測紀錄與判斷，整理成客戶看得懂的報告。<br>下方直接對照原本與改善後的實際文件內容。</p></section>${buildZhongDocumentProof()}<section class="zhong-doc-automation-note"><h5>版面與內容先整理好，再讓重複製作更省力。</h5><p>將檢測報告、報價與保固等文件，依實際交付需求整理格式與製作流程。</p><details><summary>查看文件產生器實際畫面</summary><img src="assets/詠順文件.png" alt="詠順工程行多份客戶文件的自動化製作介面" loading="lazy"></details></section><section class="line-service-cta"><div><span>讓文件延續你建立的專業與信任。</span><h4>你的客戶，收到什麼樣的交付？</h4></div><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊品牌文件需求 <span aria-hidden="true">↗</span></a></section></div>`;
