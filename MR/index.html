@@ -8857,6 +8857,7 @@ button.service-tool-screen{cursor:pointer}
 .zhong-reading-flow .zhong-original-excerpts{padding-top:14px}.zhong-reading-flow .zhong-proof-section-heading h5{font-size:26px;line-height:1.6}
 @media(max-width:700px){.zhong-reading-layout{grid-template-columns:1fr;gap:22px;align-items:stretch}.zhong-reading-photo{max-width:260px}.zhong-reading-before,.zhong-reading-after{padding:20px}.zhong-reading-after dd{font-size:19px}.zhong-reading-flow .zhong-proof-section-heading h5{font-size:24px}.zhong-reading-versions{gap:13px}}
 </style>
+<style id="zhong-doc-reasons-style">.zhong-document-service>.zhong-doc-reasons{margin-bottom:32px}</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9659,7 +9660,11 @@ function buildZhongDocumentProof(){
  </section></div>`;
 }
 function buildZhongDocumentService(){
- return `<div class="line-service-story zhong-document-service"><section class="zhong-doc-intro"><span class="line-service-kicker">詠順工程行・鍾師富 / 品牌文件自動化</span><h4>交付給客戶的文件，<br><strong>也是品牌的一部分。</strong></h4><p>客戶不只透過你的介紹認識你，也會從收到的文件，感受服務的專業與價值。<br><strong>統一報告的品牌識別、配色與版面，讓交付延續前期建立的專業與信任。</strong></p></section>${buildZhongDocumentProof()}<section class="zhong-doc-automation-note"><h5>讓客戶看得懂，也感受得到你的專業。</h5><p>從檢測報告、報價到保固文件，延續一致的品牌形象與清楚的資訊呈現，讓每一次交付都體現服務價值；自動化則協助將整理好的格式持續運用。</p><details><summary>查看文件產生器實際畫面</summary><img src="assets/詠順文件.png" alt="詠順工程行多份客戶文件的自動化製作介面" loading="lazy"></details></section><section class="line-service-cta"><div><span>讓文件延續你建立的專業與信任。</span><h4>你的客戶，收到什麼樣的交付？</h4></div><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊品牌文件需求 <span aria-hidden="true">↗</span></a></section></div>`;
+ return `<div class="line-service-story zhong-document-service"><section class="zhong-doc-intro"><span class="line-service-kicker">詠順工程行・鍾師富 / 品牌文件自動化</span><h4>交付給客戶的文件，<br><strong>也是品牌的一部分。</strong></h4></section><section class="line-service-situations zhong-doc-reasons" aria-label="文件需要統一品牌形象的三個原因">
+<article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></svg><h5>文件質感，<br>影響服務價值的感受。</h5><p>客戶付費後收到的報告，也會影響他如何看待這次服務。</p></article>
+<article><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="13" height="13" rx="1"/><path d="M8 17v4h13V8h-5M7 8h5M7 12h5"/></svg><h5>品牌一致，<br>更容易留下印象。</h5><p>讓識別、配色與版面一致，每份文件都延續同一個品牌。</p></article>
+<article><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 8 10 8 10s8-5 8-10V5zM8 11l3 3 5-6"/></svg><h5>交付清楚，<br>延續專業與信任。</h5><p>把師傅的紀錄與判斷整理好，讓客戶看得懂專業內容。</p></article>
+</section>${buildZhongDocumentProof()}<section class="zhong-doc-automation-note"><h5>讓客戶看得懂，也感受得到你的專業。</h5><p>從檢測報告、報價到保固文件，延續一致的品牌形象與清楚的資訊呈現，讓每一次交付都體現服務價值；自動化則協助將整理好的格式持續運用。</p><details><summary>查看文件產生器實際畫面</summary><img src="assets/詠順文件.png" alt="詠順工程行多份客戶文件的自動化製作介面" loading="lazy"></details></section><section class="line-service-cta"><div><span>讓文件延續你建立的專業與信任。</span><h4>你的客戶，收到什麼樣的交付？</h4></div><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊品牌文件需求 <span aria-hidden="true">↗</span></a></section></div>`;
 }
 function buildDocumentAutomationCases(){
  return `<div class="document-service-cases"><figure><a href="assets/傑出文件.png" target="_blank" rel="noopener"><img src="assets/傑出文件.png" alt="傑出油漆估價文件自動化實際畫面" loading="lazy"></a><figcaption>傑出油漆工程行・估價文件</figcaption></figure><figure><button class="zhong-doc-preview-link" type="button" onclick="openServiceModal('zhong-documents')" aria-label="查看鍾師富文件改善前後對照"><span class="zhong-raw-preview"><span><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告頁面" loading="lazy"><small>原本報告</small></span><span><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告頁面" loading="lazy"><small>改善後報告</small></span></span></button><figcaption>詠順工程行・原本／改善後報告 <button class="zhong-doc-text-link" type="button" onclick="openServiceModal('zhong-documents')">看前後對照 ↗</button></figcaption></figure></div>`;
