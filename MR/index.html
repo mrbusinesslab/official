@@ -8843,6 +8843,20 @@ button.service-tool-screen{cursor:pointer}
 .zhong-original-excerpts{border-top:1px solid #d5c9ae;padding-top:16px}.zhong-original-excerpts summary{font-size:12px;color:#927341;line-height:1.8;cursor:pointer}.zhong-original-excerpts>div{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding-top:20px}.zhong-original-excerpts figure{margin:0;min-width:0}.zhong-original-excerpts figcaption{font-size:11px;line-height:1.8;color:#8b7a5c;margin-bottom:12px}.zhong-original-excerpts img{display:block;width:100%;height:auto}.zhong-original-excerpts summary:focus-visible{outline:2px solid #a78645;outline-offset:4px}
 @media(max-width:700px){.zhong-one-photo{gap:22px;justify-content:flex-start;padding:15px 0}.zhong-one-photo-image{width:135px}.zhong-one-photo figcaption>strong{font-size:21px}.zhong-clear-comparison,.zhong-original-excerpts>div{grid-template-columns:1fr}.zhong-clear-message{padding:22px}.zhong-clear-message p{font-size:22px}.zhong-clear-after .zhong-clear-message p{font-size:19px}.zhong-clear-takeaway{font-size:17px;text-align:left}.zhong-clear-takeaway strong{display:block}}
 </style>
+<style id="zhong-reading-flow-style">
+.zhong-reading-flow .zhong-proof-section-heading{margin-bottom:28px}
+.zhong-reading-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.9fr);gap:30px;align-items:center;margin-bottom:25px}
+.zhong-reading-photo{margin:0;min-width:0}.zhong-reading-photo figcaption{font-size:11px;line-height:1.7;letter-spacing:.6px;color:#927341;margin-bottom:12px}.zhong-reading-photo>div{border:1px solid #d2c7b1;background:#fff;overflow:hidden}.zhong-reading-photo svg{display:block;width:100%;height:auto;aspect-ratio:265/260}
+.zhong-reading-versions{display:grid;gap:16px;min-width:0}
+.zhong-reading-before{padding:20px 24px;background:#eae7df;border:1px solid #dad5ca}
+.line-service-story .zhong-reading-before h6{font-size:12px;font-weight:500;line-height:1.7;color:#766f62;margin:0 0 10px}
+.line-service-story .zhong-reading-before p{font-size:17px;font-weight:400;line-height:1.8;color:#716b60;margin:0}
+.zhong-reading-after{padding:24px;background:#fffaf1;border:1px solid #e0d5bf;border-left:3px solid #a78645}
+.line-service-story .zhong-reading-after h6{font-size:15px;font-weight:500;line-height:1.7;color:#80632f;margin:0 0 20px}
+.zhong-reading-after dl{margin:0;display:grid;gap:18px}.zhong-reading-after dt{font-size:11px;line-height:1.7;color:#927341;margin:0 0 4px}.zhong-reading-after dd{font-size:20px;font-weight:500;line-height:1.8;color:#272521;margin:0}.zhong-reading-after strong{font-weight:600;color:#8a6428}
+.zhong-reading-flow .zhong-original-excerpts{padding-top:14px}.zhong-reading-flow .zhong-proof-section-heading h5{font-size:26px;line-height:1.6}
+@media(max-width:700px){.zhong-reading-layout{grid-template-columns:1fr;gap:22px;align-items:stretch}.zhong-reading-photo{max-width:260px}.zhong-reading-before,.zhong-reading-after{padding:20px}.zhong-reading-after dd{font-size:19px}.zhong-reading-flow .zhong-proof-section-heading h5{font-size:24px}.zhong-reading-versions{gap:13px}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9636,12 +9650,11 @@ function buildZhongDocumentProof(){
  <div class="zhong-source-before"><header><span>原本報告</span><strong>一般表格，照片集中排列。</strong><p>以基本表格與檢測照片呈現資訊。</p></header><a class="zhong-source-page" href="assets/zhong-report-before-page.jpg" target="_blank" rel="noopener" aria-label="放大查看原本報告的整體版面"><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告完整頁面，展示原有表格、照片與文字版面" loading="lazy" decoding="async"></a></div>
  <div class="zhong-source-after"><header><span>改善後報告</span><strong>品牌視覺一致，圖文層次清楚。</strong><p>延續品牌色與識別，統一照片、標示與文字的配置。</p></header><a class="zhong-source-page" href="assets/zhong-report-after-page.jpg" target="_blank" rel="noopener" aria-label="放大查看改善後報告的品牌版面"><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告完整頁面，展示品牌配色、水滴視覺與一致的圖文配置" loading="lazy" decoding="async"></a></div>
  </div></section>
- <section class="zhong-proof-section zhong-proof-understanding zhong-clear-understanding" aria-labelledby="zhong-proof-understanding-title">
- <div class="zhong-proof-section-heading"><span>02 / 專業內容的對比</span><h5 id="zhong-proof-understanding-title">同一個現場，<br>讓客戶理解的程度不同。</h5></div>
- <figure class="zhong-one-photo"><div class="zhong-one-photo-image"><svg viewBox="94 175 265 260" role="img" aria-label="兩份報告共用的浴室管道間熱像檢測照片"><image href="assets/zhong-report-after-page.jpg" width="849" height="1200"/></svg></div><figcaption><span>同一張檢測照片</span><strong>看見什麼，<br>又代表什麼？</strong></figcaption></figure>
- <div class="zhong-clear-comparison"><article class="zhong-clear-before"><header>原本報告</header><div class="zhong-clear-message"><span>檢測說明</span><p>無異常水源，<br>外觀乾燥。</p></div><footer>知道結果。</footer></article>
- <article class="zhong-clear-after"><header>改善後報告</header><div class="zhong-clear-message"><div><span>觀察到什麼</span><p>周邊無明顯溫度異常。</p></div><div><span>代表什麼</span><p><strong>初步排除</strong>該處有管線持續滲漏之現象。</p></div></div><footer>理解判斷的依據。</footer></article></div>
- <p class="zhong-clear-takeaway">讓客戶不只收到結果，<strong>也看得懂你的專業判斷。</strong></p>
+ <section class="zhong-proof-section zhong-proof-understanding zhong-clear-understanding zhong-reading-flow" aria-labelledby="zhong-proof-understanding-title">
+ <div class="zhong-proof-section-heading"><span>02 / 專業內容的對比</span><h5 id="zhong-proof-understanding-title">同一個檢測結果，<br>如何讓客戶更理解你的專業？</h5></div>
+ <div class="zhong-reading-layout"><figure class="zhong-reading-photo"><figcaption>同一張檢測照片</figcaption><div><svg viewBox="94 175 265 260" role="img" aria-label="兩份報告共用的浴室管道間熱像檢測照片"><image href="assets/zhong-report-after-page.jpg" width="849" height="1200"/></svg></div></figure>
+ <div class="zhong-reading-versions"><article class="zhong-reading-before"><h6>原本｜知道結果</h6><p>無異常水源，外觀乾燥。</p></article>
+ <article class="zhong-reading-after"><h6>改善後｜理解判斷依據</h6><dl><div><dt>觀察到什麼</dt><dd>周邊無明顯溫度異常。</dd></div><div><dt>代表什麼</dt><dd><strong>初步排除</strong>該處有管線持續滲漏之現象。</dd></div></dl></article></div></div>
  <details class="zhong-original-excerpts"><summary>查看報告節錄</summary><div><figure><figcaption>原報告第 1 頁・檢測說明</figcaption><a href="assets/zhong-report-before-record.jpg" target="_blank" rel="noopener"><img src="assets/zhong-report-before-record.jpg" alt="原報告原文：經熱顯像儀檢測，無異常水源，外觀乾燥" loading="lazy"></a></figure><figure><figcaption>改善後報告第 2 頁・圖 2.1</figcaption><a href="assets/zhong-report-after-record.jpg" target="_blank" rel="noopener"><img src="assets/zhong-report-after-record.jpg" alt="改善後報告原文，含檢測紀錄與完整影像判讀" loading="lazy"></a></figure></div></details>
  </section><p class="zhong-doc-proof-hint">取自兩份檢測報告的實際頁面與文字。圖片與節錄都可點擊放大，委託人與地址等資訊已隱去。</p></div>`;
 }
