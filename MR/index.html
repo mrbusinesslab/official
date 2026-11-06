@@ -8910,14 +8910,15 @@ button.service-tool-screen{cursor:pointer}
   border:1px solid #c1a16a85;border-radius:50%;transform:rotate(-23deg);
 }
 #story-founder .founder-c-photo{display:flex;justify-content:center;align-items:end;align-self:end;margin:0;min-width:0;padding:16px clamp(14px,2.2vw,32px) 0}
-#story-founder .founder-c-photo img{display:block;width:min(100%,518px);height:auto;object-fit:contain}
+/* The portrait has 30 transparent pixels under the chair. */
+#story-founder .founder-c-photo img{display:block;width:min(100%,518px);height:auto;object-fit:contain;transform:translateY(2.46%)}
 #story-founder .founder-c-copy{min-width:0;padding:44px clamp(22px,4vw,66px) 46px 0}
 #story-founder .founder-c-role{font-family:var(--founder-serif);color:#e3ccaa;font-size:12px;letter-spacing:.2em}
 #story-founder .founder-c-name{font-family:var(--founder-serif);color:#fbf1e3;font-size:clamp(28px,4.1vw,54px);font-weight:600;line-height:1.24;letter-spacing:.035em;margin-top:10px}
 #story-founder .founder-c-name i{font-family:Georgia,serif;font-weight:400;white-space:nowrap}
 #story-founder .founder-c-quote{margin:20px 0 0;padding:20px 0 0;border:0;position:relative}
 #story-founder .founder-c-quote::before{content:"";width:48px;height:1px;background:#c5a571;position:absolute;left:0;top:0}
-#story-founder .founder-c-quote h2{font-family:var(--founder-serif);font-size:clamp(20px,2.75vw,38px);line-height:1.55;letter-spacing:.025em;font-weight:500;color:#f8eee1;text-wrap:wrap}
+#story-founder .founder-c-quote h2{font-family:var(--founder-serif);font-size:clamp(20px,2.75vw,38px);line-height:1.55;letter-spacing:.06em;font-style:italic;font-weight:500;color:#f8eee1;text-wrap:wrap}
 #story-founder .founder-c-quote h2 span,#story-founder .founder-c-quote h2 strong{display:block;color:inherit}
 #story-founder .founder-c-quote h2 strong{font-weight:700;color:#edc889;margin-top:6px}
 #story-founder .founder-c-chapter-index{display:none}
@@ -8938,7 +8939,7 @@ button.service-tool-screen{cursor:pointer}
   #story-founder .founder-c-name{font-size:clamp(18px,5.2vw,30px);margin-top:7px}
   #story-founder .founder-c-quote{margin-top:12px;padding-top:11px}
   #story-founder .founder-c-quote::before{width:30px}
-  #story-founder .founder-c-quote h2{font-size:clamp(14px,4.2vw,23px);line-height:1.55}
+  #story-founder .founder-c-quote h2{font-size:clamp(14px,4.2vw,23px);line-height:1.55;letter-spacing:.04em}
   #story-founder .founder-c-quote h2 strong{margin-top:4px}
   #story-founder .founder-c-chapter-index{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;padding:14px 0;margin:0 0 21px;border-bottom:1px solid #c8b68f;color:#373128;font-size:13px}
   #story-founder .founder-c-chapter-index span+span{border-left:1px solid #d9cdb7}
@@ -8996,7 +8997,7 @@ button.service-tool-screen{cursor:pointer}
 </div>
 </div>
 <div class="founder-c-chapter-index" aria-hidden="true"><span><i>01</i> 形象</span><span><i>02</i> 表達</span><span><i>03</i> 整合</span></div>
-<div class="founder-triptych-columns"><article class="triptych-chapter"><div class="chapter-visual chapter-portrait"><span aria-hidden="true">IMAGE</span><img src="assets/鍾師富改造後1.png" alt="鍾師富的商務形象合作作品" loading="lazy"><span class="chapter-work-name">鍾師富 / 商務形象作品</span></div><div class="chapter-text"><span>01 / 形象</span><h3>第一眼，真的會影響<br>一個人被認識的方式。</h3><p>從百貨男裝到連鎖美容，我一直關注一件事：一個人的外在呈現，能不能貼近他真正的能力。</p></div></article><article class="triptych-chapter"><div class="chapter-visual chapter-introduction"><div class="chapter-intro-word" aria-hidden="true">STORY</div><img src="assets/電子名片_宛齊.jpg" alt="齊齊 游宛齊的電子名片作品" loading="lazy"><span class="chapter-work-name">齊齊 / 品牌介紹作品</span></div><div class="chapter-text"><span>02 / 表達</span><h3>但只有好看，<br>還不足以說清楚價值。</h3><p>有能力的人，也需要適合自己的介紹方式，讓別人知道：你擅長什麼、為什麼值得選你。</p></div></article><article class="triptych-chapter"><div class="chapter-visual chapter-integration"><svg viewBox="0 0 340 280" role="img" aria-label="形象、表達、內容互相連貫，呈現清楚的你"><circle cx="170" cy="101" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><circle cx="125" cy="177" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><circle cx="215" cy="177" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><text x="170" y="75" text-anchor="middle">形象</text><text x="100" y="197" text-anchor="middle">表達</text><text x="240" y="197" text-anchor="middle">內容</text><circle cx="170" cy="153" r="31" fill="#48513f"/><text x="170" y="158" text-anchor="middle" class="integration-you">你</text></svg></div><div class="chapter-text"><span>03 / 整合</span><h3>所以，MR 把形象、表達與品牌內容，放在一起思考。</h3><p>不是只完成一張照片或一份簡報，<br>而是讓每個接觸點，都能說出同一個清楚的你。</p></div></article></div><div class="triptych-signoff"><span>有能力的人，值得被好好理解。</span><strong>Luru</strong></div></div></section>
+<div class="founder-triptych-columns"><article class="triptych-chapter"><div class="chapter-visual chapter-portrait"><span aria-hidden="true">IMAGE</span><img src="assets/鍾師富改造後1.png" alt="鍾師富的商務形象合作作品" loading="lazy"><span class="chapter-work-name">鍾師富 / 商務形象作品</span></div><div class="chapter-text"><span>01 / 形象</span><h3>第一眼，真的會影響<br>一個人被認識的方式。</h3><p>從百貨男裝到連鎖美容，我一直關注一件事：一個人的外在呈現，能不能貼近他真正的能力。</p></div></article><article class="triptych-chapter"><div class="chapter-visual chapter-introduction"><div class="chapter-intro-word" aria-hidden="true">STORY</div><img src="assets/電子名片_宛齊.jpg" alt="齊齊 游宛齊的電子名片作品" loading="lazy"><span class="chapter-work-name">齊齊/電子名片作品</span></div><div class="chapter-text"><span>02 / 表達</span><h3>但只有好看，<br>還不足以說清楚價值。</h3><p>有能力的人，也需要適合自己的介紹方式，讓別人知道：你擅長什麼、為什麼值得選你。</p></div></article><article class="triptych-chapter"><div class="chapter-visual chapter-integration"><svg viewBox="0 0 340 280" role="img" aria-label="形象、表達、內容互相連貫，呈現清楚的你"><circle cx="170" cy="101" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><circle cx="125" cy="177" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><circle cx="215" cy="177" r="64" fill="#bca16e22" stroke="#a68b58" stroke-width="1"/><text x="170" y="75" text-anchor="middle">形象</text><text x="100" y="197" text-anchor="middle">表達</text><text x="240" y="197" text-anchor="middle">內容</text><circle cx="170" cy="153" r="31" fill="#48513f"/><text x="170" y="158" text-anchor="middle" class="integration-you">你</text></svg></div><div class="chapter-text"><span>03 / 整合</span><h3>所以，MR 把形象、表達與品牌內容，放在一起思考。</h3><p>不是只完成一張照片或一份簡報，<br>而是讓每個接觸點，都能說出同一個清楚的你。</p></div></article></div><div class="triptych-signoff"><span>有能力的人，值得被好好理解。</span><strong>Luru</strong></div></div></section>
 <section class="compact-brand-cta" id="story-next" aria-label="免費品牌診斷"><div><span>讓下一次介紹自己，更有方向。</span><h2><bdi class="mr-mobile-phrase">從理解你的品牌開始。</bdi></h2></div><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">免費 AI 初步品牌診斷 <span>↗</span></a></section>
 </main>
 </div>
