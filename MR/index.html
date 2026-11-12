@@ -9006,6 +9006,44 @@ button.service-tool-screen{cursor:pointer}
  #page-cases .case-feature .v22-highlight-card + .v22-highlight-card{border-left:0!important;border-top:1px solid #c9b184!important;}
 }
 </style>
+<style id="v51-case-clarity">
+/* 品牌案例：成果數字提高辨識度 */
+#page-cases .case-feature .v22-highlight-value{
+  font-family:'Manrope','Noto Sans TC',sans-serif!important;
+  font-weight:650!important;
+  letter-spacing:-.045em!important;
+  font-variant-numeric:lining-nums tabular-nums;
+}
+/* 案例區恢復系統滑鼠游標，避免自訂游標在淺色背景消失 */
+#page-cases,
+#page-cases *{cursor:default!important;}
+#page-cases .case-entry,
+#page-cases .case-view-btn{cursor:pointer!important;}
+/* 傑出油漆透明人物主視覺 */
+#page-cases .jie-case .v22-case-visual{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  height:100%!important;
+}
+#page-cases .jie-case .v22-case-visual img{
+  width:auto!important;
+  max-width:94%!important;
+  max-height:clamp(360px,40vw,620px)!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+}
+.jie-before-after img{
+  width:100%;
+  height:430px;
+  object-fit:contain;
+  object-position:center bottom;
+  background:#eee8df;
+}
+@media(max-width:700px){
+  .jie-before-after img{height:360px;}
+}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9176,11 +9214,11 @@ button.service-tool-screen{cursor:pointer}
 </div>
 
 <!-- Case 2 -->
-<div class="case-entry case-feature rv" aria-label="傑出油漆品牌案例">
+<div class="case-entry case-feature rv jie-case" aria-label="傑出油漆品牌案例" role="button" tabindex="0" onclick="openJieModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJieModal();}">
   <div class="case-img-col">
     <div class="case-num">02</div>
     <div class="v22-case-visual">
-      <img alt="傑出油漆品牌案例主視覺" decoding="async" loading="lazy" src="assets/電子名片_傑出油漆.png"/>
+      <img alt="傑出油漆品牌案例主視覺" decoding="async" loading="lazy" src="assets/jie-after.webp"/>
     </div>
   </div>
   <div class="case-text-col">
@@ -9788,6 +9826,56 @@ function openCaseModal(updateRoute=true){
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
+function openJieModal(updateRoute=true){
+  if(updateRoute){
+    const url=new URL(location.href);
+    url.searchParams.delete('service');url.searchParams.delete('gallery');
+    url.searchParams.set('case','jie');url.hash='cases';
+    history.replaceState({},'',url.pathname+url.search+url.hash);
+  }
+  const modalBox=document.querySelector('#modalOverlay .modal-box');
+  modalBox.classList.remove('is-industry','is-line-service');
+  modalBox.classList.add('is-zhong');
+  modalBox.scrollTop=0;
+  document.getElementById('mTag').textContent='成功案例 02・傑出油漆工程行';
+  document.getElementById('mTitle').textContent='讓設計安心落地的人・蘇祺傑';
+  document.getElementById('mBody').innerHTML=`
+    <section class="zc-hero">
+      <div class="zc-portrait"><img src="assets/jie-after.webp" alt="蘇祺傑優化後的專業形象" decoding="async"><span>傑出油漆工程行・油漆職人</span></div>
+      <div class="zc-hero-copy"><span class="zc-eyebrow">從施工職人，到專業合作夥伴</span><h4>不只把油漆做好，<br>也讓專業被看見。</h4><p>透過品牌定位、商務形象與案例呈現，讓設計師與合作夥伴更清楚理解傑哥的價值。</p></div>
+    </section>
+    <section class="zc-insight">
+      <span class="zc-eyebrow">01 / 過去的形象</span>
+      <h4>現場能力一直都在，<br>外在呈現卻還沒跟上。</h4>
+      <p>過去多以施工現場的工作形象與人交流，專業經驗不容易在第一眼被完整理解。</p>
+      <strong class="zc-insight-key">需要讓外在形象，<br><span>對齊經營者與專業團隊的角色。</span></strong>
+    </section>
+    <div class="m-cases-label">商務形象前後對照</div>
+    <div class="zc-section-copy"><h4>從油漆職人，走向設計師安心合作的現場夥伴。</h4><p>保留務實可靠的個人特質，同時建立更符合品牌經營者角色的專業形象。</p></div>
+    <div class="case-duo jie-before-after">
+      <div class="case-block"><img src="assets/jie-before.webp" alt="蘇祺傑過去的工作形象" loading="lazy" decoding="async"><div class="img-label">BEFORE・過去形象</div></div>
+      <div class="case-block"><img src="assets/jie-after.webp" alt="蘇祺傑優化後的商務形象" loading="lazy" decoding="async"><div class="img-label gold">AFTER・專業形象</div></div>
+    </div>
+    <section class="zc-plan">
+      <span class="zc-eyebrow">02 / 品牌定位</span>
+      <h4>讓設計安心落地的人。</h4>
+      <p>以「油漆職人 × 美感施工 × 現場整合」整理傑哥的專業價值，讓業主放心、設計師安心、現場更好配合。</p>
+      <div class="zc-touchpoints"><span>品牌定位｜專業價值</span><span>商務形象｜第一印象</span><span>案例呈現｜合作證明</span></div>
+    </section>
+    <section class="zc-growth-result">
+      <div class="zc-growth-copy"><span class="zc-eyebrow">03 / 實際成長</span><h4>形象、案件與團隊，<br>一起往前走。</h4><p>品牌被理解後，合作機會與案件持續增加，也帶動營運與團隊規模成長。</p></div>
+      <div class="zc-impact-points">
+        <div><span>品牌形象</span><h5>專業轉型</h5><p>從油漆施工者，成為設計師安心合作的現場夥伴。</p></div>
+        <div><span>月業績</span><h5>成長 60 萬</h5><p>案件與合作持續成長。</p></div>
+        <div><span>團隊規模</span><h5>1–2 → 9 人</h5><p>從個人施工逐步建立專業團隊。</p></div>
+      </div>
+    </section>
+    <div class="zc-case-next"><p>你也希望專業被更多人看懂嗎？</p><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊我的品牌需求 <span aria-hidden="true">↗</span></a></div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow='';
@@ -10340,6 +10428,9 @@ function openServiceFromUrl(){
   const url=new URL(location.href);
   if(url.searchParams.get('case')==='zhong'){
     showPage('cases',false);openCaseModal(false);return;
+  }
+  if(url.searchParams.get('case')==='jie'){
+    showPage('cases',false);openJieModal(false);return;
   }
   const id=url.searchParams.get('service');
   if(id && typeof MD!=='undefined' && MD[id]){
