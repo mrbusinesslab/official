@@ -8976,6 +8976,36 @@ button.service-tool-screen{cursor:pointer}
  .shift-route-down{font-size:18px}
 }
 </style>
+<style id="mr-case-feature-layout">
+#page-cases .case-feature-title{max-width:none;line-height:1.15;}
+#page-cases .case-feature{grid-template-columns:minmax(0,36fr) minmax(0,60fr)!important;gap:clamp(24px,3.55vw,58px)!important;align-items:stretch!important;padding:2rem 0 clamp(48px,7vw,104px);}
+#page-cases .case-feature .case-img-col{position:relative;display:flex;align-items:flex-end;min-width:0;min-height:clamp(380px,42vw,650px);background:#ede8df;overflow:hidden;}
+#page-cases .case-feature .case-num{position:absolute;top:5%;left:7%;z-index:1;color:#c2b9a9;font-size:clamp(58px,7vw,104px);pointer-events:none;}
+#page-cases .case-feature .v22-case-visual{position:relative;margin-left:9%;flex:0 0 96%;align-self:flex-end;}
+#page-cases .case-feature .v22-case-visual img{aspect-ratio:auto;transform:none;}
+#page-cases .case-feature .case-text-col{min-width:0;display:flex;flex-direction:column;padding-top:0;}
+#page-cases .case-feature .case-name{font-size:clamp(34px,3.4vw,54px);}
+#page-cases .case-feature .case-desc{margin:clamp(14px,2vw,30px) 0 0;}
+#page-cases .case-feature .v22-case-highlights{border-top:2px solid #b69046;gap:0!important;margin:clamp(28px,3.6vw,58px) 0 28px!important;padding-top:clamp(14px,1.7vw,26px);}
+#page-cases .case-feature .v22-highlight-card{background:transparent!important;border:0!important;min-height:0!important;padding:0 clamp(9px,1.55vw,24px)!important;display:grid!important;grid-template-rows:subgrid;grid-row:span 3;align-content:start;}
+#page-cases .case-feature .v22-highlight-card:first-child{padding-left:0!important;}
+#page-cases .case-feature .v22-highlight-card + .v22-highlight-card{border-left:1px solid #c9b184!important;}
+#page-cases .case-feature .v22-highlight-value{font-size:clamp(35px,3.65vw,58px)!important;line-height:1.12!important;white-space:nowrap;}
+#page-cases .case-feature .zc-specialist-value{font-family:var(--sans)!important;font-size:clamp(22px,2.9vw,46px)!important;}
+#page-cases .case-feature .case-view-btn{margin-top:auto;align-self:flex-start;border:0;background:none;padding:8px 0 0;font-size:13px;letter-spacing:.06em;cursor:pointer;}
+#page-cases .case-feature .case-view-btn:focus-visible{outline:2px solid #a77c33;outline-offset:4px;}
+@media(max-width:850px){
+ #page-cases .case-feature{grid-template-columns:minmax(0,1fr)!important;padding-top:1.5rem;}
+ #page-cases .case-feature .case-img-col{min-height:0;aspect-ratio:4/5;width:min(100%,440px);}
+ #page-cases .case-feature .v22-case-visual{flex-basis:88%;}
+ #page-cases .case-feature .case-desc br:not(:has(+ br)):not(br + br){display:none;}
+}
+@media(max-width:520px){
+ #page-cases .case-feature .v22-case-highlights{grid-template-columns:minmax(0,1fr)!important;padding-top:0;}
+ #page-cases .case-feature .v22-highlight-card{display:block!important;grid-row:auto;padding:15px 0!important;}
+ #page-cases .case-feature .v22-highlight-card + .v22-highlight-card{border-left:0!important;border-top:1px solid #c9b184!important;}
+}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9109,10 +9139,10 @@ button.service-tool-screen{cursor:pointer}
 <div class="case-wrap">
 <div class="case-inner">
 <span class="about-sec-label rv">SUCCESS STORIES</span>
-<h2 class="about-title rv d1">真實<br/>案例</h2>
+<h2 class="about-title case-feature-title rv d1">真實案例</h2>
 <div class="about-divider rv d2"></div>
 <!-- Case 1 -->
-<div class="case-entry rv" onclick="openCaseModal()">
+<div class="case-entry case-feature rv" onclick="openCaseModal()">
   <div class="case-img-col">
     <div class="case-num">01</div>
     <div class="v22-case-visual">
@@ -9141,7 +9171,7 @@ button.service-tool-screen{cursor:pointer}
         <div class="v22-highlight-text">從檢測兼施工，轉為專注檢測的專家</div>
       </div>
     </div>
-    <div class="case-view-btn">查看完整改造紀錄 →︎</div>
+    <button class="case-view-btn" type="button">查看完整改造紀錄 →︎</button>
   </div>
 </div>
 </div>
