@@ -9044,6 +9044,26 @@ button.service-tool-screen{cursor:pointer}
   .jie-before-after img{height:360px;}
 }
 </style>
+<style id="jie-case-reading-layout">
+#page-cases .jie-case .v22-case-visual img{max-width:82%!important;max-height:clamp(260px,34vw,500px)!important;}
+@media(max-width:850px){#page-cases .jie-case .v22-case-visual img{max-width:82%!important;max-height:min(390px,92vw)!important;}}
+#modalOverlay .jie-story{margin:clamp(32px,5vw,72px) 0;padding-top:clamp(20px,3vw,42px);border-top:1px solid #b69a68;color:var(--ink);}
+#modalOverlay .jie-story-head h4{font-size:clamp(23px,3.4vw,40px);line-height:1.45;margin:.5rem 0 1.5rem;}
+#modalOverlay .jie-position-grid,#modalOverlay .jie-growth-grid{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,1fr);align-items:center;gap:clamp(16px,3vw,42px);}
+#modalOverlay .jie-work{margin:0;min-width:0;}
+#modalOverlay .jie-work a{display:block;background:#ece6da;padding:clamp(8px,1.4vw,18px);cursor:zoom-in;}
+#modalOverlay .jie-work img{display:block;width:100%;height:auto;max-height:340px;object-fit:contain;}
+#modalOverlay .jie-work figcaption{display:flex;justify-content:space-between;color:#765b2d;font-size:13px;padding:10px 0;}
+#modalOverlay .jie-role-list{margin:0;}
+#modalOverlay .jie-role-list div{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:baseline;border-bottom:1px solid #d5c7ad;padding:15px 0;}
+#modalOverlay .jie-role-list dt{font-size:clamp(17px,2vw,24px);font-weight:600;}
+#modalOverlay .jie-role-list dd{margin:0;color:var(--ink2);font-size:14px;}
+#modalOverlay .jie-growth-note span,#modalOverlay .jie-metrics span{color:#765b2d;font-size:13px;}
+#modalOverlay .jie-growth-note p{margin:5px 0 16px;font-size:15px;line-height:1.65;}
+#modalOverlay .jie-metrics{display:grid;grid-template-columns:1fr 1.3fr;gap:12px;border-top:1px solid #d5c7ad;padding-top:14px;}
+#modalOverlay .jie-metrics strong{display:block;font:400 clamp(19px,2.45vw,32px)/1.4 'Manrope','Noto Sans TC',sans-serif;white-space:nowrap;}
+@media(max-width:720px){#modalOverlay .jie-position-grid,#modalOverlay .jie-growth-grid{grid-template-columns:minmax(0,1fr);}#modalOverlay .jie-work img{max-height:260px;}}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -9856,18 +9876,25 @@ function openJieModal(updateRoute=true){
       <div class="case-block"><img src="assets/jie-before.webp" alt="蘇祺傑過去的工作形象" loading="lazy" decoding="async"><div class="img-label">BEFORE・過去形象</div></div>
       <div class="case-block"><img src="assets/jie-after.webp" alt="蘇祺傑優化後的商務形象" loading="lazy" decoding="async"><div class="img-label gold">AFTER・專業形象</div></div>
     </div>
-    <section class="zc-plan">
-      <span class="zc-eyebrow">02 / 品牌定位</span>
-      <h4>讓設計安心落地的人。</h4>
-      <p>以「油漆職人 × 美感施工 × 現場整合」整理傑哥的專業價值，讓業主放心、設計師安心、現場更好配合。</p>
-      <div class="zc-touchpoints"><span>品牌定位｜專業價值</span><span>商務形象｜第一印象</span><span>案例呈現｜合作證明</span></div>
+    <section class="jie-story jie-position">
+      <header class="jie-story-head"><span class="zc-eyebrow">02 / 品牌定位</span><h4>讓設計安心落地的人。</h4></header>
+      <div class="jie-position-grid">
+        <figure class="jie-work"><a href="assets/電子名片_傑出油漆.png" target="_blank" rel="noopener"><img src="assets/電子名片_傑出油漆.png" alt="傑出油漆工程行電子名片" loading="lazy" decoding="async"></a><figcaption>實際作品｜傑出油漆電子名片 <span>↗</span></figcaption></figure>
+        <dl class="jie-role-list">
+          <div><dt>油漆職人</dt><dd>讓業主放心</dd></div>
+          <div><dt>美感施工</dt><dd>讓設計師安心</dd></div>
+          <div><dt>現場整合</dt><dd>讓現場更好配合</dd></div>
+        </dl>
+      </div>
     </section>
-    <section class="zc-growth-result">
-      <div class="zc-growth-copy"><span class="zc-eyebrow">03 / 實際成長</span><h4>形象、案件與團隊，<br>一起往前走。</h4><p>品牌被理解後，合作機會與案件持續增加，也帶動營運與團隊規模成長。</p></div>
-      <div class="zc-impact-points">
-        <div><span>品牌形象</span><h5>專業轉型</h5><p>從油漆施工者，成為設計師安心合作的現場夥伴。</p></div>
-        <div><span>月業績</span><h5>成長 60 萬</h5><p>案件與合作持續成長。</p></div>
-        <div><span>團隊規模</span><h5>1–2 → 9 人</h5><p>從個人施工逐步建立專業團隊。</p></div>
+    <section class="jie-story jie-growth">
+      <header class="jie-story-head"><span class="zc-eyebrow">03 / 實際成長</span><h4>從專業轉型，到案件與團隊成長。</h4></header>
+      <div class="jie-growth-grid">
+        <figure class="jie-work"><a href="assets/傑出文件.png" target="_blank" rel="noopener"><img src="assets/傑出文件.png" alt="傑出油漆品牌估價文件與製作畫面" loading="lazy" decoding="async"></a><figcaption>實際作品｜品牌估價文件 <span>↗</span></figcaption></figure>
+        <div class="jie-growth-results">
+          <div class="jie-growth-note"><span>專業轉型</span><p>從油漆施工者，成為設計師安心合作的現場夥伴。</p></div>
+          <div class="jie-metrics"><div><span>月業績成長</span><strong>60 萬</strong></div><div><span>團隊規模</span><strong>1–2 → 9 人</strong></div></div>
+        </div>
       </div>
     </section>
     <div class="zc-case-next"><p>你也希望專業被更多人看懂嗎？</p><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊我的品牌需求 <span aria-hidden="true">↗</span></a></div>
