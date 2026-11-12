@@ -10797,7 +10797,7 @@ img, svg image, a[data-mr-preview] {
   color:#24211c; font:inherit; padding:5px 12px; cursor:pointer;
 }
 .mr-image-preview-surface{position:relative;}
-.mr-image-preview-surface::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.30;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22220%22%20height%3D%22130%22%3E%3Ctext%20x%3D%22110%22%20y%3D%2270%22%20text-anchor%3D%22middle%22%20transform%3D%22rotate(-24%20110%2070)%22%20font-family%3D%22serif%22%20font-weight%3D%22bold%22%20font-size%3D%2228%22%20fill%3D%22%23332b1d%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%221%22%20paint-order%3D%22stroke%22%3EMR%3C%2Ftext%3E%3C%2Fsvg%3E");background-size:220px 130px;}
+.mr-image-preview-mark{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;white-space:nowrap;color:#736658;opacity:.22;text-shadow:0 1px 2px rgba(255,255,255,.65);font:600 clamp(15px,3.2vw,39px)/1.2 'Noto Sans TC',sans-serif;letter-spacing:.075em;}
 .zhong-comparison-thumb.zhong-raw-preview{grid-template-columns:minmax(0,1fr);padding:0;}
 .zhong-comparison-thumb.zhong-raw-preview img,.document-service-cases .zhong-comparison-thumb.zhong-raw-preview img,.zhong-doc-case-button>.zhong-comparison-thumb.zhong-raw-preview img{height:100%;width:100%;object-fit:contain;object-position:center;}
 .zhong-comparison-full{display:block;margin:0 auto 1.5rem;max-width:880px;color:#725833;text-decoration:none;}
@@ -10807,7 +10807,7 @@ img, svg image, a[data-mr-preview] {
 </style>
 <dialog id="mr-image-preview" aria-labelledby="mr-image-preview-title">
   <header><strong id="mr-image-preview-title">圖片預覽</strong><form method="dialog"><button autofocus>關閉</button></form></header>
-  <div class="mr-image-preview-surface"><img alt="" draggable="false"></div>
+  <div class="mr-image-preview-surface"><img alt="" draggable="false"><span class="mr-image-preview-mark" aria-hidden="true">MR</span></div>
 </dialog>
 <script>
 (() => {
@@ -10826,7 +10826,11 @@ img, svg image, a[data-mr-preview] {
     event.preventDefault();
     event.stopPropagation();
     picture.alt = link.querySelector('img')?.alt || link.getAttribute('aria-label') || '放大的作品圖片';
-    picture.src = link.dataset.mrPreview;
+    const source = link.dataset.mrPreview;
+    const brand = source.startsWith('assets/zhong-') ? '詠順工程行' :
+      (/outstanding-quote-comparison|傑出油漆/.test(source) ? '傑出油漆工程行' : '');
+    viewer.querySelector('.mr-image-preview-mark').textContent = brand ? 'MR × ' + brand : 'MR';
+    picture.src = source;
     if (!viewer.open) viewer.showModal();
     viewer.scrollTop = 0;
   }, true);
