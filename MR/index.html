@@ -9177,7 +9177,7 @@ button.service-tool-screen{cursor:pointer}
 <div class="delivery-three-grid">
 <article class="delivery-three-card"><button class="delivery-three-media delivery-three-hub" type="button" onclick="openServiceModal('industry')" aria-label="查看產業鏈合作入口案例"><span class="hub-mobile-still" role="img" aria-label="砌好厝 3.0 建築組產業入口實際畫面"></span><iframe data-hub-src="https://mrbusinesslab.github.io/BNI-Building/" title="建築組產業入口實際畫面" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></button><div class="delivery-three-copy"><span>建築組產業入口</span><h3><bdi class="mr-mobile-phrase">讓夥伴的專業，</bdi><br><bdi class="mr-mobile-phrase">成為彼此的生意機會。</bdi></h3><p>讓產業鏈夥伴互相引薦客戶，串接上下游合作。</p><button type="button" onclick="openServiceModal('industry')">查看合作案例 <span aria-hidden="true">↗</span></button></div></article>
 <article class="delivery-three-card"><a class="delivery-three-media" href="#mr-image-preview" data-mr-preview="assets/outstanding-quote-comparison.webp" aria-label="放大查看傑出油漆品牌估價文件"><img src="assets/outstanding-quote-comparison.webp" alt="傑出油漆估價單與文件產生器前後對比" loading="lazy" decoding="async"></a><div class="delivery-three-copy"><span>傑出油漆工程行</span><h3>估價文件自動化</h3><p>品牌格式一致，減少每次從頭製作估價文件。</p><a href="#mr-image-preview" data-mr-preview="assets/outstanding-quote-comparison.webp">查看前後對比 <span aria-hidden="true">↗</span></a></div></article>
-<article class="delivery-three-card"><button class="delivery-three-media zhong-doc-preview-link" type="button" onclick="openServiceModal('zhong-documents')" aria-label="查看鍾師富文件改善前後對照"><span class="zhong-raw-preview zhong-comparison-thumb"><img src="assets/zhong-document-comparison.webp" alt="鍾師富原本檢測報告與文件產生器前後對比" loading="lazy" decoding="async"></span></button><div class="delivery-three-copy"><span>詠順工程行・鍾師富</span><h3>文件交付，<br>也要讓人看見專業。</h3><p>從報告版面到判讀說明，看看原本與改善後的差異。</p><button type="button" onclick="openServiceModal('zhong-documents')">看前後對照 <span aria-hidden="true">↗</span></button></div></article>
+<article class="delivery-three-card"><button class="delivery-three-media zhong-doc-preview-link" type="button" onclick="openServiceModal('zhong-documents')" aria-label="查看鍾師富文件改善前後對照"><span class="zhong-raw-preview"><span><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告頁面" loading="lazy"><small>原本報告</small></span><span><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告頁面" loading="lazy"><small>改善後報告</small></span></span></button><div class="delivery-three-copy"><span>詠順工程行・鍾師富</span><h3>文件交付，<br>也要讓人看見專業。</h3><p>從報告版面到判讀說明，看看原本與改善後的差異。</p><button type="button" onclick="openServiceModal('zhong-documents')">看前後對照 <span aria-hidden="true">↗</span></button></div></article>
 </div></div></section>
 <section class="service-faq" aria-labelledby="service-faq-title"><div class="service-lower-inner">
 <div class="service-lower-head"><div><span class="service-lower-kicker">BEFORE WE START</span><h2 id="service-faq-title">常見問題</h2></div><p>開始之前，<br>你可能想先了解的事。</p></div>
@@ -9817,7 +9817,7 @@ function openCaseModal(updateRoute=true){
       </div>
 
       
-<div class="v53-case-real-preview zhong-doc-case-preview"><button class="zhong-doc-case-button" type="button" onclick="openServiceModal('zhong-documents')"><span class="zhong-raw-preview zhong-comparison-thumb"><img src="assets/zhong-document-comparison.webp" alt="鍾師富原本檢測報告與文件產生器前後對比" loading="lazy" decoding="async"></span><span><small>品牌文件改善前後</small><strong>一份報告，也能讓客戶看見你的專業。</strong><em>品牌版面・檢測紀錄・判讀說明</em><b>查看前後對照 ↗</b></span></button></div>
+<div class="v53-case-real-preview zhong-doc-case-preview"><button class="zhong-doc-case-button" type="button" onclick="openServiceModal('zhong-documents')"><span class="zhong-raw-preview"><span><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告頁面" loading="lazy"><small>原本報告</small></span><span><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告頁面" loading="lazy"><small>改善後報告</small></span></span><span><small>品牌文件改善前後</small><strong>一份報告，也能讓客戶看見你的專業。</strong><em>品牌版面・檢測紀錄・判讀說明</em><b>查看前後對照 ↗</b></span></button></div>
 
     </section>
     <section class="zc-ending zc-impact-summary">
@@ -9968,11 +9968,11 @@ function buildSecretaryServiceModal(){
 }
 
 function buildZhongRawPreview(){
- return '<span class="zhong-raw-preview zhong-comparison-thumb"><img src="assets/zhong-document-comparison.webp" alt="鍾師富原本檢測報告與文件產生器前後對比" loading="lazy" decoding="async"></span>';
+ return '<span class="zhong-raw-preview"><span><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告頁面"><small>原本報告</small></span><span><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告頁面"><small>改善後報告</small></span></span>';
 }
 function buildZhongDocumentProof(){
  return `<div class="zhong-document-proof zhong-two-proof-sections">
- <section class="zhong-proof-section" aria-labelledby="zhong-proof-brand-title"><div class="zhong-proof-section-heading"><span>01 / 品牌形象的對比</span><h5 id="zhong-proof-brand-title">交付的文件，<br>也要延續專業的形象。</h5><p>先看整份報告的版面、識別與資訊安排。</p></div><a class="zhong-comparison-full" href="#mr-image-preview" data-mr-preview="assets/zhong-document-comparison.webp"><img src="assets/zhong-document-comparison.webp" alt="鍾師富原本檢測報告與文件產生器前後對比" loading="lazy" decoding="async"><span>放大查看前後對比 ↗</span></a><div class="zhong-doc-change zhong-source-columns zhong-brand-pages">
+ <section class="zhong-proof-section" aria-labelledby="zhong-proof-brand-title"><div class="zhong-proof-section-heading"><span>01 / 品牌形象的對比</span><h5 id="zhong-proof-brand-title">交付的文件，<br>也要延續專業的形象。</h5><p>先看整份報告的版面、識別與資訊安排。</p></div><div class="zhong-doc-change zhong-source-columns zhong-brand-pages">
  <div class="zhong-source-before"><header><span>原本報告</span><strong>一般表格，照片集中排列。</strong><p>以基本表格與檢測照片呈現資訊。</p></header><a class="zhong-source-page" href="#mr-image-preview" data-mr-preview="assets/zhong-report-before-page.jpg" aria-label="放大查看原本報告的整體版面"><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告完整頁面，展示原有表格、照片與文字版面" loading="lazy" decoding="async"></a></div>
  <div class="zhong-source-after"><header><span>改善後報告</span><strong>品牌視覺一致，圖文層次清楚。</strong><p>延續品牌色與識別，統一照片、標示與文字的配置。</p></header><a class="zhong-source-page" href="#mr-image-preview" data-mr-preview="assets/zhong-report-after-page.jpg" aria-label="放大查看改善後報告的品牌版面"><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告完整頁面，展示品牌配色、水滴視覺與一致的圖文配置" loading="lazy" decoding="async"></a></div>
  </div></section>
@@ -9992,7 +9992,7 @@ function buildZhongDocumentService(){
 </section>${buildZhongDocumentProof()}<section class="zhong-doc-automation-note"><h5><bdi class="mr-mobile-phrase">讓客戶看得懂，</bdi><bdi class="mr-mobile-phrase">也感受得到你的專業。</bdi></h5><p>從檢測報告、報價到保固文件，延續一致的品牌形象與清楚的資訊呈現，讓每一次交付都體現服務價值；自動化則協助將整理好的格式持續運用。</p><details><summary>查看文件產生器實際畫面</summary><img src="assets/詠順文件.png" alt="詠順工程行多份客戶文件的自動化製作介面" loading="lazy"></details></section><section class="line-service-cta"><div><span>加入 LINE 後，可以先告訴我們：</span><h4><bdi class="mr-mobile-phrase">目前哪一份客戶文件，</bdi><bdi class="mr-mobile-phrase">最想先改善？</bdi></h4></div><a href="https://line.me/ti/p/@038xuzzx" target="_blank" rel="noopener">聊聊品牌文件需求 <span aria-hidden="true">↗</span></a></section></div>`;
 }
 function buildDocumentAutomationCases(){
- return `<div class="document-service-cases"><figure><a href="#mr-image-preview" data-mr-preview="assets/outstanding-quote-comparison.webp"><img src="assets/outstanding-quote-comparison.webp" alt="傑出油漆估價單與文件產生器前後對比" loading="lazy"></a><figcaption>傑出油漆工程行・估價文件</figcaption></figure><figure><button class="zhong-doc-preview-link" type="button" onclick="openServiceModal('zhong-documents')" aria-label="查看鍾師富文件改善前後對照"><span class="zhong-raw-preview zhong-comparison-thumb"><img src="assets/zhong-document-comparison.webp" alt="鍾師富原本檢測報告與文件產生器前後對比" loading="lazy" decoding="async"></span></button><figcaption>詠順工程行・原本／改善後報告 <button class="zhong-doc-text-link" type="button" onclick="openServiceModal('zhong-documents')">看前後對照 ↗</button></figcaption></figure></div>`;
+ return `<div class="document-service-cases"><figure><a href="#mr-image-preview" data-mr-preview="assets/outstanding-quote-comparison.webp"><img src="assets/outstanding-quote-comparison.webp" alt="傑出油漆估價單與文件產生器前後對比" loading="lazy"></a><figcaption>傑出油漆工程行・估價文件</figcaption></figure><figure><button class="zhong-doc-preview-link" type="button" onclick="openServiceModal('zhong-documents')" aria-label="查看鍾師富文件改善前後對照"><span class="zhong-raw-preview"><span><img src="assets/zhong-report-before-page.jpg" alt="原本檢測報告頁面" loading="lazy"><small>原本報告</small></span><span><img src="assets/zhong-report-after-page.jpg" alt="改善後檢測報告頁面" loading="lazy"><small>改善後報告</small></span></span></button><figcaption>詠順工程行・原本／改善後報告 <button class="zhong-doc-text-link" type="button" onclick="openServiceModal('zhong-documents')">看前後對照 ↗</button></figcaption></figure></div>`;
 }
 
 function buildServiceStory(id){
@@ -10798,11 +10798,6 @@ img, svg image, a[data-mr-preview] {
 }
 .mr-image-preview-surface{position:relative;}
 .mr-image-preview-mark{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;white-space:nowrap;color:#736658;opacity:.22;text-shadow:0 1px 2px rgba(255,255,255,.65);font:600 clamp(15px,3.2vw,39px)/1.2 'Noto Sans TC',sans-serif;letter-spacing:.075em;}
-.zhong-comparison-thumb.zhong-raw-preview{grid-template-columns:minmax(0,1fr);padding:0;}
-.zhong-comparison-thumb.zhong-raw-preview img,.document-service-cases .zhong-comparison-thumb.zhong-raw-preview img,.zhong-doc-case-button>.zhong-comparison-thumb.zhong-raw-preview img{height:100%;width:100%;object-fit:contain;object-position:center;}
-.zhong-comparison-full{display:block;margin:0 auto 1.5rem;max-width:880px;color:#725833;text-decoration:none;}
-.zhong-comparison-full img{display:block;width:100%;height:auto;}
-.zhong-comparison-full span{display:block;margin-top:.5rem;text-align:right;}
 #mr-image-preview img {display:block;width:100%;height:auto;margin:0;cursor:default;}
 </style>
 <dialog id="mr-image-preview" aria-labelledby="mr-image-preview-title">
