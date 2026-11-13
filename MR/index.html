@@ -9903,7 +9903,7 @@ function openJieModal(updateRoute=true){
     <section class="jie-story jie-position">
       <header class="jie-story-head"><span class="zc-eyebrow">02 / 品牌定位</span><h4>讓設計安心落地的人。</h4></header>
       <div class="jie-position-grid">
-        <figure class="jie-work"><a href="#mr-image-preview" data-mr-preview="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case4_%E5%82%91%E5%93%A5/1.jpg?v=740c0613a1c5"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case4_%E5%82%91%E5%93%A5/1.jpg?v=740c0613a1c5" alt="蘇祺傑｜傑出油漆工程行電子名片" loading="lazy" decoding="async"></a><figcaption>實際作品｜傑出油漆電子名片 <span>↗</span></figcaption></figure>
+        <figure class="jie-work"><a href="?service=ecard&amp;gallery=engineering#services" aria-label="查看傑哥完整電子名片" onclick="openServiceEcardGallery('engineering','傑哥 蘇祺傑');return false;"><img src="https://mrbusinesslab.github.io/MR_card/ai-MRbot/templates/case4_%E5%82%91%E5%93%A5/1.jpg?v=740c0613a1c5" alt="蘇祺傑｜傑出油漆工程行電子名片" loading="lazy" decoding="async"></a><figcaption>查看完整作品｜傑出油漆電子名片 <span>↗</span></figcaption></figure>
         <dl class="jie-role-list">
           <div><dt>油漆職人</dt><dd>讓業主放心</dd></div>
           <div><dt>美感施工</dt><dd>讓設計師安心</dd></div>
@@ -10726,16 +10726,19 @@ let serviceGalleryTrigger=null;
 function openEcardCategoryFromHome(key){
  showPage('services',false);openModal('ecard',false);openServiceEcardGallery(key);
 }
-function openServiceEcardGallery(key){
-  const people=SERVICE_ECARD_GALLERY[key];
-  if(!people)return;
+function openServiceEcardGallery(key, personName){
+  const people=SERVICE_ECARD_GALLERY[key]?.filter(person=>!personName||person.name===personName);
+  if(!people?.length)return;
+  if(!personName){
   const route=new URL(location.href);
   route.searchParams.delete('case');route.searchParams.set('service','ecard');route.searchParams.set('gallery',key);route.hash='services';
   history.replaceState({},'',route.pathname+route.search+route.hash);
+  }
   serviceGalleryTrigger=document.activeElement;
   const gallery=document.getElementById('serviceEcardGallery');
+  gallery.dataset.singlePerson=personName?'true':'false';
   const titles={engineering:'工程．居家類',beauty:'美業．健康類',creative:'創意．教育．知識型',finance:'金融．保險．專業服務類',property:'房產．高單價業務類'};
-  document.getElementById('serviceGalleryTitle').textContent=titles[key]+'｜'+people.length+' 組作品';
+  document.getElementById('serviceGalleryTitle').textContent=personName?personName+'｜電子名片':titles[key]+'｜'+people.length+' 組作品';
   document.getElementById('serviceGalleryList').innerHTML=people.map(person=>
     '<section class="service-gallery-person" aria-label="'+person.name+'電子名片"><header class="service-gallery-identity"><h3>'+person.name+'</h3><p><span>'+person.brand+'</span><span>'+person.job+'</span></p></header><div class="service-gallery-row">'+person.pages.map((page,i)=>
       '<figure><img src="'+page.url+'" alt="'+person.name+'電子名片第 '+(i+1)+' 頁" loading="lazy" decoding="async"><div class="service-gallery-buttons" style="background:'+page.bg+'">'+page.buttons.map(button=>renderButtonVisual(button)).join('')+'</div></figure>'
@@ -10746,9 +10749,11 @@ function openServiceEcardGallery(key){
   gallery.querySelector('button').focus();
 }
 function closeServiceEcardGallery(){
- const route=new URL(location.href);route.searchParams.delete('gallery');
- history.replaceState({},'',route.pathname+route.search+route.hash);
  const gallery=document.getElementById('serviceEcardGallery');
+ if(gallery.dataset.singlePerson!=='true'){
+  const route=new URL(location.href);route.searchParams.delete('gallery');
+  history.replaceState({},'',route.pathname+route.search+route.hash);
+ }
  gallery.classList.remove('open');gallery.setAttribute('aria-hidden','true');
  document.body.classList.remove('ecard-viewer-open');
  if(serviceGalleryTrigger?.isConnected)serviceGalleryTrigger.focus();
