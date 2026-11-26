@@ -9668,6 +9668,7 @@ function clearServiceRoute(){
 }
 function openModal(id,updateRoute=false){
   const d=MD[id];if(!d)return;
+  delete document.getElementById('modalOverlay').dataset.analyticsCase;
   mrTrack('service_view', {service_id:id,service_name:d.title});
   const modalBox=document.querySelector('#modalOverlay .modal-box');
   if(modalBox){modalBox.classList.remove('is-zhong');modalBox.classList.remove('is-industry');modalBox.classList.add('is-line-service');modalBox.scrollTop=0;}
@@ -9685,6 +9686,7 @@ function openServiceModal(id){
   openModal(id,true);
 }
 function openCaseModal(updateRoute=true){
+  document.getElementById('modalOverlay').dataset.analyticsCase='zhong';
   mrTrack('case_view', {case_id:'zhong',case_name:'詠順工程行'});
   if(updateRoute){
     const url=new URL(location.href);
@@ -9816,7 +9818,7 @@ function openCaseModal(updateRoute=true){
 
       <div class="v49-zhong-action-col">
         <div class="m-cases-label">電子名片</div><div class="zc-section-copy"><h4>讓商會夥伴，在短時間內理解鍾師富。</h4><p>比起只列聯絡方式的紙本名片，電子名片把專業、服務與案例集中呈現，讓交流更快速有效，也方便夥伴介紹與轉傳。</p></div>
-        <button class="v48-ecard-open v49-zhong-action-link" type="button" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
+        <button class="v48-ecard-open v49-zhong-action-link" type="button" data-mr-case-link="電子名片" onclick="closeModal();setTimeout(()=>openEcardViewer('engineering'),120);" aria-label="查看鍾師富完整電子名片">
           <div class="case-block v48-ecard-preview v49-zhong-action-block">
             <div class="v48-ecard-image-wrap v49-zhong-action-frame">
               <img src="https://raw.githubusercontent.com/mrbusinesslab/MR_card/main/ai-MRbot/templates/case2_%E9%8D%BE%E5%B8%AB%E5%AF%8C/1.png" alt="鍾師富電子名片" loading="lazy" decoding="async">
@@ -9900,6 +9902,7 @@ function openCaseModal(updateRoute=true){
   document.body.style.overflow='hidden';
 }
 function openJieModal(updateRoute=true){
+  document.getElementById('modalOverlay').dataset.analyticsCase='jie';
   mrTrack('case_view', {case_id:'jie',case_name:'傑出油漆'});
   if(updateRoute){
     const url=new URL(location.href);
@@ -9958,6 +9961,7 @@ function openJieModal(updateRoute=true){
 }
 
 function closeModal(){
+  delete document.getElementById('modalOverlay').dataset.analyticsCase;
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow='';
   const route=new URL(location.href);
@@ -10810,6 +10814,9 @@ function resetServiceNeeds(){
  const tabs=Array.from(root.querySelectorAll('[role="tab"]'));
  resetServiceNeeds();
  function select(tab,focus){
+  mrTrack('service_category_click', {
+   section_name:(tab.querySelector('.needs-scenario-moment')?.textContent || tab.dataset.need || '').trim()
+  });
   root.classList.add("has-choice");
   const guide=document.getElementById("needs-start-guide");if(guide)guide.hidden=true;
   tabs.forEach(t=>{const active=t===tab;t.setAttribute('aria-selected',String(active));t.tabIndex=active?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!active;});
@@ -10915,6 +10922,43 @@ img, svg image, a[data-mr-preview] {
 (function(){
   // Record sections separately from GA's automatic page_view to avoid duplicates.
   mrTrackSection((document.querySelector('.page.active')?.id || 'page-about').replace('page-', ''));
+
+  // Case detail tracking: links and the electronic-card viewer only, not images.
+  function trackCaseLink(event){
+    if(event.type === 'auxclick' && event.button !== 1) return;
+    const overlay=document.getElementById('modalOverlay');
+    const caseNames={zhong:'詠順工程行',jie:'傑出油漆'};
+    const caseId=overlay?.classList.contains('open') ? overlay.dataset.analyticsCase : '';
+    if(!caseNames[caseId] || !(event.target instanceof Element)) return;
+    const link=event.target.closest('a[href],button[data-mr-case-link]');
+    if(!link || !overlay.contains(link)) return;
+    let content=link.dataset.mrCaseLink || '';
+    let destination='';
+    if(link.matches('a[href]')){
+      let url;
+      try {url=new URL(link.href,location.href);} catch(_){return;}
+      if(!['https:','http:'].includes(url.protocol) || link.hasAttribute('data-mr-preview')) return;
+      // Same-page anchors and image previews are not navigation to more content.
+      if(/\.(?:png|jpe?g|webp|gif|svg)$/i.test(url.pathname)) return;
+      if(url.origin===location.origin && url.pathname===location.pathname && !url.searchParams.has('gallery')) return;
+      destination=url.origin+url.pathname; // Do not send query strings.
+      if(url.searchParams.has('gallery') || /\/MR_card\//i.test(url.pathname)) content='電子名片';
+      else if(/(^|\.)instagram\.com$/i.test(url.hostname) && url.pathname.startsWith('/reel/')) content='REELS';
+      else if(/(^|\.)instagram\.com$/i.test(url.hostname) && url.pathname.startsWith('/p/')) content='IG 貼文';
+      else if(['line.me','www.line.me','lin.ee'].includes(url.hostname)) content='LINE 聯繫';
+      else content='其他連結';
+    }
+    if(!content) return;
+    mrTrack('case_link_click', {
+      case_name:caseNames[caseId],
+      content_title:content,
+      link_text:(link.getAttribute('aria-label') || link.textContent || content).replace(/\s+/g,' ').trim().slice(0,100),
+      link_url:destination
+    });
+  }
+  document.addEventListener('click',trackCaseLink,true);
+  document.addEventListener('auxclick',trackCaseLink,true);
+
   function trackLink(event){
     if(event.type === 'auxclick' && event.button !== 1) return;
     const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
