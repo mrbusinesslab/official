@@ -1,4 +1,5 @@
 const API='https://packaiwgsswrjvxdsejw.supabase.co/functions/v1/card-analytics-dashboard';
+const selectedService=new URLSearchParams(location.search).get('service');
 const el=id=>document.getElementById(id);
 function esc(s){return String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
 const labels={pdf_export:'正式 PDF 產出',gateway_draft:'待辦草稿',gateway_confirm:'確認待辦',gateway_confirm_tasks:'確認待辦',gateway_list:'待辦查詢',gateway_update:'修改待辦',gateway_calendar_draft:'日曆草稿',gateway_calendar_save:'日曆儲存',gateway_calendar_events:'日曆查詢',gateway_engineering_list:'工程案件查詢',gateway_engineering_create:'建立工程案件',gateway_engineering_detail:'工程案件詳情',gateway_engineering_stage:'案件階段調整',gateway_engineering_add_task:'工程待辦',gateway_engineering_workflow_status:'工程流程調整',gateway_engineering_workflow_note:'工程備註',gateway_engineering_workflow_finish:'工程完工'};
@@ -7,6 +8,9 @@ function summary(rows){const out={total:0,success:0,failure:0,partial:0,ms:0};fo
 function metrics(target,items){el(target).innerHTML=items.map(([label,value])=>'<div class="metric">'+esc(label)+'<strong>'+esc(value)+'</strong></div>').join('')}
 function seconds(ms){return (Number(ms)/1000).toFixed(2)+' 秒'}
 function render(rows){
+ if(['outstanding_quote','lifeos'].includes(selectedService))rows=rows.filter(r=>r.service===selectedService);
+ el('quoteMetrics').closest('section').hidden=selectedService==='lifeos';
+ el('lifeosMetrics').closest('section').hidden=selectedService==='outstanding_quote';
  const quote=summary(rows.filter(r=>r.service==='outstanding_quote')),lifeos=summary(rows.filter(r=>r.service==='lifeos'));
  metrics('quoteMetrics',[['正式產出嘗試',quote.total],['完整產出／缺條款',quote.success+'／'+quote.partial],['失敗／平均耗時',quote.failure+'／'+seconds(quote.average)]]);
  metrics('lifeosMetrics',[['後端請求',lifeos.total],['後端失敗',lifeos.failure],['平均後端耗時',seconds(lifeos.average)]]);
