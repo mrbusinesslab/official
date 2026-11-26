@@ -8218,6 +8218,8 @@ img{
 <style id="service-gallery-identity-buttons">
 #serviceEcardGallery .ecard-viewer-title{font-size:26px;line-height:1.4;margin:0;font-weight:600;}
 .service-gallery-identity{margin:0 0 20px;}
+.service-gallery-person-open{margin-top:10px;padding:9px 14px;border:1px solid var(--border);border-radius:5px;background:var(--paper,#f7f2e8);color:var(--ink);font:inherit;font-size:14px;cursor:pointer;}
+.service-gallery-person-open:focus-visible{outline:3px solid var(--gold);outline-offset:3px;}
 .service-gallery-identity h3{font-size:22px;line-height:1.5;margin:0 0 6px;font-weight:600;color:var(--ink);}
 .service-gallery-identity p{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;font-size:14px;line-height:1.8;color:var(--ink2);}
 .service-gallery-identity p span+span{border-left:1px solid var(--border);padding-left:18px;}
@@ -9666,10 +9668,22 @@ function clearServiceRoute(){
   url.searchParams.delete('gallery');
   history.replaceState({},'',url.pathname+url.search+(url.hash||'#services'));
 }
+function mrServiceCategory(id){
+  // Resolve membership from the service's own panel, including direct URLs.
+  for(const link of document.querySelectorAll('.needs-panel a[onclick]')){
+    const match=(link.getAttribute('onclick') || '').match(/openServiceModal\('([^']+)'\)/);
+    if(!match || match[1]!==id)continue;
+    const panel=link.closest('.needs-panel');
+    const tab=document.getElementById(panel?.getAttribute('aria-labelledby'));
+    return (tab?.querySelector('.needs-scenario-moment')?.textContent || panel?.querySelector('.needs-system')?.textContent || '其他服務').trim();
+  }
+  return id==='fortune'?'延伸合作服務':
+    ['jie-documents','zhong-documents'].includes(id)?'案例延伸介紹':'其他服務';
+}
 function openModal(id,updateRoute=false){
   const d=MD[id];if(!d)return;
   delete document.getElementById('modalOverlay').dataset.analyticsCase;
-  mrTrack('service_view', {service_id:id,service_name:d.title});
+  mrTrack('service_view', {service_id:id,service_name:d.title,section_name:mrServiceCategory(id)});
   const modalBox=document.querySelector('#modalOverlay .modal-box');
   if(modalBox){modalBox.classList.remove('is-zhong');modalBox.classList.remove('is-industry');modalBox.classList.add('is-line-service');modalBox.scrollTop=0;}
   document.getElementById('mTag').textContent=d.tag;
@@ -10495,6 +10509,8 @@ async function openEcardViewer(key){
     if(!res.ok) throw new Error('HTTP '+res.status);
     const json=await res.json();
     const bubbles=Array.isArray(json.contents)?json.contents:[];
+    const people={engineering:'鍾師富',beauty:'林威',creative:'齊齊 游宛齊',finance:'王重凱'};
+    if(bubbles.length && people[key])mrTrack('ecard_person_view', {gallery_category:key,person_name:people[key]});
 
     grid.innerHTML=`
       <div class="ecard-overview-section">
@@ -10764,14 +10780,16 @@ function openServiceEcardGallery(key, personName){
   const people=SERVICE_ECARD_GALLERY[key]?.filter(person=>!personName||person.name===personName);
   if(!people?.length)return;
   mrTrack('ecard_gallery_view', {gallery_category:key,person_name:personName || ''});
+  if(personName)mrTrack('ecard_person_view', {gallery_category:key,person_name:people[0].name});
   if(!personName){
   const route=new URL(location.href);
   route.searchParams.delete('case');route.searchParams.set('service','ecard');route.searchParams.set('gallery',key);route.hash='services';
   history.replaceState({},'',route.pathname+route.search+route.hash);
   }
-  serviceGalleryTrigger=document.activeElement;
   const gallery=document.getElementById('serviceEcardGallery');
+  if(!gallery.classList.contains('open'))serviceGalleryTrigger=document.activeElement;
   gallery.dataset.singlePerson=personName?'true':'false';
+  gallery.dataset.category=key;
   const titles={engineering:'工程．居家類',beauty:'美業．健康類',creative:'創意．教育．知識型',finance:'金融．保險．專業服務類',property:'房產．高單價業務類'};
   document.getElementById('serviceGalleryTitle').textContent=personName?personName+'｜電子名片':titles[key]+'｜'+people.length+' 組作品';
   document.getElementById('serviceGalleryList').innerHTML=people.map(person=>
@@ -10779,6 +10797,25 @@ function openServiceEcardGallery(key, personName){
       '<figure><img src="'+page.url+'" alt="'+person.name+'電子名片第 '+(i+1)+' 頁" loading="lazy" decoding="async"><div class="service-gallery-buttons" style="background:'+page.bg+'">'+page.buttons.map(button=>renderButtonVisual(button)).join('')+'</div></figure>'
     ).join('')+'</div></section>'
   ).join('');
+  // Keep the category overview; only explicit person opens count as person views.
+  const head=gallery.querySelector('.ecard-viewer-head');
+  head.querySelector('[data-gallery-back]')?.remove();
+  if(personName){
+    const back=document.createElement('button');
+    back.type='button';back.className='service-gallery-person-open';
+    back.dataset.galleryBack='true';back.textContent='返回作品分類';
+    back.addEventListener('click',()=>openServiceEcardGallery(key));
+    head.insertBefore(back,head.querySelector('.ecard-viewer-close'));
+  }else{
+    gallery.querySelectorAll('.service-gallery-identity').forEach((identity,index)=>{
+      const button=document.createElement('button');
+      button.type='button';button.className='service-gallery-person-open';
+      button.textContent='查看個人作品 ↗';
+      button.setAttribute('aria-label','查看'+people[index].name+'的完整電子名片');
+      button.addEventListener('click',()=>openServiceEcardGallery(key,people[index].name));
+      identity.appendChild(button);
+    });
+  }
   gallery.classList.add('open');gallery.setAttribute('aria-hidden','false');gallery.scrollTop=0;
   document.body.classList.add('ecard-viewer-open');
   gallery.querySelector('button').focus();
@@ -10797,7 +10834,12 @@ document.addEventListener('keydown',e=>{
  const gallery=document.getElementById('serviceEcardGallery');
  if(!gallery.classList.contains('open'))return;
  if(e.key==='Escape'){e.stopImmediatePropagation();closeServiceEcardGallery();}
- if(e.key==='Tab'){e.preventDefault();gallery.querySelector('button').focus();}
+ if(e.key==='Tab'){
+  const buttons=Array.from(gallery.querySelectorAll('button:not([disabled]),a[href],[tabindex="0"]'));
+  const first=buttons[0],last=buttons[buttons.length-1];
+  if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus();}
+  else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus();}
+ }
 },true);
 </script>
 <script id="needs-service-tabs">
