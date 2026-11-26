@@ -124,7 +124,7 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
 <section id="app" class="hidden">
 <header class="topbar"><div><b>MR. 管理者後台</b> <small>／工作管理</small></div><button class="logout" id="logoutBtn">登出</button></header>
 <div class="layout">
-<aside class="side"><h4>MANAGEMENT</h4><button class="nav active" data-page="analytics">頁面1｜數據後台</button><button class="nav" data-page="showcase">頁面2｜商業展示</button><button class="nav" data-page="resources">常用資料</button></aside>
+<aside class="side"><h4>MANAGEMENT</h4><div class="nav-group"><h4 style="margin-bottom:8px">電子名片</h4><div style="padding-left:12px;border-left:1px solid var(--line)"><button class="nav active" data-page="analytics">數據分析</button><button class="nav" data-page="showcase">商業展示</button></div></div><div class="nav-group"><h4 style="margin-bottom:8px">傑哥產生器</h4><div style="padding-left:12px;border-left:1px solid var(--line)"><button class="nav" data-page="quoteUsage">數據分析</button></div></div><div class="nav-group"><h4 style="margin-bottom:8px">AI 秘書</h4><div style="padding-left:12px;border-left:1px solid var(--line)"><button class="nav" data-page="aiUsage">數據分析</button></div></div><button class="nav" data-page="resources" style="margin-top:18px">常用資料</button></aside>
 <main class="main">
 <section id="analyticsPage" class="page-section">
 <div class="headrow"><h1>電子名片數據總覽</h1><p id="rangeText">載入中…</p></div>
@@ -187,6 +187,8 @@ button,input,select{font:inherit}a{color:inherit}.hidden{display:none!important}
   </div>
 </section>
 
+<section id="quoteUsagePage" class="page-section hidden"><div class="headrow"><h1>傑哥產生器｜數據分析</h1><p>正式估價單產出次數、結果與耗時。</p></div><iframe title="傑哥產生器數據分析" data-usage-page="quoteUsage" data-src="service-usage.html?embedded=1&amp;service=outstanding_quote" style="width:100%;height:760px;border:0;display:block" referrerpolicy="same-origin"></iframe></section>
+<section id="aiUsagePage" class="page-section hidden"><div class="headrow"><h1>AI 秘書｜數據分析</h1><p>各功能後端請求次數、失敗與耗時。</p></div><iframe title="AI 秘書數據分析" data-usage-page="aiUsage" data-src="service-usage.html?embedded=1&amp;service=lifeos" style="width:100%;height:760px;border:0;display:block" referrerpolicy="same-origin"></iframe></section>
 <section id="resourcesPage" class="page-section hidden">
 <div class="headrow"><h1>常用資料</h1><p>把平常會反覆找的資料集中在這裡，原本檔案位置不變。</p></div>
 <div class="section-label">BNI 資料</div>
@@ -896,5 +898,5 @@ function receive(event){
 }
 window.addEventListener('message',receive);ready();
 })();
-</script></body>
+</script><script src="admin-service-usage.js?v=20261126-1"></script></body>
 </html>
